@@ -1,5 +1,0 @@
-# normalize line-endings by default
-* text=auto
-
-# do not normalize line-endings for anything in MSVisualStudio
-MSVisualStudio/* eol=crlf
