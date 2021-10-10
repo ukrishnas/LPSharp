@@ -4,3 +4,6 @@
 [submodule "CLP/CoinUtils"]
 	path = CLP/CoinUtils
 	url = https://github.com/ukrishnas/Networking-WANLP.git
+[submodule "CLP/Clp"]
+	path = CLP/Clp
+	url = https://github.com/coin-or/Clp.git
