@@ -1,14 +1,21 @@
 # COIN-OR LP Solver
 
-## Overview
-This is the code of Computational Infrastructure for Operational Research
-(COIN-OR) linear programming (CLP) solver. The code is pulled from the following repositories:
+This folder contains the code of Computational Infrastructure for Operational
+Research (COIN-OR) linear programming (CLP) solver. 
+
+## Original code repositories
+
+The code is pulled from the following repositories:
 
 - [BuildTools](https://github.com/coin-or-tools/BuildTools.git) for build
   headers.
 - [CoinUtils](https://github.com/coin-or/CoinUtils.git) for general utilities used
   the solver.
 - [Clp](https://github.com/coin-or/Clp.git) for the solver.
+
+An important decision with respect to source code management was whether to use
+git [submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules) or copy the
+files. We are using submodules to simplify pulling in future changes.
 
 The code from the public repositories have been simplified in the following
 ways:
