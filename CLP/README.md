@@ -3,9 +3,10 @@
 This folder contains the code of Computational Infrastructure for Operational
 Research (COIN-OR) linear programming (CLP) solver. 
 
-## Original code repositories
+## Submodules
 
-The code is pulled from the following repositories:
+This superproject imports the following COIN-OR repositories as
+[submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules):
 
 - [BuildTools](https://github.com/coin-or-tools/BuildTools.git) for build
   headers.
@@ -13,12 +14,7 @@ The code is pulled from the following repositories:
   the solver.
 - [Clp](https://github.com/coin-or/Clp.git) for the solver.
 
-An important decision with respect to source code management was whether to use
-git [submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules) or copy the
-files. We are using submodules to simplify pulling in future changes.
-
-The code from the public repositories have been simplified in the following
-ways:
+The submodules have been simplified in the following ways:
 
 - Coinbrew is a helpful shell script and .coin-or folders that fetches dependent
   projects, runs configure and make. Since all files are already in a single
