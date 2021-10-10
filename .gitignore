@@ -50,7 +50,8 @@ ipch/
 *.sdf
 *.cachefile
 
-# Visual Studio profiler
+# Visual Studio files
 *.psess
 *.vsp
 *.vspx
+.vs/
