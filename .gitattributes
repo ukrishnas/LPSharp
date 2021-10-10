@@ -1,0 +1,4 @@
+# Normalize line-endings by default, except project files.
+* text=auto
+*.vcxproj eol=crlf
+*.sln eol=crlf

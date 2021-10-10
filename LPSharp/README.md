@@ -21,10 +21,10 @@ model.
 
 New solvers can be added to LPSharp by importing the solver libraries as nuget
 packages, and writing cmdlets that setup the model, solve, and extract the
-result. Note that these steps require knowledge on integrating the solver with
-C# code, and the programming interface of the solver. It may be a laborious
-task, but once complete, it proves that the same steps can be used to integrate
-the solver with other C# programs.
+result. Note that these steps require integrating the solver with C# code, and
+developing with the solver native API. It may be a laborious task, but once
+complete, it proves that the same steps can be used to integrate the solver with
+other C# programs.
 
 LPSharp is meant to be a test bench for the following LP solvers:
 
