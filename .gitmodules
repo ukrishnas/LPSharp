@@ -1,0 +1,3 @@
+[submodule "CLP/BuildTools"]
+	path = CLP/BuildTools
+	url = https://github.com/ukrishnas/Networking-WANLP.git
