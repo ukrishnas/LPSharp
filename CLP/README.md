@@ -18,7 +18,7 @@ The submodules have been simplified in the following ways:
 
 - Coinbrew is a helpful shell script and .coin-or folders that fetches dependent
   projects, runs configure and make. Since all files are already in a single
-  respository, these files have been eliminated.
+  repository, these files have been eliminated.
 - The Open solver interface of CLP (libOsiClp) implements a proposed standard
   solver interface but it does not have much traction and we plan to directly
   call solver native APIs. Hence, libOsiClp from the Clp repository has been
