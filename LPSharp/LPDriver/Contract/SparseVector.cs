@@ -68,7 +68,6 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <returns>The array of values.</returns>
         public V[] ToArray(out Dictionary<I, int> indices)
         {
-            Array
             indices = new Dictionary<I, int>(this.store.Count);
             var values = new V[this.store.Count];
             int i = 0;

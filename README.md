@@ -3,12 +3,25 @@
 WANLP is a repository of LP solvers, CLP, GLOP, and MSF, and LPSharp, an
 interactive test bench for these solvers.
 
+WANLP only supports the Windows platform and the x64 architecture. Even when
+solvers it imports like GLOP and CLP support multiple platforms, the
+functionality for other platforms has been removed to make the source code
+easier to understand.
+
+The repository only contains LP solvers. It does not contain MIP or SAT solvers
+that may be packaged with the original code. This is again done to keep the code
+streamlined and easy to understand.
+
+The CLP code is imported as submodules. But the GLOP code is copied. MSF code
+does not have a public repository.
+
+
 ## Submodule cheat sheet
 
 This project uses
-[submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). This means
-that some subdirectories in this project are separate git repositories. These
-are tips for working with submodules.
+[submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules) for some code.
+This means that some subdirectories in this project are separate git
+repositories. These are tips for working with submodules.
 
 __Clone superproject__. First, clone the project.
 ```
