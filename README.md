@@ -7,8 +7,8 @@ interactive test bench for these solvers.
 
 This project uses
 [submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules). This means
-that subdirectories in this project are separate git repositories. These are
-tips for working with submodules.
+that some subdirectories in this project are separate git repositories. These
+are tips for working with submodules.
 
 __Clone superproject__. First, clone the project.
 ```
@@ -45,7 +45,7 @@ normal. A detached HEAD means there is no local branch, and is fine if you are
 going to simply build with the submodule.
 
 ```
-$ CLP\clp
+$ cd CLP\clp
 $ git status
 HEAD detached at 99781af2
 nothing to commit, working tree clean
