@@ -43,12 +43,13 @@ __What has been removed?__
 - Platform support:
   - Linux
   - MacOS
-- Third party solver code:
+- Third party solver source archives:
   - [CBC](https://github.com/coin-or/cbc): COIN-OR branch and cut mixed integer program (MIP) solver
-  - [SCIP](https://www.scipopt.org/doc/html/GETTINGSTARTED.php): Solving Constraint Integer Program MIP/MINP/solver
+  - [SCIP](https://www.scipopt.org/doc/html/GETTINGSTARTED.php): Solving
+    Constraint Integer Program, mixed integer linear and nonlinear program solver
 - Build files:
-  - Make files
   - [Bazel](https://bazel.build) build files
+  - Make files
   - Binary tools for Windows
-  - F# project files
   - Docker files
+  - F# project files

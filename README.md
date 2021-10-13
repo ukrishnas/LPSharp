@@ -16,22 +16,28 @@ The table below summarizes some information on the solvers.
 |Parent package|Computation Infrastructure for Operational Research (COIN)|Google Operational Research Tools (OR-Tools)|Microsoft Solver Foundation (MSF)|
 |Creators|John Forrest (ex-IBM, still active)|Laurent Perron (Google, ex-IBM, still active)||
 |First checkin|July 30 2002|September 15, 2010|Around 2006|
-|Repositories with sizes|[Or-tools](https://github.com/google/or-tools) (1.1GB)|[Clp](https://github.com/coin-or/Clp) (35MB), [CoinUtils](https://github.com/coin-or/CoinUtils) (24MB), [BuildTools](https://github.com/coin-or-tools/BuildTools.git) (2MB)|[Private tarball](https://microsoft.sharepoint.com/:u:/t/AzNet_WAN/EaP1nQ9PRwFOvMNDnozIAKsBsro8ubEwJFoW5SBWVK0R9Q?e=Eetqpg) (54MB)|
+|Repositories with sizes|[Clp](https://github.com/coin-or/Clp) (35MB), [CoinUtils](https://github.com/coin-or/CoinUtils) (24MB), [BuildTools](https://github.com/coin-or-tools/BuildTools.git) (2MB)|[Or-tools](https://github.com/google/or-tools) (1.1GB)|[Private archive](https://microsoft.sharepoint.com/:u:/t/AzNet_WAN/EaP1nQ9PRwFOvMNDnozIAKsBsro8ubEwJFoW5SBWVK0R9Q?e=Eetqpg) (54MB)|
 |Project status|Active|Active|Inactive|
-|User guide|[User guide](https://developers.google.com/optimization/introduction/overview)|[User guide](https://coin-or.github.io/Clp/)|[Documents](https://microsoft.sharepoint.com/:f:/t/AzNet_WAN/EpklXccpFMhDvXQiSUuZkwsBtJbltaxKltKuO0MYzzZJqA?e=QKi3HS)|
+|User guide|[User guide](https://coin-or.github.io/Clp/)|[User guide](https://developers.google.com/optimization/introduction/overview)|[Documents](https://microsoft.sharepoint.com/:f:/t/AzNet_WAN/EpklXccpFMhDvXQiSUuZkwsBtJbltaxKltKuO0MYzzZJqA?e=QKi3HS)|
+|License|Eclipse Public License 2.0|Apache License 2.0|Microsoft proprietary|
 
 
-__LP solvers__: The LP solvers are part of larger suites of operations research
-tools like [boolean
+__LP solvers__: LP solvers are often part of larger optimization suites that
+consist of [boolean
 satisfiability](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem)
 (SAT), [constraint
-programming](https://en.wikipedia.org/wiki/Constraint_programming) (CP), and
-[mixed integer
+programming](https://en.wikipedia.org/wiki/Constraint_programming) (CP), [mixed
+integer
 programming](https://en.wikipedia.org/wiki/Linear_programming#Integer_unknowns)
-(MIP) solvers, and combinatorial optimization algorithms. We have only retained
-the LP solvers in this project to make this project easier to understand,
-maintain, and clone for its developers. A small subset of examples and samples
-have been retained for unit tests.
+(MIP), [nonlinear
+programming](https://en.wikipedia.org/wiki/Nonlinear_programming) and
+[mathematical
+optimization](https://en.wikipedia.org/wiki/Mathematical_optimization#Computational_optimization_techniques)
+solvers, and combinatorial optimization algorithms. LP solvers are a means to
+solve LP relaxations in these more interesting problems. We have retained just
+the LP solver code to make this project easy to understand, maintain, and clone
+for its developers. A small subset of examples and samples have been retained
+for unit tests.
 
 __Submodules__: [Git
 submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules) are the
@@ -58,11 +64,11 @@ patches of our changes. This approach can be reversed once the public repository
 becomes modular.
 
 __Platform support__: WANLP is targeted to the Windows operating system, x64
-processor architecture, and C#/.Net runtime. Where solvers support other
-operating systems like Linux and MacOS, or language wrappers like Python and
-Java, the functionality for other platforms has been removed to make the source
-code easier to understand. Where solvers do not natively support C# (e.g. CLP),
-new SWIG wrappers have been developed and checked into this repository.
+processor architecture, C#/.Net and C++/native platforms. Where solvers support
+other operating systems like Linux and MacOS, or language wrappers like Python
+and Java, the functionality for other platforms has been removed to make the
+source code easier to understand. Where solvers do not natively support C# (e.g.
+CLP), new SWIG wrappers have been developed and checked into this repository.
 
 __Build system__: The build system of each project is different. CLP provides
 GNU
@@ -87,6 +93,11 @@ language support for CLP could be a candidate if the public maintainers are
 amenable to it. Such changes should not be attempted in this repository. They
 should be applied to a separately cloned public repository and submitted
 according to the processes of the open source project.
+
+__LPSharp__ is a tool written in C# that provides a Powershell scripting
+interface to the LP solvers. It uses a C# programming interface to the solvers
+and hence is a proof-point that the LP solvers can be used by applications
+written in C#.
 
 
 ## Submodule cheat sheet
