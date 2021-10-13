@@ -15,9 +15,10 @@ The table below summarizes some information on the solvers.
 |--|--|--|--|
 |Parent package|Computation Infrastructure for Operational Research (COIN)|Google Operational Research Tools (OR-Tools)|Microsoft Solver Foundation (MSF)|
 |Creators|John Forrest (ex-IBM, still active)|Laurent Perron (Google, ex-IBM, still active)||
+|First checkin|July 30 2002|September 15, 2010|Around 2006|
 |Repositories with sizes|[Or-tools](https://github.com/google/or-tools) (1.1GB)|[Clp](https://github.com/coin-or/Clp) (35MB), [CoinUtils](https://github.com/coin-or/CoinUtils) (24MB), [BuildTools](https://github.com/coin-or-tools/BuildTools.git) (2MB)|[Private tarball](https://microsoft.sharepoint.com/:u:/t/AzNet_WAN/EaP1nQ9PRwFOvMNDnozIAKsBsro8ubEwJFoW5SBWVK0R9Q?e=Eetqpg) (54MB)|
 |Project status|Active|Active|Inactive|
-|User guide|[User guide](https://developers.google.com/optimization/introduction/overview)|[User guide](https://coin-or.github.io/Clp/)||
+|User guide|[User guide](https://developers.google.com/optimization/introduction/overview)|[User guide](https://coin-or.github.io/Clp/)|[Documents](https://microsoft.sharepoint.com/:f:/t/AzNet_WAN/EpklXccpFMhDvXQiSUuZkwsBtJbltaxKltKuO0MYzzZJqA?e=QKi3HS)|
 
 
 __LP solvers__: The LP solvers are part of larger suites of operations research
