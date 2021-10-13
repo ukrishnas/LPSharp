@@ -1,19 +1,91 @@
 # Networking-WANLP
 
-WANLP is a repository of LP solvers, CLP, GLOP, and MSF, and LPSharp, an
-interactive test bench for these solvers.
+WANLP is a repository of [linear
+programming](https://en.wikipedia.org/wiki/Linear_programming) (LP) solvers and
+LPSharp, a C# interactive test bench for these solvers. The supported solvers
+are:
 
-WANLP only supports the Windows platform and the x64 architecture. Even when
-solvers it imports like GLOP and CLP support multiple platforms, the
-functionality for other platforms has been removed to make the source code
-easier to understand.
+- CLP: Computation Infrastructure for Operations Research (COIN-OR) LP solver.
+- GLOP: Google Operations Research Tools (OR-Tools) LP solver.
+- MSF: Microsoft Solver Foundation LP solver.
 
-The repository only contains LP solvers. It does not contain MIP or SAT solvers
-that may be packaged with the original code. This is again done to keep the code
-streamlined and easy to understand.
+The table below summarizes some information on the solvers.
 
-The CLP code is imported as submodules. But the GLOP code is copied. MSF code
-does not have a public repository.
+||CLP|GLOP|MSF|
+|--|--|--|--|
+|Parent package|Computation Infrastructure for Operational Research (COIN)|Google Operational Research Tools (OR-Tools)|Microsoft Solver Foundation (MSF)|
+|Creators|John Forrest (ex-IBM, still active)|Laurent Perron (Google, ex-IBM, still active)||
+|Repositories with sizes|[Or-tools](https://github.com/google/or-tools) (1.1GB)|[Clp](https://github.com/coin-or/Clp) (35MB), [CoinUtils](https://github.com/coin-or/CoinUtils) (24MB), [BuildTools](https://github.com/coin-or-tools/BuildTools.git) (2MB)|[Private tarball](https://microsoft.sharepoint.com/:u:/t/AzNet_WAN/EaP1nQ9PRwFOvMNDnozIAKsBsro8ubEwJFoW5SBWVK0R9Q?e=Eetqpg) (54MB)|
+|Project status|Active|Active|Inactive|
+|User guide|[User guide](https://developers.google.com/optimization/introduction/overview)|[User guide](https://coin-or.github.io/Clp/)||
+
+
+__LP solvers__: The LP solvers are part of larger suites of operations research
+tools like [boolean
+satisfiability](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem)
+(SAT), [constraint
+programming](https://en.wikipedia.org/wiki/Constraint_programming) (CP), and
+[mixed integer
+programming](https://en.wikipedia.org/wiki/Linear_programming#Integer_unknowns)
+(MIP) solvers, and combinatorial optimization algorithms. We have only retained
+the LP solvers in this project to make this project easier to understand,
+maintain, and clone for its developers. A small subset of examples and samples
+have been retained for unit tests.
+
+__Submodules__: [Git
+submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules) are the
+preferred method to import solver code in public repositories.  Some open-source
+solvers, e.g. CLP, are nicely packaged into separate repositories. In such
+cases, the public repositories are included as git submodules. Since we make
+private changes to the solver code that cannot be upstreamed, like removing
+unneeded code, we push the changes to a private remote that happens to be this
+very repository. The submodule repository contains git objects of the public
+repository and objects of our private changes. When a developer updates
+submodules, the submodule git objects are cloned from the private remote. With
+submodules, we can see the full history of the public repository maintainers,
+and git tools assist in rebasing private changes on top of new updates.
+
+__Copying__: OR-Tools is a monolithic, rather large repository of 1.1GB as of
+October 2021. 95% of the size is consumed by examples. The maintainers of this
+repository store binary files and tools in order to support multiple platforms.
+There is a lot of excess fat in this repository. A large number of files had to
+be stripped away from the public repository, and rebasing these changes can be
+more work than applying a patch over the files we kept. Git operations, like
+submodule update, clone, and  pull, become slow and require more network
+bandwidth. In such cases, we have resorted to keeping a copy of the code and
+patches of our changes. This approach can be reversed once the public repository
+becomes modular.
+
+__Platform support__: WANLP is targeted to the Windows operating system, x64
+processor architecture, and C#/.Net runtime. Where solvers support other
+operating systems like Linux and MacOS, or language wrappers like Python and
+Java, the functionality for other platforms has been removed to make the source
+code easier to understand. Where solvers do not natively support C# (e.g. CLP),
+new SWIG wrappers have been developed and checked into this repository.
+
+__Build system__: The build system of each project is different. CLP provides
+GNU
+[autotools/automake](https://www.rpi.edu/dept/cis/software/g77-mingw32/info-html/configure.html)
+and Visual Studio builds, and the latter perfectly fits our needs. GLOP provides
+[Bazel](https://bazel.build), [CMake](https://cmake.org), and make build
+systems. CMake is best suited for our needs. It is easy to use, Bazel 4.2.1 does
+not support C# builds and make is dated. MSF supports Visual Studio
+builds. Build files for other build systems have been excluded to keep the code
+base simple.
+
+__Dependencies__: Dependent libraries are downloaded and built as part of the
+build process. They are not imported as submodules. CLP has no external
+dependencies. GLOP solver code depends on
+[Abseil](https://github.com/abseil/abseil-cpp.git), [Protocol
+Buffers](https://github.com/protocolbuffers/protobuf.git), and
+[ZLib](https://github.com/madler/ZLIB.git).
+
+__Upstreaming changes__: Bug fixes and functional changes that will be useful to
+the broader community should be upstreamed to the public repositories. C#
+language support for CLP could be a candidate if the public maintainers are
+amenable to it. Such changes should not be attempted in this repository. They
+should be applied to a separately cloned public repository and submitted
+according to the processes of the open source project.
 
 
 ## Submodule cheat sheet
