@@ -16,7 +16,7 @@ been tested against the following benchmarks.
 LPSharp can be used to collect benchmark results. It can read MPS model files,
 set up the model in the solver, and execute the solver. The steps below read two
 models from uncompressed and compressed model files, and invokes CLP, GLOP, and
-MSF solver on a model.
+MSF solvers on a model.
 
 ```
 LPSharp> read-mps model1.mps -key m1        # reads model 1 from an MPS file
@@ -28,7 +28,7 @@ LPSharp> invoke-glopsolve -key m1           # invokes GLOP solver on model 1
 
 ## WANLPv2 results
 
-Please see results_wanlpv2.csv for the optimal values and solve times.
+Please see [results_wanlpv2.csv](results_wanlpv2.csv) for the optimal values and solve times.
 Measurements were done on:
 
 - Neil's laptop Intel Core i7 7500U 2.7Ghz 4 logical processors 16GB.
