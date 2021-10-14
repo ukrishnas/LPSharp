@@ -55,3 +55,6 @@ ipch/
 *.vsp
 *.vspx
 .vs/
+
+# Python files
+__pycache__/
