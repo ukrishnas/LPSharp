@@ -58,3 +58,6 @@ ipch/
 
 # Python files
 __pycache__/
+
+# CMake files
+build/
