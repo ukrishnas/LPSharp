@@ -38,9 +38,9 @@
 #include "absl/strings/str_format.h"
 #include "ortools/base/integral_types.h"
 #include "ortools/base/logging.h"  // for CHECK*
-#include "ortools/graph/iterators.h"
 #include "ortools/lp_data/lp_types.h"
 #include "ortools/lp_data/permutation.h"
+#include "ortools/util/iterators.h"
 #include "ortools/util/return_macros.h"
 
 namespace operations_research {

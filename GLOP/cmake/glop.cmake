@@ -2,7 +2,6 @@ if(NOT BUILD_GLOP)
   return()
 endif()
 
-
 # Generate Protobuf cpp sources
 set(PROTO_HDRS)
 set(PROTO_SRCS)
@@ -196,14 +195,7 @@ target_compile_definitions(glop PUBLIC ${GLOP_COMPILE_DEFINITIONS})
 target_compile_options(glop PUBLIC ${GLOP_COMPILE_OPTIONS})
 
 # Properties
-if(NOT APPLE)
-  set_target_properties(glop PROPERTIES VERSION ${PROJECT_VERSION})
-else()
-  # Clang don't support version x.y.z with z > 255
-  set_target_properties(glop PROPERTIES
-    INSTALL_RPATH "@loader_path"
-    VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
-endif()
+set_target_properties(glop PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(glop PROPERTIES
   SOVERSION ${PROJECT_VERSION_MAJOR}
   POSITION_INDEPENDENT_CODE ON
@@ -299,10 +291,6 @@ install(FILES
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ortools/lp_data
   COMPONENT Devel)
 install(FILES
-  ortools/graph/iterators.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ortools/graph
-  COMPONENT Devel)
-install(FILES
   ortools/port/sysinfo.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ortools/port
   COMPONENT Devel)
@@ -310,6 +298,7 @@ install(FILES
   ortools/util/bitset.h
   ortools/util/file_util.h
   ortools/util/fp_utils.h
+  ortools/util/iterators.h
   ortools/util/random_engine.h
   ortools/util/rational_approximation.h
   ortools/util/return_macros.h
@@ -349,5 +338,3 @@ install(
   DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/glop"
   COMPONENT Devel)
 
-# Build glop samples
-add_subdirectory(ortools/glop/samples)

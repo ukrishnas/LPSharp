@@ -365,14 +365,18 @@ extern MPSolverInterface* BuildCBCInterface(MPSolver* const solver);
 #if defined(USE_GLPK)
 extern MPSolverInterface* BuildGLPKInterface(bool mip, MPSolver* const solver);
 #endif
+#if defined(USE_SAT)
 extern MPSolverInterface* BuildBopInterface(MPSolver* const solver);
-extern MPSolverInterface* BuildGLOPInterface(MPSolver* const solver);
 extern MPSolverInterface* BuildSatInterface(MPSolver* const solver);
+#endif
+extern MPSolverInterface* BuildGLOPInterface(MPSolver* const solver);
 #if defined(USE_SCIP)
 extern MPSolverInterface* BuildSCIPInterface(MPSolver* const solver);
 #endif
+#if defined(USE_GUROBI)
 extern MPSolverInterface* BuildGurobiInterface(bool mip,
                                                MPSolver* const solver);
+#endif
 #if defined(USE_CPLEX)
 extern MPSolverInterface* BuildCplexInterface(bool mip, MPSolver* const solver);
 
@@ -387,10 +391,13 @@ namespace {
 MPSolverInterface* BuildSolverInterface(MPSolver* const solver) {
   DCHECK(solver != nullptr);
   switch (solver->ProblemType()) {
+#if defined(USE_SAT)
+    // BOP and SAT solvers are disabled in this project.
     case MPSolver::BOP_INTEGER_PROGRAMMING:
       return BuildBopInterface(solver);
     case MPSolver::SAT_INTEGER_PROGRAMMING:
       return BuildSatInterface(solver);
+#endif
     case MPSolver::GLOP_LINEAR_PROGRAMMING:
       return BuildGLOPInterface(solver);
 #if defined(USE_GLPK)
@@ -411,10 +418,12 @@ MPSolverInterface* BuildSolverInterface(MPSolver* const solver) {
     case MPSolver::SCIP_MIXED_INTEGER_PROGRAMMING:
       return BuildSCIPInterface(solver);
 #endif
+#if defined(USE_GUROBI)
     case MPSolver::GUROBI_LINEAR_PROGRAMMING:
       return BuildGurobiInterface(false, solver);
     case MPSolver::GUROBI_MIXED_INTEGER_PROGRAMMING:
       return BuildGurobiInterface(true, solver);
+#endif
 #if defined(USE_CPLEX)
     case MPSolver::CPLEX_LINEAR_PROGRAMMING:
       return BuildCplexInterface(false, solver);
@@ -461,7 +470,9 @@ MPSolver::MPSolver(const std::string& name,
 
 MPSolver::~MPSolver() { Clear(); }
 
+#ifdef USE_GUROBI
 extern bool GurobiIsCorrectlyInstalled();
+#endif
 
 // static
 bool MPSolver::SupportsProblemType(OptimizationProblemType problem_type) {
@@ -474,13 +485,17 @@ bool MPSolver::SupportsProblemType(OptimizationProblemType problem_type) {
     return true;
   }
 #endif
+#ifdef USE_SAT
   if (problem_type == BOP_INTEGER_PROGRAMMING) return true;
   if (problem_type == SAT_INTEGER_PROGRAMMING) return true;
+#endif
   if (problem_type == GLOP_LINEAR_PROGRAMMING) return true;
+#ifdef USE_GUROBI
   if (problem_type == GUROBI_LINEAR_PROGRAMMING ||
       problem_type == GUROBI_MIXED_INTEGER_PROGRAMMING) {
     return GurobiIsCorrectlyInstalled();
   }
+#endif
 #ifdef USE_SCIP
   if (problem_type == SCIP_MIXED_INTEGER_PROGRAMMING) return true;
 #endif

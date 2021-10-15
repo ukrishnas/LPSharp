@@ -11,10 +11,6 @@ set(CMAKE_SWIG_FLAGS)
 find_package(SWIG REQUIRED)
 include(UseSWIG)
 
-#if(${SWIG_VERSION} VERSION_GREATER_EQUAL 4)
-#  list(APPEND CMAKE_SWIG_FLAGS "-doxygen")
-#endif()
-
 if(UNIX AND NOT APPLE)
   list(APPEND CMAKE_SWIG_FLAGS "-DSWIGWORDSIZE64")
 endif()
@@ -30,13 +26,9 @@ endif()
 # Generate Protobuf .Net sources
 set(PROTO_DOTNETS)
 file(GLOB_RECURSE proto_dotnet_files RELATIVE ${PROJECT_SOURCE_DIR}
-  "ortools/constraint_solver/*.proto"
   "ortools/linear_solver/*.proto"
-  "ortools/sat/*.proto"
   "ortools/util/*.proto"
   )
-list(REMOVE_ITEM proto_dotnet_files "ortools/constraint_solver/demon_profiler.proto")
-list(REMOVE_ITEM proto_dotnet_files "ortools/constraint_solver/assignment.proto")
 foreach(PROTO_FILE IN LISTS proto_dotnet_files)
   #message(STATUS "protoc proto(dotnet): ${PROTO_FILE}")
   get_filename_component(PROTO_DIR ${PROTO_FILE} DIRECTORY)
@@ -64,39 +56,16 @@ add_library(google-ortools-native SHARED "")
 set_target_properties(google-ortools-native PROPERTIES
   PREFIX ""
   POSITION_INDEPENDENT_CODE ON)
-# note: macOS is APPLE and also UNIX !
-if(APPLE)
-  set_target_properties(google-ortools-native PROPERTIES INSTALL_RPATH "@loader_path")
-  # Xcode fails to build if library doesn't contains at least one source file.
-  if(XCODE)
-    file(GENERATE
-      OUTPUT ${PROJECT_BINARY_DIR}/google-ortools-native/version.cpp
-      CONTENT "namespace {char* version = \"${PROJECT_VERSION}\";}")
-    target_sources(google-ortools-native PRIVATE ${PROJECT_BINARY_DIR}/google-ortools-native/version.cpp)
-  endif()
-elseif(UNIX)
-  set_target_properties(google-ortools-native PROPERTIES INSTALL_RPATH "$ORIGIN")
-endif()
 
 # CMake will remove all '-D' prefix (i.e. -DUSE_FOO become USE_FOO)
 #get_target_property(FLAGS ortools::ortools COMPILE_DEFINITIONS)
-set(FLAGS -DUSE_BOP -DUSE_GLOP -DABSL_MUST_USE_RESULT)
-if(USE_SCIP)
-  list(APPEND FLAGS "-DUSE_SCIP")
-endif()
-if(USE_COINOR)
-  list(APPEND FLAGS "-DUSE_CBC" "-DUSE_CLP")
-endif()
+set(FLAGS -DUSE_GLOP -DABSL_MUST_USE_RESULT)
 list(APPEND CMAKE_SWIG_FLAGS ${FLAGS} "-I${PROJECT_SOURCE_DIR}")
 
 # Needed by dotnet/CMakeLists.txt
 set(DOTNET_PACKAGE Google.OrTools)
 set(DOTNET_PACKAGES_DIR "${PROJECT_BINARY_DIR}/dotnet/packages")
-if(APPLE)
-  set(RUNTIME_IDENTIFIER osx-x64)
-elseif(UNIX)
-  set(RUNTIME_IDENTIFIER linux-x64)
-elseif(WIN32)
+if(WIN32)
   set(RUNTIME_IDENTIFIER win-x64)
 else()
   message(FATAL_ERROR "Unsupported system !")
@@ -105,13 +74,11 @@ set(DOTNET_NATIVE_PROJECT ${DOTNET_PACKAGE}.runtime.${RUNTIME_IDENTIFIER})
 set(DOTNET_PROJECT ${DOTNET_PACKAGE})
 
 # Swig wrap all libraries
-foreach(SUBPROJECT IN ITEMS algorithms graph init linear_solver constraint_solver sat util)
+foreach(SUBPROJECT IN ITEMS linear_solver util)
   add_subdirectory(ortools/${SUBPROJECT}/csharp)
   target_link_libraries(google-ortools-native PRIVATE dotnet_${SUBPROJECT})
 endforeach()
 
-file(COPY tools/doc/orLogo.png DESTINATION dotnet)
-set(DOTNET_LOGO_DIR "${PROJECT_BINARY_DIR}/dotnet")
 configure_file(ortools/dotnet/Directory.Build.props.in dotnet/Directory.Build.props)
 
 ############################
@@ -272,99 +239,5 @@ function(add_dotnet_test FILE_NAME)
       WORKING_DIRECTORY ${DOTNET_TEST_PATH})
   endif()
   message(STATUS "Configuring test ${FILE_NAME} done")
-endfunction()
-
-###################
-##  .Net Sample  ##
-###################
-# add_dotnet_sample()
-# CMake function to generate and build dotnet sample.
-# Parameters:
-#  the dotnet filename
-# e.g.:
-# add_dotnet_sample(FooApp.cs)
-function(add_dotnet_sample FILE_NAME)
-  message(STATUS "Configuring sample ${FILE_NAME} ...")
-  get_filename_component(SAMPLE_NAME ${FILE_NAME} NAME_WE)
-  get_filename_component(SAMPLE_DIR ${FILE_NAME} DIRECTORY)
-  get_filename_component(COMPONENT_DIR ${SAMPLE_DIR} DIRECTORY)
-  get_filename_component(COMPONENT_NAME ${COMPONENT_DIR} NAME)
-
-  set(DOTNET_SAMPLE_PATH ${PROJECT_BINARY_DIR}/dotnet/${COMPONENT_NAME}/${SAMPLE_NAME})
-  message(STATUS "build path: ${DOTNET_SAMPLE_PATH}")
-  file(MAKE_DIRECTORY ${DOTNET_SAMPLE_PATH})
-
-  file(COPY ${FILE_NAME} DESTINATION ${DOTNET_SAMPLE_PATH})
-
-  set(DOTNET_PACKAGES_DIR "${PROJECT_BINARY_DIR}/dotnet/packages")
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/ortools/dotnet/Sample.csproj.in
-    ${DOTNET_SAMPLE_PATH}/${SAMPLE_NAME}.csproj
-    @ONLY)
-
-  add_custom_target(dotnet_sample_${SAMPLE_NAME} ALL
-    DEPENDS ${DOTNET_SAMPLE_PATH}/${SAMPLE_NAME}.csproj
-    COMMAND ${DOTNET_EXECUTABLE} build -c Release
-    COMMAND ${DOTNET_EXECUTABLE} pack -c Release
-    BYPRODUCTS
-      ${DOTNET_SAMPLE_PATH}/bin
-      ${DOTNET_SAMPLE_PATH}/obj
-    WORKING_DIRECTORY ${DOTNET_SAMPLE_PATH})
-  add_dependencies(dotnet_sample_${SAMPLE_NAME} dotnet_package)
-
-  if(BUILD_TESTING)
-    add_test(
-      NAME dotnet_${COMPONENT_NAME}_${SAMPLE_NAME}
-      COMMAND ${DOTNET_EXECUTABLE} run --no-build -c Release
-      WORKING_DIRECTORY ${DOTNET_SAMPLE_PATH})
-  endif()
-  message(STATUS "Configuring sample ${FILE_NAME} done")
-endfunction()
-
-####################
-##  .Net Example  ##
-####################
-# add_dotnet_example()
-# CMake function to generate and build dotnet example.
-# Parameters:
-#  the dotnet filename
-# e.g.:
-# add_dotnet_example(Foo.cs)
-function(add_dotnet_example FILE_NAME)
-  message(STATUS "Configuring example ${FILE_NAME} ...")
-  get_filename_component(EXAMPLE_NAME ${FILE_NAME} NAME_WE)
-  get_filename_component(COMPONENT_DIR ${FILE_NAME} DIRECTORY)
-  get_filename_component(COMPONENT_NAME ${COMPONENT_DIR} NAME)
-
-  set(DOTNET_EXAMPLE_PATH ${PROJECT_BINARY_DIR}/dotnet/${COMPONENT_NAME}/${EXAMPLE_NAME})
-  message(STATUS "build path: ${DOTNET_EXAMPLE_PATH}")
-  file(MAKE_DIRECTORY ${DOTNET_EXAMPLE_PATH})
-
-  file(COPY ${FILE_NAME} DESTINATION ${DOTNET_EXAMPLE_PATH})
-
-  set(DOTNET_PACKAGES_DIR "${PROJECT_BINARY_DIR}/dotnet/packages")
-  set(SAMPLE_NAME ${EXAMPLE_NAME})
-  configure_file(
-    ${PROJECT_SOURCE_DIR}/ortools/dotnet/Sample.csproj.in
-    ${DOTNET_EXAMPLE_PATH}/${EXAMPLE_NAME}.csproj
-    @ONLY)
-
-  add_custom_target(dotnet_example_${EXAMPLE_NAME} ALL
-    DEPENDS ${DOTNET_EXAMPLE_PATH}/${EXAMPLE_NAME}.csproj
-    COMMAND ${DOTNET_EXECUTABLE} build -c Release
-    COMMAND ${DOTNET_EXECUTABLE} pack -c Release
-    BYPRODUCTS
-      ${DOTNET_EXAMPLE_PATH}/bin
-      ${DOTNET_EXAMPLE_PATH}/obj
-    WORKING_DIRECTORY ${DOTNET_EXAMPLE_PATH})
-  add_dependencies(dotnet_example_${EXAMPLE_NAME} dotnet_package)
-
-  if(BUILD_TESTING)
-    add_test(
-      NAME dotnet_${COMPONENT_NAME}_${EXAMPLE_NAME}
-      COMMAND ${DOTNET_EXECUTABLE} run --no-build -c Release
-      WORKING_DIRECTORY ${DOTNET_EXAMPLE_PATH})
-  endif()
-  message(STATUS "Configuring example ${FILE_NAME} done")
 endfunction()
 

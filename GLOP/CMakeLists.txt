@@ -37,15 +37,17 @@ if(POLICY CMP0091)
   cmake_policy(SET CMP0091 NEW)
 endif()
 
+# SWIG: Use library name conventions for CSharp language.
+if(POLICY CMP0122)
+  cmake_policy(SET CMP0122 OLD)
+endif()
+
 include(utils)
 set_version(VERSION)
 
-project(glop VERSION ${VERSION} LANGUAGES CXX)
-set(PROJECT_NAMESPACE glop)
+project(ortools VERSION ${VERSION} LANGUAGES CXX)
+set(PROJECT_NAMESPACE ortools)
 message(STATUS "${PROJECT_NAME} version: ${PROJECT_VERSION}")
-#message(STATUS "major: ${PROJECT_VERSION_MAJOR}")
-#message(STATUS "minor: ${PROJECT_VERSION_MINOR}")
-#message(STATUS "patch: ${PROJECT_VERSION_PATCH}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -66,7 +68,7 @@ if(UNIX)
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
   set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
-  # for multi-config build system (e.g. xcode)
+  # For multi-config build system (e.g. xcode)
   foreach(OUTPUTCONFIG IN LISTS CMAKE_CONFIGURATION_TYPES)
     string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_BINARY_DIR}/${OUTPUTCONFIG}/${CMAKE_INSTALL_LIBDIR})
@@ -79,7 +81,7 @@ else()
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
   set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
-  # for multi-config builds (e.g. msvc)
+  # For multi-config builds (e.g. msvc)
   foreach(OUTPUTCONFIG IN LISTS CMAKE_CONFIGURATION_TYPES)
     string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_BINARY_DIR}/${OUTPUTCONFIG}/${CMAKE_INSTALL_BINDIR})
@@ -94,7 +96,7 @@ message(STATUS "Build C++ library: ${BUILD_CXX}")
 option(BUILD_DOTNET "Build .NET Library" ON)
 message(STATUS "Build .Net: ${BUILD_DOTNET}")
 
-# If wrapper are built, we need to have the install rpath in BINARY_DIR to package
+# If wrapper are built, we need to have the install rpath in BINARY_DIR to package.
 if(BUILD_DOTNET)
   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 endif()
@@ -112,20 +114,17 @@ else()
   option(BUILD_DEPS "Build all dependencies" OFF)
 endif()
 message(STATUS "Build all dependencies: ${BUILD_DEPS}")
-# Install built dependencies if any,
+# Install built dependencies if any.
 option(INSTALL_BUILD_DEPS "Install build all dependencies" ON)
 
-# IF BUILD_DEPS=ON THEN Force all BUILD_*=ON
-CMAKE_DEPENDENT_OPTION(BUILD_ZLIB "Build the ZLIB dependency Library" OFF
-  "NOT BUILD_DEPS" ON)
+# IF BUILD_DEPS=ON THEN force all BUILD_*=ON and do not give this option to the user.
+CMAKE_DEPENDENT_OPTION(BUILD_ZLIB "Build the ZLIB dependency Library" ON "NOT BUILD_DEPS" ON)
 message(STATUS "Build ZLIB: ${BUILD_ZLIB}")
 
-CMAKE_DEPENDENT_OPTION(BUILD_absl "Build the abseil-cpp dependency Library" OFF
-  "NOT BUILD_DEPS" ON)
+CMAKE_DEPENDENT_OPTION(BUILD_absl "Build the abseil-cpp dependency Library" ON "NOT BUILD_DEPS" ON)
 message(STATUS "Build abseil-cpp: ${BUILD_absl}")
 
-CMAKE_DEPENDENT_OPTION(BUILD_Protobuf "Build the Protobuf dependency Library" OFF
-  "NOT BUILD_DEPS" ON)
+CMAKE_DEPENDENT_OPTION(BUILD_Protobuf "Build the Protobuf dependency Library" ON "NOT BUILD_DEPS" ON)
 message(STATUS "Build protobuf: ${BUILD_Protobuf}")
 
 # Build Needed dependencies
@@ -157,7 +156,12 @@ check_type_size("int *" SIZEOF_INT_P LANGUAGE CXX)
 message(STATUS "Found int * size: ${SIZEOF_INT_P}")
 cmake_pop_check_state()
 
-include(host)
+if(CMAKE_CROSSCOMPILING)
+  message(FATAL_ERROR "Cross-compiling is not supported.")
+else()
+  set(PROTOC_PRG protobuf::protoc)
+endif()
+
 include(deps)
 include(cpp)
 include(glop)

@@ -4,42 +4,13 @@ endif()
 
 # Main Target
 add_library(${PROJECT_NAME} "")
-# Xcode fails to build if library doesn't contains at least one source file.
-if(XCODE)
-  file(GENERATE
-    OUTPUT ${PROJECT_BINARY_DIR}/${PROJECT_NAME}/version.cpp
-    CONTENT "namespace {char* version = \"${PROJECT_VERSION}\";}")
-  target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}/version.cpp)
-endif()
 
 if(BUILD_SHARED_LIBS)
   list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "OR_TOOLS_AS_DYNAMIC_LIB")
 endif()
 list(APPEND OR_TOOLS_COMPILE_DEFINITIONS
-  "USE_BOP" # enable BOP support
   "USE_GLOP" # enable GLOP support
   )
-if(USE_SCIP)
-  list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "USE_SCIP")
-  set(GSCIP_DIR gscip)
-endif()
-if(USE_COINOR)
-  list(APPEND OR_TOOLS_COMPILE_DEFINITIONS
-    "USE_CBC" # enable COIN-OR CBC support
-    "USE_CLP" # enable COIN-OR CLP support
-  )
-endif()
-if(USE_CPLEX)
-  list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "USE_CPLEX")
-endif()
-if(USE_XPRESS)
-  list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "USE_XPRESS")
-  if(MSVC)
-    list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "XPRESS_PATH=\"${XPRESS_ROOT}\"")
-  else()
-    list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "XPRESS_PATH=${XPRESS_ROOT}")
-  endif()
-endif()
 
 if(WIN32)
   list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "__WIN32__")
@@ -99,14 +70,7 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC ${OR_TOOLS_COMPILE_DEFINITIONS
 target_compile_options(${PROJECT_NAME} PUBLIC ${OR_TOOLS_COMPILE_OPTIONS})
 
 # Properties
-if(NOT APPLE)
-  set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
-else()
-  # Clang don't support version x.y.z with z > 255
-  set_target_properties(${PROJECT_NAME} PROPERTIES
-    INSTALL_RPATH "@loader_path"
-    VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
-endif()
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(${PROJECT_NAME} PROPERTIES
   SOVERSION ${PROJECT_VERSION_MAJOR}
   POSITION_INDEPENDENT_CODE ON
@@ -121,10 +85,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
   ZLIB::ZLIB
   ${ABSL_DEPS}
   protobuf::libprotobuf
-  ${COINOR_DEPS}
-  $<$<BOOL:${USE_SCIP}>:libscip>
-  $<$<BOOL:${USE_CPLEX}>:CPLEX::CPLEX>
-  $<$<BOOL:${USE_XPRESS}>:XPRESS::XPRESS>
   Threads::Threads)
 if(WIN32)
   target_link_libraries(${PROJECT_NAME} PUBLIC psapi.lib ws2_32.lib)
@@ -137,21 +97,10 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 set(PROTO_HDRS)
 set(PROTO_SRCS)
 file(GLOB_RECURSE proto_files RELATIVE ${PROJECT_SOURCE_DIR}
-  "ortools/bop/*.proto"
-  "ortools/constraint_solver/*.proto"
   "ortools/glop/*.proto"
-  "ortools/graph/*.proto"
   "ortools/linear_solver/*.proto"
-  "ortools/linear_solver/*.proto"
-  "ortools/packing/*.proto"
-  "ortools/sat/*.proto"
-  "ortools/scheduling/*.proto"
   "ortools/util/*.proto"
   )
-if(USE_SCIP)
-  file(GLOB_RECURSE gscip_proto_files RELATIVE ${PROJECT_SOURCE_DIR} "ortools/gscip/*.proto")
-  list(APPEND proto_files ${gscip_proto_files})
-endif()
 
 ## Get Protobuf include dir
 get_target_property(protobuf_dirs protobuf::libprotobuf INTERFACE_INCLUDE_DIRECTORIES)
@@ -206,21 +155,11 @@ target_sources(${PROJECT_NAME} PRIVATE $<TARGET_OBJECTS:${PROJECT_NAME}::proto>)
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}::proto)
 
 foreach(SUBPROJECT IN ITEMS
- algorithms
  base
- bop
- constraint_solver
- ${GSCIP_DIR}
  glop
- graph
- gurobi
- init
  linear_solver
  lp_data
- packing
  port
- sat
- scheduling
  util)
   add_subdirectory(ortools/${SUBPROJECT})
   #target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_${SUBPROJECT})
@@ -275,72 +214,6 @@ install(
   DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
   COMPONENT Devel)
 
-# add_cxx_sample()
-# CMake function to generate and build C++ sample.
-# Parameters:
-#  the C++ filename
-# e.g.:
-# add_cxx_sample(foo.cc)
-function(add_cxx_sample FILE_NAME)
-  message(STATUS "Configuring sample ${FILE_NAME}: ...")
-  get_filename_component(SAMPLE_NAME ${FILE_NAME} NAME_WE)
-  get_filename_component(SAMPLE_DIR ${FILE_NAME} DIRECTORY)
-  get_filename_component(COMPONENT_DIR ${SAMPLE_DIR} DIRECTORY)
-  get_filename_component(COMPONENT_NAME ${COMPONENT_DIR} NAME)
-
-  if(APPLE)
-    set(CMAKE_INSTALL_RPATH
-      "@loader_path/../${CMAKE_INSTALL_LIBDIR};@loader_path")
-  elseif(UNIX)
-    set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:$ORIGIN")
-  endif()
-
-  add_executable(${SAMPLE_NAME} ${FILE_NAME})
-  target_include_directories(${SAMPLE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-  target_compile_features(${SAMPLE_NAME} PRIVATE cxx_std_17)
-  target_link_libraries(${SAMPLE_NAME} PRIVATE ortools::ortools)
-
-  include(GNUInstallDirs)
-  install(TARGETS ${SAMPLE_NAME})
-
-  if(BUILD_TESTING)
-    add_test(NAME cxx_${COMPONENT_NAME}_${SAMPLE_NAME} COMMAND ${SAMPLE_NAME})
-  endif()
-  message(STATUS "Configuring sample ${FILE_NAME}: ...DONE")
-endfunction()
-
-# add_cxx_example()
-# CMake function to generate and build C++ example.
-# Parameters:
-#  the C++ filename
-# e.g.:
-# add_cxx_example(foo.cc)
-function(add_cxx_example FILE_NAME)
-  message(STATUS "Configuring example ${FILE_NAME}: ...")
-  get_filename_component(EXAMPLE_NAME ${FILE_NAME} NAME_WE)
-  get_filename_component(COMPONENT_DIR ${FILE_NAME} DIRECTORY)
-  get_filename_component(COMPONENT_NAME ${COMPONENT_DIR} NAME)
-
-  if(APPLE)
-    set(CMAKE_INSTALL_RPATH
-      "@loader_path/../${CMAKE_INSTALL_LIBDIR};@loader_path")
-  elseif(UNIX)
-    set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:$ORIGIN")
-  endif()
-
-  add_executable(${EXAMPLE_NAME} ${FILE_NAME})
-  target_include_directories(${EXAMPLE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-  target_compile_features(${EXAMPLE_NAME} PRIVATE cxx_std_17)
-  target_link_libraries(${EXAMPLE_NAME} PRIVATE ortools::ortools)
-
-  include(GNUInstallDirs)
-  install(TARGETS ${EXAMPLE_NAME})
-
-  if(BUILD_TESTING)
-    add_test(NAME cxx_${COMPONENT_NAME}_${EXAMPLE_NAME} COMMAND ${EXAMPLE_NAME})
-  endif()
-  message(STATUS "Configuring example ${FILE_NAME}: ...DONE")
-endfunction()
 
 # add_cxx_test()
 # CMake function to generate and build C++ test.

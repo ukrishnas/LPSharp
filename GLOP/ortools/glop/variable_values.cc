@@ -13,8 +13,8 @@
 
 #include "ortools/glop/variable_values.h"
 
-#include "ortools/graph/iterators.h"
 #include "ortools/lp_data/lp_utils.h"
+#include "ortools/util/iterators.h"
 
 namespace operations_research {
 namespace glop {
