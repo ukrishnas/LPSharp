@@ -105,10 +105,6 @@ endif()
 
 include(CMakeDependentOption)
 
-# If BUILD_CXX is ON, then force building GLOP, and do not give this option to the user.
-CMAKE_DEPENDENT_OPTION(BUILD_GLOP "Build GLOP standalone" ON "NOT BUILD_CXX" ON)
-message(STATUS "Build standalone Glop: ${BUILD_GLOP}")
-
 # If building any wrappers like dotnet, then set BUILD_DEPS=ON.
 if(BUILD_DOTNET)
   option(BUILD_DEPS "Build all dependencies" ON)
@@ -155,5 +151,5 @@ message(STATUS "Found int * size: ${SIZEOF_INT_P}")
 cmake_pop_check_state()
 
 include(deps)
-include(glop)
-#include(dotnet)
+include(cpp)
+include(dotnet)

@@ -3,8 +3,7 @@ if(NOT BUILD_DOTNET)
 endif()
 
 if(NOT TARGET ortools::ortools)
-  message(STATUS "TARGET is ${TARGET}")
-  message(FATAL_ERROR ".Net: missing ortools TARGET")
+  message(FATAL_ERROR ".Net: missing ortools TARGET, TARGET = ${TARGET}")
 endif()
 
 # Will need swig
@@ -133,18 +132,6 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E copy ./$<CONFIG>/${DOTNET_NATIVE_PROJECT}.csproj.in ${DOTNET_NATIVE_PROJECT}.csproj
   WORKING_DIRECTORY ${DOTNET_NATIVE_PATH}
 )
-
-#if(WIN32)
-#add_custom_command(
-#  OUTPUT dotnet/${DOTNET_NATIVE_PROJECT}/${DOTNET_NATIVE_PROJECT}.targets
-#  COMMAND ${CMAKE_COMMAND} -E make_directory ${DOTNET_NATIVE_PROJECT}
-#  COMMAND ${CMAKE_COMMAND} -E copy
-#    ${PROJECT_SOURCE_DIR}/ortools/dotnet/${DOTNET_NATIVE_PROJECT}/${DOTNET_NATIVE_PROJECT}.targets
-#    ${DOTNET_NATIVE_PROJECT}/${DOTNET_NATIVE_PROJECT}.targets
-#  WORKING_DIRECTORY dotnet
-#  )
-#  set(DOTNET_TARGETS dotnet/${DOTNET_NATIVE_PROJECT}/${DOTNET_NATIVE_PROJECT}.targets)
-#endif()
 
 add_custom_target(dotnet_native_package
   DEPENDS

@@ -1,10 +1,7 @@
 file(GLOB _SRCS "*.h" "*.cc")
 
-if(USE_SCIP)
-  list(APPEND _SRCS ${LPI_GLOP_SRC})
-endif()
-
-set(NAME ${PROJECT_NAME}_linear_solver)
+get_filename_component(MODULE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
+set(NAME ${PROJECT_NAME}_${MODULE_NAME})
 
 # Will be merge in libortools.so
 #add_library(${NAME} STATIC ${_SRCS})
@@ -23,10 +20,5 @@ target_link_libraries(${NAME} PRIVATE
   absl::strings
   absl::str_format
   protobuf::libprotobuf
-  $<$<BOOL:${USE_COINOR}>:Coin::Cbc>
-  $<$<BOOL:${USE_COINOR}>:Coin::Clp>
-  $<$<BOOL:${USE_CPLEX}>:CPLEX::CPLEX>
-  $<$<BOOL:${USE_XPRESS}>:XPRESS::XPRESS>
-  $<$<BOOL:${USE_SCIP}>:libscip>
   ${PROJECT_NAME}::proto)
 #add_library(${PROJECT_NAME}::linear_solver ALIAS ${NAME})
