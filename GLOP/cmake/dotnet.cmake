@@ -3,6 +3,7 @@ if(NOT BUILD_DOTNET)
 endif()
 
 if(NOT TARGET ortools::ortools)
+  message(STATUS "TARGET is ${TARGET}")
   message(FATAL_ERROR ".Net: missing ortools TARGET")
 endif()
 

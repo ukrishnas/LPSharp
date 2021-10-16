@@ -96,44 +96,42 @@ message(STATUS "Build C++ library: ${BUILD_CXX}")
 option(BUILD_DOTNET "Build .NET Library" ON)
 message(STATUS "Build .Net: ${BUILD_DOTNET}")
 
-# If wrapper are built, we need to have the install rpath in BINARY_DIR to package.
+# If wrapper are built, we need to have the install rpath in BINARY_DIR to
+# package. Note that this has no effect on Windows, it affects dotnet builds for
+# MacOs and Linux.
 if(BUILD_DOTNET)
   set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 endif()
 
 include(CMakeDependentOption)
 
-CMAKE_DEPENDENT_OPTION(BUILD_GLOP "Build GLOP standalone" ON "NOT BUILD_CXX" OFF)
+# If BUILD_CXX is ON, then force building GLOP, and do not give this option to the user.
+CMAKE_DEPENDENT_OPTION(BUILD_GLOP "Build GLOP standalone" ON "NOT BUILD_CXX" ON)
 message(STATUS "Build standalone Glop: ${BUILD_GLOP}")
 
-# By default all dependencies are NOT built (i.e. BUILD_DEPS=OFF),
-# But if building any wrappers like dotnet, then BUILD_DEPS=ON.
+# If building any wrappers like dotnet, then set BUILD_DEPS=ON.
 if(BUILD_DOTNET)
   option(BUILD_DEPS "Build all dependencies" ON)
 else()
   option(BUILD_DEPS "Build all dependencies" OFF)
 endif()
 message(STATUS "Build all dependencies: ${BUILD_DEPS}")
-# Install built dependencies if any.
-option(INSTALL_BUILD_DEPS "Install build all dependencies" ON)
 
-# IF BUILD_DEPS=ON THEN force all BUILD_*=ON and do not give this option to the user.
-CMAKE_DEPENDENT_OPTION(BUILD_ZLIB "Build the ZLIB dependency Library" ON "NOT BUILD_DEPS" ON)
+# If BUILD_DEPS=ON then force all BUILD_*=ON, and do not give this option to the user.
+CMAKE_DEPENDENT_OPTION(BUILD_ZLIB "Build the ZLIB dependency" ON "NOT BUILD_DEPS" ON)
 message(STATUS "Build ZLIB: ${BUILD_ZLIB}")
-
-CMAKE_DEPENDENT_OPTION(BUILD_absl "Build the abseil-cpp dependency Library" ON "NOT BUILD_DEPS" ON)
+CMAKE_DEPENDENT_OPTION(BUILD_absl "Build the abseil-cpp dependency" ON "NOT BUILD_DEPS" ON)
 message(STATUS "Build abseil-cpp: ${BUILD_absl}")
-
-CMAKE_DEPENDENT_OPTION(BUILD_Protobuf "Build the Protobuf dependency Library" ON "NOT BUILD_DEPS" ON)
+CMAKE_DEPENDENT_OPTION(BUILD_Protobuf "Build the Protobuf dependency" ON "NOT BUILD_DEPS" ON)
 message(STATUS "Build protobuf: ${BUILD_Protobuf}")
 
-# Build Needed dependencies
+# Build needed dependencies
 add_subdirectory(cmake/dependencies dependencies)
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR}/dependencies/install)
 
 include(CTest)
 
-# Basic type
+# Basic types
 include(CMakePushCheckState)
 cmake_push_check_state(RESET)
 set(CMAKE_EXTRA_INCLUDE_FILES "cstdint")
@@ -156,13 +154,6 @@ check_type_size("int *" SIZEOF_INT_P LANGUAGE CXX)
 message(STATUS "Found int * size: ${SIZEOF_INT_P}")
 cmake_pop_check_state()
 
-if(CMAKE_CROSSCOMPILING)
-  message(FATAL_ERROR "Cross-compiling is not supported.")
-else()
-  set(PROTOC_PRG protobuf::protoc)
-endif()
-
 include(deps)
-include(cpp)
 include(glop)
-include(dotnet)
+#include(dotnet)
