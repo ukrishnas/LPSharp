@@ -42,7 +42,7 @@ set(BUILD_TESTING OFF)
 # ZLIB
 # ##############################################################################
 if(BUILD_ZLIB)
-  message(CHECK_START "Fetching ZLIB from dependencies")
+  message(CHECK_START "Fetching ZLIB")
   list(APPEND CMAKE_MESSAGE_INDENT "  ")
   FetchContent_Declare(
     zlib
@@ -58,7 +58,7 @@ endif()
 # ABSEIL-CPP
 # ##############################################################################
 if(BUILD_absl)
-  message(CHECK_START "Fetching Abseil-cpp from dependencies")
+  message(CHECK_START "Fetching Abseil-cpp")
   list(APPEND CMAKE_MESSAGE_INDENT "  ")
   set(ABSL_ENABLE_INSTALL ON)
   FetchContent_Declare(
@@ -75,7 +75,7 @@ endif()
 # Protobuf
 # ##############################################################################
 if(BUILD_Protobuf)
-  message(CHECK_START "Fetching Protobuf from dependencies")
+  message(CHECK_START "Fetching Protobuf")
   list(APPEND CMAKE_MESSAGE_INDENT "  ")
   set(protobuf_BUILD_TESTS OFF)
   set(protobuf_BUILD_EXPORT OFF)

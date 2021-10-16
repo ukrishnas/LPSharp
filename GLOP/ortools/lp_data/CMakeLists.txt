@@ -1,6 +1,6 @@
 file(GLOB _SRCS "*.h" "*.cc")
 
-get_filename_component(MODULE_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
+get_filename_component(MODULE_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
 set(NAME ${PROJECT_NAME}_${MODULE_NAME})
 
 # Will be merge in libortools.so
