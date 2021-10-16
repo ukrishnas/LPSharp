@@ -59,7 +59,7 @@ namespace Microsoft.LPSharp.Powershell
         }
 
         /// <summary>
-        /// Writes an enumerable to the output stream, if written directly the underlying object is written (list/array)
+        /// Writes an enumerable to the output stream, if written directly the underlying object is written (list/array).
         /// </summary>
         /// <param name="enumerable">The enumerable.</param>
         protected void WriteEnumerable(IEnumerable enumerable)
@@ -76,13 +76,13 @@ namespace Microsoft.LPSharp.Powershell
         }
 
         /// <summary>
-        /// Writes a string to the host console
+        /// Writes a string to the host console.
         /// </summary>
         /// <param name="msgFormat">The message format.</param>
         /// <param name="objects">The parameters for the message.</param>
         protected void WriteHost(string msgFormat, params object[] objects)
         {
-            this.Host.UI.WriteLine(string.Format(msgFormat, objects));        
+            this.Host.UI.WriteLine(string.Format(msgFormat, objects));
         }
 
         /// <summary>

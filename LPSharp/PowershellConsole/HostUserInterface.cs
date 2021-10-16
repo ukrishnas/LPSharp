@@ -79,7 +79,7 @@ namespace Microsoft.LPSharp.PowershellConsole
             // Write the caption and message strings in Blue.
             this.WriteLine(ConsoleColor.Blue, ConsoleColor.Black, caption + "\n" + message + "\n");
 
-            // Convert the choice collection into something that is easier to 
+            // Convert the choice collection into something that is easier to
             // work with. See the BuildHotkeysAndPlainLabels method for details.
             string[,] promptData = BuildHotkeysAndPlainLabels(choices);
 

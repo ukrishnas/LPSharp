@@ -12,7 +12,17 @@
   
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.1.4" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="System.Management.Automation" Version="7.1.4" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\stylecop.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json" />
+  </ItemGroup>
 </Project>

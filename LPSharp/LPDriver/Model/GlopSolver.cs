@@ -15,12 +15,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
     /// </summary>
     public class GlopSolver : ILPInterface
     {
-        /// <inhertidoc />
+        /// <inheritdoc />
         public override string ToString()
         {
-            return "GlopSolver";
-
+            return "GLOP solver";
         }
+
         /// <inheritdoc />
         public void Load(LPModel model)
         {

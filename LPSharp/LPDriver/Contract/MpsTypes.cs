@@ -81,12 +81,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public enum MpsBound
     {
         /// <summary>
-        /// Lower bound (b <= x < +inf).
+        /// </c>Lower bound (b \le x lt +inf).
         /// </summary>
         Lower,
 
         /// <summary>
-        /// Upper bound (-inf < x <= b).
+        /// Upper bound (-inf \lt x \le b).
         /// </summary>
         Upper,
 
@@ -96,17 +96,17 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         Fixed,
 
         /// <summary>
-        /// Free variable (-inf < x < +inf).
+        /// Free variable (-inf \lt x \lt +inf).
         /// </summary>
         Free,
 
         /// <summary>
-        /// Lower bound -infinity (-inf < x <= 0).
+        /// Lower bound -infinity (-inf \lt x \le 0).
         /// </summary>
         MI,
 
         /// <summary>
-        /// Upper bound +infinity (0 <= x < +inf).
+        /// Upper bound +infinity (0 \le x \lt +inf).
         /// </summary>
         PL,
 
@@ -116,17 +116,17 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         Binary,
 
         /// <summary>
-        /// Integer variable lower bound (b <= x < +inf).
+        /// Integer variable lower bound (b \le x \lt +inf).
         /// </summary>
         LowerInteger,
 
         /// <summary>
-        /// Integer variable upper bound (0 <= x <= b).
+        /// Integer variable upper bound (0 \le x \le b).
         /// </summary>
         UpperInteger,
 
         /// <summary>
-        /// Semi-continuous variable bound (x = 0 or l <= x <= b). If l is not set, then
+        /// Semi-continuous variable bound (x = 0 or l \le x \le b). If l is not set, then
         /// defaults to 1.
         /// </summary>
         SemiContinuous,
@@ -141,7 +141,7 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// Parses a value into a section.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The section or null</returns>
+        /// <returns>The section or null.</returns>
         public static MpsSection? ParseSection(string value)
         {
             if (!Enum.TryParse(value, ignoreCase: true, out MpsSection section))

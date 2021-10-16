@@ -23,6 +23,5 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// Solves the model.
         /// </summary>
         void Solve();
-
     }
 }

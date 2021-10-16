@@ -82,7 +82,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             ILPInterface solver = null;
-            switch(solverType)
+            switch (solverType)
             {
                 case SolverType.GLOP:
                     solver = new GlopSolver();

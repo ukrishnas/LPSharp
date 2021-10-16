@@ -50,7 +50,7 @@ namespace Microsoft.LPSharp.PowershellConsole
         private readonly HostUserInterface hostUserInterface;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PowershellHost"/> class. 
+        /// Initializes a new instance of the <see cref="PowershellHost"/> class.
         /// </summary>
         /// <param name="program">A reference to the host application object.</param>
         public PowershellHost(PowershellConsole program)
@@ -136,7 +136,7 @@ namespace Microsoft.LPSharp.PowershellConsole
         }
 
         /// <summary>
-        /// Pushes a runspace<.
+        /// Pushes a runspace.
         /// </summary>
         /// <param name="runspace">The runspace.</param>
         public void PushRunspace(Runspace runspace)

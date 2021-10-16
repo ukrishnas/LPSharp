@@ -58,22 +58,22 @@ namespace Microsoft.LPSharp.LPDriver.Model
             this.keepColumns = keepColumns;
         }
 
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"Name={this.Name} Rows={this.rows.Count} Columns={this.columns.Count} " +
-                $"RHS={this.rhs.Count} Bounds={this.bounds.Count} Ranges={this.ranges.Count}";
-        }
-
         /// <summary>
         /// Gets or sets the name of the problem.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The row name of the objective.
+        /// Gets the row name of the objective.
         /// </summary>
         public string Objective { get; private set; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"Name={this.Name} Rows={this.rows.Count} Columns={this.columns.Count} " +
+                $"RHS={this.rhs.Count} Bounds={this.bounds.Count} Ranges={this.ranges.Count}";
+        }
 
         /// <summary>
         /// Adds a row.
@@ -123,7 +123,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 {
                     column = new SparseVector<double>();
                 }
-                
+
                 this.columns.Add(columnName, column);
             }
 
@@ -143,7 +143,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <param name="rhsName">The right hand side name.</param>
         /// <param name="rowName">The row name.</param>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>True on success, false on faiilure.</returns>
         public bool AddRhs(string rhsName, string rowName, double value)
         {
             if (!this.rhs.TryGetValue(rhsName, out SparseVector<double> rhs))
@@ -164,10 +164,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Adds a bound on a variable.
         /// </summary>
-        /// <param name="boundName">The bounds name.</param>
+        /// <param name="boundsName">The bounds name.</param>
         /// <param name="columnName">The column or variable name.</param>
         /// <param name="type">The bound type.</param>
-        /// <param name="value"/>The bound value.</param>
+        /// <param name="value">The bound value.</param>
         /// <returns>True on success, false otherwise.</returns>
         public bool AddBound(string boundsName, string columnName, MpsBound type, double value)
         {
@@ -203,7 +203,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <param name="rangesName">The ranges name.</param>
         /// <param name="rowName">The row name.</param>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>True on success, false on failure.</returns>
         public bool AddRange(string rangesName, string rowName, double value)
         {
             if (!this.ranges.TryGetValue(rangesName, out SparseVector<double> ranges))
@@ -228,7 +228,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private class SparseVector<T> : Dictionary<string, T>
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="SparseVector"/> class.
+            /// Initializes a new instance of the <see cref="SparseVector{T}"/> class.
             /// </summary>
             public SparseVector()
                 : base()
@@ -236,9 +236,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SparseVector"/> class.
+            /// Initializes a new instance of the <see cref="SparseVector{T}"/> class.
             /// </summary>
-            /// <param name="capacity"></param>
+            /// <param name="capacity">The capacity.</param>
             public SparseVector(int capacity)
                 : base(capacity)
             {
@@ -247,21 +247,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
         private class Row
         {
-            /// <summary>
-            /// The row name.
-            /// </summary>
-            public readonly string Name;
-
-            /// <summary>
-            /// The row type.
-            /// </summary>
-            public readonly MpsRow Type;
-
-            /// <summary>
-            /// The row coefficients keyed by the variable name.
-            /// </summary>
-            public readonly SparseVector<double> Coefficients;
-
             /// <summary>
             /// Initializes a new instance of the <see cref="Row"/> class.
             /// </summary>
@@ -273,6 +258,21 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.Type = type;
                 this.Coefficients = new SparseVector<double>();
             }
+
+            /// <summary>
+            /// Gets the row name.
+            /// </summary>
+            public string Name { get; }
+
+            /// <summary>
+            /// Gets the row type.
+            /// </summary>
+            public MpsRow Type { get; }
+
+            /// <summary>
+            /// Gets the row coefficients keyed by the variable name.
+            /// </summary>
+            public SparseVector<double> Coefficients { get; }
         }
 
         /// <summary>
@@ -280,31 +280,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// </summary>
         private class Bound
         {
-            /// <summary>
-            /// If true, only first bound is valid.
-            /// </summary>
-            public bool Single;
-
-            /// <summary>
-            /// The first bound type.
-            /// </summary>
-            public MpsBound Type1;
-
-            /// <summary>
-            /// The first bound value.
-            /// </summary>
-            public double Value1;
-
-            /// <summary>
-            /// The second bound type.
-            /// </summary>
-            public MpsBound Type2;
-
-            /// <summary>
-            /// The second bound value.
-            /// </summary>
-            public double Value2;
-
             /// <summary>
             /// Initializes a new instance of the <see cref="Bound"/> class.
             /// </summary>
@@ -316,6 +291,31 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.Value1 = value;
                 this.Single = true;
             }
+
+            /// <summary>
+            /// Gets a value indicating whether first bound is valid.
+            /// </summary>
+            public bool Single { get; private set; }
+
+            /// <summary>
+            /// Gets the first bound type.
+            /// </summary>
+            public MpsBound Type1 { get; }
+
+            /// <summary>
+            /// Gets the first bound value.
+            /// </summary>
+            public double Value1 { get; }
+
+            /// <summary>
+            /// Gets the second bound type.
+            /// </summary>
+            public MpsBound Type2 { get; private set; }
+
+            /// <summary>
+            /// Gets the second bound value.
+            /// </summary>
+            public double Value2 { get; private set; }
 
             /// <summary>
             /// Adds the second bound.

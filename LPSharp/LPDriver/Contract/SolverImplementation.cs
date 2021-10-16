@@ -24,6 +24,6 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <summary>
         /// Google Operational Tools Linear Optimization Program.
         /// </summary>
-        GLOP
+        GLOP,
     }
 }

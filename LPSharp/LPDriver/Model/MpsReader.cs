@@ -24,7 +24,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private static readonly Tuple<int, int>[] SectionFieldPositions = new Tuple<int, int>[]
         {
             new Tuple<int, int>(1, 12),
-            new Tuple<int, int>(15, 8)
+            new Tuple<int, int>(15, 8),
         };
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
-        /// The errors while parsing.
+        /// Gets the errors while parsing.
         /// </summary>
         public IReadOnlyList<string> Errors => this.errors;
 
@@ -320,7 +320,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var rhsName = fields[0];
             var rowName = fields[1];
 
-            // If RHS name is null, then use the last name. I think it is possible for the name to be 
+            // If RHS name is null, then use the last name. I think it is possible for the name to be
             // ommitted in subsequent lines once it is set.
             if (string.IsNullOrEmpty(rhsName))
             {
@@ -372,7 +372,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var boundsName = fields[1];
             var columnName = fields[2];
 
-            // If bounds name is null, then use the last name. I think it is possible for the name to be 
+            // If bounds name is null, then use the last name. I think it is possible for the name to be
             // ommitted in subsequent lines once it is set.
             if (string.IsNullOrEmpty(boundsName))
             {
@@ -415,7 +415,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var rangesName = fields[0];
             var rowName = fields[1];
 
-            // If ranges name is null, then use the last name. I think it is possible for the name to be 
+            // If ranges name is null, then use the last name. I think it is possible for the name to be
             // ommitted in subsequent lines once it is set.
             if (string.IsNullOrEmpty(rangesName))
             {

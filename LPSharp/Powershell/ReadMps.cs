@@ -49,7 +49,7 @@ namespace Microsoft.LPSharp.Powershell
             {
                 var guid = Guid.NewGuid().ToString();
                 key = $"model_{guid}";
-            }    
+            }
 
             this.LPDriver.AddModel(key, model);
 

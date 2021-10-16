@@ -11,21 +11,22 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     /// <summary>
     /// Represents a sparse vector.
     /// </summary>
-    /// <typeparam name="I">The type of index.</typeparam>
-    /// <typeparam name="E">The type of value.</typeparam>
-    public class SparseVector<I, V>
+    /// <typeparam name="Tindex">The type of index.</typeparam>
+    /// <typeparam name="Tvalue">The type of value.</typeparam>
+    public class SparseVector<Tindex, Tvalue>
     {
         /// <summary>
         /// Map of index.
         /// </summary>
-        private readonly Dictionary<I, V> store;
+        private readonly Dictionary<Tindex, Tvalue> store;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SparseVector"/> class.
+        /// Initializes a new instance of the <see cref="SparseVector{I, V}"/> class.
         /// </summary>
+        /// <param name="capacity">The capacity.</param>
         public SparseVector(int capacity = 0)
         {
-            this.store = new Dictionary<I, V>(capacity);
+            this.store = new Dictionary<Tindex, Tvalue>(capacity);
         }
 
         /// <summary>
@@ -33,11 +34,11 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>The value.</returns>
-        public V this[I index]
+        public Tvalue this[Tindex index]
         {
             get
             {
-                if (this.store.TryGetValue(index, out V value))
+                if (this.store.TryGetValue(index, out Tvalue value))
                 {
                     return value;
                 }
@@ -66,10 +67,10 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// </summary>
         /// <param name="indices">The dictionary mapping vector index to an array index.</param>
         /// <returns>The array of values.</returns>
-        public V[] ToArray(out Dictionary<I, int> indices)
+        public Tvalue[] ToArray(out Dictionary<Tindex, int> indices)
         {
-            indices = new Dictionary<I, int>(this.store.Count);
-            var values = new V[this.store.Count];
+            indices = new Dictionary<Tindex, int>(this.store.Count);
+            var values = new Tvalue[this.store.Count];
             int i = 0;
             foreach (var kv in this.store)
             {

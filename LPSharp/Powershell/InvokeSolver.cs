@@ -57,7 +57,7 @@ namespace Microsoft.LPSharp.Powershell
             stopwatch.Restart();
             solver.Solve();
             stopwatch.Stop();
-            this.WriteHost($"Solved model {this.ModelKey} in {stopwatch.ElapsedMilliseconds}");        
+            this.WriteHost($"Solved model {this.ModelKey} in {stopwatch.ElapsedMilliseconds}");
         }
     }
 }
