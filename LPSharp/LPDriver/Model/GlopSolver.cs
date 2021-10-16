@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestSolver.cs" company="Microsoft Corporation">
+// <copyright file="GlopSolver.cs" company="Microsoft Corporation">
 //   Copyright (c) Microsoft Corporation. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -8,13 +8,26 @@ namespace Microsoft.LPSharp.LPDriver.Model
 {
     using System;
     using Google.OrTools.LinearSolver;
+    using Microsoft.LPSharp.LPDriver.Contract;
 
-    public static class TestSolver
+    /// <summary>
+    /// Represents the interface implementation for GLOP solver.
+    /// </summary>
+    public class GlopSolver : ILPInterface
     {
-        /// <summary>
-        /// Tests GLOP solver.
-        /// </summary>
-        public static void TestGlop()
+        /// <inhertidoc />
+        public override string ToString()
+        {
+            return "GlopSolver";
+
+        }
+        /// <inheritdoc />
+        public void Load(LPModel model)
+        {
+        }
+
+        /// <inheritdoc />
+        public void Solve()
         {
             Solver solver = Solver.CreateSolver("GLOP");
 

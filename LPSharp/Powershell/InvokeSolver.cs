@@ -6,21 +6,58 @@
 
 namespace Microsoft.LPSharp.Powershell
 {
+    using System.Diagnostics;
     using System.Management.Automation;
-    using Microsoft.LPSharp.LPDriver.Model;
 
     /// <summary>
-    /// Invokes an LP solver.
+    /// Invokes the solver.
     /// </summary>
     [Cmdlet(VerbsLifecycle.Invoke, "Solver")]
     public class InvokeSolver : LPCmdlet
     {
         /// <summary>
+        /// Gets or sets the model key.
+        /// </summary>
+        [Parameter(Mandatory = true, Position = 0)]
+        [Alias("Model")]
+        public string ModelKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the solver key.
+        /// </summary>
+        [Parameter]
+        [Alias("Solver")]
+        public string SolverKey { get; set; }
+
+        /// <summary>
         /// The process record.
         /// </summary>
         protected override void ProcessRecord()
         {
-            TestSolver.TestGlop();
+            var model = this.LPDriver.GetModel(this.ModelKey);
+            if (model == null)
+            {
+                this.WriteHost($"Model {this.ModelKey} not found");
+                return;
+            }
+
+            var solverKey = this.SolverKey ?? this.LPDriver.DefaultSolverKey;
+            var solver = this.LPDriver.GetSolver(solverKey);
+            if (solver == null)
+            {
+                this.WriteHost($"Solver {solverKey} not found");
+                return;
+            }
+
+            var stopwatch = Stopwatch.StartNew();
+            solver.Load(model);
+            stopwatch.Stop();
+            this.WriteHost($"Loaded model {this.ModelKey} into {solver} in {stopwatch.ElapsedMilliseconds} ms");
+
+            stopwatch.Restart();
+            solver.Solve();
+            stopwatch.Stop();
+            this.WriteHost($"Solved model {this.ModelKey} in {stopwatch.ElapsedMilliseconds}");        
         }
     }
 }

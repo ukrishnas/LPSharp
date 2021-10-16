@@ -11,6 +11,7 @@ namespace Microsoft.LPSharp.Powershell
     using System.IO;
     using System.Management.Automation;
     using System.Reflection;
+    using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
 
     /// <summary>
@@ -40,7 +41,7 @@ namespace Microsoft.LPSharp.Powershell
         /// Gets or sets the LP engine.
         /// </summary>
         [Parameter]
-        public LPDriver LPDriver { get; set; }
+        public ILPDriver LPDriver { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the -verbose flag was supplied.

@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LPEngine.cs" company="Microsoft Corporation">
+// <copyright file="LPDriver.cs" company="Microsoft Corporation">
 //   Copyright (c) Microsoft Corporation. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -7,11 +7,12 @@
 namespace Microsoft.LPSharp.LPDriver.Model
 {
     using System.Collections.Generic;
+    using Microsoft.LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Represents the driver for LPSharp. It holds common state and methods.
     /// </summary>
-    public class LPDriver
+    public class LPDriver : ILPDriver
     {
         /// <summary>
         /// The collection of models.
@@ -19,31 +20,41 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private readonly Dictionary<string, LPModel> models;
 
         /// <summary>
+        /// The collection of solvers.
+        /// </summary>
+        private readonly Dictionary<string, ILPInterface> solvers;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LPDriver"/> class.
         /// </summary>
         public LPDriver()
         {
             this.models = new Dictionary<string, LPModel>();
+            this.solvers = new Dictionary<string, ILPInterface>();
             this.MpsReader = new MpsReader();
         }
 
-        /// <summary>
-        /// Gets the enumeration of models.
-        /// </summary>
+        /// <inheritdoc />
         public IReadOnlyDictionary<string, LPModel> Models => this.models;
 
-        /// <summary>
-        /// Gets the MPS file reader.
-        /// </summary>
+        /// <inheritdoc />
+        public IReadOnlyDictionary<string, ILPInterface> Solvers => this.solvers;
+
+        /// <inheritdoc />
         public MpsReader MpsReader { get; }
 
-        /// <summary>
-        /// Adds or updates a model.
-        /// </summary>
-        /// <param name="key">The model key.</param>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        public bool AddModel(string key, LPModel model)
+        /// <inheritdoc />
+        public string DefaultSolverKey { get; private set; }
+
+        /// <inheritdoc />
+        public void Clear()
+        {
+            this.models.Clear();
+            this.solvers.Clear();
+        }
+
+        /// <inheritdoc />
+        public bool AddModel(string key, LPModel solver)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -51,27 +62,57 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             // Previous model is silently overwritten.
-            this.models[key] = model;
+            this.models[key] = solver;
             return true;
         }
 
-        /// <summary>
-        /// Gets a model by key.
-        /// </summary>
-        /// <param name="key">The mode name.</param>
-        /// <returns>The model.</returns>
+        /// <inheritdoc />
         public LPModel GetModel(string key)
         {
             this.models.TryGetValue(key, out LPModel model);
             return model;
         }
 
-        /// <summary>
-        /// Clears stored models.
-        /// </summary>
-        public void ClearModels()
+        /// <inheritdoc />
+        public bool CreateSolver(string key, SolverType solverType, bool makeDefault = false)
         {
-            this.models.Clear();
+            if (string.IsNullOrEmpty(key))
+            {
+                return false;
+            }
+
+            ILPInterface solver = null;
+            switch(solverType)
+            {
+                case SolverType.GLOP:
+                    solver = new GlopSolver();
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (solver == null)
+            {
+                return false;
+            }
+
+            // Previous model is silently overwritten.
+            this.solvers[key] = solver;
+
+            if (makeDefault)
+            {
+                this.DefaultSolverKey = key;
+            }
+
+            return true;
+        }
+
+        /// <inheritdoc />
+        public ILPInterface GetSolver(string key)
+        {
+            this.solvers.TryGetValue(key, out ILPInterface solver);
+            return solver;
         }
     }
 }
