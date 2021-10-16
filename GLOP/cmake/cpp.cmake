@@ -8,9 +8,6 @@ add_library(${PROJECT_NAME} "")
 if(BUILD_SHARED_LIBS)
   list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "OR_TOOLS_AS_DYNAMIC_LIB")
 endif()
-list(APPEND OR_TOOLS_COMPILE_DEFINITIONS
-  "USE_GLOP" # enable GLOP support
-  )
 
 if(WIN32)
   list(APPEND OR_TOOLS_COMPILE_DEFINITIONS "__WIN32__")
@@ -117,8 +114,6 @@ foreach(PROTO_FILE IN LISTS proto_files)
   get_filename_component(PROTO_NAME ${PROTO_FILE} NAME_WE)
   set(PROTO_HDR ${PROJECT_BINARY_DIR}/${PROTO_DIR}/${PROTO_NAME}.pb.h)
   set(PROTO_SRC ${PROJECT_BINARY_DIR}/${PROTO_DIR}/${PROTO_NAME}.pb.cc)
-  #message(STATUS "protoc hdr: ${PROTO_HDR}")
-  #message(STATUS "protoc src: ${PROTO_SRC}")
   add_custom_command(
     OUTPUT ${PROTO_SRC} ${PROTO_HDR}
     COMMAND ${PROTOC_PRG}
@@ -146,14 +141,14 @@ target_include_directories(${PROJECT_NAME}_proto PRIVATE
   )
 target_compile_definitions(${PROJECT_NAME}_proto PUBLIC ${OR_TOOLS_COMPILE_DEFINITIONS})
 target_compile_options(${PROJECT_NAME}_proto PUBLIC ${OR_TOOLS_COMPILE_OPTIONS})
-#target_link_libraries(${PROJECT_NAME}_proto PRIVATE protobuf::libprotobuf)
 add_dependencies(${PROJECT_NAME}_proto protobuf::libprotobuf)
 add_library(${PROJECT_NAME}::proto ALIAS ${PROJECT_NAME}_proto)
-# Add ortools::proto to libortools
-#target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}::proto)
 target_sources(${PROJECT_NAME} PRIVATE $<TARGET_OBJECTS:${PROJECT_NAME}::proto>)
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}::proto)
 
+# Include the sub-project source files and create a dependency. We do this as
+# individual steps and not with target_link_libraries because the latter
+# requires more configuration for install(EXPORT) rule further down in this file.
 foreach(SUBPROJECT IN ITEMS
  base
  glop
@@ -162,7 +157,6 @@ foreach(SUBPROJECT IN ITEMS
  port
  util)
   add_subdirectory(ortools/${SUBPROJECT})
-  #target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_${SUBPROJECT})
   target_sources(${PROJECT_NAME} PRIVATE $<TARGET_OBJECTS:${PROJECT_NAME}_${SUBPROJECT}>)
   add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_${SUBPROJECT})
 endforeach()
@@ -226,13 +220,6 @@ function(add_cxx_test FILE_NAME)
   get_filename_component(TEST_NAME ${FILE_NAME} NAME_WE)
   get_filename_component(COMPONENT_DIR ${FILE_NAME} DIRECTORY)
   get_filename_component(COMPONENT_NAME ${COMPONENT_DIR} NAME)
-
-  if(APPLE)
-    set(CMAKE_INSTALL_RPATH
-      "@loader_path/../${CMAKE_INSTALL_LIBDIR};@loader_path")
-  elseif(UNIX)
-    set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:$ORIGIN")
-  endif()
 
   add_executable(${TEST_NAME} ${FILE_NAME})
   target_include_directories(${TEST_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -59,7 +59,7 @@ set_target_properties(google-ortools-native PROPERTIES
 
 # CMake will remove all '-D' prefix (i.e. -DUSE_FOO become USE_FOO)
 #get_target_property(FLAGS ortools::ortools COMPILE_DEFINITIONS)
-set(FLAGS -DUSE_GLOP -DABSL_MUST_USE_RESULT)
+set(FLAGS -DABSL_MUST_USE_RESULT)
 list(APPEND CMAKE_SWIG_FLAGS ${FLAGS} "-I${PROJECT_SOURCE_DIR}")
 
 # Needed by dotnet/CMakeLists.txt

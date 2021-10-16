@@ -3,8 +3,6 @@ file(GLOB _SRCS "*.h" "*.cc")
 get_filename_component(MODULE_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
 set(NAME ${PROJECT_NAME}_${MODULE_NAME})
 
-# Will be merge in libortools.so
-#add_library(${NAME} STATIC ${_SRCS})
 add_library(${NAME} OBJECT ${_SRCS})
 set_target_properties(${NAME} PROPERTIES
   CXX_STANDARD 17
@@ -28,4 +26,3 @@ target_link_libraries(${NAME} PRIVATE
   absl::str_format
   protobuf::libprotobuf
   ${PROJECT_NAME}::proto)
-#add_library(${PROJECT_NAME}::base ALIAS ${NAME})

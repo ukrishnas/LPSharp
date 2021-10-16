@@ -31,40 +31,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="@PROJECT_DOTNET_DIR@/ortools/algorithms/*.cs">
-      <Link>algorithms/%(Filename)%(Extension)</Link>
-    </Compile>
-
-    <Compile Include="@PROJECT_DOTNET_DIR@/ortools/graph/*.cs">
-      <Link>graph/%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="@PROJECT_SOURCE_DIR@/ortools/graph/csharp/*.cs">
-      <Link>graph/%(Filename)%(Extension)</Link>
-    </Compile>
 
     <Compile Include="@PROJECT_DOTNET_DIR@/ortools/linear_solver/*.cs">
       <Link>linear_solver/%(Filename)%(Extension)</Link>
     </Compile>
     <Compile Include="@PROJECT_SOURCE_DIR@/ortools/linear_solver/csharp/*.cs">
       <Link>linear_solver/%(Filename)%(Extension)</Link>
-    </Compile>
-
-    <Compile Include="@PROJECT_DOTNET_DIR@/ortools/constraint_solver/*.cs">
-      <Link>constraint_solver/%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="@PROJECT_SOURCE_DIR@/ortools/constraint_solver/csharp/*.cs">
-      <Link>constraint_solver/%(Filename)%(Extension)</Link>
-    </Compile>
-
-    <Compile Include="@PROJECT_DOTNET_DIR@/ortools/init/*.cs">
-      <Link>init/%(Filename)%(Extension)</Link>
-    </Compile>
-
-    <Compile Include="@PROJECT_DOTNET_DIR@/ortools/sat/*.cs">
-      <Link>sat/%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="@PROJECT_SOURCE_DIR@/ortools/sat/csharp/*.cs">
-      <Link>sat/%(Filename)%(Extension)</Link>
     </Compile>
 
     <Compile Include="@PROJECT_DOTNET_DIR@/ortools/util/*.cs">
@@ -94,43 +66,13 @@
 
   <!-- Copy all .proto file(s) -->
   <ItemGroup>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/algorithms/*.proto">
-      <PackagePath>content/algorithms</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/bop/*.proto">
-      <PackagePath>content/bop</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/constraint_solver/*.proto">
-      <PackagePath>content/constraint_solver</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/data/*.proto">
-      <PackagePath>content/data</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="@PROJECT_SOURCE_DIR@/ortools/glop/*.proto">
       <PackagePath>content/glop</PackagePath>
       <Pack>true</Pack>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/graph/*.proto">
-      <PackagePath>content/graph</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="@PROJECT_SOURCE_DIR@/ortools/linear_solver/*.proto">
       <PackagePath>content/linear_solver</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/sat/*.proto">
-      <PackagePath>content/sat</PackagePath>
       <Pack>true</Pack>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
