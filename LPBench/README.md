@@ -15,15 +15,18 @@ been tested against the following benchmarks.
 
 LPSharp can be used to collect benchmark results. It can read MPS model files,
 set up the model in the solver, and execute the solver. The steps below read two
-models from uncompressed and compressed model files, and invokes CLP, GLOP, and
-MSF solvers on a model.
+models from uncompressed and compressed model files, and invokes CLP and GLOP
+solvers on them.
 
 ```
-LPSharp> read-mps model1.mps -key m1        # reads model 1 from an MPS file
-LPSharp> read-mps model2.mps.gz -key m2     # reads model 2 from a gzipped MPS file
-LPSharp> invoke-msfsolve -key m1            # invokes MSF solver on model 1
-LPSharp> invoke-clpsolve -key m1            # invokes CLP solver on model 1
-LPSharp> invoke-glopsolve -key m1           # invokes GLOP solver on model 1
+LPSharp> read-mps model1.mps -key m1         # read model 1 as m1 from an MPS file
+LPSharp> read-mps model2.mps.gz -key m2      # read model 2 as m2 from a gzipped MPS file
+
+LPSharp> set-solver GLOP -key g -default     # create GLOP solver as g and make it default
+LPSharp> invoke-solver -model m1             # Invoke GLOP solver on model m1
+
+LPSharp> set-solver CLP -key c               # create CLP solver as c
+LPSharp> invoke-solver -solver c -model m2   # invoke CLP solver model model m2
 ```
 
 ## WANLPv2 results

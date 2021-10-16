@@ -31,7 +31,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-
     <Compile Include="@PROJECT_DOTNET_DIR@/ortools/linear_solver/*.cs">
       <Link>linear_solver/%(Filename)%(Extension)</Link>
     </Compile>
@@ -64,27 +63,17 @@
     <Error Text="You must locally 'dotnet pack' at least one @DOTNET_PROJECT@.runtime.{rid} Project." Condition="!Exists('@(RuntimeLinux)') AND !Exists('@(RuntimeOsx)') AND !Exists('@(RuntimeWin)')"/>
   </Target>
 
-  <!-- Copy all .proto file(s) -->
-  <ItemGroup>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/glop/*.proto">
-      <PackagePath>content/glop</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/linear_solver/*.proto">
-      <PackagePath>content/linear_solver</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="@PROJECT_SOURCE_DIR@/ortools/util/*.proto">
-      <PackagePath>content/util</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.18.0"/>
+  </ItemGroup>
+
+  <!-- Copy other content. The README has useful information to the package user. -->
+  <ItemGroup>
+    <Content Include="@PROJECT_SOURCE_DIR@/README.md">
+      <PackagePath>content</PackagePath>
+      <Pack>true</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <!-- Need to add required runtime dependencies so Meta-Project will pull runtime Nuget(s) -->

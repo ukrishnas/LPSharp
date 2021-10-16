@@ -60,4 +60,4 @@ ipch/
 __pycache__/
 
 # CMake files
-build/
+build*/
