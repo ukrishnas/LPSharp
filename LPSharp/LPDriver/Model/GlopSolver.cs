@@ -8,6 +8,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using Google.OrTools.LinearSolver;
     using Microsoft.LPSharp.LPDriver.Contract;
 
@@ -44,6 +45,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 return false;
             }
 
+            var stopwatch = Stopwatch.StartNew();
+
             // Get variable lower and upper bounds from the model.
             model.GetBounds(
                 boundsName,
@@ -57,7 +60,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 out SparseVector<string, double> lowerLimit,
                 out SparseVector<string, double> upperLimit);
 
-            this.linearSolver.Reset();
+            this.linearSolver.Clear();
 
             // Create solver variables for each column in the model.
             var x = new Dictionary<string, Variable>();
@@ -94,29 +97,40 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 }
             }
 
-            return false;
+            stopwatch.Stop();
+            Console.WriteLine($"Loaded model {model.Name} in {stopwatch.ElapsedMilliseconds} ms");
+
+            return true;
         }
 
         /// <inheritdoc />
         public void Solve()
         {
+            var stopwatch = Stopwatch.StartNew();
+
             var parameters = new MPSolverParameters();
             parameters.SetIntegerParam(
                 MPSolverParameters.IntegerParam.LP_ALGORITHM,
                 (int)MPSolverParameters.LpAlgorithmValues.DUAL);
 
-            Solver.ResultStatus resultStatus = this.linearSolver.Solve(parameters);
+            Solver.ResultStatus resultStatus = this.linearSolver.Solve();
+
+            stopwatch.Stop();
 
             // Check that the problem has an optimal solution.
             if (resultStatus != Solver.ResultStatus.OPTIMAL)
             {
-                Console.WriteLine("The problem does not have an optimal solution!");
+                Console.WriteLine(
+                    "The problem does not have an optimal solution! Elapsed={0} ms",
+                    stopwatch.ElapsedMilliseconds);
                 return;
             }
 
-            Console.WriteLine("Optimal objective value = {0}", this.linearSolver.Objective().Value());
-            Console.WriteLine("Solver iterations = {0}", this.linearSolver.Iterations());
-            Console.WriteLine("Solver wall time = {0} ms", this.linearSolver.WallTime());
+            Console.WriteLine(
+                "Optimal objective = {0}, iterations={1}, elapsed={2} ms",
+                this.linearSolver.Objective().Value(),
+                this.linearSolver.Iterations(),
+                stopwatch.ElapsedMilliseconds);
         }
     }
 }
