@@ -5,6 +5,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Management.Automation" Version="7.1.4" />
   </ItemGroup>
@@ -13,5 +17,5 @@
     <ProjectReference Include="..\LPDriver\LPDriver.csproj" />
   </ItemGroup>
 
-  <Import Project="..\settings\build-settings.xml"/>
+  <Import Project="..\settings\build-settings.xml" />
 </Project>

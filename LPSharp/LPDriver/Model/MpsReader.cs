@@ -15,7 +15,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
     /// <summary>
     /// Represents a reader of mathematical programming system fixed MPS format files.
-    /// https://www.cenapad.unicamp.br/parque/manuais/OSL/oslweb/features/featur11.htm
+    /// https://www.cenapad.unicamp.br/parque/manuais/OSL/oslweb/features/featur11.htm explains
+    /// the format.
     /// </summary>
     public class MpsReader
     {

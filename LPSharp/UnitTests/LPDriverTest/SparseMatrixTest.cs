@@ -61,16 +61,16 @@ namespace Microsoft.LPSharp.LPDriverTest
         [TestMethod]
         public void SparseMatrixRowColumnIteratorTest()
         {
-            var rowIndices = new List<double>();
-            var columnIndices = new HashSet<double>();
+            var rowIndices = new List<int>();
+            var columnIndices = new HashSet<int>();
             double element = 1;
 
-            var matrix = new SparseMatrix<double, double>();
+            var matrix = new SparseMatrix<int, double>();
 
-            for (double i = 0; i < 1; i += 0.1)
+            for (int i = 0; i < 1000; i += 100)
             {
                 rowIndices.Add(i);
-                for (double j = 0; j < i; j += 0.05)
+                for (int j = 0; j < 100; j += 7)
                 {
                     matrix[i, j] = element;
                     element += 1;

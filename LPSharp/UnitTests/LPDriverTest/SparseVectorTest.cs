@@ -105,7 +105,7 @@ namespace Microsoft.LPSharp.LPDriverTest
         }
 
         /// <summary>
-        /// Tests vector index and element iterators;
+        /// Tests vector index and element iterators.
         /// </summary>
         [TestMethod]
         public void SparseVectorIteratorTest()

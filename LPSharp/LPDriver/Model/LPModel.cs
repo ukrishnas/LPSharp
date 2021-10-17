@@ -217,7 +217,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             // If no bounds name is given, use the first bounds name.
             if (string.IsNullOrEmpty(boundsName))
             {
-                boundsName = this.BoundsNames == null ? null : this.BoundsNames[0];
+                boundsName = this.BoundsNames?[0];
             }
 
             if (!this.L.Has(boundsName) || !this.U.Has(boundsName))
@@ -266,7 +266,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             if (string.IsNullOrEmpty(rhsName))
             {
-                rhsName = this.RhsNames == null ? null : this.RhsNames[0];
+                rhsName = this.RhsNames?[0];
             }
 
             if (!this.B.Has(rhsName))

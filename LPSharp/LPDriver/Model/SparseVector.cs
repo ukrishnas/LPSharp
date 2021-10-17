@@ -59,7 +59,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         {
             get
             {
-                if (this.store.TryGetValue(index, out Tvalue value))
+                if (index != null && this.store.TryGetValue(index, out Tvalue value))
                 {
                     return value;
                 }
@@ -82,7 +82,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <returns>True if index is present.</returns>
         public bool Has(Tindex index)
         {
-            return this.store.ContainsKey(index);
+            return index != null && this.store.ContainsKey(index);
         }
 
         /// <summary>

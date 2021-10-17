@@ -5,9 +5,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Google.OrTools" Version="9.1.46.1" />
   </ItemGroup>
 
-  <Import Project="..\settings\build-settings.xml"/>
+  <Import Project="..\settings\build-settings.xml" />
 </Project>
