@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriver.Contract
+namespace Microsoft.LPSharp.LPDriver.Model
 {
     using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public class SparseVector<Tindex, Tvalue>
     {
         /// <summary>
-        /// Map of index.
+        /// Stores vector elements as a dictionary mapping element index to value.
         /// </summary>
         private readonly Dictionary<Tindex, Tvalue> store;
 
@@ -28,6 +28,11 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         {
             this.store = new Dictionary<Tindex, Tvalue>(capacity);
         }
+
+        /// <summary>
+        /// Gets the number of elements in the vector.
+        /// </summary>
+        public int Count => this.store.Count;
 
         /// <summary>
         /// Gets or sets an element of the vector.
@@ -63,18 +68,19 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         }
 
         /// <summary>
-        /// Gets a dense array of values.
+        /// Gets dense arrays of indices and values. Vector elements and their indices can be directly
+        /// accessed in constant time. The order of the elements in the arrays is the insertion order.
         /// </summary>
-        /// <param name="indices">The dictionary mapping vector index to an array index.</param>
+        /// <param name="indices">The array of indices.</param>
         /// <returns>The array of values.</returns>
-        public Tvalue[] ToArray(out Dictionary<Tindex, int> indices)
+        public Tvalue[] ToArray(out Tindex[] indices)
         {
-            indices = new Dictionary<Tindex, int>(this.store.Count);
+            indices = new Tindex[this.store.Count];
             var values = new Tvalue[this.store.Count];
             int i = 0;
             foreach (var kv in this.store)
             {
-                indices[kv.Key] = i;
+                indices[i] = kv.Key;
                 values[i] = kv.Value;
                 i++;
             }

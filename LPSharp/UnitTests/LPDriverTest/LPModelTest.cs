@@ -22,8 +22,7 @@ namespace Microsoft.LPSharp.LPDriverTest
         [TestMethod]
         public void LPModelAddRowTest()
         {
-            var model = new LPModel();
-            model.Name = "Test";
+            var model = new LPModel { Name = "Test" };
             model.AddRow("cost", MpsRow.NoRestriction);
             model.AddRow("dem1", MpsRow.LessOrEqual);
             model.AddRow("dem2", MpsRow.GreaterOrEqual);

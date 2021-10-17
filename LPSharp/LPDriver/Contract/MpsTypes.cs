@@ -164,19 +164,14 @@ namespace Microsoft.LPSharp.LPDriver.Contract
                 return null;
             }
 
-            switch (value)
+            return value switch
             {
-                case "E":
-                    return MpsRow.Equal;
-                case "G":
-                    return MpsRow.GreaterOrEqual;
-                case "L":
-                    return MpsRow.LessOrEqual;
-                case "N":
-                    return MpsRow.NoRestriction;
-                default:
-                    return null;
-            }
+                "E" => MpsRow.Equal,
+                "G" => MpsRow.GreaterOrEqual,
+                "L" => MpsRow.LessOrEqual,
+                "N" => MpsRow.NoRestriction,
+                _ => null,
+            };
         }
 
         /// <summary>
@@ -191,31 +186,20 @@ namespace Microsoft.LPSharp.LPDriver.Contract
                 return null;
             }
 
-            switch (value)
+            return value switch
             {
-                case "LO":
-                    return MpsBound.Lower;
-                case "UP":
-                    return MpsBound.Upper;
-                case "FX":
-                    return MpsBound.Fixed;
-                case "FR":
-                    return MpsBound.Free;
-                case "MI":
-                    return MpsBound.MI;
-                case "PL":
-                    return MpsBound.PL;
-                case "BV":
-                    return MpsBound.Binary;
-                case "LI":
-                    return MpsBound.LowerInteger;
-                case "UI":
-                    return MpsBound.UpperInteger;
-                case "SC":
-                    return MpsBound.SemiContinuous;
-                default:
-                    return null;
-            }
+                "LO" => MpsBound.Lower,
+                "UP" => MpsBound.Upper,
+                "FX" => MpsBound.Fixed,
+                "FR" => MpsBound.Free,
+                "MI" => MpsBound.MI,
+                "PL" => MpsBound.PL,
+                "BV" => MpsBound.Binary,
+                "LI" => MpsBound.LowerInteger,
+                "UI" => MpsBound.UpperInteger,
+                "SC" => MpsBound.SemiContinuous,
+                _ => null,
+            };
         }
     }
 }
