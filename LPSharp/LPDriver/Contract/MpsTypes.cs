@@ -81,24 +81,24 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public enum MpsBound
     {
         /// <summary>
-        /// </c>Lower bound (b \le x lt +inf).
+        /// Lower bound (b \le x lt +inf).
         /// </summary>
-        Lower,
+        LO,
 
         /// <summary>
         /// Upper bound (-inf \lt x \le b).
         /// </summary>
-        Upper,
+        UP,
 
         /// <summary>
         /// Fixed variable (x = b).
         /// </summary>
-        Fixed,
+        FX,
 
         /// <summary>
         /// Free variable (-inf \lt x \lt +inf).
         /// </summary>
-        Free,
+        FR,
 
         /// <summary>
         /// Lower bound -infinity (-inf \lt x \le 0).
@@ -113,23 +113,17 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <summary>
         /// Binary variable (x = 0 or 1).
         /// </summary>
-        Binary,
+        BV,
 
         /// <summary>
         /// Integer variable lower bound (b \le x \lt +inf).
         /// </summary>
-        LowerInteger,
+        LI,
 
         /// <summary>
         /// Integer variable upper bound (0 \le x \le b).
         /// </summary>
-        UpperInteger,
-
-        /// <summary>
-        /// Semi-continuous variable bound (x = 0 or l \le x \le b). If l is not set, then
-        /// defaults to 1.
-        /// </summary>
-        SemiContinuous,
+        UI,
     }
 
     /// <summary>
@@ -188,16 +182,15 @@ namespace Microsoft.LPSharp.LPDriver.Contract
 
             return value switch
             {
-                "LO" => MpsBound.Lower,
-                "UP" => MpsBound.Upper,
-                "FX" => MpsBound.Fixed,
-                "FR" => MpsBound.Free,
+                "LO" => MpsBound.LO,
+                "UP" => MpsBound.UP,
+                "FX" => MpsBound.FX,
+                "FR" => MpsBound.FR,
                 "MI" => MpsBound.MI,
                 "PL" => MpsBound.PL,
-                "BV" => MpsBound.Binary,
-                "LI" => MpsBound.LowerInteger,
-                "UI" => MpsBound.UpperInteger,
-                "SC" => MpsBound.SemiContinuous,
+                "BV" => MpsBound.BV,
+                "LI" => MpsBound.LI,
+                "UI" => MpsBound.UI,
                 _ => null,
             };
         }

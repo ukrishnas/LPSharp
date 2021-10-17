@@ -17,17 +17,22 @@ namespace Microsoft.LPSharp.LPDriverTest
     public class LPModelTest
     {
         /// <summary>
-        /// Tests simple LP model creation.
+        /// Tests model set objective method.
         /// </summary>
         [TestMethod]
-        public void LPModelAddRowTest()
+        public void LPModelSetObjectiveTest()
         {
             var model = new LPModel { Name = "Test" };
-            model.AddRow("cost", MpsRow.NoRestriction);
-            model.AddRow("dem1", MpsRow.LessOrEqual);
-            model.AddRow("dem2", MpsRow.GreaterOrEqual);
 
             Assert.AreEqual("Test", model.Name, "Name");
+            Assert.IsNull(model.Objective, "New model");
+
+            model.RowTypes["cost"] = MpsRow.NoRestriction;
+            model.RowTypes["dem1"] = MpsRow.LessOrEqual;
+            model.RowTypes["dem2"] = MpsRow.GreaterOrEqual;
+            model.RowTypes["cost2"] = MpsRow.NoRestriction;
+            model.SetObjective();
+
             Assert.AreEqual("cost", model.Objective, "Objective");
         }
     }

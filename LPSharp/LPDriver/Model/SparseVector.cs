@@ -21,7 +21,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private readonly Dictionary<Tindex, Tvalue> store;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SparseVector{I, V}"/> class.
+        /// Initializes a new instance of the <see cref="SparseVector{Tindex, Tvalue}"/> class.
         /// </summary>
         /// <param name="capacity">The capacity.</param>
         public SparseVector(int capacity = 0)
@@ -33,6 +33,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// Gets the number of elements in the vector.
         /// </summary>
         public int Count => this.store.Count;
+
+        /// <summary>
+        /// Gets the enumeration of vector indices.
+        /// </summary>
+        public IEnumerable<Tindex> Indices => this.store.Keys;
+
+        /// <summary>
+        /// Gets the enumeration of vector elements.
+        /// </summary>
+        public IEnumerable<Tvalue> Elements => this.store.Values;
 
         /// <summary>
         /// Gets or sets an element of the vector.
@@ -57,6 +67,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 this.store[index] = value;
             }
+        }
+
+        /// <summary>
+        /// Returns true if the vector has the specified index.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <returns>True if index is present.</returns>
+        public bool Has(Tindex index)
+        {
+            return this.store.ContainsKey(index);
         }
 
         /// <summary>

@@ -15,6 +15,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
     /// <summary>
     /// Represents a reader of mathematical programming system fixed MPS format files.
+    /// https://www.cenapad.unicamp.br/parque/manuais/OSL/oslweb/features/featur11.htm
     /// </summary>
     public class MpsReader
     {
@@ -103,10 +104,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 var gzipped = filename.EndsWith("gz");
                 if (gzipped)
                 {
-                    using (var gzipStream = new GZipStream(stream, CompressionMode.Decompress))
-                    {
-                        this.ParseMps(gzipStream, model);
-                    }
+                    using var gzipStream = new GZipStream(stream, CompressionMode.Decompress);
+                    this.ParseMps(gzipStream, model);
                 }
                 else
                 {
@@ -115,6 +114,61 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             return model;
+        }
+
+        /// <summary>
+        /// Parses a line into fields.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="section">The section.</param>
+        /// <param name="sectionLine">If true, parsed a section header (output parameter).</param>
+        /// <returns>The list of fields.</returns>
+        private static IList<string> ParseLine(string line, MpsSection? section, out bool sectionLine)
+        {
+            // Return null for comment line.
+            if (string.IsNullOrEmpty(line) || line[0] == '*')
+            {
+                sectionLine = false;
+                return null;
+            }
+
+            sectionLine = line[0] != ' ';
+            var fields = new List<string>();
+
+            Tuple<int, int>[] positions;
+            if (sectionLine || section == null)
+            {
+                positions = SectionFieldPositions;
+            }
+            else if (section == MpsSection.Rows || section == MpsSection.Bounds)
+            {
+                positions = RowFieldPositions;
+            }
+            else
+            {
+                positions = ColumnFieldPositions;
+            }
+
+            foreach (var position in positions)
+            {
+                // Note that position starts from 1, while string index starts from 0.
+                var startIndex = position.Item1 - 1;
+                var length = position.Item2;
+
+                if (startIndex >= line.Length)
+                {
+                    break;
+                }
+                else if (startIndex + length >= line.Length)
+                {
+                    length = line.Length - startIndex;
+                }
+
+                var field = line.Substring(startIndex, length).Trim();
+                fields.Add(field);
+            }
+
+            return fields;
         }
 
         /// <summary>
@@ -130,7 +184,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var reader = new StreamReader(stream);
             while ((line = reader.ReadLine()) != null)
             {
-                var fields = this.ParseLine(line, section, out bool sectionLine);
+                var fields = ParseLine(line, section, out bool sectionLine);
                 if (fields == null)
                 {
                     continue;
@@ -185,61 +239,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     this.errors.Add($"Ignored line in section {section} {line}");
                 }
             }
-        }
 
-        /// <summary>
-        /// Parses a line into fields.
-        /// </summary>
-        /// <param name="line">The line.</param>
-        /// <param name="section">The section.</param>
-        /// <param name="sectionLine">If true, parsed a section header (output parameter).</param>
-        /// <returns>The list of fields.</returns>
-        private IList<string> ParseLine(string line, MpsSection? section, out bool sectionLine)
-        {
-            // Return null for comment line.
-            if (string.IsNullOrEmpty(line) || line[0] == '*')
-            {
-                sectionLine = false;
-                return null;
-            }
-
-            sectionLine = line[0] != ' ';
-            var fields = new List<string>();
-
-            Tuple<int, int>[] positions;
-            if (sectionLine || section == null)
-            {
-                positions = SectionFieldPositions;
-            }
-            else if (section == MpsSection.Rows || section == MpsSection.Bounds)
-            {
-                positions = RowFieldPositions;
-            }
-            else
-            {
-                positions = ColumnFieldPositions;
-            }
-
-            foreach (var position in positions)
-            {
-                // Note that position starts from 1, while string index starts from 0.
-                var startIndex = position.Item1 - 1;
-                var length = position.Item2;
-
-                if (startIndex >= line.Length)
-                {
-                    break;
-                }
-                else if (startIndex + length >= line.Length)
-                {
-                    length = line.Length - startIndex;
-                }
-
-                var field = line.Substring(startIndex, length).Trim();
-                fields.Add(field);
-            }
-
-            return fields;
+            model.SetObjective();
         }
 
         /// <summary>
@@ -263,7 +264,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             var name = fields[1];
-            model.AddRow(name, type.Value);
+            model.RowTypes[name] = type.Value;
         }
 
         /// <summary>
@@ -283,7 +284,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var rowName = fields[1];
             if (double.TryParse(fields[2], out double value))
             {
-                model.AddCoefficient(columnName, rowName, value);
+                model.A[rowName, columnName] = value;
             }
             else
             {
@@ -295,7 +296,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 rowName = fields[3];
                 if (double.TryParse(fields[4], out value))
                 {
-                    model.AddCoefficient(columnName, rowName, value);
+                    model.A[rowName, columnName] = value;
                 }
                 else
                 {
@@ -333,7 +334,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             if (double.TryParse(fields[2], out double coefficient))
             {
-                model.AddRhs(rhsName, rowName, coefficient);
+                model.B[rhsName, rowName] = coefficient;
             }
             else
             {
@@ -345,7 +346,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 rowName = fields[3];
                 if (double.TryParse(fields[4], out coefficient))
                 {
-                    model.AddRhs(rhsName, rowName, coefficient);
+                    model.B[rhsName, rowName] = coefficient;
                 }
                 else
                 {
@@ -383,9 +384,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.lastBoundsName = boundsName;
             }
 
-            if (boundType == MpsBound.Free || boundType == MpsBound.MI || boundType == MpsBound.PL)
+            if (boundType == MpsBound.FR || boundType == MpsBound.MI || boundType == MpsBound.PL)
             {
-                model.AddBound(boundsName, columnName, boundType, double.NaN);
+                model.SetBound(boundsName, columnName, boundType, default /* ignored */);
             }
             else
             {
@@ -395,7 +396,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     return;
                 }
 
-                model.AddBound(boundsName, columnName, boundType, coefficient);
+                model.SetBound(boundsName, columnName, boundType, coefficient);
             }
         }
 
@@ -428,7 +429,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             if (double.TryParse(fields[2], out double coefficient))
             {
-                model.AddRange(rangesName, rowName, coefficient);
+                model.R[rangesName, rowName] = coefficient;
             }
             else
             {
@@ -440,7 +441,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 rowName = fields[3];
                 if (double.TryParse(fields[4], out coefficient))
                 {
-                    model.AddRange(rangesName, rowName, coefficient);
+                    model.R[rangesName, rowName] = coefficient;
                 }
                 else
                 {
