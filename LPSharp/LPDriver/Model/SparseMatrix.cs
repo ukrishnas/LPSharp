@@ -7,6 +7,7 @@
 namespace Microsoft.LPSharp.LPDriver.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -22,6 +23,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private readonly int capacity;
 
         /// <summary>
+        /// The collection of column indices.
+        /// </summary>
+        private readonly HashSet<Tindex> columnIndices;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SparseMatrix{Tindex, Tvalue}"/> class.
         /// </summary>
         /// <param name="capacity">The capacity of a row or column vectors.</param>
@@ -29,6 +35,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             : base(capacity)
         {
             this.capacity = capacity;
+            this.columnIndices = new HashSet<Tindex>();
         }
 
         /// <summary>
@@ -40,39 +47,61 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
+        /// Gets the number of rows.
+        /// </summary>
+        public int RowCount => base.Count;
+
+        /// <summary>
+        /// Gets the number of columns. Note that for jagged matrices, it
+        /// returns the column count for the row with maximum columns.
+        /// </summary>
+        public int ColumnCount => base.Count == 0 ? 0 : this.Elements.Max(x => x.Count);
+
+        /// <summary>
         /// Gets the shape of the matrix as a tuple of number of row vectors, maximum count of column elements.
         /// </summary>
         public Tuple<int, int> Shape
         {
-            get => new(base.Count, base.Count == 0 ? 0 : this.Elements.Max(x => x.Count));
+            get => new(this.RowCount, this.ColumnCount);
         }
+
+        /// <summary>
+        /// Gets the row indices.
+        /// </summary>
+        public IEnumerable<Tindex> RowIndices => this.Indices;
+
+        /// <summary>
+        /// Gets the column indices.
+        /// </summary>
+        public IEnumerable<Tindex> ColumnIndices => this.columnIndices;
 
         /// <summary>
         /// Gets or sets an element of the vector.
         /// </summary>
-        /// <param name="rowindex">The row index.</param>
-        /// <param name="colindex">The column index.</permission>
+        /// <param name="rowIndex">The row index.</param>
+        /// <param name="colIndex">The column index.</permission>
         /// <returns>The value.</returns>
-        public Tvalue this[Tindex rowindex, Tindex colindex]
+        public Tvalue this[Tindex rowIndex, Tindex colIndex]
         {
             get
             {
-                if (this[rowindex] == null)
+                if (this[rowIndex] == null)
                 {
                     return default;
                 }
 
-                return this[rowindex][colindex];
+                return this[rowIndex][colIndex];
             }
 
             set
             {
-                if (this[rowindex] == null)
+                if (this[rowIndex] == null)
                 {
-                    this[rowindex] = new SparseVector<Tindex, Tvalue>(this.capacity);
+                    this[rowIndex] = new SparseVector<Tindex, Tvalue>(this.capacity);
                 }
 
-                this[rowindex][colindex] = value;
+                this[rowIndex][colIndex] = value;
+                this.columnIndices.Add(colIndex);
             }
         }
 
@@ -81,6 +110,28 @@ namespace Microsoft.LPSharp.LPDriver.Model
         {
             var shape = this.Shape;
             return $"({shape.Item1}, {shape.Item2})";
+        }
+
+        /// <summary>
+        /// Removes the element from the matrix.
+        /// </summary>
+        /// <param name="rowIndex">The row index.</param>
+        /// <param name="colIndex">The column index.</param>
+        /// <returns>True if element was removed, false otherwise.</returns>
+        public bool Remove(Tindex rowIndex, Tindex colIndex)
+        {
+            if (!this.Has(rowIndex))
+            {
+                return false;
+            }
+
+            var success = this[rowIndex].Remove(colIndex);
+            if (success && this[rowIndex].Count == 0)
+            {
+                base.Remove(rowIndex);
+            }
+
+            return true;
         }
     }
 }

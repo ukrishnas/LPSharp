@@ -6,6 +6,7 @@
 
 namespace Microsoft.LPSharp.LPDriverTest
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.LPSharp.LPDriver.Model;
@@ -71,34 +72,6 @@ namespace Microsoft.LPSharp.LPDriverTest
         }
 
         /// <summary>
-        /// Tests vector index and element iterators;
-        /// </summary>
-        [TestMethod]
-        public void SparseVectorIteratorTest()
-        {
-            var elements = new Dictionary<string, double>
-            {
-                { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 }, { "e", 5 },
-            };
-
-            var vector = new SparseVector<string, double>();
-
-            foreach (var kv in elements)
-            {
-                vector[kv.Key] = kv.Value;
-            }
-
-            foreach (var index in vector.Indices)
-            {
-                Assert.IsTrue(elements.ContainsKey(index), $"Index {index} should be present");
-                Assert.AreEqual(elements[index], vector[index], $"Element at index {index} should be equal");
-                Assert.IsTrue(vector.Has(index), "Vector should have index {index}");
-            }
-
-            Assert.IsTrue(vector.Elements.SequenceEqual(elements.Values), "Element iterator should return same sequence");
-        }
-
-        /// <summary>
         /// Tests basic operations on a vector whose elements are themselves sparse vectors.
         /// </summary>
         [TestMethod]
@@ -129,6 +102,86 @@ namespace Microsoft.LPSharp.LPDriverTest
                     Assert.AreEqual(expectElements[index++], element, $"Element {index}");
                 }
             }
+        }
+
+        /// <summary>
+        /// Tests vector index and element iterators;
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorIteratorTest()
+        {
+            var elements = new Dictionary<string, double>
+            {
+                { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 }, { "e", 5 },
+            };
+
+            var vector = new SparseVector<string, double>();
+
+            foreach (var kv in elements)
+            {
+                vector[kv.Key] = kv.Value;
+            }
+
+            foreach (var index in vector.Indices)
+            {
+                Assert.IsTrue(elements.ContainsKey(index), $"Index {index} should be present");
+                Assert.AreEqual(elements[index], vector[index], $"Element at index {index} should be equal");
+                Assert.IsTrue(vector.Has(index), "Vector should have index {index}");
+            }
+
+            Assert.IsTrue(vector.Elements.SequenceEqual(elements.Values), "Element iterator should return same sequence");
+        }
+
+        /// <summary>
+        /// Tests the remove element method.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorRemoveElementTest()
+        {
+            var vector = new SparseVector<int, int>();
+            int i = 0;
+
+            // Test tuple is pre-test action, remove index, expected remove result, and expected count.
+            foreach (var test in new Tuple<Action, int, bool, int>[]
+            {
+                // Remove from an empty vector.
+                new Tuple<Action, int, bool, int>(null, 0, false, 0),
+
+                // Add 3 elements and remove one.
+                new Tuple<Action, int, bool, int>(
+                    () => vector[100] = vector[200] = vector[300] = 1, 200, true, 2),
+
+                // Remove an element that is not present.
+                new Tuple<Action, int, bool, int>(null, 400, false, 2),
+            })
+            {
+                i++;
+                test.Item1?.Invoke();
+                var success = vector.Remove(test.Item2);
+
+                Assert.AreEqual(test.Item3, success, $"Remove return value test {i}");
+                Assert.AreEqual(test.Item4, vector.Count, $"Vector count test {i}");
+            }
+        }
+
+        /// <summary>
+        /// Tests the default value property.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorDefaultValueTest()
+        {
+            var ivec = new SparseVector<int, int>() { Default = int.MaxValue };
+            Assert.AreEqual(int.MaxValue, ivec[0], "Integer MaxValue default");
+
+            var dvec = new SparseVector<int, double> { Default = double.PositiveInfinity };
+            Assert.AreEqual(double.PositiveInfinity, dvec[0], "Double positive infinity default");
+            dvec.Default = 0;
+            Assert.AreEqual(0, dvec[0], "Double zero default");
+
+            var nvec = new SparseVector<int, double?>();
+            Assert.IsNull(nvec[0], "Nullable double default");
+            nvec.Default = double.NaN;
+            Assert.AreEqual(double.NaN, nvec[0], "Nullable NaN default");
         }
     }
 }

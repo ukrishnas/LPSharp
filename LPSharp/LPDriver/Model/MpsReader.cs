@@ -62,14 +62,14 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private string lastRhsName = "Default";
 
         /// <summary>
-        /// The last ranges name.
-        /// </summary>
-        private string lastRangesName = "Default";
-
-        /// <summary>
         /// The last bounds name.
         /// </summary>
         private string lastBoundsName = "Default";
+
+        /// <summary>
+        /// The last ranges name.
+        /// </summary>
+        private string lastRangesName = "Default";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MpsReader"/> class.

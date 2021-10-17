@@ -14,10 +14,18 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public interface ILPInterface
     {
         /// <summary>
-        /// Loads a previously loaded model.
+        /// Loads a model.
         /// </summary>
         /// <param name="model">The solver model.</param>
-        void Load(LPModel model);
+        /// <param name="boundsName">The optional bounds name.</param>
+        /// <param name="rhsName">The optional right hand side name.</param>
+        /// <param name="rangesName">The optional ranges name.</param>
+        /// <returns>True if the model was loaded successfully, false otherwise.</returns>
+        bool Load(
+            LPModel model,
+            string boundsName = null,
+            string rhsName = null,
+            string rangesName = null);
 
         /// <summary>
         /// Solves the model.

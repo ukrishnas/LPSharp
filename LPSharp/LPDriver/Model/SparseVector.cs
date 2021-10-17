@@ -27,12 +27,18 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public SparseVector(int capacity = 0)
         {
             this.store = new Dictionary<Tindex, Tvalue>(capacity);
+            this.Default = default;
         }
 
         /// <summary>
         /// Gets the number of elements in the vector.
         /// </summary>
         public int Count => this.store.Count;
+
+        /// <summary>
+        /// Gets or sets the default value to return if an index is not present.
+        /// </summary>
+        public Tvalue Default { get; set; }
 
         /// <summary>
         /// Gets the enumeration of vector indices.
@@ -59,7 +65,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 }
                 else
                 {
-                    return default;
+                    return this.Default;
                 }
             }
 
@@ -85,6 +91,22 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public void Clear()
         {
             this.store.Clear();
+        }
+
+        /// <summary>
+        /// Removes an element.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <returns>True if removed successfully, false otherwise.</returns>
+        public bool Remove(Tindex index)
+        {
+            if (!this.Has(index))
+            {
+                return false;
+            }
+
+            this.store.Remove(index);
+            return true;
         }
 
         /// <summary>

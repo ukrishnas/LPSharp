@@ -5,6 +5,8 @@
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA0001" Action="None" />
+    <Rule Id="SA1100" Action="None" />
+    <Rule Id="SA1117" Action="None" />
     <Rule Id="SA1401" Action="None" />
     <Rule Id="SA1412" Action="Warning" />
     <Rule Id="SA1629" Action="None" />

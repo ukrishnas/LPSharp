@@ -1,105 +1,28 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GlopSolver.cs" company="Microsoft Corporation">
+// <copyright file="GlopSolverTest.cs" company="Microsoft Corporation">
 //   Copyright (c) Microsoft Corporation. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriver.Model
+namespace LPDriverTest
 {
     using System;
-    using System.Collections.Generic;
+
     using Google.OrTools.LinearSolver;
-    using Microsoft.LPSharp.LPDriver.Contract;
+    using Microsoft.LPSharp.LPDriver.Model;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Represents the interface implementation for GLOP solver.
+    /// Represents unit tests for <see cref="GlopSolver"/> class.
     /// </summary>
-    public class GlopSolver : ILPInterface
+    [TestClass]
+    public class GlopSolverTest
     {
-        private Solver linearSolver;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="GlopSolver"/> class.
+        /// Tests the native solver API methods.
         /// </summary>
-        public GlopSolver()
-        {
-            this.linearSolver = Solver.CreateSolver(this.ToString());
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return "GLOPSolver";
-        }
-
-        /// <inheritdoc />
-        public bool Load(
-            LPModel model,
-            string boundsName = null,
-            string rhsName = null,
-            string rangesName = null)
-        {
-            if (!model.IsValid())
-            {
-                return false;
-            }
-
-            // Get variable lower and upper bounds from the model.
-            model.GetBounds(
-                boundsName,
-                out SparseVector<string, double> lowerBound,
-                out SparseVector<string, double> upperBOund,
-                0,
-                double.PositiveInfinity);
-
-            // Get the right hand side lower and upper limits from the model.
-            model.GetRhsLimits(
-                rhsName,
-                rangesName,
-                out SparseVector<string, double>
-                )
-            // For now, lets always reset the solver though it is possible to warm start the solver
-            // by not resetting it.
-            this.linearSolver.Reset();
-
-            // Create solver variables for each column in the model.
-            var x = new Dictionary<string, Variable>();
-            foreach (var colIndex in model.A.ColumnIndices)
-            {
-                x[colIndex] = this.linearSolver.MakeNumVar(
-                    lowerBound[colIndex],
-                    upperBOund[colIndex],
-                    colIndex);
-            }
-
-            // Create the objective.
-            var objective = this.linearSolver.Objective();
-            var row = model.A[model.Objective];
-            foreach (var colIndex in row.Indices)
-            {
-                objective.SetCoefficient(x[colIndex], row[colIndex]);
-            }
-
-            // Create the constraints.
-            foreach (var rowIndex in model.A.Indices)
-            {
-                if (rowIndex == model.Objective)
-                {
-                    continue;
-                }
-
-                row = model.A[rowIndex];
-                var constraint = this.linearSolver.MakeConstraint(double.NegativeInfinity, )
-
-                foreach (var colIndex in row.Indices)
-                {
-                    constraint.SetCoefficient(x[colIndex], row[colIndex]);
-                }
-            }
-        }
-
-        /// <inheritdoc />
-        public void Solve()
+        [TestMethod]
+        public void GlopSolverSolverApiTest()
         {
             Solver solver = Solver.CreateSolver("GLOP");
 
