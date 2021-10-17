@@ -12,12 +12,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public enum SolverType
     {
         /// <summary>
-        /// Computational Infrastruction for Operations Research (COIN-OR) linear programming solver.
+        /// Computational infrastruction for Operations Research (COIN-OR) linear programming solver.
         /// </summary>
         CLP,
 
         /// <summary>
-        /// Google Linear Programming solver.
+        /// Google linear programming solver.
         /// </summary>
         GLOP,
 

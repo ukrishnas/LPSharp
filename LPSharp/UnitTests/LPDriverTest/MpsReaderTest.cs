@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MpsReaderTest.cs" company="Microsoft Corporation">
 //   Copyright (c) Microsoft Corporation. All rights reserved.
 // </copyright>
@@ -6,8 +6,8 @@
 
 namespace Microsoft.LPSharp.LPDriverTest
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.LPSharp.LPDriver.Model;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Unit tests for <see cref="MpsReader"/> class.

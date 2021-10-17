@@ -37,7 +37,7 @@ namespace Microsoft.LPSharp.Powershell
             var model = this.LPDriver.GetModel(this.ModelKey);
             if (model == null)
             {
-                this.WriteHost($"Model {this.ModelKey} not found");
+                this.WriteHost($"Model {this.ModelKey} not found. Please verify key or load model with Read-Mps");
                 return;
             }
 
@@ -45,7 +45,7 @@ namespace Microsoft.LPSharp.Powershell
             var solver = this.LPDriver.GetSolver(solverKey);
             if (solver == null)
             {
-                this.WriteHost($"Solver {solverKey} not found");
+                this.WriteHost($"Solver {solverKey} not found. Please verify key or create solver with Set-Solver");
                 return;
             }
 

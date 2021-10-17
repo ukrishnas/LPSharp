@@ -1,5 +1,5 @@
 # Read unit test MPS files.
-$testdata = "c:\users\krish\work\LPSharp\UnitTests\TestData"
+$testdata = "c:\users\krish\work\WANLP\LPSharp\UnitTests\TestData"
 read-mps $testdata\test1.mps
 read-mps $testdata\test1.mps.gz
 read-mps $testdata\test2.mps

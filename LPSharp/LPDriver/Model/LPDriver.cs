@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LPDriver.cs" company="Microsoft Corporation">
 //   Copyright (c) Microsoft Corporation. All rights reserved.
 // </copyright>
@@ -69,6 +69,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public LPModel GetModel(string key)
         {
+            if (string.IsNullOrEmpty(key))
+            {
+                return null;
+            }
+
             this.models.TryGetValue(key, out LPModel model);
             return model;
         }
@@ -111,6 +116,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public ILPInterface GetSolver(string key)
         {
+            if (string.IsNullOrEmpty(key))
+            {
+                return null;
+            }
+
             this.solvers.TryGetValue(key, out ILPInterface solver);
             return solver;
         }
