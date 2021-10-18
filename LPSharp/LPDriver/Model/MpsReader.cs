@@ -14,42 +14,54 @@ namespace Microsoft.LPSharp.LPDriver.Model
     using Microsoft.LPSharp.LPDriver.Contract;
 
     /// <summary>
-    /// Represents a reader of mathematical programming system fixed MPS format files.
+    /// Represents a reader of mathematical programming system MPS format files.
     /// https://www.cenapad.unicamp.br/parque/manuais/OSL/oslweb/features/featur11.htm explains
-    /// the format.
+    /// the format. This reader tries to be a fixed format reader, does not understand
+    /// integer data, and non-LP sections.
     /// </summary>
     public class MpsReader
     {
         /// <summary>
+        /// The field length of the number fields is 12 characters per the specification.
+        /// MSF generates MPS files that use the maximum possible 14 characters.
+        /// </summary>
+        private const int NumberFieldLength = 14;
+
+        /// <summary>
+        /// All name fields are always eight characters wide.
+        /// </summary>
+        private const int NameFieldLength = 8;
+
+        /// <summary>
         /// Fixed MPS format field position and length for section headers.
         /// </summary>
-        private static readonly Tuple<int, int>[] SectionFieldPositions = new Tuple<int, int>[]
+        private readonly Tuple<int, int>[] sectionFieldPositions = new Tuple<int, int>[]
         {
             new Tuple<int, int>(1, 12),
-            new Tuple<int, int>(15, 8),
+            new Tuple<int, int>(15, NameFieldLength),
         };
 
         /// <summary>
         /// Fixed MPS format field position and length for rows and bounds sections.
         /// </summary>
-        private static readonly Tuple<int, int>[] RowFieldPositions = new Tuple<int, int>[]
+        private readonly Tuple<int, int>[] rowFieldPositions = new Tuple<int, int>[]
         {
             new Tuple<int, int>(2, 2),
-            new Tuple<int, int>(5, 8),
-            new Tuple<int, int>(15, 8),
-            new Tuple<int, int>(25, 14),
+            new Tuple<int, int>(5, NameFieldLength),
+            new Tuple<int, int>(15, NameFieldLength),
+            new Tuple<int, int>(25, NumberFieldLength),
         };
 
         /// <summary>
         /// Fixed MPS format field position and length for columns, RHS, and ranges sections.
         /// </summary>
-        private static readonly Tuple<int, int>[] ColumnFieldPositions = new Tuple<int, int>[]
+        private readonly Tuple<int, int>[] rolumnFieldPositions = new Tuple<int, int>[]
         {
-            new Tuple<int, int>(5, 8),
-            new Tuple<int, int>(15, 8),
-            new Tuple<int, int>(25, 14),
-            new Tuple<int, int>(40, 8),
-            new Tuple<int, int>(50, 14),
+            new Tuple<int, int>(5, NameFieldLength),
+            new Tuple<int, int>(15, NameFieldLength),
+            new Tuple<int, int>(25, NumberFieldLength),
+            new Tuple<int, int>(40, NameFieldLength),
+            new Tuple<int, int>(50, NumberFieldLength),
         };
 
         /// <summary>
@@ -118,61 +130,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
-        /// Parses a line into fields.
-        /// </summary>
-        /// <param name="line">The line.</param>
-        /// <param name="section">The section.</param>
-        /// <param name="sectionLine">If true, parsed a section header (output parameter).</param>
-        /// <returns>The list of fields.</returns>
-        private static IList<string> ParseLine(string line, MpsSection? section, out bool sectionLine)
-        {
-            // Return null for comment line.
-            if (string.IsNullOrEmpty(line) || line[0] == '*')
-            {
-                sectionLine = false;
-                return null;
-            }
-
-            sectionLine = line[0] != ' ';
-            var fields = new List<string>();
-
-            Tuple<int, int>[] positions;
-            if (sectionLine || section == null)
-            {
-                positions = SectionFieldPositions;
-            }
-            else if (section == MpsSection.Rows || section == MpsSection.Bounds)
-            {
-                positions = RowFieldPositions;
-            }
-            else
-            {
-                positions = ColumnFieldPositions;
-            }
-
-            foreach (var position in positions)
-            {
-                // Note that position starts from 1, while string index starts from 0.
-                var startIndex = position.Item1 - 1;
-                var length = position.Item2;
-
-                if (startIndex >= line.Length)
-                {
-                    break;
-                }
-                else if (startIndex + length >= line.Length)
-                {
-                    length = line.Length - startIndex;
-                }
-
-                var field = line.Substring(startIndex, length).Trim();
-                fields.Add(field);
-            }
-
-            return fields;
-        }
-
-        /// <summary>
         /// Parses an MPS stream.
         /// </summary>
         /// <param name="stream">The MPS stream.</param>
@@ -185,7 +142,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var reader = new StreamReader(stream);
             while ((line = reader.ReadLine()) != null)
             {
-                var fields = ParseLine(line, section, out bool sectionLine);
+                var fields = this.ParseLine(line, section, out bool sectionLine);
                 if (fields == null)
                 {
                     continue;
@@ -242,6 +199,61 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             model.SetObjective();
+        }
+
+        /// <summary>
+        /// Parses a line into fields.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="section">The section.</param>
+        /// <param name="sectionLine">If true, parsed a section header (output parameter).</param>
+        /// <returns>The list of fields.</returns>
+        private IList<string> ParseLine(string line, MpsSection? section, out bool sectionLine)
+        {
+            // Return null for comment line.
+            if (string.IsNullOrEmpty(line) || line[0] == '*')
+            {
+                sectionLine = false;
+                return null;
+            }
+
+            sectionLine = line[0] != ' ';
+            var fields = new List<string>();
+
+            Tuple<int, int>[] positions;
+            if (sectionLine || section == null)
+            {
+                positions = this.sectionFieldPositions;
+            }
+            else if (section == MpsSection.Rows || section == MpsSection.Bounds)
+            {
+                positions = this.rowFieldPositions;
+            }
+            else
+            {
+                positions = this.rolumnFieldPositions;
+            }
+
+            foreach (var position in positions)
+            {
+                // Note that position starts from 1, while string index starts from 0.
+                var startIndex = position.Item1 - 1;
+                var length = position.Item2;
+
+                if (startIndex >= line.Length)
+                {
+                    break;
+                }
+                else if (startIndex + length >= line.Length)
+                {
+                    length = line.Length - startIndex;
+                }
+
+                var field = line.Substring(startIndex, length).Trim();
+                fields.Add(field);
+            }
+
+            return fields;
         }
 
         /// <summary>
@@ -385,7 +397,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.lastBoundsName = boundsName;
             }
 
-            if (boundType == MpsBound.FR || boundType == MpsBound.MI || boundType == MpsBound.PL)
+            if (boundType == MpsBound.Free || boundType == MpsBound.MinusInfinity || boundType == MpsBound.PlusInfinity)
             {
                 model.SetBound(boundsName, columnName, boundType, default /* ignored */);
             }

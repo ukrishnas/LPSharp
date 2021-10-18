@@ -79,18 +79,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// Returns true if the vector has the specified index.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns>True if index is present.</returns>
+        /// <returns>True if element is present.</returns>
         public bool Has(Tindex index)
         {
             return index != null && this.store.ContainsKey(index);
-        }
-
-        /// <summary>
-        /// Clears the vector.
-        /// </summary>
-        public void Clear()
-        {
-            this.store.Clear();
         }
 
         /// <summary>

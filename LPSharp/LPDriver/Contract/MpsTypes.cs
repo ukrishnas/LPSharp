@@ -81,49 +81,34 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public enum MpsBound
     {
         /// <summary>
-        /// Lower bound (b \le x lt +inf).
+        /// Lower bound, b \le x lt +\infty.
         /// </summary>
-        LO,
+        Lower,
 
         /// <summary>
-        /// Upper bound (-inf \lt x \le b).
+        /// Upper bound, -\infty \lt x \le b.
         /// </summary>
-        UP,
+        Upper,
 
         /// <summary>
-        /// Fixed variable (x = b).
+        /// Fixed variable, b \le x \le b.
         /// </summary>
-        FX,
+        Fixed,
 
         /// <summary>
-        /// Free variable (-inf \lt x \lt +inf).
+        /// Free variable, -\infty \lt x \lt +\infty.
         /// </summary>
-        FR,
+        Free,
 
         /// <summary>
-        /// Lower bound -infinity (-inf \lt x \le 0).
+        /// Minus infinity, -\infty \lt x \le 0.
         /// </summary>
-        MI,
+        MinusInfinity,
 
         /// <summary>
-        /// Upper bound +infinity (0 \le x \lt +inf).
+        /// Plus infinity, 0 \le x \lt \infty.
         /// </summary>
-        PL,
-
-        /// <summary>
-        /// Binary variable (x = 0 or 1).
-        /// </summary>
-        BV,
-
-        /// <summary>
-        /// Integer variable lower bound (b \le x \lt +inf).
-        /// </summary>
-        LI,
-
-        /// <summary>
-        /// Integer variable upper bound (0 \le x \le b).
-        /// </summary>
-        UI,
+        PlusInfinity,
     }
 
     /// <summary>
@@ -182,15 +167,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
 
             return value switch
             {
-                "LO" => MpsBound.LO,
-                "UP" => MpsBound.UP,
-                "FX" => MpsBound.FX,
-                "FR" => MpsBound.FR,
-                "MI" => MpsBound.MI,
-                "PL" => MpsBound.PL,
-                "BV" => MpsBound.BV,
-                "LI" => MpsBound.LI,
-                "UI" => MpsBound.UI,
+                "LO" => MpsBound.Lower,
+                "UP" => MpsBound.Upper,
+                "FX" => MpsBound.Fixed,
+                "FR" => MpsBound.Free,
+                "MI" => MpsBound.MinusInfinity,
+                "PL" => MpsBound.PlusInfinity,
                 _ => null,
             };
         }

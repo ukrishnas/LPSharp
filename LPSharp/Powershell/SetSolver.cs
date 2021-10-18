@@ -7,7 +7,8 @@
 namespace Microsoft.LPSharp.Powershell
 {
     using System.Management.Automation;
-    using Microsoft.LPSharp.LPDriver.Contract;
+
+    using Microsoft.LPSharp.LPDriver.Model;
 
     /// <summary>
     /// Invokes the solver.
@@ -16,15 +17,9 @@ namespace Microsoft.LPSharp.Powershell
     public class SetSolver : LPCmdlet
     {
         /// <summary>
-        /// Gets or sets the solver type.
+        /// Gets or sets the solver key.
         /// </summary>
-        [Parameter(Mandatory = true, Position = 0)]
-        public SolverType SolverType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the key to store the solver.
-        /// </summary>
-        [Parameter]
+        [Parameter(Mandatory = true)]
         public string Key { get; set; }
 
         /// <summary>
@@ -35,20 +30,52 @@ namespace Microsoft.LPSharp.Powershell
         public SwitchParameter Default { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to extend variable and constraint
+        /// bounds to minus infinity.
+        /// </summary>
+        [Parameter]
+        public SwitchParameter MinusInfinity { get; set; }
+
+        /// <summary>
         /// The process record.
         /// </summary>
         protected override void ProcessRecord()
         {
-            var key = this.Key ?? this.SolverType.ToString();
-
-            if (!this.LPDriver.CreateSolver(key, this.SolverType, this.Default))
+            var solver = this.LPDriver.GetSolver(this.Key);
+            if (solver == null)
             {
-                this.WriteHost($"Could not create solver type={this.SolverType}");
+                this.WriteHost($"Could not find solver key={this.Key}");
                 return;
             }
 
-            var defaultSolver = this.LPDriver.DefaultSolverKey ?? "(none)";
-            this.WriteHost($"Set solver type={this.SolverType} key={key} default={defaultSolver}");
+            if (this.Default)
+            {
+                this.LPDriver.DefaultSolverKey = this.Key;
+            }
+
+            if (solver is not LPSolverAbstract solverAbstract)
+            {
+                this.WriteHost($"Unable to access bounds properties of solver key={this.Key}");
+                return;
+            }
+
+            if (this.MinusInfinity)
+            {
+                solverAbstract.DefaultVariableBounds = new(double.NegativeInfinity, double.PositiveInfinity);
+                solverAbstract.DefaultConstraintBounds = new(double.NegativeInfinity, double.PositiveInfinity);
+            }
+
+            this.WriteHost($"Solver key={this.LPDriver.DefaultSolverKey} is default solver");
+            this.WriteHost(
+                "Solver key={0}, default variable bounds=({1}, {2})",
+                solverAbstract.Key,
+                solverAbstract.DefaultVariableBounds.Item1,
+                solverAbstract.DefaultVariableBounds.Item2);
+            this.WriteHost(
+                "Solver key={0}, default constraint bounds=({1}, {2})",
+                solverAbstract.Key,
+                solverAbstract.DefaultConstraintBounds.Item1,
+                solverAbstract.DefaultConstraintBounds.Item2);
         }
     }
 }

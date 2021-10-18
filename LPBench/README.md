@@ -22,11 +22,11 @@ solvers on them.
 LPSharp> read-mps model1.mps -key m1         # read model 1 as m1 from an MPS file
 LPSharp> read-mps model2.mps.gz -key m2      # read model 2 as m2 from a gzipped MPS file
 
-LPSharp> set-solver GLOP -key g -default     # create GLOP solver as g and make it default
+LPSharp> set-solver GLOP -default            # create GLOP solver and make it default
 LPSharp> invoke-solver -model m1             # Invoke GLOP solver on model m1
 
-LPSharp> set-solver CLP -key c               # create CLP solver as c
-LPSharp> invoke-solver -solver c -model m2   # invoke CLP solver model model m2
+LPSharp> set-solver CLP -key clp             # create CLP solver and name it clp
+LPSharp> invoke-solver -solver clp -model m2 # invoke clp solver on model m2
 ```
 
 ## WANLPv2 results
@@ -54,3 +54,10 @@ performance idiot is not fast, dual simplex is very fast but took a while with
 sonal-* mps models. Primal simplex solved sonal-* models quickly but not the
 edge and sliceperf ones (primal becomes infeasible and it needs to readjust and
 solve).
+
+GLOP results are using GLOP code in this repository, and using the C# language
+wrapper driven by LPSharp. The locally built library (version 9.1.55.1) match
+the public OR-Tools in nuget.org (version 9.1.9490). This confirms that we are
+able to locally replicate the public build. Both versions give an error for
+`edge-pri0-maxmin[1-5]` models that the model does not have an optimal solution.
+Need to confirm if the bug is in LPSharp MPS reader.

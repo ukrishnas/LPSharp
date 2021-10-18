@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace LPDriverTest
+namespace Microsoft.LPSharp.LPDriverTest
 {
     using System;
 

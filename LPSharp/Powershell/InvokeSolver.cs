@@ -8,6 +8,7 @@ namespace Microsoft.LPSharp.Powershell
 {
     using System.Diagnostics;
     using System.Management.Automation;
+    using Microsoft.LPSharp.LPDriver.Model;
 
     /// <summary>
     /// Invokes the solver.
@@ -26,8 +27,7 @@ namespace Microsoft.LPSharp.Powershell
         /// Gets or sets the solver key.
         /// </summary>
         [Parameter]
-        [Alias("Solver")]
-        public string SolverKey { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
         /// The process record.
@@ -41,7 +41,7 @@ namespace Microsoft.LPSharp.Powershell
                 return;
             }
 
-            var solverKey = this.SolverKey ?? this.LPDriver.DefaultSolverKey;
+            var solverKey = this.Key ?? this.LPDriver.DefaultSolverKey;
             var solver = this.LPDriver.GetSolver(solverKey);
             if (solver == null)
             {
@@ -49,15 +49,33 @@ namespace Microsoft.LPSharp.Powershell
                 return;
             }
 
+            var solverAbstract = solver as LPSolverAbstract;
+
             var stopwatch = Stopwatch.StartNew();
-            solver.Load(model);
+            var loadResult = solver.Load(model);
             stopwatch.Stop();
-            this.WriteHost($"Loaded model {this.ModelKey} into {solver} in {stopwatch.ElapsedMilliseconds} ms");
+
+            this.WriteHost(
+                "Solver={0} model={1} loadResult={2} loadTime={3} ms",
+                solverAbstract.Key,
+                this.ModelKey,
+                loadResult ? "success" : "failure (possibly invalid)",
+                stopwatch.ElapsedMilliseconds);
+            if (!loadResult)
+            {
+                this.WriteHost("Model considered invalid by LPModel");
+                return;
+            }
 
             stopwatch.Restart();
             solver.Solve();
             stopwatch.Stop();
-            this.WriteHost($"Solved model {this.ModelKey} in {stopwatch.ElapsedMilliseconds} ms");
+
+            this.WriteHost(
+                "Solver={0} model={1} solveTime={2} ms",
+                solverAbstract.Key,
+                this.ModelKey,
+                stopwatch.ElapsedMilliseconds);
         }
     }
 }

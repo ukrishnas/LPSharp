@@ -1,12 +1,12 @@
 Model,                      Optimal,            MSF_i7, CLPDual_i7, CLPPrimal_i7, Glop_i7
 edge-pri0-diverse5.mps,     8117442981617.25,   61608,  2802,   10932,          15753
-edge-pri0-maxmin0.mps,      30411123.92135,     27002,  4992,   4032,           
-edge-pri0-maxmin1.mps,      34938681.92135,     52156,  5812,   6622,           
-edge-pri0-maxmin2.mps,      40084357.92135,     54399,  6872,   8602,           
-edge-pri0-maxmin3.mps,      43810399.92135,     54138,  8192,   8662,           
-edge-pri0-maxmin4.mps,      45285235.92135,     53300,  6662,   7692,           
+edge-pri0-maxmin0.mps,      30411123.92135,     27002,  4992,   4032,           4570
+edge-pri0-maxmin1.mps,      34938681.92135,     52156,  5812,   6622,           60000
+edge-pri0-maxmin2.mps,      40084357.92135,     54399,  6872,   8602,           60000
+edge-pri0-maxmin3.mps,      43810399.92135,     54138,  8192,   8662,           60000
+edge-pri0-maxmin4.mps,      45285235.92135,     53300,  6662,   7692,           60000 
 edge-pri0-mincost.mps,      8097677503708.52,   45836,  2152,   10982,          14861
-edge-pri0-minutil.mps,      1,                  41737,  3112,   5472,           8003
+edge-pri0-minutil.mps,      1,                  41737,  3112,   5472,           7235
 sliceperf-pri0-diverse5.mps,1771439728369.32,   42852,  2352,   4772,           8102
 sliceperf-pri0-maxmin0.mps, 22057396.00,        20690,  3222,   1932,           3013
 sliceperf-pri0-maxmin1.mps, 30283188.00,        40737,  3732,   6052,           3711
@@ -25,6 +25,6 @@ sonal-maxmin3.mps,          36595382.129638,    10047,  72552,  1772,           
 sonal-maxmin4.mps,          38443637.998598,    10262,  39112,  1492,           925
 sonal-maxmin5.mps,          38950946.998598,    9966,   41392,  1642,           1792
 sonal-mincost.mps,          1477889163296.33,   8908,   702,     962,           2136
-#wander-minutil1.mps,       0.6828494254586898, 60000,  9542,   3702,           622
-#wander-primal1.mps,        -1590.63821067608,  60000,  20,     20,             7
-#wander-primal2.mps,        -4259877.87800587,  60000,  20,     20,             1
+#wander-minutil1.mps,       0.6794112746391472, 60000,  9542,   3702,           622
+#wander-primal1.mps,        -1960.52808638744,  60000,  20,     20,             7
+#wander-primal2.mps,        -4475560.154989346, 60000,  20,     20,             1

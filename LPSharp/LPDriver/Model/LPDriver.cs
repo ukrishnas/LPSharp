@@ -44,7 +44,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public MpsReader MpsReader { get; }
 
         /// <inheritdoc />
-        public string DefaultSolverKey { get; private set; }
+        public string DefaultSolverKey { get; set; }
 
         /// <inheritdoc />
         public void Clear()
@@ -79,7 +79,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public bool CreateSolver(string key, SolverType solverType, bool makeDefault = false)
+        public bool CreateSolver(string key, SolverType solverType)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -90,7 +90,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             switch (solverType)
             {
                 case SolverType.GLOP:
-                    solver = new GlopSolver();
+                    solver = new GlopSolver(key);
                     break;
 
                 default:
@@ -104,11 +104,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             // Previous model is silently overwritten.
             this.solvers[key] = solver;
-
-            if (makeDefault)
-            {
-                this.DefaultSolverKey = key;
-            }
 
             return true;
         }

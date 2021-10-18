@@ -15,22 +15,28 @@ namespace Microsoft.LPSharp.LPDriver.Model
     /// <summary>
     /// Represents the interface implementation for GLOP solver.
     /// </summary>
-    public class GlopSolver : ILPInterface
+    public class GlopSolver : LPSolverAbstract, ILPInterface
     {
+        /// <summary>
+        /// The LP solver object.
+        /// </summary>
         private readonly Solver linearSolver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GlopSolver"/> class.
         /// </summary>
-        public GlopSolver()
+        /// <param name="key">The solver key.</param>
+        public GlopSolver(string key)
+            : base(key)
         {
-            this.linearSolver = Solver.CreateSolver("GLOP");
+            // The parameter is a string representation of MPSolver optimization problem type.
+            this.linearSolver = Solver.CreateSolver("GLOP_LINEAR_PROGRAMMING");
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return "GLOP solver";
+            return $"GLOP solver {base.ToString()}";
         }
 
         /// <inheritdoc />
@@ -48,17 +54,21 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var stopwatch = Stopwatch.StartNew();
 
             // Get variable lower and upper bounds from the model.
-            model.GetBounds(
+            model.GetVariableBounds(
                 boundsName,
                 out SparseVector<string, double> lowerBound,
-                out SparseVector<string, double> upperBOund);
+                out SparseVector<string, double> upperBound,
+                this.DefaultVariableBounds.Item1,
+                this.DefaultVariableBounds.Item2);
 
             // Get the right hand side lower and upper limits from the model.
             model.GetRhsLimits(
                 rhsName,
                 rangesName,
                 out SparseVector<string, double> lowerLimit,
-                out SparseVector<string, double> upperLimit);
+                out SparseVector<string, double> upperLimit,
+                this.DefaultConstraintBounds.Item1,
+                this.DefaultConstraintBounds.Item2);
 
             this.linearSolver.Clear();
 
@@ -68,7 +78,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 x[colIndex] = this.linearSolver.MakeNumVar(
                     lowerBound[colIndex],
-                    upperBOund[colIndex],
+                    upperBound[colIndex],
                     colIndex);
             }
 
@@ -113,24 +123,26 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 MPSolverParameters.IntegerParam.LP_ALGORITHM,
                 (int)MPSolverParameters.LpAlgorithmValues.DUAL);
 
-            Solver.ResultStatus resultStatus = this.linearSolver.Solve();
+            var resultStatus = this.linearSolver.Solve();
 
             stopwatch.Stop();
 
-            // Check that the problem has an optimal solution.
             if (resultStatus != Solver.ResultStatus.OPTIMAL)
             {
                 Console.WriteLine(
-                    "The problem does not have an optimal solution! Elapsed={0} ms",
+                    "Result not optimal, result = {0}, elapsed = {1} ms",
+                    resultStatus,
                     stopwatch.ElapsedMilliseconds);
-                return;
             }
-
-            Console.WriteLine(
-                "Optimal objective = {0}, iterations={1}, elapsed={2} ms",
-                this.linearSolver.Objective().Value(),
-                this.linearSolver.Iterations(),
-                stopwatch.ElapsedMilliseconds);
+            else
+            {
+                Console.WriteLine(
+                    "Result = {0}, objective = {1}, iterations={2}, elapsed={3} ms",
+                    resultStatus,
+                    this.linearSolver.Objective().Value(),
+                    this.linearSolver.Iterations(),
+                    stopwatch.ElapsedMilliseconds);
+            }
         }
     }
 }

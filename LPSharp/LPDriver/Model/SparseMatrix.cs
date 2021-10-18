@@ -53,12 +53,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
         /// <summary>
         /// Gets the number of columns. Note that for jagged matrices, it
-        /// returns the column count for the row with maximum columns.
+        /// returns the maximum column count.
         /// </summary>
         public int ColumnCount => base.Count == 0 ? 0 : this.Elements.Max(x => x.Count);
 
         /// <summary>
-        /// Gets the shape of the matrix as a tuple of number of row vectors, maximum count of column elements.
+        /// Gets the shape of the matrix as a tuple of row and column counts.
         /// </summary>
         public Tuple<int, int> Shape
         {
@@ -110,6 +110,17 @@ namespace Microsoft.LPSharp.LPDriver.Model
         {
             var shape = this.Shape;
             return $"({shape.Item1}, {shape.Item2})";
+        }
+
+        /// <summary>
+        /// Returns true if the vector has the specified index.
+        /// </summary>
+        /// <param name="rowIndex">The row index.</param>
+        /// <param name="colIndex">The column index.</param>
+        /// <returns>True if element is present.</returns>
+        public bool Has(Tindex rowIndex, Tindex colIndex)
+        {
+            return this.Has(rowIndex) && this[rowIndex].Has(colIndex);
         }
 
         /// <summary>

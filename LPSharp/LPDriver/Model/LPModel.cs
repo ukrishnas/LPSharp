@@ -126,70 +126,54 @@ namespace Microsoft.LPSharp.LPDriver.Model
         {
             switch (type)
             {
-                case MpsBound.LO:
+                case MpsBound.Lower:
                     this.L[boundsName, columnName] = value;
+                    if (!this.U.Has(boundsName, columnName))
+                    {
+                        this.U[boundsName, columnName] = double.PositiveInfinity;
+                    }
+
                     break;
 
-                case MpsBound.UP:
+                case MpsBound.Upper:
                     this.U[boundsName, columnName] = value;
+                    if (!this.L.Has(boundsName, columnName))
+                    {
+                        this.L[boundsName, columnName] = 0;
+                    }
+
                     break;
 
-                case MpsBound.FX:
+                case MpsBound.Fixed:
                     this.L[boundsName, columnName] = this.U[boundsName, columnName] = value;
                     break;
 
-                case MpsBound.FR:
+                case MpsBound.Free:
                     this.L[boundsName, columnName] = double.NegativeInfinity;
                     this.U[boundsName, columnName] = double.PositiveInfinity;
                     break;
 
-                case MpsBound.MI:
-                    // Upper bound is \infty, or the value set by Upper, PL, or UI.
+                case MpsBound.MinusInfinity:
                     this.L[boundsName, columnName] = double.NegativeInfinity;
+                    if (!this.U.Has(boundsName, columnName))
+                    {
+                        this.U[boundsName, columnName] = double.PositiveInfinity;
+                    }
+
                     break;
 
-                case MpsBound.PL:
-                    // The lower bound if 0, or the value set by LO, MI, or LI.
+                case MpsBound.PlusInfinity:
                     this.U[boundsName, columnName] = double.PositiveInfinity;
-                    break;
+                    if (!this.L.Has(boundsName, columnName))
+                    {
+                        this.L[boundsName, columnName] = 0;
+                    }
 
-                case MpsBound.LI:
-                    this.L[boundsName, columnName] = Math.Round(value);
-                    break;
-
-                case MpsBound.UI:
-                    this.U[boundsName, columnName] = Math.Round(value);
-                    break;
-
-                case MpsBound.BV:
-                    this.L[boundsName, columnName] = 0;
-                    this.U[boundsName, columnName] = 1;
                     break;
 
                 default:
                     // The rest are not supported.
                     return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Returns true if the model is valid.
-        /// </summary>
-        /// <returns>True if valid, false otherwise.</returns>
-        public bool IsValid()
-        {
-            // Check if model has an objective.
-            if (string.IsNullOrEmpty(this.Objective))
-            {
-                return false;
-            }
-
-            // Check if model has a right hand side.
-            if (!this.B.Indices.Any())
-            {
-                return false;
             }
 
             return true;
@@ -204,7 +188,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <param name="defaultLowerBound">The default lower bound.</param>
         /// <param name="defaultUpperBound">The default upper bound.</param>
         /// <returns>True if bounds were used, false if bounds are default values.</returns>
-        public bool GetBounds(
+        public bool GetVariableBounds(
             string boundsName,
             out SparseVector<string, double> lowerBound,
             out SparseVector<string, double> upperBound,
@@ -308,6 +292,63 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     {
                         lowerLimit[rowIndex] = rhs + range;
                         upperLimit[rowIndex] = rhs;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns true if the model is valid.
+        /// </summary>
+        /// <returns>True if valid, false otherwise.</returns>
+        public bool IsValid()
+        {
+            // Check if model has an objective.
+            if (string.IsNullOrEmpty(this.Objective))
+            {
+                return false;
+            }
+
+            // Check if model has a right hand side.
+            if (this.RhsNames == null)
+            {
+                return false;
+            }
+
+            // Check if lower bound is less than or equal to the upper bound.
+            if (this.BoundsNames != null)
+            {
+                foreach (var boundsName in this.BoundsNames)
+                {
+                    this.GetVariableBounds(
+                        boundsName,
+                        out SparseVector<string, double> lowerBound,
+                        out SparseVector<string, double> upperBound);
+                    foreach (var index in lowerBound.Indices)
+                    {
+                        if (lowerBound[index] > upperBound[index])
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            // Check if right hand side lower limit is less than or equal to the upper limit.
+            foreach (var rhsName in this.RhsNames)
+            {
+                this.GetRhsLimits(
+                    rhsName,
+                    null,
+                    out SparseVector<string, double> lowerLimit,
+                    out SparseVector<string, double> upperLimit);
+                foreach (var index in lowerLimit.Indices)
+                {
+                    if (lowerLimit[index] > upperLimit[index])
+                    {
+                        return false;
                     }
                 }
             }

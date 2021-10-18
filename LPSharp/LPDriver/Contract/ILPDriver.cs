@@ -30,9 +30,9 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         MpsReader MpsReader { get; }
 
         /// <summary>
-        /// Gets the default solver key.
+        /// Gets or sets the default solver key.
         /// </summary>
-        string DefaultSolverKey { get; }
+        string DefaultSolverKey { get; set; }
 
         /// <summary>
         /// Clears stored models and solvers.
@@ -59,9 +59,8 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// </summary>
         /// <param name="key">The solver key.</param>
         /// <param name="solverType">The solver type.</param>
-        /// <param name="makeDefault">If true, make this the default solver.</param>
         /// <returns>True if added successfully.</returns>
-        bool CreateSolver(string key, SolverType solverType, bool makeDefault = false);
+        bool CreateSolver(string key, SolverType solverType);
 
         /// <summary>
         /// Gets a solver by key.
