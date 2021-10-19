@@ -54,7 +54,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             this.U = new SparseMatrix<string, double>();
             this.R = new SparseMatrix<string, double>();
 
-            // Default variable and constraint bounds which the user can change them if desired.
+            // Default variable and constraint bounds which the user can change if desired.
             this.defaultVariableBound = new(0, double.PositiveInfinity);
             this.defaultConstraintBound = new(double.NegativeInfinity, double.PositiveInfinity);
         }
@@ -87,13 +87,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
         /// <summary>
         /// Gets the lower bounds on variables organized as a matrix of row vectors, one row per bounds name.
-        /// Unspecified lower bound is zero.
         /// </summary>
         public SparseMatrix<string, double> L { get; }
 
         /// <summary>
         /// Gets the upper bounds on variables organized as a matrix of row vectors, one row per bounds name.
-        /// Unspecified upper bound is positive infinity.
         /// </summary>
         public SparseMatrix<string, double> U { get;  }
 
@@ -235,12 +233,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
         {
             var defaultLower = this.defaultVariableBound.Item1;
             var defaultUpper = this.defaultVariableBound.Item2;
-
-            // If no bound name has been selected, then set it this bound name.
-            if (string.IsNullOrEmpty(this.selectedBoundName))
-            {
-                this.selectedBoundName = boundName;
-            }
 
             switch (type)
             {

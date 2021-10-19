@@ -133,6 +133,42 @@ namespace Microsoft.LPSharp.LPDriverTest
         }
 
         /// <summary>
+        /// Tests index method with null index.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorNullIndexTest()
+        {
+            var vec = new SparseVector<string, double>();
+            vec[null] = 0.0;
+            Assert.IsTrue(vec[null] == 0.0, "Null index get");
+            Assert.IsFalse(vec.Has(null), "Null index Has()");
+        }
+
+        /// <summary>
+        /// Tests the Has() method.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorHasTest()
+        {
+            var ivec = new SparseVector<int, double>();
+            ivec[1] = 1.1;
+            ivec[2] = 2.2;
+            Assert.IsFalse(ivec.Has(0));
+            Assert.IsTrue(ivec.Has(1));
+            Assert.IsTrue(ivec.Has(2));
+            Assert.IsFalse(ivec.Has(3));
+
+            var svec = new SparseVector<string, double>();
+            svec[null] = 0;
+            svec["1"] = 1.1;
+            svec["2"] = 2.2;
+            Assert.IsFalse(svec.Has(null));
+            Assert.IsTrue(svec.Has("1"));
+            Assert.IsTrue(svec.Has("2"));
+            Assert.IsFalse(svec.Has("3"));
+        }
+
+        /// <summary>
         /// Tests the remove element method.
         /// </summary>
         [TestMethod]
@@ -201,6 +237,32 @@ namespace Microsoft.LPSharp.LPDriverTest
             {
                 Assert.AreEqual(0, implicitZero[i], $"Implicit zero {i}");
             }
+        }
+
+        /// <summary>
+        /// Tests the clone method.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorCloneTest()
+        {
+            var vec = new SparseVector<int, int>(int.MaxValue);
+            var elements = new List<int>();
+            for (int i = 0; i < 10; i++)
+            {
+                vec[i * 10] = i * 100;
+                elements.Add(i * 100);
+            }
+
+            var clone = vec.Clone();
+            for (int i = 10; i < 15; i++)
+            {
+                vec[i * 10] = i * 100;
+            }
+
+            Assert.AreEqual(10, clone.Count, "Clone count");
+            Assert.IsTrue(elements.SequenceEqual(clone.Elements), "Clone elements");
+            Assert.AreEqual(int.MaxValue, clone.Default, "Clone default");
+            Assert.AreNotEqual(vec.Count, clone.Count, "Clone unchanged");
         }
     }
 }

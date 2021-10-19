@@ -86,6 +86,60 @@ namespace Microsoft.LPSharp.LPDriverTest
         }
 
         /// <summary>
+        /// Tests index method with null indices.
+        /// </summary>
+        [TestMethod]
+        public void SparseMatrixNullIndexTest()
+        {
+            var matrix = new SparseMatrix<string, double>(double.NaN);
+            int i = 0;
+
+            // Test tuple is row index, column index, set value, expected get value, and expected has return value.
+            foreach (var test in new Tuple<string, string, double, double, bool>[]
+            {
+                new(null, null, 0.0, double.NaN, false),
+                new(null, "col", 0.0, double.NaN, false),
+                new("row", null, 0.0, double.NaN, false),
+                new("row", "col", 0.0, 0.0, true),
+            })
+            {
+                i++;
+
+                var row = test.Item1;
+                var col = test.Item2;
+                var value = test.Item3;
+                matrix[row, col] = value;
+
+                var expectGet = test.Item4;
+                var expectHas = test.Item5;
+                Assert.AreEqual(expectGet, matrix[row, col], $"Expected get value, test {i}");
+                Assert.AreEqual(expectHas, matrix.Has(row, col), $"Expected has return value, test {i}");
+            }
+        }
+
+        /// <summary>
+        /// Tests the Has() method.
+        /// </summary>
+        [TestMethod]
+        public void SparseMatrixHasTest()
+        {
+            var imatrix = new SparseMatrix<int, int>();
+            imatrix[0, 0] = 1;
+            imatrix[100, 100] = 2;
+            Assert.IsTrue(imatrix.Has(0, 0));
+            Assert.IsTrue(imatrix.Has(100, 100));
+            Assert.IsFalse(imatrix.Has(-1, 0));
+            Assert.IsFalse(imatrix.Has(100, 0));
+
+            var smatrix = new SparseMatrix<string, int>();
+            smatrix[null, "100"] = 1;
+            smatrix["100", "100"] = 2;
+            Assert.IsFalse(smatrix.Has(null, "100"));
+            Assert.IsTrue(smatrix.Has("100", "100"));
+            Assert.IsFalse(smatrix.Has("100", null));
+        }
+
+        /// <summary>
         /// Tests the remove element method.
         /// </summary>
         [TestMethod]

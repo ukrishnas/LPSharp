@@ -29,7 +29,24 @@ namespace Microsoft.LPSharp.LPDriver.Model
             : base()
         {
             this.columnIndices = new HashSet<Tindex>();
+            this.ColumnDefault = default;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SparseMatrix{Tindex, Tvalue}"/> class.
+        /// </summary>
+        /// <param name="defaultValue">The default value.</param>
+        public SparseMatrix(Tvalue defaultValue)
+            : base()
+        {
+            this.columnIndices = new HashSet<Tindex>();
+            this.ColumnDefault = defaultValue;
+        }
+
+        /// <summary>
+        /// Gets or sets the default value for each column in the row vector.
+        /// </summary>
+        public Tvalue ColumnDefault { get; set; }
 
         /// <summary>
         /// Gets the number of elements in the matrix.
@@ -80,7 +97,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 if (this[rowIndex] == null)
                 {
-                    return default;
+                    return this.ColumnDefault;
                 }
 
                 return this[rowIndex][colIndex];
@@ -88,13 +105,19 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             set
             {
-                if (this[rowIndex] == null)
+                if (rowIndex != null)
                 {
-                    this[rowIndex] = new SparseVector<Tindex, Tvalue>();
-                }
+                    if (this[rowIndex] == null)
+                    {
+                        this[rowIndex] = new SparseVector<Tindex, Tvalue>(this.ColumnDefault);
+                    }
 
-                this[rowIndex][colIndex] = value;
-                this.columnIndices.Add(colIndex);
+                    if (colIndex != null)
+                    {
+                        this[rowIndex][colIndex] = value;
+                        this.columnIndices.Add(colIndex);
+                    }
+                }
             }
         }
 

@@ -80,7 +80,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             set
             {
-                this.store[index] = value;
+                if (index != null)
+                {
+                    this.store[index] = value;
+                }
             }
         }
 

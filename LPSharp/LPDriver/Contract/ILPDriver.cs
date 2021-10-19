@@ -45,7 +45,7 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         void Clear();
 
         /// <summary>
-        /// Adds or updates a model.
+        /// Adds a model.
         /// </summary>
         /// <param name="key">The model key.</param>
         /// <param name="solver">The model.</param>
