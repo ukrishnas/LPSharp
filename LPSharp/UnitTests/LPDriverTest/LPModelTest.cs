@@ -130,7 +130,10 @@ namespace Microsoft.LPSharp.LPDriverTest
             const string Name = "bound";
 
             var model = new LPModel();
-            Assert.AreEqual(new(0, double.PositiveInfinity), model.DefaultVariableBound, "Default variable bound");
+            Assert.AreEqual(
+                new(0, double.PositiveInfinity),
+                model.DefaultVariableBound,
+                "Default variable bound");
 
             model.SetBound(Name, "c1", MpsBound.Lower, 5);
             model.SetBound(Name, "c2", MpsBound.Upper, 5);
@@ -185,6 +188,123 @@ namespace Microsoft.LPSharp.LPDriverTest
         [TestMethod]
         public void LPModelConstraintBoundTest()
         {
+            const string Name = "RHS";
+
+            var model = new LPModel();
+            Assert.AreEqual(
+                new(double.NegativeInfinity, double.PositiveInfinity),
+                model.DefaultConstraintBound,
+                "Default constraint bound");
+
+            // Set up coefficients, row types, and right hand side values.
+            model.A["r1", "c1"] = -1;
+            model.A["r2", "c2"] = -1;
+            model.A["r3", "c1"] = -1;
+
+            model.RowTypes["r1"] = MpsRow.Equal;
+            model.RowTypes["r2"] = MpsRow.LessOrEqual;
+            model.RowTypes["r3"] = MpsRow.GreaterOrEqual;
+
+            model.B[Name, "r1"] = 5;
+            model.B[Name, "r2"] = -5;
+
+            model.GetConstraintBounds(
+                out SparseVector<string, double> lowerBound,
+                out SparseVector<string, double> upperBound);
+
+            // Verify lower bound.
+            Assert.AreEqual(
+                new SparseVector<string, double>(
+                    new Dictionary<string, double>
+                    {
+                        { "r1", 5 },
+                        { "r3", 0 },
+                    },
+                    double.NegativeInfinity),
+                lowerBound, "Constraint lower bound");
+
+            // Verify upper bound.
+            Assert.AreEqual(
+                new SparseVector<string, double>(
+                    new Dictionary<string, double>
+                    {
+                        { "r1", 5 },
+                        { "r2", -5 },
+                    },
+                    double.PositiveInfinity),
+                upperBound, "Constraint upper bound");
+        }
+
+        /// <summary>
+        /// Tests the constraint bound with range. Please update this test if it
+        /// does not reflect the correct range behavior.
+        /// </summary>
+        [TestMethod]
+        public void LPModelConstraintBoundWithRangeTest()
+        {
+            const string Name = "Name";
+
+            var model = new LPModel();
+            model.A["r1", "c1"] = -1;
+            model.A["r2", "c2"] = -1;
+            model.A["r3", "c1"] = -1;
+
+            model.RowTypes["r1"] = MpsRow.Equal;
+            model.RowTypes["r2"] = MpsRow.LessOrEqual;
+            model.RowTypes["r3"] = MpsRow.GreaterOrEqual;
+
+            model.B[Name, "r1"] = 5;
+            model.B[Name, "r2"] = -5;
+            model.B[Name, "r3"] = 15;
+
+            model.R[Name, "r1"] = 10;
+            model.R[Name, "r2"] = 20;
+            model.R[Name, "r3"] = 30;
+
+            model.GetConstraintBounds(
+                out SparseVector<string, double> lowerBound,
+                out SparseVector<string, double> upperBound);
+            model.UpdateConstraintBoundsWithRange(lowerBound, upperBound);
+
+            // Verify lower bound.
+            Assert.AreEqual(
+                new SparseVector<string, double>(
+                    new Dictionary<string, double>
+                    {
+                        { "r1", 5 },
+                        { "r3", 15 },
+                    },
+                    double.NegativeInfinity),
+                lowerBound, "Constraint lower bound");
+
+            // Verify upper bound.
+            Assert.AreEqual(
+                new SparseVector<string, double>(
+                    new Dictionary<string, double>
+                    {
+                        { "r1", 15 },
+                        { "r2", -5 },
+                    },
+                    double.PositiveInfinity),
+                upperBound, "Constraint upper bound");
+        }
+
+        /// <summary>
+        /// Checks the validity of models.
+        /// </summary>
+        [TestMethod]
+        public void LPModelIsValidTest()
+        {
+            var model = new LPModel();
+            Assert.IsFalse(model.IsValid());
+
+            model.A["r1", "c1"] = -1;
+            model.RowTypes["r1"] = MpsRow.NoRestriction;
+            model.SetObjective();
+            Assert.IsFalse(model.IsValid());
+
+            model.B["rhs", "r1"] = 5;
+            Assert.IsTrue(model.IsValid());
         }
     }
 }

@@ -292,8 +292,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Gets the lower and upper bounds for variables.
         /// </summary>
-        /// <param name="lowerBound">The lower bound row vector (output).</param>
-        /// <param name="upperBound">The upper bound row vector (output).</param>
+        /// <param name="lowerBound">The lower bound for variables (output).</param>
+        /// <param name="upperBound">The upper bound for variables (output).</param>
         public void GetVariableBounds(
             out SparseVector<string, double> lowerBound,
             out SparseVector<string, double> upperBound)
@@ -331,11 +331,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
-        /// Gets the lower and upper bounds for the right hand side vector.
+        /// Gets the lower and upper bounds for constraints.
         /// </summary>
-        /// <param name="lowerBound">The lower bound right hand side vector (output).</param>
-        /// <param name="upperBound">The upper bound right hand side vector (output).</param>
-        public void GetRhsBounds(
+        /// <param name="lowerBound">The lower bound for constraints (output).</param>
+        /// <param name="upperBound">The upper bound for constraints (output).</param>
+        public void GetConstraintBounds(
             out SparseVector<string, double> lowerBound,
             out SparseVector<string, double> upperBound)
         {
@@ -387,11 +387,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
-        /// Gets the lower and upper limit right hand side vectors based on a range.
+        /// Gets the lower and upper bounds for constraints based on a range.
         /// </summary>
-        /// <param name="lowerBound">The lower bound right hand side vector.</param>
-        /// <param name="upperBound">The upper bound right hand side vector.</param>
-        public void UpdateRhsBoundsWithRange(
+        /// <param name="lowerBound">The lower bound for constraints.</param>
+        /// <param name="upperBound">The upper bound for constraints.</param>
+        public void UpdateConstraintBoundsWithRange(
             SparseVector<string, double> lowerBound,
             SparseVector<string, double> upperBound)
         {
@@ -465,7 +465,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             // Check if right hand side lower bound is less than or equal to the upper bound.
             if (this.RhsNames != null)
             {
-                this.GetRhsBounds(
+                this.GetConstraintBounds(
                     out SparseVector<string, double> lowerBound,
                     out SparseVector<string, double> upperBound);
                 foreach (var index in lowerBound.Indices)

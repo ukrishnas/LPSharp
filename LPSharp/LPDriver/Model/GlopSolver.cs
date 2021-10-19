@@ -78,7 +78,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             // Get the lower and upper constraint bounds from the model.
-            model.GetRhsBounds(
+            model.GetConstraintBounds(
                 out SparseVector<string, double> lowerLimit,
                 out SparseVector<string, double> upperLimit);
 

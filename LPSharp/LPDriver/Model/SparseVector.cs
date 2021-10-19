@@ -44,8 +44,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// Initializes a new instance of the <see cref="SparseVector{Tindex, Tvalue}"/> class.
         /// </summary>
         /// <param name="dict">The enumeration of index-element pairs.</param>
-        public SparseVector(IEnumerable<KeyValuePair<Tindex, Tvalue>> dict)
-            : this()
+        /// <param name="defaultValue">The default value.</param>
+        public SparseVector(IEnumerable<KeyValuePair<Tindex, Tvalue>> dict, Tvalue defaultValue = default)
+            : this(defaultValue)
         {
             foreach (var kv in dict)
             {
