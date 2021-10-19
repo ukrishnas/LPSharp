@@ -65,10 +65,8 @@ namespace Microsoft.LPSharp.LPDriverTest
                 Assert.AreEqual(kv.Value, vector[kv.Key]);
             }
 
-            var gotElements = vector.ToArray(out string[] gotIndices);
-            Assert.AreEqual(gotElements.Length, elements.Count, "Vector count");
-            Assert.IsTrue(elements.Keys.SequenceEqual(gotIndices), "Vector indices");
-            Assert.IsTrue(elements.Values.SequenceEqual(gotElements), "Vector elements");
+            var expect = new SparseVector<string, double>(elements);
+            Assert.AreEqual(expect, vector);
         }
 
         /// <summary>
@@ -254,15 +252,75 @@ namespace Microsoft.LPSharp.LPDriverTest
             }
 
             var clone = vec.Clone();
+            Assert.AreEqual(10, clone.Count, "Clone count");
+            Assert.AreEqual(clone, vec, "Clone equals original vector");
+
             for (int i = 10; i < 15; i++)
             {
                 vec[i * 10] = i * 100;
             }
 
-            Assert.AreEqual(10, clone.Count, "Clone count");
-            Assert.IsTrue(elements.SequenceEqual(clone.Elements), "Clone elements");
-            Assert.AreEqual(int.MaxValue, clone.Default, "Clone default");
-            Assert.AreNotEqual(vec.Count, clone.Count, "Clone unchanged");
+            Assert.AreEqual(10, clone.Count, "Clone count should not change");
+            Assert.AreNotEqual(clone, vec, "Clone should not equal changed vector");
+        }
+
+        /// <summary>
+        /// Tests the get hash code method.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorHashCodeTest()
+        {
+            var hashCodes = new HashSet<int>();
+
+            var vec = new SparseVector<string, double>();
+
+            foreach (var test in new Tuple<Action>[]
+            {
+                new(() => vec.Default = 1),
+                new(() => vec["a"] = 1.0),
+                new(() => vec["b"] = 2.0),
+            })
+            {
+                test.Item1();
+                Assert.IsTrue(hashCodes.Add(vec.GetHashCode()));
+            }
+
+            Assert.IsFalse(hashCodes.Add(vec.GetHashCode()));
+        }
+
+        /// <summary>
+        /// Tests the equals method.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorEqualsTest()
+        {
+            var a = new SparseVector<int, double>(new Dictionary<int, double>
+            {
+                { 1, 1.0 },
+                { 2, 2.0 },
+            });
+
+            var b = a.Clone();
+
+            Assert.IsTrue(a.Equals(a), "Vector equals itself");
+            Assert.IsFalse(a.Equals(null), "Vector does not equal null");
+            Assert.IsTrue(a.Equals(b), "Vector equals clone");
+            Assert.IsTrue(Equals(a, b as object), "Vector equals clone object");
+
+            a.Default = double.PositiveInfinity;
+            Assert.IsFalse(a.Equals(b), "Unequal vectors after changing default in one");
+            b.Default = double.PositiveInfinity;
+            Assert.IsTrue(a.Equals(b), "Equal vectors after changing default in both");
+
+            b[3] = 3.0;
+            Assert.IsFalse(a.Equals(b), "Unequal vectors after addition to one");
+            a[3] = 3.0;
+            Assert.IsTrue(a.Equals(b), "Equal vectors after addition to both");
+
+            a.Remove(1);
+            Assert.IsFalse(a.Equals(b), "Unequal vectors after removal from one");
+            b.Remove(1);
+            Assert.IsTrue(a.Equals(b), "Equals vectors after removal from both");
         }
     }
 }

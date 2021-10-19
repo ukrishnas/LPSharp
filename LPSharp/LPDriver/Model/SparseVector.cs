@@ -6,6 +6,7 @@
 
 namespace Microsoft.LPSharp.LPDriver.Model
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -13,7 +14,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
     /// </summary>
     /// <typeparam name="Tindex">The type of index.</typeparam>
     /// <typeparam name="Tvalue">The type of value.</typeparam>
-    public class SparseVector<Tindex, Tvalue>
+    public class SparseVector<Tindex, Tvalue> : IEquatable<SparseVector<Tindex, Tvalue>>
     {
         /// <summary>
         /// Stores vector elements as a dictionary mapping element index to value.
@@ -40,14 +41,27 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
-        /// Gets the number of elements in the vector.
+        /// Initializes a new instance of the <see cref="SparseVector{Tindex, Tvalue}"/> class.
         /// </summary>
-        public int Count => this.store.Count;
+        /// <param name="dict">The enumeration of index-element pairs.</param>
+        public SparseVector(IEnumerable<KeyValuePair<Tindex, Tvalue>> dict)
+            : this()
+        {
+            foreach (var kv in dict)
+            {
+                this[kv.Key] = kv.Value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the default value to return if an index is not present.
         /// </summary>
         public Tvalue Default { get; set; }
+
+        /// <summary>
+        /// Gets the number of elements in the vector.
+        /// </summary>
+        public int Count => this.store.Count;
 
         /// <summary>
         /// Gets the enumeration of vector indices.
@@ -85,6 +99,57 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     this.store[index] = value;
                 }
             }
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            hash = (hash * 23) + this.Default.GetHashCode();
+            foreach (var kv in this.store)
+            {
+                hash = (hash * 23) + kv.Key.GetHashCode();
+                hash = (hash * 23) + kv.Value.GetHashCode();
+            }
+
+            return hash;
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object other)
+        {
+            return this.Equals(other as SparseVector<Tindex, Tvalue>);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(SparseVector<Tindex, Tvalue> other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (this.Count != other.Count ||
+                !Equals(this.Default, other.Default))
+            {
+                return false;
+            }
+
+            foreach (var kv in this.store)
+            {
+                if (!Equals(other[kv.Key], kv.Value))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
