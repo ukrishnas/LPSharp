@@ -25,12 +25,19 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private readonly Dictionary<string, ILPInterface> solvers;
 
         /// <summary>
+        /// The collection of execution results.
+        /// </summary>
+        private readonly Dictionary<string, ExecutionResult> results;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LPDriver"/> class.
         /// </summary>
         public LPDriver()
         {
             this.models = new Dictionary<string, LPModel>();
             this.solvers = new Dictionary<string, ILPInterface>();
+            this.results = new Dictionary<string, ExecutionResult>();
+
             this.MpsReader = new MpsReader();
         }
 
@@ -39,6 +46,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
         /// <inheritdoc />
         public IReadOnlyDictionary<string, ILPInterface> Solvers => this.solvers;
+
+        /// <inheritdoc />
+        public IReadOnlyDictionary<string, ExecutionResult> Results => this.results;
 
         /// <inheritdoc />
         public MpsReader MpsReader { get; }
@@ -79,11 +89,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public bool CreateSolver(string key, SolverType solverType)
+        public ILPInterface CreateSolver(string key, SolverType solverType)
         {
             if (string.IsNullOrEmpty(key))
             {
-                return false;
+                return null;
             }
 
             ILPInterface solver = null;
@@ -99,13 +109,13 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             if (solver == null)
             {
-                return false;
+                return null;
             }
 
             // Previous model is silently overwritten.
             this.solvers[key] = solver;
 
-            return true;
+            return solver;
         }
 
         /// <inheritdoc />
@@ -118,6 +128,15 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             this.solvers.TryGetValue(key, out ILPInterface solver);
             return solver;
+        }
+
+        /// <inheritdoc />
+        public void AddResult(string key, ExecutionResult result)
+        {
+            if (result != null)
+            {
+                this.results[key] = result;
+            }
         }
     }
 }

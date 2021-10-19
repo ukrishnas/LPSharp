@@ -23,6 +23,7 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <summary>
         /// Solves the model.
         /// </summary>
-        void Solve();
+        /// <returns>True if the result status is optimal, false otherwise.</returns>
+        bool Solve();
     }
 }

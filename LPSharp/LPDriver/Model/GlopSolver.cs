@@ -6,11 +6,12 @@
 
 namespace Microsoft.LPSharp.LPDriver.Model
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using Google.OrTools.LinearSolver;
     using Microsoft.LPSharp.LPDriver.Contract;
+
+    using MPResultStatus = Google.OrTools.LinearSolver.Solver.ResultStatus;
 
     /// <summary>
     /// Represents the interface implementation for GLOP solver.
@@ -97,14 +98,17 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             stopwatch.Stop();
-            Console.WriteLine($"Loaded model {model.Name} in {stopwatch.ElapsedMilliseconds} ms");
+            this.metrics[LPMetric.LoadTimeMs] = stopwatch.ElapsedMilliseconds;
+            this.metrics[LPMetric.ModelSummary] = model.ToString();
 
             return true;
         }
 
         /// <inheritdoc />
-        public void Solve()
+        public bool Solve()
         {
+            this.metrics[LPMetric.SolverSummary] = this.ToString();
+
             var stopwatch = Stopwatch.StartNew();
 
             var parameters = new MPSolverParameters();
@@ -116,22 +120,40 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             stopwatch.Stop();
 
-            if (resultStatus != Solver.ResultStatus.OPTIMAL)
+            this.metrics[LPMetric.SolveTimeMs] = stopwatch.ElapsedMilliseconds;
+            this.metrics[LPMetric.ResultStatus] = MPResultToLPResult(resultStatus);
+
+            if (resultStatus == MPResultStatus.OPTIMAL)
             {
-                Console.WriteLine(
-                    "Result not optimal, result = {0}, elapsed = {1} ms",
-                    resultStatus,
-                    stopwatch.ElapsedMilliseconds);
+                this.metrics[LPMetric.Objective] = this.linearSolver.Objective().Value();
+                this.metrics[LPMetric.Iterations] = this.linearSolver.Iterations();
             }
             else
             {
-                Console.WriteLine(
-                    "Result = {0}, objective = {1}, iterations={2}, elapsed={3} ms",
-                    resultStatus,
-                    this.linearSolver.Objective().Value(),
-                    this.linearSolver.Iterations(),
-                    stopwatch.ElapsedMilliseconds);
+                this.RemoveMetric(LPMetric.Objective);
+                this.RemoveMetric("Iterations");
             }
+
+            return resultStatus == MPResultStatus.OPTIMAL;
+        }
+
+        /// <summary>
+        /// Converts GLOP result to standard LP result.
+        /// </summary>
+        /// <param name="result">The MP result.</param>
+        /// <returns>The LP result.</returns>
+        private static LPResultStatus MPResultToLPResult(MPResultStatus result)
+        {
+            return result switch
+            {
+                MPResultStatus.OPTIMAL => LPResultStatus.OPTIMAL,
+                MPResultStatus.FEASIBLE => LPResultStatus.FEASIBLE,
+                MPResultStatus.INFEASIBLE => LPResultStatus.INFEASIBLE,
+                MPResultStatus.UNBOUNDED => LPResultStatus.UNBOUNDED,
+                MPResultStatus.ABNORMAL => LPResultStatus.ABNORMAL,
+                MPResultStatus.NOT_SOLVED => LPResultStatus.NOT_SOLVED,
+                _ => LPResultStatus.UNDEFINED,
+            };
         }
     }
 }

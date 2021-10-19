@@ -15,14 +15,19 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public interface ILPDriver
     {
         /// <summary>
-        /// Gets the enumeration of models.
+        /// Gets the collection of models.
         /// </summary>
         IReadOnlyDictionary<string, LPModel> Models { get; }
 
         /// <summary>
-        /// Gets the enumeration of solvers.
+        /// Gets the collection of solvers.
         /// </summary>
         IReadOnlyDictionary<string, ILPInterface> Solvers { get; }
+
+        /// <summary>
+        /// Gets the collection of execution results.
+        /// </summary>
+        IReadOnlyDictionary<string, ExecutionResult> Results { get; }
 
         /// <summary>
         /// Gets the MPS file reader.
@@ -55,12 +60,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         LPModel GetModel(string key);
 
         /// <summary>
-        /// Adds or updates a solver.
+        /// Creates a solver.
         /// </summary>
         /// <param name="key">The solver key.</param>
         /// <param name="solverType">The solver type.</param>
-        /// <returns>True if added successfully.</returns>
-        bool CreateSolver(string key, SolverType solverType);
+        /// <returns>The newly created solver.</returns>
+        ILPInterface CreateSolver(string key, SolverType solverType);
 
         /// <summary>
         /// Gets a solver by key.
@@ -68,5 +73,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <param name="key">The solver key.</param>
         /// <returns>The solver.</returns>
         ILPInterface GetSolver(string key);
+
+        /// <summary>
+        /// Adds an execution result.
+        /// </summary>
+        /// <param name="key">The execution key.</param>
+        /// <param name="result">The execution result.</param>
+        void AddResult(string key, ExecutionResult result);
     }
 }

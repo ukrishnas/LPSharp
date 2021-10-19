@@ -8,6 +8,7 @@ namespace Microsoft.LPSharp.Powershell
 {
     using System.Collections.Generic;
     using System.Management.Automation;
+    using Microsoft.LPSharp.LPDriver.Model;
 
     /// <summary>
     /// Gets the created solvers.
@@ -29,7 +30,10 @@ namespace Microsoft.LPSharp.Powershell
             var solvers = new Dictionary<string, string>();
             foreach (var kv in this.LPDriver.Solvers)
             {
-                solvers.Add(kv.Key, kv.Value.ToString());
+                if (kv.Value is LPSolverAbstract solver)
+                {
+                    solvers.Add(kv.Key, solver.ToString());
+                }
             }
 
             this.WriteObject(solvers);

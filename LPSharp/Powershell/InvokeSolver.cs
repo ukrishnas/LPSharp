@@ -6,7 +6,6 @@
 
 namespace Microsoft.LPSharp.Powershell
 {
-    using System.Diagnostics;
     using System.Management.Automation;
     using Microsoft.LPSharp.LPDriver.Model;
 
@@ -49,33 +48,25 @@ namespace Microsoft.LPSharp.Powershell
                 return;
             }
 
-            var solverAbstract = solver as LPSolverAbstract;
-
-            var stopwatch = Stopwatch.StartNew();
-            var loadResult = solver.Load(model);
-            stopwatch.Stop();
-
-            this.WriteHost(
-                "Solver={0} model={1} loadResult={2} loadTime={3} ms",
-                solverAbstract.Key,
-                this.ModelKey,
-                loadResult ? "success" : "failure (possibly invalid)",
-                stopwatch.ElapsedMilliseconds);
-            if (!loadResult)
+            if (solver is not LPSolverAbstract solverAbstract)
             {
-                this.WriteHost("Model considered invalid by LPModel");
+                this.WriteHost("Unable to access solver abstract");
                 return;
             }
 
-            stopwatch.Restart();
-            solver.Solve();
-            stopwatch.Stop();
+            this.WriteHost($"Loading model {this.ModelKey}");
+            if (!solver.Load(model))
+            {
+                this.WriteHost($"Unable to load model {this.ModelKey}, possibly invalid model");
+                return;
+            }
 
-            this.WriteHost(
-                "Solver={0} model={1} solveTime={2} ms",
-                solverAbstract.Key,
-                this.ModelKey,
-                stopwatch.ElapsedMilliseconds);
+            this.WriteHost($"Solving model {this.ModelKey}...");
+            var isoptimal = solver.Solve();
+            this.WriteHost("Solved model {0} result={1}", this.ModelKey, isoptimal ? "optimal" : "not optimal");
+
+            var resultKey = $"{solverAbstract.Key}_{this.ModelKey}";
+            this.LPDriver.AddResult(resultKey, solverAbstract.Metrics);
         }
     }
 }
