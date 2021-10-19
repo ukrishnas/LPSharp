@@ -6,7 +6,6 @@
 
 namespace Microsoft.LPSharp.Powershell
 {
-    using System;
     using System.Diagnostics;
     using System.IO;
     using System.Management.Automation;
@@ -44,13 +43,14 @@ namespace Microsoft.LPSharp.Powershell
             var model = this.LPDriver.MpsReader.Read(this.FileName);
             stopwatch.Stop();
 
-            var key = this.Key ?? model.Name;
+            var key = this.Key;
             if (string.IsNullOrEmpty(key))
             {
-                var guid = Guid.NewGuid().ToString();
-                key = $"model_{guid}";
+                key = Path.GetFileNameWithoutExtension(this.FileName);
             }
 
+            // Change the model name to the key, since model names in files are usually generic values.
+            model.Name = key;
             this.LPDriver.AddModel(key, model);
 
             this.WriteHost(
@@ -60,6 +60,9 @@ namespace Microsoft.LPSharp.Powershell
                 stopwatch.ElapsedMilliseconds,
                 this.LPDriver.MpsReader.Errors.Count,
                 key);
+
+            // Return the model key.
+            this.WriteObject(model.Name);
         }
     }
 }

@@ -54,18 +54,18 @@ namespace Microsoft.LPSharp.Powershell
                 return;
             }
 
-            this.WriteHost($"Loading model {this.ModelKey}");
+            this.WriteHost($"Loading model {model.Name}");
             if (!solver.Load(model))
             {
-                this.WriteHost($"Unable to load model {this.ModelKey}, possibly invalid model");
+                this.WriteHost($"Unable to load model {model.Name}, possibly invalid model");
                 return;
             }
 
-            this.WriteHost($"Solving model {this.ModelKey}...");
+            this.WriteHost($"Solving model {model.Name}...");
             var isoptimal = solver.Solve();
-            this.WriteHost("Solved model {0} result={1}", this.ModelKey, isoptimal ? "optimal" : "not optimal");
+            this.WriteHost("Solved model {0} result={1}", model.Name, isoptimal ? "optimal" : "not optimal");
 
-            var resultKey = $"{solverAbstract.Key}_{this.ModelKey}";
+            var resultKey = $"{model.Name}_{solverAbstract.Key}";
             this.LPDriver.AddResult(resultKey, solverAbstract.Metrics);
         }
     }

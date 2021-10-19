@@ -24,12 +24,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <summary>
         /// The summary information of the solver.
         /// </summary>
-        public const string SolverSummary = "Solver";
+        public const string SolverName = "Solver";
 
         /// <summary>
         /// The summary information of the loaded model.
         /// </summary>
-        public const string ModelSummary = "Model";
+        public const string ModelName = "Model";
 
         /// <summary>
         /// The result status for the last execution.

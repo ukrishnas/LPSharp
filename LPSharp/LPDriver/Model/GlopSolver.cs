@@ -99,7 +99,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             stopwatch.Stop();
             this.metrics[LPMetric.LoadTimeMs] = stopwatch.ElapsedMilliseconds;
-            this.metrics[LPMetric.ModelSummary] = model.ToString();
+            this.metrics[LPMetric.ModelName] = model.Name;
 
             return true;
         }
@@ -107,7 +107,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public bool Solve()
         {
-            this.metrics[LPMetric.SolverSummary] = this.ToString();
+            this.metrics[LPMetric.SolverName] = this.Key;
 
             var stopwatch = Stopwatch.StartNew();
 
