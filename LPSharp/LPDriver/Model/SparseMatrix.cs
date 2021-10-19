@@ -18,11 +18,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
     public class SparseMatrix<Tindex, Tvalue> : SparseVector<Tindex, SparseVector<Tindex, Tvalue>>
     {
         /// <summary>
-        /// The capacity of row or column vectors..
-        /// </summary>
-        private readonly int capacity;
-
-        /// <summary>
         /// The collection of column indices.
         /// </summary>
         private readonly HashSet<Tindex> columnIndices;
@@ -30,11 +25,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SparseMatrix{Tindex, Tvalue}"/> class.
         /// </summary>
-        /// <param name="capacity">The capacity of a row or column vectors.</param>
-        public SparseMatrix(int capacity = 0)
-            : base(capacity)
+        public SparseMatrix()
+            : base()
         {
-            this.capacity = capacity;
             this.columnIndices = new HashSet<Tindex>();
         }
 
@@ -97,7 +90,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 if (this[rowIndex] == null)
                 {
-                    this[rowIndex] = new SparseVector<Tindex, Tvalue>(this.capacity);
+                    this[rowIndex] = new SparseVector<Tindex, Tvalue>();
                 }
 
                 this[rowIndex][colIndex] = value;

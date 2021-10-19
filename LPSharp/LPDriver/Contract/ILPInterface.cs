@@ -17,15 +17,8 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// Loads a model.
         /// </summary>
         /// <param name="model">The solver model.</param>
-        /// <param name="boundsName">The optional bounds name.</param>
-        /// <param name="rhsName">The optional right hand side name.</param>
-        /// <param name="rangesName">The optional ranges name.</param>
         /// <returns>True if the model was loaded successfully, false otherwise.</returns>
-        bool Load(
-            LPModel model,
-            string boundsName = null,
-            string rhsName = null,
-            string rangesName = null);
+        bool Load(LPModel model);
 
         /// <summary>
         /// Solves the model.

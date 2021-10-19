@@ -81,32 +81,32 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public enum MpsBound
     {
         /// <summary>
-        /// Lower bound, b \le x lt +\infty.
+        /// Lower bound.
         /// </summary>
         Lower,
 
         /// <summary>
-        /// Upper bound, -\infty \lt x \le b.
+        /// Upper bound.
         /// </summary>
         Upper,
 
         /// <summary>
-        /// Fixed variable, b \le x \le b.
+        /// Fixed variable.
         /// </summary>
         Fixed,
 
         /// <summary>
-        /// Free variable, -\infty \lt x \lt +\infty.
+        /// Free variable.
         /// </summary>
         Free,
 
         /// <summary>
-        /// Minus infinity, -\infty \lt x \le 0.
+        /// Minus infinity lower bound.
         /// </summary>
         MinusInfinity,
 
         /// <summary>
-        /// Plus infinity, 0 \le x \lt \infty.
+        /// Plus infinity upper bound.
         /// </summary>
         PlusInfinity,
     }

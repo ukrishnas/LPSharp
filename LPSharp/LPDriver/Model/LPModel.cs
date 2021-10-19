@@ -9,13 +9,39 @@ namespace Microsoft.LPSharp.LPDriver.Model
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Microsoft.LPSharp.LPDriver.Contract;
 
     /// <summary>
-    /// Represents the model of a linear program.
+    /// Represents the model of a linear program. The model is based on data records in an MPS file.
     /// </summary>
     public class LPModel
     {
+        /// <summary>
+        /// The default lower and upper bounds for variables.
+        /// </summary>
+        private Tuple<double, double> defaultVariableBound;
+
+        /// <summary>
+        /// The default lower and upper bounds for constraints.
+        /// </summary>
+        private Tuple<double, double> defaultConstraintBound;
+
+        /// <summary>
+        /// The selected bound name.
+        /// </summary>
+        private string selectedBoundName;
+
+        /// <summary>
+        /// The selected right hand side name.
+        /// </summary>
+        private string selectedRhsName;
+
+        /// <summary>
+        /// The selected range name.
+        /// </summary>
+        private string selectedRangeName;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LPModel"/> class.
         /// </summary>
@@ -27,6 +53,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
             this.L = new SparseMatrix<string, double>();
             this.U = new SparseMatrix<string, double>();
             this.R = new SparseMatrix<string, double>();
+
+            // Default variable and constraint bounds which the user can change them if desired.
+            this.defaultVariableBound = new(0, double.PositiveInfinity);
+            this.defaultConstraintBound = new(double.NegativeInfinity, double.PositiveInfinity);
         }
 
         /// <summary>
@@ -40,12 +70,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public string Objective { get; private set; }
 
         /// <summary>
-        /// Gets the coefficient matrix organized by row vectors.
+        /// Gets the constraint matrix organized by row vectors.
         /// </summary>
         public SparseMatrix<string, double> A { get; }
 
         /// <summary>
-        /// Gets the inequality types for each row in the coefficient matrix.
+        /// Gets the inequality types for each row in the constraint matrix.
         /// </summary>
         public SparseVector<string, MpsRow> RowTypes { get; }
 
@@ -81,19 +111,98 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Gets the collection of bounds names.
         /// </summary>
-        public IReadOnlyList<string> BoundsNames => this.L.RowCount > 0 ? this.L.Indices.ToList() : null;
+        public IReadOnlyList<string> BoundNames => this.L.RowCount > 0 ? this.L.Indices.ToList() : null;
 
         /// <summary>
         /// Gets the collection of range names.
         /// </summary>
         public IReadOnlyList<string> RangeNames => this.R.RowCount > 0 ? this.R.Indices.ToList() : null;
 
+        /// <summary>
+        /// Gets or sets the default variable bound.
+        /// </summary>
+        public Tuple<double, double> DefaultVariableBound
+        {
+            get => this.defaultVariableBound;
+            set
+            {
+                if (value.Item1 <= value.Item2)
+                {
+                    this.defaultVariableBound = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default constraint bound.
+        /// </summary>
+        public Tuple<double, double> DefaultConstraintBound
+        {
+            get => this.defaultConstraintBound;
+            set
+            {
+                if (value.Item1 <= value.Item2)
+                {
+                    this.defaultConstraintBound = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected bound name.
+        /// </summary>
+        public string SelectedBoundName
+        {
+            get => this.selectedBoundName;
+            set
+            {
+                if (this.L.Has(value))
+                {
+                    this.selectedBoundName = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected right hand side name.
+        /// </summary>
+        public string SelectedRhsName
+        {
+            get => this.selectedRhsName;
+            set
+            {
+                if (this.B.Has(value))
+                {
+                    this.selectedRhsName = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected range name.
+        /// </summary>
+        public string SelectedRangeName
+        {
+            get => this.selectedRangeName;
+            set
+            {
+                if (this.R.Has(value))
+                {
+                    this.selectedRangeName = value;
+                }
+            }
+        }
+
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"Name={this.Name} Obj={this.Objective} " +
-                $"A={this.A} RHS={this.B} Lower={this.L} Upper={this.U} " +
-                $"RowTypes={this.RowTypes.Count} Ranges={this.R}";
+            var sb = new StringBuilder();
+            sb.Append($"Name={this.Name} Obj={this.Objective} A={this.A} RHS={this.B} ");
+            sb.Append($"RowTypes={this.RowTypes.Count} Lower={this.L} Upper={this.U} Ranges={this.R} ");
+            sb.Append($"DefaultVarBound=({this.defaultVariableBound.Item1},{this.defaultVariableBound.Item2}) ");
+            sb.Append($"DefaultConstraintBound=({this.defaultConstraintBound.Item1},{this.defaultConstraintBound.Item2}) ");
+            sb.Append($"SelectedRhs={this.selectedRhsName}, SelectedBound={this.SelectedBoundName}, SelectedRange={this.SelectedRangeName}");
+            return sb.ToString();
         }
 
         /// <summary>
@@ -117,56 +226,65 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Sets the bound on a variable.
         /// </summary>
-        /// <param name="boundsName">The bounds name.</param>
+        /// <param name="boundName">The bound name.</param>
         /// <param name="columnName">The column or variable name.</param>
         /// <param name="type">The bound type.</param>
         /// <param name="value">The bound value.</param>
         /// <returns>True on success, false if not supported.</returns>
-        public bool SetBound(string boundsName, string columnName, MpsBound type, double value)
+        public bool SetBound(string boundName, string columnName, MpsBound type, double value)
         {
+            var defaultLower = this.defaultVariableBound.Item1;
+            var defaultUpper = this.defaultVariableBound.Item2;
+
+            // If no bound name has been selected, then set it this bound name.
+            if (string.IsNullOrEmpty(this.selectedBoundName))
+            {
+                this.selectedBoundName = boundName;
+            }
+
             switch (type)
             {
                 case MpsBound.Lower:
-                    this.L[boundsName, columnName] = value;
-                    if (!this.U.Has(boundsName, columnName))
+                    this.L[boundName, columnName] = value;
+                    if (!this.U.Has(boundName, columnName))
                     {
-                        this.U[boundsName, columnName] = double.PositiveInfinity;
+                        this.U[boundName, columnName] = defaultUpper;
                     }
 
                     break;
 
                 case MpsBound.Upper:
-                    this.U[boundsName, columnName] = value;
-                    if (!this.L.Has(boundsName, columnName))
+                    this.U[boundName, columnName] = value;
+                    if (!this.L.Has(boundName, columnName))
                     {
-                        this.L[boundsName, columnName] = 0;
+                        this.L[boundName, columnName] = defaultLower;
                     }
 
                     break;
 
                 case MpsBound.Fixed:
-                    this.L[boundsName, columnName] = this.U[boundsName, columnName] = value;
+                    this.L[boundName, columnName] = this.U[boundName, columnName] = value;
                     break;
 
                 case MpsBound.Free:
-                    this.L[boundsName, columnName] = double.NegativeInfinity;
-                    this.U[boundsName, columnName] = double.PositiveInfinity;
+                    this.L[boundName, columnName] = defaultLower;
+                    this.U[boundName, columnName] = defaultUpper;
                     break;
 
                 case MpsBound.MinusInfinity:
-                    this.L[boundsName, columnName] = double.NegativeInfinity;
-                    if (!this.U.Has(boundsName, columnName))
+                    this.L[boundName, columnName] = double.NegativeInfinity;
+                    if (!this.U.Has(boundName, columnName))
                     {
-                        this.U[boundsName, columnName] = double.PositiveInfinity;
+                        this.U[boundName, columnName] = defaultUpper;
                     }
 
                     break;
 
                 case MpsBound.PlusInfinity:
-                    this.U[boundsName, columnName] = double.PositiveInfinity;
-                    if (!this.L.Has(boundsName, columnName))
+                    this.U[boundName, columnName] = double.PositiveInfinity;
+                    if (!this.L.Has(boundName, columnName))
                     {
-                        this.L[boundsName, columnName] = 0;
+                        this.L[boundName, columnName] = defaultLower;
                     }
 
                     break;
@@ -182,35 +300,30 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Gets the lower and upper bounds for variables.
         /// </summary>
-        /// <param name="boundsName">The bounds name.</param>
         /// <param name="lowerBound">The lower bound row vector (output).</param>
         /// <param name="upperBound">The upper bound row vector (output).</param>
-        /// <param name="defaultLowerBound">The default lower bound.</param>
-        /// <param name="defaultUpperBound">The default upper bound.</param>
-        /// <returns>True if bounds were used, false if bounds are default values.</returns>
-        public bool GetVariableBounds(
-            string boundsName,
+        public void GetVariableBounds(
             out SparseVector<string, double> lowerBound,
-            out SparseVector<string, double> upperBound,
-            double defaultLowerBound = 0,
-            double defaultUpperBound = double.PositiveInfinity)
+            out SparseVector<string, double> upperBound)
         {
-            lowerBound = new SparseVector<string, double> { Default = defaultLowerBound };
-            upperBound = new SparseVector<string, double> { Default = defaultUpperBound };
+            var defaultLower = this.defaultVariableBound.Item1;
+            var defaultUpper = this.defaultVariableBound.Item2;
 
-            // If no bounds name is given, use the first bounds name.
-            if (string.IsNullOrEmpty(boundsName))
+            lowerBound = new SparseVector<string, double>(defaultLower);
+            upperBound = new SparseVector<string, double>(defaultUpper);
+
+            // Use the selected or first bound name.
+            var boundName = this.selectedBoundName ?? this.BoundNames?[0];
+
+            // If no bound is present, then there is nothing more to do. The lower and upper bound
+            // vectors have the default values.
+            if (!this.L.Has(boundName) || !this.U.Has(boundName))
             {
-                boundsName = this.BoundsNames?[0];
+                return;
             }
 
-            if (!this.L.Has(boundsName) || !this.U.Has(boundsName))
-            {
-                return false;
-            }
-
-            var lower = this.L[boundsName];
-            var upper = this.U[boundsName];
+            var lower = this.L[boundName];
+            var upper = this.U[boundName];
             foreach (var colIndex in this.A.ColumnIndices)
             {
                 if (lower.Has(colIndex))
@@ -223,80 +336,120 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     upperBound[colIndex] = upper[colIndex];
                 }
             }
-
-            return true;
         }
 
         /// <summary>
-        /// Gets the lower and upper limit right hand side vectors.
+        /// Gets the lower and upper bounds for the right hand side vector.
         /// </summary>
-        /// <param name="rhsName">The right hand side name.</param>
-        /// <param name="rangesName">The ranges name or null if no range should be used.</param>
-        /// <param name="lowerLimit">The lower limit right hand side vector (output).</param>
-        /// <param name="upperLimit">The upper limit right hand side vector (output).</param>
-        /// <param name="defaultLowerLimit">The default lower limit.</param>
-        /// <param name="defaultUpperLimit">The default upper limit.</param>
-        /// <returns>True on success, false on failure.</returns>
-        public bool GetRhsLimits(
-            string rhsName,
-            string rangesName,
-            out SparseVector<string, double> lowerLimit,
-            out SparseVector<string, double> upperLimit,
-            double defaultLowerLimit = double.NegativeInfinity,
-            double defaultUpperLimit = double.PositiveInfinity)
+        /// <param name="lowerBound">The lower bound right hand side vector (output).</param>
+        /// <param name="upperBound">The upper bound right hand side vector (output).</param>
+        public void GetRhsBounds(
+            out SparseVector<string, double> lowerBound,
+            out SparseVector<string, double> upperBound)
         {
-            lowerLimit = new SparseVector<string, double> { Default = defaultLowerLimit };
-            upperLimit = new SparseVector<string, double> { Default = defaultUpperLimit };
+            var defaultLower = this.defaultConstraintBound.Item1;
+            var defaultUpper = this.defaultConstraintBound.Item2;
 
-            if (string.IsNullOrEmpty(rhsName))
+            lowerBound = new SparseVector<string, double>(defaultLower);
+            upperBound = new SparseVector<string, double>(defaultUpper);
+
+            // Use the selected or first right hand side name.
+            var rhsName = this.selectedRhsName ?? this.RhsNames?[0];
+
+            // If the right hand side is not found, then use a zero vector.
+            SparseVector<string, double> rhsVector;
+            if (this.B.Has(rhsName))
             {
-                rhsName = this.RhsNames?[0];
+                rhsVector = this.B[rhsName];
+            }
+            else
+            {
+                rhsVector = new SparseVector<string, double>(0);
             }
 
-            if (!this.B.Has(rhsName))
+            foreach (var rowIndex in this.A.RowIndices)
             {
-                return false;
-            }
-
-            var rangeVector = this.R[rangesName];
-            foreach (var rowIndex in this.B[rhsName].Indices)
-            {
-                var rhs = this.B[rhsName, rowIndex];
-
                 var rowType = this.RowTypes[rowIndex];
                 if (rowType == MpsRow.NoRestriction)
                 {
                     continue;
                 }
-                else if (rowType == MpsRow.GreaterOrEqual)
+
+                // If the right hand side vector does not have an element for the row index,
+                // it will return zero, just like coefficients in the constraint matrix.
+                var rhs = rhsVector[rowIndex];
+
+                if (rowType == MpsRow.GreaterOrEqual)
                 {
-                    var range = rangeVector != null && rangeVector.Has(rowIndex) ? rangeVector[rowIndex] : double.PositiveInfinity;
-                    lowerLimit[rowIndex] = rhs;
-                    upperLimit[rowIndex] = rhs + Math.Abs(range);
+                    lowerBound[rowIndex] = rhs;
                 }
                 else if (rowType == MpsRow.LessOrEqual)
                 {
-                    var range = rangeVector != null && rangeVector.Has(rowIndex) ? rangeVector[rowIndex] : double.PositiveInfinity;
-                    lowerLimit[rowIndex] = rhs - Math.Abs(range);
-                    upperLimit[rowIndex] = rhs;
+                    upperBound[rowIndex] = rhs;
                 }
                 else if (rowType == MpsRow.Equal)
                 {
-                    var range = rangeVector != null && rangeVector.Has(rowIndex) ? rangeVector[rowIndex] : 0;
+                    lowerBound[rowIndex] = upperBound[rowIndex] = rhs;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the lower and upper limit right hand side vectors based on a range.
+        /// </summary>
+        /// <param name="lowerBound">The lower bound right hand side vector.</param>
+        /// <param name="upperBound">The upper bound right hand side vector.</param>
+        public void UpdateRhsBoundsWithRange(
+            SparseVector<string, double> lowerBound,
+            SparseVector<string, double> upperBound)
+        {
+            // Use the selected or first range name.
+            var rangeName = this.selectedRangeName ?? this.RangeNames?[0];
+
+            if (!this.R.Has(rangeName))
+            {
+                return;
+            }
+
+            var rangeVector = this.R[rangeName];
+
+            foreach (var rowIndex in this.A.RowIndices)
+            {
+                var rowType = this.RowTypes[rowIndex];
+                if (rowType == MpsRow.NoRestriction)
+                {
+                    continue;
+                }
+
+                // If the right hand side bounds or the range vector does not have an element
+                // for this row, then we skip it. Need to check if this is the correct interpretation.
+                if (!(lowerBound.Has(rowIndex) && upperBound.Has(rowIndex) && rangeVector.Has(rowIndex)))
+                {
+                    continue;
+                }
+
+                var range = rangeVector[rowIndex];
+
+                if (rowType == MpsRow.GreaterOrEqual)
+                {
+                    upperBound[rowIndex] = lowerBound[rowIndex] + Math.Abs(range);
+                }
+                else if (rowType == MpsRow.LessOrEqual)
+                {
+                    lowerBound[rowIndex] = upperBound[rowIndex] - Math.Abs(range);
+                }
+                else if (rowType == MpsRow.Equal)
+                {
                     if (range >= 0)
                     {
-                        lowerLimit[rowIndex] = rhs;
-                        upperLimit[rowIndex] = rhs + range;
+                        upperBound[rowIndex] += range;
                     }
                     else
                     {
-                        lowerLimit[rowIndex] = rhs + range;
-                        upperLimit[rowIndex] = rhs;
+                        lowerBound[rowIndex] += range;
                     }
                 }
             }
-
-            return true;
         }
 
         /// <summary>
@@ -317,36 +470,30 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 return false;
             }
 
-            // Check if lower bound is less than or equal to the upper bound.
-            if (this.BoundsNames != null)
+            // Check if right hand side lower bound is less than or equal to the upper bound.
+            if (this.RhsNames != null)
             {
-                foreach (var boundsName in this.BoundsNames)
+                this.GetRhsBounds(
+                    out SparseVector<string, double> lowerBound,
+                    out SparseVector<string, double> upperBound);
+                foreach (var index in lowerBound.Indices)
                 {
-                    this.GetVariableBounds(
-                        boundsName,
-                        out SparseVector<string, double> lowerBound,
-                        out SparseVector<string, double> upperBound);
-                    foreach (var index in lowerBound.Indices)
+                    if (lowerBound[index] > upperBound[index])
                     {
-                        if (lowerBound[index] > upperBound[index])
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
             }
 
-            // Check if right hand side lower limit is less than or equal to the upper limit.
-            foreach (var rhsName in this.RhsNames)
+            // Check if lower bound is less than or equal to the upper bound.
+            if (this.BoundNames != null)
             {
-                this.GetRhsLimits(
-                    rhsName,
-                    null,
-                    out SparseVector<string, double> lowerLimit,
-                    out SparseVector<string, double> upperLimit);
-                foreach (var index in lowerLimit.Indices)
+                this.GetVariableBounds(
+                    out SparseVector<string, double> lowerBound,
+                    out SparseVector<string, double> upperBound);
+                foreach (var index in lowerBound.Indices)
                 {
-                    if (lowerLimit[index] > upperLimit[index])
+                    if (lowerBound[index] > upperBound[index])
                     {
                         return false;
                     }

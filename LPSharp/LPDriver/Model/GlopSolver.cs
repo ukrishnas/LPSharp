@@ -40,11 +40,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public bool Load(
-            LPModel model,
-            string boundsName = null,
-            string rhsName = null,
-            string rangesName = null)
+        public bool Load(LPModel model)
         {
             if (!model.IsValid())
             {
@@ -53,24 +49,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             var stopwatch = Stopwatch.StartNew();
 
-            // Get variable lower and upper bounds from the model.
-            model.GetVariableBounds(
-                boundsName,
-                out SparseVector<string, double> lowerBound,
-                out SparseVector<string, double> upperBound,
-                this.DefaultVariableBounds.Item1,
-                this.DefaultVariableBounds.Item2);
-
-            // Get the right hand side lower and upper limits from the model.
-            model.GetRhsLimits(
-                rhsName,
-                rangesName,
-                out SparseVector<string, double> lowerLimit,
-                out SparseVector<string, double> upperLimit,
-                this.DefaultConstraintBounds.Item1,
-                this.DefaultConstraintBounds.Item2);
-
             this.linearSolver.Clear();
+
+            // Get the lower and upper variable bounds from the model.
+            model.GetVariableBounds(
+                out SparseVector<string, double> lowerBound,
+                out SparseVector<string, double> upperBound);
 
             // Create solver variables for each column in the model.
             var x = new Dictionary<string, Variable>();
@@ -89,6 +73,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 objective.SetCoefficient(x[colIndex], row[colIndex]);
             }
+
+            // Get the lower and upper constraint bounds from the model.
+            model.GetRhsBounds(
+                out SparseVector<string, double> lowerLimit,
+                out SparseVector<string, double> upperLimit);
 
             // Create the constraints.
             foreach (var rowIndex in model.A.Indices)

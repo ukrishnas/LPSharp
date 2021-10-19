@@ -170,10 +170,10 @@ namespace Microsoft.LPSharp.LPDriverTest
         [TestMethod]
         public void SparseVectorDefaultValueTest()
         {
-            var ivec = new SparseVector<int, int>() { Default = int.MaxValue };
+            var ivec = new SparseVector<int, int>(int.MaxValue);
             Assert.AreEqual(int.MaxValue, ivec[0], "Integer MaxValue default");
 
-            var dvec = new SparseVector<int, double> { Default = double.PositiveInfinity };
+            var dvec = new SparseVector<int, double>(double.PositiveInfinity);
             Assert.AreEqual(double.PositiveInfinity, dvec[0], "Double positive infinity default");
             dvec.Default = 0;
             Assert.AreEqual(0, dvec[0], "Double zero default");
@@ -182,6 +182,25 @@ namespace Microsoft.LPSharp.LPDriverTest
             Assert.IsNull(nvec[0], "Nullable double default");
             nvec.Default = double.NaN;
             Assert.AreEqual(double.NaN, nvec[0], "Nullable NaN default");
+        }
+
+        /// <summary>
+        /// Tests the initialization of a zero vector.
+        /// </summary>
+        [TestMethod]
+        public void SparseVectorZeroVectorTest()
+        {
+            var explicitZero = new SparseVector<int, double>(0);
+            for (int i = 0; i < 10; i++)
+            {
+                Assert.AreEqual(0, explicitZero[i], $"Explicit zero {i}");
+            }
+
+            var implicitZero = new SparseVector<int, double>();
+            for (int i = 0; i < 10; i++)
+            {
+                Assert.AreEqual(0, implicitZero[i], $"Implicit zero {i}");
+            }
         }
     }
 }

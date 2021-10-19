@@ -1,10 +1,10 @@
 Model,                      Optimal,            MSF_i7, CLPDual_i7, CLPPrimal_i7, Glop_i7
 edge-pri0-diverse5.mps,     8117442981617.25,   61608,  2802,   10932,          15753
-edge-pri0-maxmin0.mps,      30411123.92135,     27002,  4992,   4032,           4570
-edge-pri0-maxmin1.mps,      34938681.92135,     52156,  5812,   6622,           60000
-edge-pri0-maxmin2.mps,      40084357.92135,     54399,  6872,   8602,           60000
-edge-pri0-maxmin3.mps,      43810399.92135,     54138,  8192,   8662,           60000
-edge-pri0-maxmin4.mps,      45285235.92135,     53300,  6662,   7692,           60000 
+edge-pri0-maxmin0.mps,      30411123.92135,     27002,  4992,   4032,           4803
+edge-pri0-maxmin1.mps,      34938681.92135,     52156,  5812,   6622,           4681
+edge-pri0-maxmin2.mps,      40084357.92135,     54399,  6872,   8602,           4234
+edge-pri0-maxmin3.mps,      43810399.92135,     54138,  8192,   8662,           5892
+edge-pri0-maxmin4.mps,      45285235.92135,     53300,  6662,   7692,           35417 
 edge-pri0-mincost.mps,      8097677503708.52,   45836,  2152,   10982,          14861
 edge-pri0-minutil.mps,      1,                  41737,  3112,   5472,           7235
 sliceperf-pri0-diverse5.mps,1771439728369.32,   42852,  2352,   4772,           8102

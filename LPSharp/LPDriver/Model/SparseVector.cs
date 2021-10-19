@@ -23,11 +23,20 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SparseVector{Tindex, Tvalue}"/> class.
         /// </summary>
-        /// <param name="capacity">The capacity.</param>
-        public SparseVector(int capacity = 0)
+        public SparseVector()
         {
-            this.store = new Dictionary<Tindex, Tvalue>(capacity);
+            this.store = new Dictionary<Tindex, Tvalue>();
             this.Default = default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SparseVector{Tindex, Tvalue}"/> class.
+        /// </summary>
+        /// <param name="defaultValue">The default value.</param>
+        public SparseVector(Tvalue defaultValue)
+        {
+            this.store = new Dictionary<Tindex, Tvalue>();
+            this.Default = defaultValue;
         }
 
         /// <summary>
@@ -120,6 +129,23 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             return values;
+        }
+
+        /// <summary>
+        /// Creates a clone of this object that is a shallow copy. Elements that are reference
+        /// objects will not be cloned.
+        /// </summary>
+        /// <returns>A clone of this object.</returns>
+        public SparseVector<Tindex, Tvalue> Clone()
+        {
+            var clone = new SparseVector<Tindex, Tvalue>(this.Default);
+
+            foreach (var kv in this.store)
+            {
+                clone.store[kv.Key] = kv.Value;
+            }
+
+            return clone;
         }
     }
 }
