@@ -21,7 +21,7 @@ namespace Microsoft.LPSharp.Powershell
         {
             if (this.LPDriver.Results.Count == 0)
             {
-                this.WriteHost("No execution results present");
+                this.WriteHost("No execution results present. Please add a result using Invoke-Solver");
                 return;
             }
 

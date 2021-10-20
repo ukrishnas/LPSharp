@@ -234,6 +234,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 positions = this.rolumnFieldPositions;
             }
 
+            // It is okay to trim the end of the line so that whitespace at the end
+            // of the line does not become columns.
+            line = line.TrimEnd();
+
             foreach (var position in positions)
             {
                 // Note that position starts from 1, while string index starts from 0.
@@ -250,6 +254,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 }
 
                 var field = line.Substring(startIndex, length).Trim();
+
                 fields.Add(field);
             }
 

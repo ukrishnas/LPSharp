@@ -413,24 +413,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     continue;
                 }
 
-                // If the right hand side bounds or the range vector does not have an element
-                // for this row, then we skip it. Need to check if this is the correct interpretation.
-                if (!(lowerBound.Has(rowIndex) && upperBound.Has(rowIndex) && rangeVector.Has(rowIndex)))
+                // If the row index is not specified in the range, the default value will be zero.
+                // A zero change does not have any affect on the constraint bounds.
+                if (!rangeVector.Has(rowIndex))
                 {
                     continue;
                 }
 
                 var range = rangeVector[rowIndex];
 
-                if (rowType == MpsRow.GreaterOrEqual)
-                {
-                    upperBound[rowIndex] = lowerBound[rowIndex] + Math.Abs(range);
-                }
-                else if (rowType == MpsRow.LessOrEqual)
-                {
-                    lowerBound[rowIndex] = upperBound[rowIndex] - Math.Abs(range);
-                }
-                else if (rowType == MpsRow.Equal)
+                if (lowerBound[rowIndex] == upperBound[rowIndex])
                 {
                     if (range >= 0)
                     {
@@ -440,6 +432,14 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     {
                         lowerBound[rowIndex] += range;
                     }
+                }
+                else if (lowerBound[rowIndex] == this.defaultConstraintBound.Item1)
+                {
+                    lowerBound[rowIndex] = upperBound[rowIndex] - Math.Abs(range);
+                }
+                else if (upperBound[rowIndex] == this.defaultConstraintBound.Item2)
+                {
+                    upperBound[rowIndex] = lowerBound[rowIndex] + Math.Abs(range);
                 }
             }
         }

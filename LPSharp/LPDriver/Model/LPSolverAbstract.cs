@@ -6,7 +6,9 @@
 
 namespace Microsoft.LPSharp.LPDriver.Model
 {
+    using System;
     using System.Collections.Generic;
+    using Microsoft.LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Represents an abstract class for an LP solver. It holds methods and properties
@@ -17,7 +19,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// The solver metrics;
         /// </summary>
-        protected Dictionary<string, object> metrics;
+        protected SortedDictionary<string, object> metrics;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LPSolverAbstract"/> class.
@@ -26,7 +28,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public LPSolverAbstract(string key)
         {
             this.Key = key;
-            this.metrics = new Dictionary<string, object>();
+            this.metrics = new SortedDictionary<string, object>(new MetricComparer());
         }
 
         /// <summary>
@@ -54,6 +56,36 @@ namespace Microsoft.LPSharp.LPDriver.Model
             if (this.metrics.ContainsKey(key))
             {
                 this.metrics.Remove(key);
+            }
+        }
+
+        /// <summary>
+        /// Represents a custom comparer for metric keys so that metrics output
+        /// in a more readable order.
+        /// </summary>
+        private class MetricComparer : IComparer<string>
+        {
+            /// <summary>
+            /// Represents a custom comparer for metric keys.
+            /// </summary>
+            /// <param name="a">The first metric.</param>
+            /// <param name="b">The second metric.</param>
+            /// <returns>The comparison result.</returns>
+            public int Compare(string a, string b)
+            {
+                Func<string, string> mangle = x =>
+                {
+                    return x == LPMetric.ModelName ? $"0_{x}" :
+                        x == LPMetric.SolverName ? $"1_{x}" :
+                        x == LPMetric.SolveTimeMs ? $"2_{x}" :
+                        x == LPMetric.Objective ? $"3_{x}" :
+                        x;
+                };
+
+                a = mangle(a);
+                b = mangle(b);
+
+                return a.CompareTo(b);
             }
         }
     }

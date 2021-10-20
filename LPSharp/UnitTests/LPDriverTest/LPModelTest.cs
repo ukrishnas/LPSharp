@@ -236,8 +236,7 @@ namespace Microsoft.LPSharp.LPDriverTest
         }
 
         /// <summary>
-        /// Tests the constraint bound with range. Please update this test if it
-        /// does not reflect the correct range behavior.
+        /// Tests the constraint bound with range.
         /// </summary>
         [TestMethod]
         public void LPModelConstraintBoundWithRangeTest()
@@ -272,6 +271,7 @@ namespace Microsoft.LPSharp.LPDriverTest
                     new Dictionary<string, double>
                     {
                         { "r1", 5 },
+                        { "r2", -25 },
                         { "r3", 15 },
                     },
                     double.NegativeInfinity),
@@ -284,6 +284,7 @@ namespace Microsoft.LPSharp.LPDriverTest
                     {
                         { "r1", 15 },
                         { "r2", -5 },
+                        { "r3", 45 },
                     },
                     double.PositiveInfinity),
                 upperBound, "Constraint upper bound");

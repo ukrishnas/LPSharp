@@ -7,6 +7,7 @@
 namespace Microsoft.LPSharp.LPDriverTest
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
@@ -20,10 +21,11 @@ namespace Microsoft.LPSharp.LPDriverTest
         /// <summary>
         /// The default tolerance for double precision comparisons.
         /// </summary>
-        public const double Tolerance = 1e-5;
+        public const double Tolerance = 1e-3;
 
         /// <summary>
-        /// Example models. The fields are model file and objective value.
+        /// Example models from COIN-OR and GLOP examples. The fields are model file
+        /// and objective value.
         /// </summary>
         public static Tuple<string, double>[] ExampleModels =
         {
@@ -31,6 +33,38 @@ namespace Microsoft.LPSharp.LPDriverTest
             new("hello.mps", 0),
             new("test1.mps", 54),
             new("test2.mps", 3.23684210526316),
+
+            // This file uses all real number MPS features but is infeasible.
+            new("test3.mps", double.NaN),
+        };
+
+        /// <summary>
+        /// WANLPv2 benchmark models that are small in size. The fields are model file
+        /// and objective value.
+        /// </summary>
+        public static Tuple<string, double>[] WanlpModels =
+        {
+            new("wander-primal1.mps", -1590.63821067608),
+            new("wander-primal2.mps", -4247098.879760965),
+        };
+
+        /// <summary>
+        /// NetLib models from https://www.cuter.rl.ac.uk/Problems/netlib.shtml.
+        /// The fields are model file and objective value.
+        /// </summary>
+        public static Tuple<string, double>[] NetlibModels =
+        {
+            new("25fv47.mps", 5501.8458882867135),
+            new("addlittle.mps", 225494.9631623804),
+            new("afiro.mps", -464.753142857143),
+            new("agg2.mps", -20239252.355977114),
+            new("boeing1.mps", -335.21356750712664),
+            new("boeing2.mps", -315.0187280152029),
+            new("ken-07.mps", -679520443.381687),
+            new("pds-02.mps", 28857862010),
+
+            // This file has trailing whitespace.
+            new("stocfor3.mps", -39976.78394364959),
         };
 
         /// <summary>
@@ -69,18 +103,26 @@ namespace Microsoft.LPSharp.LPDriverTest
             foreach (var test in testModels)
             {
                 var filename = $"{testFolder}\\{test.Item1}";
-                Assert.IsTrue(File.Exists(filename));
+                Assert.IsTrue(File.Exists(filename), $"{filename} not present");
+
+                Trace.WriteLine($"Testing with {filename}");
 
                 var model = reader.Read(filename);
                 model.Name = Path.GetFileNameWithoutExtension(filename);
 
                 Assert.IsTrue(solver.Load(model), $"{solver} {model.Name} load status");
-                Assert.IsTrue(solver.Solve(), "{solver} {model.Name} optimal result status");
 
-                TestUtil.AssertAlmostEqual(
-                    test.Item2,
-                    (double)solverAbstract.Metrics[LPMetric.Objective],
-                    $"{solver} {model.Name} objective");
+                var expectOptimal = !double.IsNaN(test.Item2);
+                Assert.AreEqual(expectOptimal, solver.Solve(), "{solver} {model.Name} optimal result status");
+
+                if (expectOptimal)
+                {
+                    var expectObjective = test.Item2;
+                    AssertAlmostEqual(
+                        expectObjective,
+                        (double)solverAbstract.Metrics[LPMetric.Objective],
+                        $"{solver} {model.Name} objective");
+                }
             }
         }
     }

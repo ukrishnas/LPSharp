@@ -28,6 +28,26 @@ namespace Microsoft.LPSharp.LPDriverTest
         }
 
         /// <summary>
+        /// Tests solver with WANLP model files.
+        /// </summary>
+        [TestMethod]
+        public void GlopSolverWanlpModelTest()
+        {
+            var solver = new GlopSolver("glop");
+            TestUtil.TestModels(solver, TestUtil.WanlpModels);
+        }
+
+        /// <summary>
+        /// Tests solver with NetLib model files.
+        /// </summary>
+        [TestMethod]
+        public void GlopSolverNetlibModelTest()
+        {
+            var solver = new GlopSolver("glop");
+            TestUtil.TestModels(solver, TestUtil.NetlibModels);
+        }
+
+        /// <summary>
         /// Tests the native solver API methods.
         /// </summary>
         [TestMethod]
