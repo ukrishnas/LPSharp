@@ -22,16 +22,14 @@ been tested against the following benchmarks.
 ## LPSharp cheatsheet
 
 LPSharp can be used to collect benchmark results. It can read MPS model files,
-set up the model in the solver, and execute the solver. The steps below read two
-models from uncompressed and compressed model files, and invokes CLP and GLOP
-solvers on them.
+set up the model in the solver, and execute the solver.
 
 Read a model. The model can be accessed using a key which is the filename
 without extension or the name given using `-key`. Use the `-format free` option
-to read files in MPS free format.
+to read files in MPS free format. The default fixed format is faster.
 
 ```
-LPSharp> read-mps qap15.mps
+LPSharp> read-mps 80bau38.mps
 ```
 
 Create a solver with the `-create` option. The argument is the solver type
@@ -47,12 +45,13 @@ Load the model into the solver and solve it. The first argument is the model
 key. You can select a non-default solver using `-key`. 
 
 ```
-LPSharp> invoke-solver qap15
+LPSharp> invoke-solver 80bau38
 ```
 
-Get the results from previous executions. The execution key is a combination of
-the model and solver keys. You can see more details by saving the output of
-`get-results` into a variable. Each execution result is a dictionary of metrics.
+Get the execution results. The execution key is a combination of the model and
+solver keys. You can see more details by saving the output of `get-results` into
+a variable. Each execution result is a dictionary of string keys and object
+values.
 
 ```
 LPSharp> get-results
@@ -119,7 +118,7 @@ CLP executable built from this repository.
 $ Clp.exe 80bau38.mps -either
 ```
 
-CLP is 2 times faster than GLOP with executed Netlib models.
+CLP is 2 times faster than GLOP for the executed Netlib models.
 
 ## Plato results
 
@@ -136,14 +135,14 @@ format and verify that there are no read errors.
 
 ```
 LPSharp> read-mps plato\datt256_lp.mps -Format free
-Read MPS file plato\datt256_lp.mps as model Name=datt256_lp Obj=obj A=(11078, 262144) RHS=(1, 513) RowTypes=11078 Lower=(1, 262144) Upper=(1, 262144) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 6081 ms, read_errors=0, model_key=datt256_lp
-datt256_lp
+Read MPS file plato\datt256_lp.mps ... read_errors=0 ...
 ```
 
 GLOP results were collected using LPSharp. CLP results were collected using the
 CLP executable built from this repository. `Clp.exe` binary has an `-either`
 option and it is the best way to run the models. The problems are quite hard to
-solve and take minutes on my laptop.
+solve and take minutes on my laptop. Please check with the logs at the ftp site
+to get a sense of how the solver behaves with the model.
 
-CLP is 3 times faster than GLOP with executed Plato models. Note that only 2
-models were executed, so the average is not statistically accurate.
+CLP is 2 times faster than GLOP for the executed Plato models after excluding
+two outliers.

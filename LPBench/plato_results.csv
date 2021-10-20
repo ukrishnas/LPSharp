@@ -1,3 +1,5 @@
 Model,              Optimal,        ClpEither_i7, Glop_i7
+datt256_lp.mps,     256,            1175432,    2753054
 qap15.mps,          1040.994,       42262,      741963
 rmine15_lp.mps,     -5042.483,      461162,     846300
+s250r10.mps,        -0.172677035,   230692,     13287
