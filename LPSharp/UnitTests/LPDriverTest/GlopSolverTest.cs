@@ -6,8 +6,7 @@
 
 namespace Microsoft.LPSharp.LPDriverTest
 {
-    using System;
-
+    using System.Diagnostics;
     using Google.OrTools.LinearSolver;
     using Microsoft.LPSharp.LPDriver.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,6 +17,16 @@ namespace Microsoft.LPSharp.LPDriverTest
     [TestClass]
     public class GlopSolverTest
     {
+        /// <summary>
+        /// Tests solver with example model files.
+        /// </summary>
+        [TestMethod]
+        public void GlopSolverExampleModelTest()
+        {
+            var solver = new GlopSolver("glop");
+            TestUtil.TestModels(solver, TestUtil.ExampleModels);
+        }
+
         /// <summary>
         /// Tests the native solver API methods.
         /// </summary>
@@ -56,41 +65,33 @@ namespace Microsoft.LPSharp.LPDriverTest
             c2.SetCoefficient(x2, 2);
             c2.SetCoefficient(x3, 6);
 
-            Console.WriteLine("Number of variables = " + solver.NumVariables());
-            Console.WriteLine("Number of constraints = " + solver.NumConstraints());
+            Assert.AreEqual(3, solver.NumVariables(), "Number of variables");
+            Assert.AreEqual(3, solver.NumConstraints(), "Number of constraints");
 
             Solver.ResultStatus resultStatus = solver.Solve();
 
-            // Check that the problem has an optimal solution.
-            if (resultStatus != Solver.ResultStatus.OPTIMAL)
+            Assert.AreEqual(Solver.ResultStatus.OPTIMAL, resultStatus, "Result status");
+            TestUtil.AssertAlmostEqual(733.333333, solver.Objective().Value(), "Objective value");
+            TestUtil.AssertAlmostEqual(33.333333, x1.SolutionValue(), "x1");
+            TestUtil.AssertAlmostEqual(66.666666, x2.SolutionValue(), "x2");
+            TestUtil.AssertAlmostEqual(0, x3.SolutionValue(), "x3");
+
+            Assert.AreEqual(2, solver.Iterations(), "Iterations");
+
+            foreach (var x in new[] { x1, x2, x3 })
             {
-                Console.WriteLine("The problem does not have an optimal solution!");
-                return;
+                Trace.WriteLine(string.Format(
+                    "{0} solution={1} reduced cost={2}",
+                    x.Name(), x.SolutionValue(), x.ReducedCost()));
             }
 
-            Console.WriteLine("Problem solved in " + solver.WallTime() + " milliseconds");
-
-            // The objective value of the solution.
-            Console.WriteLine("Optimal objective value = " + solver.Objective().Value());
-
-            // The value of each variable in the solution.
-            Console.WriteLine("x1 = " + x1.SolutionValue());
-            Console.WriteLine("x2 = " + x2.SolutionValue());
-            Console.WriteLine("x3 = " + x3.SolutionValue());
-
-            Console.WriteLine("Advanced usage:");
             double[] activities = solver.ComputeConstraintActivities();
-
-            Console.WriteLine("Problem solved in " + solver.Iterations() + " iterations");
-            Console.WriteLine("x1: reduced cost = " + x1.ReducedCost());
-            Console.WriteLine("x2: reduced cost = " + x2.ReducedCost());
-            Console.WriteLine("x3: reduced cost = " + x3.ReducedCost());
-            Console.WriteLine("c0: dual value = " + c0.DualValue());
-            Console.WriteLine("    activity = " + activities[c0.Index()]);
-            Console.WriteLine("c1: dual value = " + c1.DualValue());
-            Console.WriteLine("    activity = " + activities[c1.Index()]);
-            Console.WriteLine("c2: dual value = " + c2.DualValue());
-            Console.WriteLine("    activity = " + activities[c2.Index()]);
+            foreach (var coeff in new[] { c0, c1, c2 })
+            {
+                Trace.WriteLine(string.Format(
+                    "{0} dual value={1} activities={2}",
+                    coeff.Name(), coeff.DualValue(), activities[coeff.Index()]));
+            }
         }
     }
 }

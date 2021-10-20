@@ -25,5 +25,9 @@
     <Content Include="..\TestData\*.mps*" LinkBase="TestData" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="SolverCommonTest.cs" />
+  </ItemGroup>
+
   <Import Project="..\..\settings\build-settings.xml" />
 </Project>
