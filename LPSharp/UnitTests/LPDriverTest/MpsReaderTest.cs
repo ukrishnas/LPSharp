@@ -9,6 +9,8 @@ namespace Microsoft.LPSharp.LPDriverTest
     using System;
     using System.IO;
     using System.IO.Compression;
+
+    using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,7 +21,7 @@ namespace Microsoft.LPSharp.LPDriverTest
     public class MpsReaderTest
     {
         /// <summary>
-        /// Tests MPS read operation with a example model files.
+        /// Tests MPS read operation with example model files.
         /// </summary>
         [TestMethod]
         public void MpsReadExampleModelTest()
@@ -35,7 +37,7 @@ namespace Microsoft.LPSharp.LPDriverTest
         }
 
         /// <summary>
-        /// Tests MPS read operation with a GZip model files.
+        /// Tests MPS read operation with GZip model files.
         /// </summary>
         [TestMethod]
         public void MpsReadGzipModelTest()
@@ -49,6 +51,22 @@ namespace Microsoft.LPSharp.LPDriverTest
 
                 reader.Read(compressedFilename);
                 Assert.AreEqual(0, reader.Errors.Count, $"Read errors {filename} {compressedFilename}");
+            }
+        }
+
+        /// <summary>
+        /// Tests MPS read operation with free format model files.
+        /// </summary>
+        [TestMethod]
+        public void MpsReadFreeFormatModelTest()
+        {
+            var reader = new MpsReader();
+            foreach (var test in TestUtil.FreeFormatModels)
+            {
+                var filename = $"TestData\\{test.Item1}";
+                Assert.IsTrue(File.Exists(filename), $"{filename} not present");
+                reader.Read(filename, MpsFormat.Free);
+                Assert.AreEqual(0, reader.Errors.Count, $"Read errors {filename}");
             }
         }
 

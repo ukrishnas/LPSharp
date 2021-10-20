@@ -302,10 +302,6 @@ namespace Microsoft.LPSharp.LPDriverTest
             model.A["r1", "c1"] = -1;
             model.RowTypes["r1"] = MpsRow.NoRestriction;
             model.SetObjective();
-            Assert.IsFalse(model.IsValid());
-
-            model.B["rhs", "r1"] = 5;
-            Assert.IsTrue(model.IsValid());
         }
     }
 }

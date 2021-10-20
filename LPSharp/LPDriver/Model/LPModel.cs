@@ -456,12 +456,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 return false;
             }
 
-            // Check if model has a right hand side.
-            if (this.RhsNames == null)
-            {
-                return false;
-            }
-
             // Check if right hand side lower bound is less than or equal to the upper bound.
             if (this.RhsNames != null)
             {

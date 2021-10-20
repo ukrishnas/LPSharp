@@ -39,6 +39,15 @@ namespace Microsoft.LPSharp.LPDriverTest
         };
 
         /// <summary>
+        /// Example models in free MPS format.
+        /// </summary>
+        public static Tuple<string, double>[] FreeFormatModels =
+        {
+            // This file is a snippet of a larger model in free format.
+            new("testfree.mps", double.NaN),
+        };
+
+        /// <summary>
         /// WANLPv2 benchmark models that are small in size. The fields are model file
         /// and objective value.
         /// </summary>
@@ -103,6 +112,14 @@ namespace Microsoft.LPSharp.LPDriverTest
             foreach (var test in testModels)
             {
                 var filename = $"{testFolder}\\{test.Item1}";
+                var expectObjective = test.Item2;
+
+                // Ignore files that do not have an optimal result.
+                if (double.IsNaN(expectObjective))
+                {
+                    continue;
+                }
+
                 Assert.IsTrue(File.Exists(filename), $"{filename} not present");
 
                 Trace.WriteLine($"Testing with {filename}");
@@ -111,18 +128,12 @@ namespace Microsoft.LPSharp.LPDriverTest
                 model.Name = Path.GetFileNameWithoutExtension(filename);
 
                 Assert.IsTrue(solver.Load(model), $"{solver} {model.Name} load status");
+                Assert.IsTrue(solver.Solve(), "{solver} {model.Name} optimal result status");
 
-                var expectOptimal = !double.IsNaN(test.Item2);
-                Assert.AreEqual(expectOptimal, solver.Solve(), "{solver} {model.Name} optimal result status");
-
-                if (expectOptimal)
-                {
-                    var expectObjective = test.Item2;
-                    AssertAlmostEqual(
-                        expectObjective,
-                        (double)solverAbstract.Metrics[LPMetric.Objective],
-                        $"{solver} {model.Name} objective");
-                }
+                AssertAlmostEqual(
+                    expectObjective,
+                    (double)solverAbstract.Metrics[LPMetric.Objective],
+                    $"{solver} {model.Name} objective");
             }
         }
     }

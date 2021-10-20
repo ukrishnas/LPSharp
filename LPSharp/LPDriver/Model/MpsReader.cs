@@ -16,8 +16,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
     /// <summary>
     /// Represents a reader of mathematical programming system MPS format files.
     /// https://www.cenapad.unicamp.br/parque/manuais/OSL/oslweb/features/featur11.htm explains
-    /// the format. This reader tries to be a fixed format reader, does not understand
-    /// integer data, and non-LP sections.
+    /// the format. This reader reads fixed and free format files, supports the RANGES optional
+    /// section, does not understand integer data, and non-LP sections.
     /// </summary>
     public class MpsReader
     {
@@ -35,33 +35,33 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <summary>
         /// Fixed MPS format field position and length for section headers.
         /// </summary>
-        private readonly Tuple<int, int>[] sectionFieldPositions = new Tuple<int, int>[]
+        private readonly IList<Tuple<int, int>> sectionFieldPositions = new List<Tuple<int, int>>
         {
-            new Tuple<int, int>(1, 12),
-            new Tuple<int, int>(15, NameFieldLength),
+            new(1, 12),
+            new(15, NameFieldLength),
         };
 
         /// <summary>
         /// Fixed MPS format field position and length for rows and bounds sections.
         /// </summary>
-        private readonly Tuple<int, int>[] rowFieldPositions = new Tuple<int, int>[]
+        private readonly IList<Tuple<int, int>> rowFieldPositions = new List<Tuple<int, int>>
         {
-            new Tuple<int, int>(2, 2),
-            new Tuple<int, int>(5, NameFieldLength),
-            new Tuple<int, int>(15, NameFieldLength),
-            new Tuple<int, int>(25, NumberFieldLength),
+            new(2, 2),
+            new(5, NameFieldLength),
+            new(15, NameFieldLength),
+            new(25, NumberFieldLength),
         };
 
         /// <summary>
         /// Fixed MPS format field position and length for columns, RHS, and ranges sections.
         /// </summary>
-        private readonly Tuple<int, int>[] rolumnFieldPositions = new Tuple<int, int>[]
+        private readonly IList<Tuple<int, int>> rolumnFieldPositions = new List<Tuple<int, int>>
         {
-            new Tuple<int, int>(5, NameFieldLength),
-            new Tuple<int, int>(15, NameFieldLength),
-            new Tuple<int, int>(25, NumberFieldLength),
-            new Tuple<int, int>(40, NameFieldLength),
-            new Tuple<int, int>(50, NumberFieldLength),
+            new(5, NameFieldLength),
+            new(15, NameFieldLength),
+            new(25, NumberFieldLength),
+            new(40, NameFieldLength),
+            new(50, NumberFieldLength),
         };
 
         /// <summary>
@@ -98,11 +98,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public IReadOnlyList<string> Errors => this.errors;
 
         /// <summary>
-        /// Reads a mathematical programming system (MPS) file in fixed MPS format.
+        /// Reads a mathematical programming system (MPS) file.
         /// </summary>
         /// <param name="filename">The file name.</param>
+        /// <param name="mpsFormat">The MPS file format.</param>
         /// <returns>The linear programming model.</returns>
-        public LPModel Read(string filename)
+        public LPModel Read(string filename, MpsFormat mpsFormat = MpsFormat.Fixed)
         {
             if (!File.Exists(filename))
             {
@@ -118,11 +119,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 if (gzipped)
                 {
                     using var gzipStream = new GZipStream(stream, CompressionMode.Decompress);
-                    this.ParseMps(gzipStream, model);
+                    this.ParseMps(gzipStream, model, mpsFormat);
                 }
                 else
                 {
-                    this.ParseMps(stream, model);
+                    this.ParseMps(stream, model, mpsFormat);
                 }
             }
 
@@ -134,7 +135,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// </summary>
         /// <param name="stream">The MPS stream.</param>
         /// <param name="model">The linear programming model.</param>
-        private void ParseMps(Stream stream, LPModel model)
+        /// <param name="mpsFormat">The file format.</param>
+        private void ParseMps(Stream stream, LPModel model, MpsFormat mpsFormat)
         {
             string line;
             MpsSection? section = null;
@@ -142,7 +144,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var reader = new StreamReader(stream);
             while ((line = reader.ReadLine()) != null)
             {
-                var fields = this.ParseLine(line, section, out bool sectionLine);
+                var fields = this.ParseLine(line, section, mpsFormat, out bool sectionLine);
                 if (fields == null)
                 {
                     continue;
@@ -206,9 +208,14 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="section">The section.</param>
+        /// <param name="mpsFormat">The file format.</param>
         /// <param name="sectionLine">If true, parsed a section header (output parameter).</param>
         /// <returns>The list of fields.</returns>
-        private IList<string> ParseLine(string line, MpsSection? section, out bool sectionLine)
+        private IList<string> ParseLine(
+            string line,
+            MpsSection? section,
+            MpsFormat mpsFormat,
+            out bool sectionLine)
         {
             // Return null for comment line.
             if (string.IsNullOrEmpty(line) || line[0] == '*')
@@ -220,23 +227,31 @@ namespace Microsoft.LPSharp.LPDriver.Model
             sectionLine = line[0] != ' ';
             var fields = new List<string>();
 
-            Tuple<int, int>[] positions;
-            if (sectionLine || section == null)
-            {
-                positions = this.sectionFieldPositions;
-            }
-            else if (section == MpsSection.Rows || section == MpsSection.Bounds)
-            {
-                positions = this.rowFieldPositions;
-            }
-            else
-            {
-                positions = this.rolumnFieldPositions;
-            }
-
             // It is okay to trim the end of the line so that whitespace at the end
             // of the line does not become columns.
             line = line.TrimEnd();
+
+            IList<Tuple<int, int>> positions;
+
+            if (mpsFormat == MpsFormat.Fixed)
+            {
+                if (sectionLine || section == null)
+                {
+                    positions = this.sectionFieldPositions;
+                }
+                else if (section == MpsSection.Rows || section == MpsSection.Bounds)
+                {
+                    positions = this.rowFieldPositions;
+                }
+                else
+                {
+                    positions = this.rolumnFieldPositions;
+                }
+            }
+            else
+            {
+                positions = this.DetectFieldPositions(line);
+            }
 
             foreach (var position in positions)
             {
@@ -262,6 +277,52 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
+        /// Detects field positions in a free format line.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <returns>The field positions.</returns>
+        private IList<Tuple<int, int>> DetectFieldPositions(string line)
+        {
+            var positions = new List<Tuple<int, int>>();
+
+            int? fieldStart = null;
+            int fieldLength = 0;
+
+            for (int i = 1; i <= line.Length + 1; i++)
+            {
+                // Field positions are indexed from 1. Hence subtract before indexing.
+                // Also the iterator goes past line length so that the last field can be stored.
+                var c = (i == line.Length + 1) ? ' ' : line[i - 1];
+                if (c == ' ' || c == '\t' || c == '\r' || c == '\n')
+                {
+                    if (fieldStart != null)
+                    {
+                        // Terminate field upon encountering a white space.
+                        positions.Add(new(fieldStart.Value, fieldLength));
+                        fieldStart = null;
+                        fieldLength = 0;
+                    }
+                }
+                else
+                {
+                    if (fieldStart == null)
+                    {
+                        // Start field upon encountering a non-whitespace character.
+                        fieldStart = i;
+                        fieldLength = 1;
+                    }
+                    else
+                    {
+                        // Increment current field upon encountering a non-whitespace character.
+                        fieldLength++;
+                    }
+                }
+            }
+
+            return positions;
+        }
+
+        /// <summary>
         /// Parses a row.
         /// </summary>
         /// <param name="fields">The fields in the line.</param>
@@ -277,7 +338,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var type = MpsTypes.ParseRow(fields[0]);
             if (type == null)
             {
-                this.errors.Add($"Unparsable row type {fields[0]}");
+                this.errors.Add($"Cannot parse row type {fields[0]}");
                 return;
             }
 
@@ -306,7 +367,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
             else
             {
-                this.errors.Add($"Unparseable column coefficient {fields[2]} in {string.Join(' ', fields)}");
+                this.errors.Add($"Cannot parse column coefficient {fields[2]} in {string.Join(' ', fields)}");
             }
 
             if (fields.Count == 5)
@@ -318,7 +379,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 }
                 else
                 {
-                    this.errors.Add($"Unparseable column coefficient {fields[4]} in {string.Join(' ', fields)}");
+                    this.errors.Add($"Cannot parse column coefficient {fields[4]} in {string.Join(' ', fields)}");
                 }
             }
         }
@@ -340,7 +401,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var rowName = fields[1];
 
             // If RHS name is null, then use the last name. I think it is possible for the name to be
-            // ommitted in subsequent lines once it is set.
+            // omitted in subsequent lines once it is set.
             if (string.IsNullOrEmpty(rhsName))
             {
                 rhsName = this.lastRhsName;
@@ -356,7 +417,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
             else
             {
-                this.errors.Add($"Unparseable RHS coefficient {fields[2]} in {string.Join(' ', fields)}");
+                this.errors.Add($"Cannot parse RHS coefficient {fields[2]} in {string.Join(' ', fields)}");
             }
 
             if (fields.Count == 5)
@@ -368,7 +429,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 }
                 else
                 {
-                    this.errors.Add($"Unparseable RHS coefficient {fields[4]} in {string.Join(' ', fields)}");
+                    this.errors.Add($"Cannot parse RHS coefficient {fields[4]} in {string.Join(' ', fields)}");
                 }
             }
         }
@@ -383,7 +444,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var type = MpsTypes.ParseBound(fields[0]);
             if (type == null)
             {
-                this.errors.Add($"Unparseable bound type {fields[0]} in {string.Join(' ', fields)}");
+                this.errors.Add($"Cannot parse bound type {fields[0]} in {string.Join(' ', fields)}");
                 return;
             }
 
@@ -392,7 +453,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var columnName = fields[2];
 
             // If bounds name is null, then use the last name. I think it is possible for the name to be
-            // ommitted in subsequent lines once it is set.
+            // omitted in subsequent lines once it is set.
             if (string.IsNullOrEmpty(boundsName))
             {
                 boundsName = this.lastBoundsName;
@@ -410,7 +471,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 if (!double.TryParse(fields[3], out double coefficient))
                 {
-                    this.errors.Add($"Unparseable bound {fields[3]} in {string.Join(' ', fields)}");
+                    this.errors.Add($"Cannot parse bound {fields[3]} in {string.Join(' ', fields)}");
                     return;
                 }
 
@@ -435,7 +496,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var rowName = fields[1];
 
             // If ranges name is null, then use the last name. I think it is possible for the name to be
-            // ommitted in subsequent lines once it is set.
+            // omitted in subsequent lines once it is set.
             if (string.IsNullOrEmpty(rangesName))
             {
                 rangesName = this.lastRangesName;
@@ -451,7 +512,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
             else
             {
-                this.errors.Add($"Unparseable range coefficient {fields[2]} in {string.Join(' ', fields)}");
+                this.errors.Add($"Cannot parse range coefficient {fields[2]} in {string.Join(' ', fields)}");
             }
 
             if (fields.Count == 5)
@@ -463,7 +524,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 }
                 else
                 {
-                    this.errors.Add($"Unparseable range coefficient {fields[4]} in {string.Join(' ', fields)}");
+                    this.errors.Add($"Cannot parse range coefficient {fields[4]} in {string.Join(' ', fields)}");
                 }
             }
         }

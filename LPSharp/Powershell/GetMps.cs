@@ -6,6 +6,8 @@
 
 namespace Microsoft.LPSharp.Powershell
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Management.Automation;
 
     /// <summary>
@@ -19,6 +21,12 @@ namespace Microsoft.LPSharp.Powershell
         /// </summary>
         [Parameter]
         public SwitchParameter Errors { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum number of lines to return.
+        /// </summary>
+        [Parameter]
+        public int? Limit { get; set; }
 
         /// <summary>
         /// Process record.
@@ -35,13 +43,23 @@ namespace Microsoft.LPSharp.Powershell
 
             if (this.Errors)
             {
+                IReadOnlyList<string> errors;
+
                 if (reader.Errors.Count == 0)
                 {
                     this.WriteHost("No read errors");
                     return;
                 }
+                else if (this.Limit.HasValue && reader.Errors.Count > this.Limit)
+                {
+                    errors = this.LPDriver.MpsReader.Errors.Take(this.Limit.Value).ToList();
+                }
+                else
+                {
+                    errors = this.LPDriver.MpsReader.Errors;
+                }
 
-                this.WriteObject(this.LPDriver.MpsReader.Errors);
+                this.WriteObject(errors);
                 return;
             }
         }

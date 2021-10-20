@@ -30,7 +30,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public GlopSolver(string key)
             : base(key)
         {
-            // Create a GLOP LP solver. The parameter is a string represention of
+            // Create a GLOP LP solver. The parameter is a string representation of
             // the desired MPSolver optimization problem type, and this is the only
             // supported type in the GLOP library linked with this project.
             this.linearSolver = Solver.CreateSolver("GLOP_LINEAR_PROGRAMMING");

@@ -9,6 +9,22 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     using System;
 
     /// <summary>
+    /// Represents the MPS file format.
+    /// </summary>
+    public enum MpsFormat
+    {
+        /// <summary>
+        /// Fixed format. Fields are in fixed column positions.
+        /// </summary>
+        Fixed = 0,
+
+        /// <summary>
+        /// Free format. Fields do not adhere to fixed format column positions.
+        /// </summary>
+        Free,
+    }
+
+    /// <summary>
     /// Represents the MPS section names verbatim, except for case.
     /// </summary>
     public enum MpsSection

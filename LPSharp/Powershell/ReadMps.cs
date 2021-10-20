@@ -9,6 +9,7 @@ namespace Microsoft.LPSharp.Powershell
     using System.Diagnostics;
     using System.IO;
     using System.Management.Automation;
+    using Microsoft.LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Reads a model from a file in MPS format.
@@ -29,6 +30,12 @@ namespace Microsoft.LPSharp.Powershell
         public string Key { get; set; }
 
         /// <summary>
+        /// Gets or sets the MPS file format.
+        /// </summary>
+        [Parameter]
+        public MpsFormat? Format { get; set; }
+
+        /// <summary>
         /// Process record.
         /// </summary>
         protected override void ProcessRecord()
@@ -39,8 +46,10 @@ namespace Microsoft.LPSharp.Powershell
                 return;
             }
 
+            var mpsFormat = this.Format ?? MpsFormat.Fixed;
+
             var stopwatch = Stopwatch.StartNew();
-            var model = this.LPDriver.MpsReader.Read(this.FileName);
+            var model = this.LPDriver.MpsReader.Read(this.FileName, mpsFormat);
             stopwatch.Stop();
 
             var key = this.Key;
