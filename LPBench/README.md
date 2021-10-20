@@ -3,13 +3,21 @@
 This page documents the benchmark results of the LP solvers. The solvers have
 been tested against the following benchmarks.
 
-- WANLPv2 is a benchmark of 29 models, 26 are performance-oriented and 3 are for
+- __WANLPv2__ is a benchmark of 29 models, 26 are performance-oriented and 3 are for
   checking completion with default zero tolerance settings. WANLPv2 benchmark
   models are in
   [sharepoint](https://microsoft.sharepoint.com/:f:/t/AzNet_WAN/Eta127_8eHhNsylPOEupNQwB1OwjjRGGPilJtk2cf0sT_Q?e=cYFuIm)
   and explanation of the models is in Section 6 of [this
   document](https://microsoft.sharepoint.com/:b:/t/AzNet_WAN/Ed82YFQIC5xBg5_2ya0Y_bgB5OTmeu9GGMhEyFH6D7AXFg?e=GkPifF).
 
+- __Netlib__ has a collection small to medium sized MPS models that can be found
+  [here](https://www.cuter.rl.ac.uk/Problems/netlib.shtml). We collected results
+  with the largest models.
+
+- __Plato__ is an ftp server where H. Mittelman has a good collection of LP
+  models with execution logs from multiple solvers including CLP and GLOP.
+  Please start from this [readme](http://plato.asu.edu/ftp/lpsimp.html) to
+  download models. We reproduced his results using a few models.
 
 ## LPSharp cheatsheet
 
@@ -18,20 +26,45 @@ set up the model in the solver, and execute the solver. The steps below read two
 models from uncompressed and compressed model files, and invokes CLP and GLOP
 solvers on them.
 
+Read a model. The model can be accessed using a key which is the filename
+without extension or the name given using `-key`. Use the `-format free` option
+to read files in MPS free format.
+
 ```
-LPSharp> read-mps model1.mps -key m1         # read model 1 as m1 from an MPS file
-LPSharp> read-mps model2.mps.gz -key m2      # read model 2 as m2 from a gzipped MPS file
+LPSharp> read-mps qap15.mps
+```
 
-LPSharp> set-solver GLOP -default            # create GLOP solver and make it default
-LPSharp> invoke-solver -model m1             # Invoke GLOP solver on model m1
+Create a solver with the `-create` option. The argument is the solver type
+(supported values are `GLOP` with future support for `CLP` and `MSF`). The
+solver can be accessed using the key defined by `-key`. The `-default` option
+means this will be the solver used in future `invoke-solver` commands if no key
+is given. 
+```
+LPSharp> set-solver -create GLOP -key glop -default
+```
 
-LPSharp> set-solver CLP -key clp             # create CLP solver and name it clp
-LPSharp> invoke-solver -solver clp -model m2 # invoke clp solver on model m2
+Load the model into the solver and solve it. The first argument is the model
+key. You can select a non-default solver using `-key`. 
+
+```
+LPSharp> invoke-solver qap15
+```
+
+Get the results from previous executions. The execution key is a combination of
+the model and solver keys. You can see more details by saving the output of
+`get-results` into a variable. Each execution result is a dictionary of metrics.
+
+```
+LPSharp> get-results
+
+Key             Value
+---             -----
+rmine15_lp_glop {[Model, rmine15_lp], [Solver, glop], [SolveTimeMs, 846300], [Objective, -5042.482962975563].}
 ```
 
 ## WANLPv2 results
 
-Please see [results_wanlpv2.csv](results_wanlpv2.csv) for the optimal values and solve times.
+Please see [wanlpv2_results.csv](wanlpv2_results.csv) for the optimal values and solve times.
 Measurements were done on:
 
 - Neil's laptop Intel Core i7 7500U 2.7Ghz 4 logical processors 16GB.
@@ -41,7 +74,7 @@ You can plot the results by executing:
 
 ```
 $ python plot_lpbench.py --help  # for usage
-$ python plot_lpbench.py results_wanlpv2.csv --baseline MSF_i7 --measurements CLPDual_i7 CLPPrimal_i7
+$ python plot_lpbench.py wanlpv2_results.csv --baseline MSF_i7 --measurements CLPDual_i7 CLPPrimal_i7
 ```
 
 CLP results are using Clp.exe built from CLP code in this repository using two
@@ -55,9 +88,62 @@ sonal-* mps models. Primal simplex solved sonal-* models quickly but not the
 edge and sliceperf ones (primal becomes infeasible and it needs to readjust and
 solve).
 
-GLOP results are using GLOP code in this repository, and using the C# language
-wrapper driven by LPSharp. The locally built library (version 9.1.55.1) match
-the public OR-Tools in nuget.org (version 9.1.9490). This confirms that we are
-able to locally replicate the public build. Both versions give an error for
-`edge-pri0-maxmin[1-5]` models that the model does not have an optimal solution.
-Need to confirm if the bug is in LPSharp MPS reader.
+GLOP results are using GLOP code in this repository and the C# language wrapper
+driven by LPSharp. The locally built library (version 9.1.55.1) match the public
+OR-Tools in nuget.org (version 9.1.9490). This confirms that we are able to
+locally replicate the public build.
+
+GLOP is 3 times and CLP is 5 times faster than MSF. Both CLP and GLOP solve all
+29 models.
+
+## Netlib results
+
+Please see [netlib_results.csv](netlib_results.csv) for the solve times. You can
+plot the results by executing:
+
+```
+$ python plot_lpbench.py netlib_results.csv --measurements Glop_i7 ClpEither_i7
+```
+
+These models execute in less than 30 seconds per model.
+
+If using the `Clp.exe` executable, it will complain `Unknown image  at line 1 of
+file`. Please open the file and remove the first four lines before the NAME
+record. The line starting with NAME should be the first line. The `LPSharp` MPS
+reader can read this file without issue.
+
+GLOP results were collected using LPSharp. CLP results were collected using the
+CLP executable built from this repository.
+
+```
+$ Clp.exe 80bau38.mps -either
+```
+
+CLP is 2 times faster than GLOP with executed Netlib models.
+
+## Plato results
+
+Please see [plato_results.csv](plato_results.csv) for the solve times. You can
+plot the results by executing:
+
+```
+$ python plot_lpbench.py plato_results.csv --measurements Glop_i7 ClpEither_i7
+```
+
+The models in this ftp site are bz2 compressed. Please decompress them before
+executing them with LPSharp. Please read the files into LPSharp using free
+format and verify that there are no read errors.
+
+```
+LPSharp> read-mps plato\datt256_lp.mps -Format free
+Read MPS file plato\datt256_lp.mps as model Name=datt256_lp Obj=obj A=(11078, 262144) RHS=(1, 513) RowTypes=11078 Lower=(1, 262144) Upper=(1, 262144) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 6081 ms, read_errors=0, model_key=datt256_lp
+datt256_lp
+```
+
+GLOP results were collected using LPSharp. CLP results were collected using the
+CLP executable built from this repository. `Clp.exe` binary has an `-either`
+option and it is the best way to run the models. The problems are quite hard to
+solve and take minutes on my laptop.
+
+CLP is 3 times faster than GLOP with executed Plato models. Note that only 2
+models were executed, so the average is not statistically accurate.

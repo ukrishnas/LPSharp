@@ -1,3 +1,3 @@
-Model,              Optimal,        CLPEither_i7, Glop_i7
+Model,              Optimal,        ClpEither_i7, Glop_i7
 qap15.mps,          1040.994,       42262,      741963
-rmine15_lp.mps,     -5042.483,      461162,
+rmine15_lp.mps,     -5042.483,      461162,     846300
