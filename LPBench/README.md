@@ -73,7 +73,7 @@ You can plot the results by executing:
 
 ```
 $ python plot_lpbench.py --help  # for usage
-$ python plot_lpbench.py wanlpv2_results.csv --baseline MSF_i7 --measurements CLPDual_i7 CLPPrimal_i7
+$ python plot_lpbench.py wanlpv2_results.csv --baseline MSF_i7 --measurements CLPDual_i7 CLPPrimal_i7 Glop_i7
 ```
 
 CLP results are using Clp.exe built from CLP code in this repository using two

@@ -41,7 +41,7 @@ def process_results(data, basekey, measurekey):
 
     x = np.arange(n)
     xlabels = np.array(data['Model'])
-    label = '{}/{}'.format(basekey, measurekey)
+    label = 'time({}) / time({})'.format(basekey, measurekey)
     return x, xlabels, speedups, label
 
 
@@ -130,7 +130,7 @@ if __name__ == '__main__':
     ax.axhline(1, color='tab:gray')
     ax.axhline(-1, color='tab:gray')
     ax.add_patch(plt.Rectangle((-1, -1), len(x)+1, 2, edgecolor='tab:gray', fill=False, hatch='///'))
-    ax.set_ylabel('Speedup or slowdown')
+    ax.set_title('Ratio of solve times')
     ax.annotate('Speedup', xy=(0,2.5), va='top')
     ax.annotate('Slowdown', xy=(0,-3), va='bottom')
     ax.legend()
@@ -140,7 +140,7 @@ if __name__ == '__main__':
     rects = ax.bar(x, y, width, fill=True, color='tab:cyan')
     autolabel(rects, np.around(y,1), 1, 'black')
     ax.axhline(1, color='tab:gray')
-    ax.set_ylabel('Mean speedup')
+    ax.set_title('Harmonic mean of ratio of solve times')
 
     fig.set_tight_layout(True)
     fig.set_size_inches(10.0, 8.0)

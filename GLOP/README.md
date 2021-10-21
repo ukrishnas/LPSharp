@@ -132,6 +132,8 @@ source.
 Add the package to your C# project.
 
 ```
+$ dotnet nuget update source "WANLP" --configfile nuget.config
+$ dotnet nuget list source
 $ dotnet add package Google.OrTools --version <4-number-version>
 ```
 

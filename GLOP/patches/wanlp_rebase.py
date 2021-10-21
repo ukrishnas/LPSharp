@@ -1,3 +1,21 @@
+'''
+Custom rebase script for merging private GLOP changes with public code.
+
+For usage, run:
+
+$ python wanlp_rebase.py -h
+
+Typical execution:
+
+$ python wanlp_rebase.py <public-tree> <old-private-tree> <new-private-tree>
+--apply_patches
+
+<public-tree> is the path to the new public tree, <old-private tree> is the path
+to the GLOP folder of the old private tree, and <new-private-tree> is the path
+to the copy destination.
+
+'''
+
 import argparse
 from fnmatch import fnmatch
 import glob
