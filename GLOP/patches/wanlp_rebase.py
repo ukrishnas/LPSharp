@@ -122,6 +122,7 @@ def private_ortools_ignore(dirname, filenames):
         if fnmatch(filename, 'cmake') or \
             fnmatch(dirname, '*cmake') or \
             fnmatch(filename, '*CMakeLists.txt*') or \
+            fnmatch(filename, 'csharp') or \
             fnmatch(filename, 'dotnet') or \
             fnmatch(dirname, '*dotnet*') or \
             fnmatch(filename, 'ortools') or \
@@ -168,7 +169,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('public_tree', help='The path to the new public tree')
     parser.add_argument('private_tree', help='The path to the current private tree')
-    parser.add_argument('copy_dst', help='The path to the new copy destination')
+    parser.add_argument('new_private', help='The path to the new private tree')
     parser.add_argument('--apply_patches', action='store_true', default=False, help='Apply private patches to new copy')
     parser.add_argument('--loglevel', default='WARN', help='Logging level')
 
@@ -178,22 +179,22 @@ if __name__ == '__main__':
 
     public_tree = args.public_tree
     private_tree = args.private_tree
-    copy_dst = args.copy_dst
+    new_private = args.new_private
     check_dir(public_tree, expect=True)
     check_dir(private_tree, expect=True)
 
-    if os.path.exists(copy_dst):
-        _logger.info('Deleting copy destination tree {}'.format(copy_dst))
-        response = input('Deleting {}. Press [yY] to continue: '.format(copy_dst))
+    if os.path.exists(new_private):
+        _logger.info('Deleting existing {}'.format(new_private))
+        response = input('Deleting existing {}. Press [yY] to continue: '.format(new_private))
         if response.lower().startswith('y'):
-            shutil.rmtree(copy_dst)
+            shutil.rmtree(new_private)
 
-    _logger.info('Copying private tree files to destination, private={} destination={}'.format(private_tree, copy_dst))
-    shutil.copytree(private_tree, copy_dst, ignore=private_ortools_ignore, dirs_exist_ok=True)
+    _logger.info('Copying private tree files to destination, private={} destination={}'.format(private_tree, new_private))
+    shutil.copytree(private_tree, new_private, ignore=private_ortools_ignore, dirs_exist_ok=True)
     
-    _logger.info('Copying public tree files to destination, public={} destination={}'.format(public_tree, copy_dst))
-    shutil.copytree(public_tree, copy_dst, ignore=public_ortools_ignore, dirs_exist_ok=True)
+    _logger.info('Copying public tree files to destination, public={} destination={}'.format(public_tree, new_private))
+    shutil.copytree(public_tree, new_private, ignore=public_ortools_ignore, dirs_exist_ok=True)
 
     if args.apply_patches:
         _logger.info('Applying private patches')
-        apply_private_patches(copy_dst)
+        apply_private_patches(new_private)
