@@ -150,12 +150,12 @@ files do not need any changes.
 
 This is a snapshot of the execution of the rebase script. Let `private` be
 the current private tree, `public` be the public repository with the new
-code, and `ortools-copy` be the new copy. This script will copy the relevant
+code, and `new-private` be the new copy. This script will copy the relevant
 files from the public and private trees, and apply the private patches.
 
 ```
-$ python private\GLOP\patches\wanlp_rebase.py public private\GLOP ortools-copy --apply_patches
-Deleting ortools-copy. Press [yY] to continue: y
+$ python private\GLOP\patches\wanlp_rebase.py public private\GLOP new-private --apply_patches
+Deleting existing new-private. Press [yY] to continue: y
 Apply .\patches\wanlp-0-initial.patch, p to pick, c to check, any other letter to skip: p
 ```
 
