@@ -105,4 +105,8 @@ native nuget packages that can be linked with C# projects.
 
 - We could link libClp into Google.OrTools package and use this solver by
   invoking the MPInterface `Solver.CreateSolver("CLP_LINEAR_PROGRAMMING")`. This
-  reproduces the approach envisaged by OR-Tools developers.
+  reproduces the approach envisaged by OR-Tools developers. Some Clp options are
+  not exposed by clp_interface.cc. For example, we may want to use
+  ClpSolve::automatic algorithm or call ClpSolve::setSpecialOption() to
+  replicate the good benchmark performance of `Clp.exe -either`, but this would
+  require enhancements to clp_interface.cc.

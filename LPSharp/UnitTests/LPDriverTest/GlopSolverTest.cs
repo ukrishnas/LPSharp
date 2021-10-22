@@ -23,7 +23,7 @@ namespace Microsoft.LPSharp.LPDriverTest
         [TestMethod]
         public void GlopSolverExampleModelTest()
         {
-            var solver = new GlopSolver("glop");
+            var solver = new GlopSolver("test");
             TestUtil.TestModels(solver, TestUtil.ExampleModels);
         }
 
@@ -33,7 +33,7 @@ namespace Microsoft.LPSharp.LPDriverTest
         [TestMethod]
         public void GlopSolverWanlpModelTest()
         {
-            var solver = new GlopSolver("glop");
+            var solver = new GlopSolver("test");
             TestUtil.TestModels(solver, TestUtil.WanlpModels);
         }
 
@@ -43,7 +43,7 @@ namespace Microsoft.LPSharp.LPDriverTest
         [TestMethod]
         public void GlopSolverNetlibModelTest()
         {
-            var solver = new GlopSolver("glop");
+            var solver = new GlopSolver("test");
             TestUtil.TestModels(solver, TestUtil.NetlibModels);
         }
 

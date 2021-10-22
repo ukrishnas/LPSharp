@@ -101,6 +101,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
             ILPInterface solver = null;
             switch (solverType)
             {
+                case SolverType.CLP:
+                    solver = new ClpSolver(key);
+                    break;
+
                 case SolverType.GLOP:
                     solver = new GlopSolver(key);
                     break;
