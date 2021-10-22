@@ -142,8 +142,8 @@ $ dotnet add package Google.OrTools --version <4-number-version>
 
 Let's say you wish to merge new code from the public repository. The changes to
 source files are maintained as patch files in `patches/wanlp_<n>_<text>.patch`
-files. A helpful python script `patches/wanlp_rebase.py` automates the copy and
-patch steps.
+files, `n` is the patch order, and `text` is a short description. A helpful
+python script `patches/wanlp_rebase.py` automates the copy and patch steps.
 
 I would not try to merge any of the CMake code. The build system in this
 repository has deviated significantly from the public repository. Also, our goal
