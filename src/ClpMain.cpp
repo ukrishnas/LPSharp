@@ -4,7 +4,9 @@
 
 #include "CoinPragma.hpp"
 
+#ifdef CLP_HAS_ABC
 #include "AbcCommon.hpp"
+#endif
 #include "ClpSimplex.hpp"
 #ifdef ABC_INHERIT
 #include "AbcSimplex.hpp"

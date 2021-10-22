@@ -91,7 +91,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\Clp_C_Interface.cpp" />
     <ClCompile Include="src\ClpCholeskyBase.cpp" />
     <ClCompile Include="src\ClpCholeskyDense.cpp" />
     <ClCompile Include="src\ClpCholeskyWssmp.cpp">

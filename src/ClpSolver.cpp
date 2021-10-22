@@ -50,7 +50,9 @@ extern glp_prob *cbc_glp_prob;
 #if PRICE_USE_OPENMP
 #include "omp.h"
 #endif
+#ifdef CLP_HAS_ABC
 #include "AbcCommon.hpp"
+#endif
 #include "ClpFactorization.hpp"
 #include "CoinTime.hpp"
 #include "CoinWarmStartBasis.hpp"
