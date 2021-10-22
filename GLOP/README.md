@@ -8,7 +8,8 @@ linear programming (GLOP) solver.
 Owing to the large and monolithic nature of the
 [OR-Tools](https://github.com/google/ortools) public repository, the files in
 this folder are a copy and not a git submodule. Many code modules have been
-removed, and some have been changed. GLOP solver code depends on
+removed, and some have been changed. A helpful python script automates the copy
+and patch steps. GLOP solver code depends on
 [Abseil](https://github.com/abseil/abseil-cpp.git), [Protocol
 Buffers](https://github.com/protocolbuffers/protobuf.git), and
 [ZLib](https://github.com/madler/ZLIB.git). These are imported from their public
@@ -19,7 +20,7 @@ __What has been retained?__
 - GLOP solver code
 - CMake build system
 - SWIG support for C# language
-- Platform support for dotnet on Windows only
+- Platform support for dotnet on Windows x64
 
 __What has been changed?__
 
@@ -42,10 +43,10 @@ __What has been changed?__
     CMakeLists.txt in each ortools/ subdirectory: base, glop, linear_solver,
     lp_data, port, and util.
   - Dotnet.cmake generates C# sources using Swig code in csharp/ folders in
-    linear_sharp and utils subdirectories. It generates dotnet build files using
+    linear_sharp and util subdirectories. It generates dotnet build files using
     input files in ortools/dotnet. In the build step, it produces two nuget
     packages, Google.OrTools.version.nupkg and
-    Google.OrTools.runtime.win-x64.version.nupkg. Ortools/dotnet files.
+    Google.OrTools.runtime.win-x64.version.nupkg.
 - The intent of the following changes is to fix code that references non-LP
   modules, like graph and algorithms, that are not part of the tree. 
   - Graph/iterators.h has been moved to util/ and the includes of this header
@@ -98,10 +99,10 @@ The second step builds the targets using native build tools. You can also build
 using Visual Studio or msbuild, or browse code using the generated .sln file.
 
 The examples below assume that the current directory is the root of GLOP sources
-(which would likely be the same directory of this Readme), and your desired
+(which would likely be the same directory as this Readme), and your desired
 build directory is `./build`. 
 
-Generate the build system and build and fetch dependent packages. No options are
+Generate the build system, fetch and build dependent packages. No options are
 required.
 
 ```
@@ -141,8 +142,8 @@ $ dotnet add package Google.OrTools --version <4-number-version>
 
 Let's say you wish to merge new code from the public repository. The changes to
 source files are maintained as patch files in `patches/wanlp_<n>_<text>.patch`
-files. A helpful python script `patches/wanlp_rebase.py` applies the patches and
-other changes.
+files. A helpful python script `patches/wanlp_rebase.py` automates the copy and
+patch steps.
 
 I would not try to merge any of the CMake code. The build system in this
 repository has deviated significantly from the public repository. Also, our goal

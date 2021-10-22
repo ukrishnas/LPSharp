@@ -47,10 +47,11 @@ cases, the public repositories are included as git submodules. Since we make
 private changes to the solver code that cannot be upstreamed, like removing
 unneeded code, we push the changes to a private remote that happens to be this
 very repository. The submodule repository contains git objects of the public
-repository and objects of our private changes. When a developer updates
-submodules, the submodule git objects are cloned from the private remote. With
-submodules, we can see the full history of the public repository maintainers,
-and git tools assist in rebasing private changes on top of new updates.
+repository and objects of our private changes. When a developer clones this
+repository and updates submodules, the submodule git objects are cloned from the
+private remote. With submodules, we can see the full history of the public
+repository maintainers, and git tools assist in rebasing private changes on top
+of new updates.
 
 __Copying__: OR-Tools is a monolithic, rather large repository of 1.1GB as of
 October 2021. 95% of the size is consumed by examples. The maintainers of this
@@ -59,16 +60,16 @@ There is a lot of excess fat in this repository. A large number of files had to
 be stripped away from the public repository, and rebasing these changes can be
 more work than applying a patch over the files we kept. Git operations, like
 submodule update, clone, and  pull, become slow and require more network
-bandwidth. In such cases, we have resorted to keeping a copy of the code and
-patches of our changes. This approach can be reversed once the public repository
-becomes modular.
+bandwidth. In such cases, we have resorted to keeping a copy of the code,
+patches of our changes, and an interactive python copy and rebase script. This
+approach can be reversed once the public repository becomes modular.
 
 __Platform support__: WANLP is targeted to the Windows operating system, x64
 processor architecture, C#/.Net and C++/native platforms. Where solvers support
 other operating systems like Linux and MacOS, or language wrappers like Python
 and Java, the functionality for other platforms has been removed to make the
 source code easier to understand. Where solvers do not natively support C# (e.g.
-CLP), new SWIG wrappers have been developed and checked into this repository.
+CLP), new support has been developed or imported into this repository.
 
 __Build system__: The build system of each project is different. CLP provides
 GNU

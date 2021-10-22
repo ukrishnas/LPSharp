@@ -14,7 +14,24 @@ This superproject imports the following COIN-OR repositories as
   the solver.
 - [Clp](https://github.com/coin-or/Clp.git) for the solver.
 
-The submodules have been simplified in the following ways:
+The submodules have been simplified in the following ways.
+
+__What has been retained?__
+
+- BuildTools header files
+- CoinUtils source code
+- LibClp source code
+- Clp executable source code
+- LibClp examples
+- Visual Studio build files
+
+__What has been changed?__
+
+- The repositories had helpful Visual Studio project and solution files going
+  back to version 9. We have just retained the latest version. Minor edits were
+  made to the project files.
+
+__What has been removed?__
 
 - Coinbrew is a helpful shell script and .coin-or folders that fetches dependent
   projects, runs configure and make. Since all files are already in a single
@@ -26,11 +43,16 @@ The submodules have been simplified in the following ways:
 - GNU automake and autoconf files (with .ac, .in, .m4 file endings) have been
   stripped from all repositories. This was done to make the source code easier
   to understand.
-- The repositories had helpful Visual Studio project and solution files going
-  back to version 9. We have just retained the latest version. Minor edits were
-  made to the project files.
 
-## SWIG
 
-We need to add SWIG files to generate C# language bindings to the C++ solver
-native APIs. This section needs to be filled in.
+## Dotnet C# support
+
+Jan-Willem Goosens maintains [Sonnet](https://github.com/coin-or/Sonnet), which
+is a project that provides C# support to Clp. He started development in November
+23, 2011. This is our first candidate for importing C# support for CLP.
+
+A second option could be to using SWIG to generate C# wrappers and implement an
+interface.
+
+With either approach, the output of this work will be dotnet and native nuget packages.
+
