@@ -79,8 +79,8 @@ These are some choices for adding C# language support to Clp.
     to Cbc (COIN branch and cut mixed integer program solver).
   - [JniCbc](https://github.com/babakmoazzez/jCbc) is a Java native interface
     for Cbc and Clp.
-  - [swIMP](http://swimp.sourceforge.net/) is a SWIG based Java wrapper to the
-    open solver interface solvers which includes Clp.
+  - [swIMP](http://swimp.sourceforge.net/) is a SWIG based Java wrapper to any
+    open solver interface solver which includes Clp.
 
 ## CoinWrap
 
@@ -88,15 +88,14 @@ CoinWrap is our in-house development that uses ideas from Google OR-Tools, Clp
 standalone and library code. Like OR-Tools, it implements a different
 ClpInterface that encapsulates the solver functions and types that we need,
 generates C# wrappers using SWIG, and packages them using the CMake build system
-generator. The advantage of CoinWrap approach is it allows us to use the full
-feature set of Clp but packaged in a more easy to use way that suits our needs.
-It will be easier for us to maintain once developed.
-
-This work is under development. The result of this work will be dotnet and
-native nuget packages that can be linked with C# projects.
+generator. The advantage of CoinWrap is it allows us to use the full feature set
+of Clp but packaged in a more easy to use way that suits our needs. It will be
+easier for us to maintain once developed. Building CoinWrap will generate dotnet
+and native nuget packages that can be linked with C# projects.
 
 A few miscellaneous points on CoinWrap:
 
+  - This work is under development.
   - CoinWrap coding style follows the [Google C++ style
     guide](https://google.github.io/styleguide/cppguide.html).
   - Build using CMake. Do `cmake -S . -B build` to generate the build system,
