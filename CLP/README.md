@@ -66,7 +66,7 @@ native nuget packages that can be linked with C# projects.
   automatic garbage collection. Sonnet/ is C# code that calls the wrappers.
 
 - Google OR-Tools
-  [clp_interface.cc](https://github.com/google/or-tools/blob/stable/ortools/linear_solver/clp_interface.cc)
+  [clp_interface.cc](../GLOP/ortools/linear_solver/clp_interface.cc)
   implements MPInterface (a common solver interface) using ClpSimplex (the
   solver class) and ClpSolve (class for options). It instantiates these classes
   using std::unique_ptr so that C++ standard library would provide automatic

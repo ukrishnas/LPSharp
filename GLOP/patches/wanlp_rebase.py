@@ -82,8 +82,9 @@ def public_ortools_ignore(dirname, filenames):
                 fnmatch(filename, 'scip*'):
                 ignore.append(filename)
                 continue
-            reobj = re.compile('(?<!glop)_interface')
-            if reobj.search(filename) != None:
+            # This pattern matches glop and clp interface files.
+            rx = re.search(r'(.+)_interface', filename)
+            if rx != None and rx.group(1) not in ['clp', 'glop']:
                 ignore.append(filename)
                 continue
         
