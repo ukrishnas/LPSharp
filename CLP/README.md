@@ -14,14 +14,14 @@ This superproject imports the following COIN-OR repositories as
   the solver.
 - [Clp](https://github.com/coin-or/Clp.git) for the solver.
 
-The submodules have been simplified in the following ways.
+The submodules have been modified in the following ways.
 
 __What has been retained?__
 
 - __BuildTools__ header files. This contains #defines for MSVC tool chain.
 - __CoinUtils__ source code and tests. CoinUtils library contains a number of
   common utility classes used by all COIN code including Clp.
-- __LibClp__ source code and examples.
+- __LibClp__ source code and examples is the LP solver.
 - __Clp__ standalone executable source code. This is an easy way to test Clp
   solver, e.g. `clp.exe <mps file> --either`. If invoked without arguments, it
   presents a simple but cryptic command line interface.
@@ -29,11 +29,17 @@ __What has been retained?__
 
 __What has been changed?__
 
-- The repositories had helpful Visual Studio project and solution files going
-  back to version 9. We have just retained the latest version. Minor edits were
-  made to the project files.
-- Win32 build targets were removed.
-- Missing #ifdef CLP_HAS_ABC was added in a few places.
+- __Visual Studio__ files. The repositories had helpful Visual Studio project
+  and solution files going back to version 9. We have just retained the latest
+  version. Minor edits were made to the project files. Win32 build targets were
+  removed from vcxproj files.
+- __Clp Aboca__ solver. These are Abc* and CoinAbc* files in the Clp repository.
+  References to this code is under #ifdef CLP_HAS_ABC. Missing #ifdef
+  CLP_HAS_ABC was added in a few places. I do not know what it is, but these
+  files were first added in 2012, and was not part of the Clp Visual Studio
+  project file to begin with. We removed these files to make the source tree
+  easier to understand. If you wish to build Clp with `--enable-aboca`, then you
+  will need to reinstate these files.
 
 __What has been removed?__
 
@@ -46,19 +52,12 @@ __What has been removed?__
 - __GNU automake and autoconf__ files (with .ac, .in, .m4 file endings) have
   been stripped from all repositories. This was done to make the source code
   easier to understand.
-- __Clp Aboca__ solver. These are Abc* and CoinAbc* files in the Clp repository
-  src/ folder. References to this code is under #ifdef CLP_HAS_ABC. I do not
-  know what it is, but these files were first added in 2012, and was not part of
-  the Clp Visual Studio project file to begin with.  We removed these files to
-  make the source tree easier to understand. If you wish to build Clp with
-  `--enable-aboca`, then you will need to reinstate these files.
 
 
 ## Dotnet C# support
 
 This work is under development. The result of this work will be dotnet and
 native nuget packages that can be linked with C# projects.
-
 
 - Jan-Willem Goosens maintains [Sonnet](https://github.com/coin-or/Sonnet), that
   provides C# support to Clp. He started development in November 23, 2011.
@@ -97,7 +96,7 @@ native nuget packages that can be linked with C# projects.
     - setRowName
     - setStrParam
 
-- We could use SWIG to define C# (or for that matter any language) wrappers for
+  We could use SWIG to define C# (or for that matter any language) wrappers for
   the above methods and referenced types. This is approach taken by Google
   OR-Tools for its MPInterface. For example, we could modify clp_interface.cc to
   remove the MPInterface bits, write SWIG code for this modified interface, and
