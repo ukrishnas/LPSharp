@@ -1,13 +1,46 @@
-/* Copyright (C) 2004, International Business Machines Corporation
-   and others.  All Rights Reserved.
+/*
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * This code is licensed under the terms of the Eclipse Public License (EPL).
+ * 
+ * Authors
+ * 
+ * Umesh Krishnaswamy
+ */
 
-   This sample program is designed to illustrate programming
-   techniques using CoinLP, has not been thoroughly tested
-   and comes without any warranty whatsoever.
-
-   You may copy, modify and distribute this sample program without
-   any restrictions whatsoever and without any payment to anyone.
-*/
+/*
+ * This project (CoinWrap) wraps ClpSimplex (the solver class) and ClpSolve
+ * (class for options) methods and referenced types. SWIG is used to provide the
+ * next level of wrappers in different languages, e.g. C# or Python. This
+ * approach is inspired by the work of Google OR-Tools development team. See
+ * https://github.com/google/or-tools/blob/stable/ortools/linear_solver/clp_interface.cc.
+ *
+ * Wrapped classes and methods are listed below.
+ *
+ * - ClpSolve
+ *   - setPresolveType
+ *   - setSolveType
+ *   - setSpecialOption
+ * - ClpSimplex
+ *   - addColumn
+ *   - getColumnStatus
+ *   - getIterationCount
+ *   - getRowPrice
+ *   - getRowStatus
+ *   - modifyCoefficient
+ *   - passInMessageHandler (passes CoinMessageHandler)
+ *   - resize
+ *   - setColumnBounds
+ *   - setColumnName
+ *   - setDualTolerance
+ *   - setLogLevel
+ *   - setObjectiveCoefficient
+ *   - setObjectiveOffset
+ *   - setOptimizationDirection
+ *   - setPrimalTolerance
+ *   - setRowBounds
+ *   - setRowName
+ *   - setStrParam
+ */
 
 #include "ClpSimplex.hpp"
 #include <cstdio>

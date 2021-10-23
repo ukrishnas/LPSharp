@@ -59,48 +59,12 @@ __What has been removed?__
 This work is under development. The result of this work will be dotnet and
 native nuget packages that can be linked with C# projects.
 
+These are some choices for adding C# language support to Clp.
+
 - Jan-Willem Goosens maintains [Sonnet](https://github.com/coin-or/Sonnet), that
   provides C# support to Clp. He started development in November 23, 2011.
   SonnetWrapper/ implements C++ wrappers over Clp and Cbc classes to provide
   automatic garbage collection. Sonnet/ is C# code that calls the wrappers.
-
-- Google OR-Tools
-  [clp_interface.cc](../GLOP/ortools/linear_solver/clp_interface.cc)
-  implements MPInterface (a common solver interface) using ClpSimplex (the
-  solver class) and ClpSolve (class for options). It instantiates these classes
-  using std::unique_ptr so that C++ standard library would provide automatic
-  garbage collection. It uses the following Clp native methods, which gives us
-  an idea of the methods that need to be wrapped.
-
-  - ClpSolve
-    - setPresolveType
-    - setSolveType
-  - ClpSimplex
-    - addColumn
-    - getColumnStatus
-    - getIterationCount
-    - getRowPrice
-    - getRowStatus
-    - modifyCoefficient
-    - passInMessageHandler (passes CoinMessageHandler)
-    - resize
-    - setColumnBounds
-    - setColumnName
-    - setDualTolerance
-    - setLogLevel
-    - setObjectiveCoefficient
-    - setObjectiveOffset
-    - setOptimizationDirection
-    - setPrimalTolerance
-    - setRowBounds
-    - setRowName
-    - setStrParam
-
-  We could use SWIG to define C# (or for that matter any language) wrappers for
-  the above methods and referenced types. This is approach taken by Google
-  OR-Tools for its MPInterface. For example, we could modify clp_interface.cc to
-  remove the MPInterface bits, write SWIG code for this modified interface, and
-  leverage the CMake and dotnet bits to build the nuget packages.
 
 - We could link libClp into Google.OrTools package and use this solver by
   invoking the MPInterface `Solver.CreateSolver("CLP_LINEAR_PROGRAMMING")`. This
@@ -109,3 +73,16 @@ native nuget packages that can be linked with C# projects.
   ClpSolve::automatic algorithm or call ClpSolve::setSpecialOption() to
   replicate the good benchmark performance of `Clp.exe -either`, but this would
   require enhancements to clp_interface.cc.
+
+- Google OR-Tools
+  [clp_interface.cc](../GLOP/ortools/linear_solver/clp_interface.cc) implements
+  MPInterface (a common solver interface) using ClpSimplex (the solver class)
+  and ClpSolve (class for options). It instantiates these classes using
+  std::unique_ptr so that C++ standard library would provide automatic garbage
+  collection. It gives us an idea of the methods that need to be wrapped. We
+  could use SWIG to define C# (or for that matter any language) wrappers for the
+  above methods and referenced types. This is approach taken by Google OR-Tools
+  for its MPInterface. For example, we could modify clp_interface.cc to remove
+  the MPInterface bits, write SWIG code for this modified interface, and
+  leverage the CMake and dotnet bits to build the nuget packages. We call this
+  approach `CoinWrap`.

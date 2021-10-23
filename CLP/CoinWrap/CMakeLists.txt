@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 project(CoinWrap LANGUAGES CXX)
 
 add_executable(coinwrap
-  rowColumn.cpp
+  src/coin_wrap.cc
 )
 
 target_include_directories(coinwrap PUBLIC
