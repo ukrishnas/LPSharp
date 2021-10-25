@@ -22,9 +22,10 @@ __What has been retained?__
 - __CoinUtils__ source code and tests. CoinUtils library contains a number of
   common utility classes used by all COIN code including Clp.
 - __LibClp__ source code and examples is the LP solver.
-- __Clp__ standalone executable source code. This is an easy way to test Clp
-  solver, e.g. `clp.exe <mps file> --either`. If invoked without arguments, it
-  presents a simple but cryptic command line interface.
+- __Clp__ standalone executable source code. This is an easy way to test and
+  experiment with Clp solver, e.g. `clp.exe <mps file> -primal`. If invoked
+  without arguments, it presents a simple but cryptic command line interface.
+  Type `???` for full list of commands, and `command???` for help on command.
 - __Visual Studio__ 2019 build files.
 
 __What has been changed?__
