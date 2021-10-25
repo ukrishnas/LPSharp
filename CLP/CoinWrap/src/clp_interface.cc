@@ -48,16 +48,12 @@ ClpInterface::ClpInterface() :
 
 ClpInterface::~ClpInterface() {}
 
-// Sets the log level. Values range [0, 4] with 0 being none and 4 being verbose.
 void ClpInterface::SetLogLevel(int level) {
-    if (level >= 0 && level <= 4) {
-        // In the message handler set log level, first argument of 1 implies the
-        // solver facility.
-        clp_->messageHandler()->setLogLevel(1, level);
-
-        // Set the log level in the solver.
-        clp_->setLogLevel(level);
-    }
+    // Set the log level in the message handler. There is another log level by
+    // facility in the messange handler that is set using
+    // CoinMessageHandler::setLogLevel (which, level). It slows down
+    // performance, and hence is not used.
+    clp_->setLogLevel(level);
 }
 
 void ClpInterface::Reset() {
@@ -163,9 +159,9 @@ void ClpInterface::MakePlusMinusOneMatrix(bool enable) {
     // make plus minus 1-matrix. Value=0 means make the matrix, and 1 means do
     // not make the matrix.
     if (enable) {
-        solve_options_->setSpecialOption(3, 1);
-    } else {
         solve_options_->setSpecialOption(3, 0);
+    } else {
+        solve_options_->setSpecialOption(3, 1);
     }
 }
 
@@ -243,6 +239,7 @@ void ClpInterface::SetSolveType(SolveType solve_type) {
 }
 
 void ClpInterface::Solve() {
+    std::cout << "Solve type " << solve_options_->getSolveType() << std::endl;
     std::cout << "Special options " << clp_->specialOptions() << std::endl;
     std::cout << "More special options " << clp_->moreSpecialOptions() << std::endl;
     for (int i = 0; i < 3; i++) {
@@ -255,32 +252,28 @@ void ClpInterface::Solve() {
 }
 
 void ClpInterface::SolveUsingDualSimplex() {
-    std::cout << "Solving dual simplex " << std::endl;
-
     SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
     SetPresolve(true, DefaultPresolvePasses);
     SetDualStartingBasis(StartingBasis::Default);
     SetPerturbation(DefaultPerturbation);
+    MakePlusMinusOneMatrix(false);
 
     SetSolveType(SolveType::Dual);
     Solve();
 }
 
 void ClpInterface::SolveUsingPrimalSimplex() {
-    std::cout << "Solving using primal simplex" << std::endl;
-
     SetPrimalPivotAlgorithm(PivotAlgorithm::Automatic);
     SetPresolve(true, DefaultPresolvePasses);
     SetPrimalStartingBasis(StartingBasis::Default);
     SetPerturbation(DefaultPerturbation);
+    MakePlusMinusOneMatrix(false);
 
     SetSolveType(SolveType::Primal);
     Solve();
 }
 
 void ClpInterface::SolveUsingEitherSimplex() {
-    std::cout << "Solving using either simplex" << std::endl;
-
     // Set special options that match Clp.exe -either. 16384 means be more
     // flexible, and ClpSimplex::housekeeping() modifies whether it factorizes.
     clp_->setMoreSpecialOptions(16384 | clp_->moreSpecialOptions());
@@ -294,8 +287,6 @@ void ClpInterface::SolveUsingEitherSimplex() {
 }
 
 void ClpInterface::SolveUsingBarrierMethod() {
-    std::cout << "Solving using barrier method" << std::endl;
-
     // Set special options that match Clp.exe -barrier. Which=4 sets Cholesky
     // type and barrier options. 2048 means native Cholesky factorization and
     // scaleBarrier = 2 (I do not know what it does). These settings arrive at
@@ -304,6 +295,7 @@ void ClpInterface::SolveUsingBarrierMethod() {
 
     SetPresolve(true, DefaultPresolvePasses);
     SetPerturbation(DefaultPerturbation);
+    MakePlusMinusOneMatrix(false);
 
     SetSolveType(SolveType::Barrier);
     Solve();

@@ -39,8 +39,8 @@ int main(int argc, const char *argv[]) {
      coinwrap::ClpInterface clp;
      std::cout << "Successfully initialized clp interface" << std::endl; 
 
-     clp.SetLogLevel(1);
-     std::cout << "Set log level 1" << std::endl;
+     clp.SetLogLevel(3);
+     std::cout << "Set log level 3" << std::endl;
 
      bool status = clp.ReadMps(filename);
      std::cout << "Read " << filename << " status=" << status << std::endl;

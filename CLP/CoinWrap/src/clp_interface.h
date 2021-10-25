@@ -214,7 +214,8 @@ class ClpInterface {
     int Perturbation() { return clp_->perturbation(); }
     void SetPerturbation(int value) { clp_->setPerturbation(value); }
 
-    // Sets the log level.
+    // Sets the log level. Values range [0, 4] with 0 being none and 4 being
+    // verbose.
     void SetLogLevel(int level);
 
     // Resets the solution inside the solver but leaves the settings unchanged.
