@@ -128,6 +128,23 @@ enum StartingBasis {
 };
 
 /**
+ * Represents the solve type. This is a subset of the solve types offered by Clp.
+ */
+enum SolveType {
+    // Dual simplex.
+    Dual = 0,
+
+    // Primal simplex.
+    Primal,
+
+    // Either primal or dual simplex.
+    Either,
+
+    // Barrier method.
+    Barrier,
+};
+
+/**
  *  Represents the wrapper for the Clp solver and its parameters.
  */
 class ClpInterface {
@@ -140,7 +157,7 @@ class ClpInterface {
 
     // Gets or sets the number of presolve passes.
     int PresolvePasses() { return presolve_passes_; }
-    void SetPresolvePasses(int value) { presolve_passes_ = passes; }
+    void SetPresolvePasses(int value) { presolve_passes_ = value; }
 
     // Gets or sets the optimization direction. Use +1 for minimize, -1 for
     // maximize, and 0 for ignore. Default value is minimize.
@@ -176,7 +193,7 @@ class ClpInterface {
     // then has to increase the weight in order to get feasible. Range of values
     // is 1e-20 to 1.79769e+308. Default value is 1e+10.
     double PrimalWeight() { return clp_->infeasibilityCost(); }
-    void SetPrimalWeight(double value) { clp_->setinfeasibilityCost(value); }
+    void SetPrimalWeight(double value) { clp_->setInfeasibilityCost(value); }
 
     // Gets or sets the pricing factor for positive edge criterion pivot rule.
     // which selects incoming variables to avoid degenerate moves. Variables not
@@ -187,8 +204,15 @@ class ClpInterface {
     // criterion. Range of values is 0 to 1.1. Default value 0.5.
     double PositiveEdgePsi() { return positive_edge_psi_; }
     void SetPositiveEdgePsi(double value) {
-        if (value >= 0 && value <= 1.1) positive_edge_psi = value;
+        if (value >= 0 && value <= 1.1) positive_edge_psi_ = value;
     }
+
+    // Gets or sets the perturbation value. 50 switches on perturbation. 100
+    // automatically perturns if it takes too long (1.0e-6 largest non-zero).
+    // 101 means we are perturbed, and 102 means don't try perturbing again.
+    // Default value is 100.
+    int Perturbation() { return clp_->perturbation(); }
+    void SetPerturbation(int value) { clp_->setPerturbation(value); }
 
     // Sets the log level.
     void SetLogLevel(int level);
@@ -229,10 +253,29 @@ class ClpInterface {
     // set this. Default is not make the plus minus 1-matrix.
     void MakePlusMinusOneMatrix(bool enable);
 
-    // Solves the optimization problem using dual simplex and associated options.
+    // Sets the starting basis method for dual simplex.
+    bool SetDualStartingBasis(StartingBasis basis);
+
+    // Sets the starting basis method for primal simplex.
+    bool SetPrimalStartingBasis(StartingBasis basis);
+
+    // Sets the solve type.
+    void SetSolveType(SolveType solve_type);
+
+    // Solves the optimization problem using the previously set solve type and
+    // options. Use this method if you if you have customized the options. The
+    // time and iterations may be affected by settings such as presolve, crash,
+    // and dual and primal tolerances.
+    void Solve();
+
+    // Solves the optimization problem using dual simplex and associated
+    // options. This method approximates the settings used by standalone
+    // Clp.exe -dualS.
     void SolveUsingDualSimplex();
 
-    // Solves the optimization problem using primal simplex and associated options.
+    // Solves the optimization problem using primal simplex and associated
+    // options. This method replicates the settings used by standalone
+    // Clp.exe -primalS.
     void SolveUsingPrimalSimplex();
 
     // Solves the optimization problem using either primal or dual simplex based
@@ -260,7 +303,7 @@ class ClpInterface {
     // The Clp options.
     std::unique_ptr<ClpSolve> solve_options_;
 
-    // The message handler for logging messages.
+    // The message handler.
     std::unique_ptr<CoinMessageHandler> message_handler_;
 
     // The number of presolve passes. The default value is 10.

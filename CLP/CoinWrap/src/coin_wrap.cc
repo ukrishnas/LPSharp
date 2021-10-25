@@ -20,7 +20,7 @@ void usage(const char * program_name) {
 \n\
 positional arguments: \n\
 filename   MPS file name \n\
-recipe     solve recipe, one of barrier, dual, either, primal ";
+method     solve method, one of dual, primal, either, barrier";
 
      std::cout << "usage: " << program_name << usage_str << std::endl;
      exit(1);
@@ -37,6 +37,10 @@ int main(int argc, const char *argv[]) {
      std::string recipe = argv[2];
 
      coinwrap::ClpInterface clp;
+     std::cout << "Successfully initialized clp interface" << std::endl; 
+
+     clp.SetLogLevel(1);
+     std::cout << "Set log level 1" << std::endl;
 
      bool status = clp.ReadMps(filename);
      std::cout << "Read " << filename << " status=" << status << std::endl;
@@ -44,17 +48,17 @@ int main(int argc, const char *argv[]) {
      char recipe_key = std::tolower(std::string_view(recipe)[0]);
      switch (recipe_key) {
           case 'b':
-               clp.SolveBarrierRecipe();
+               clp.SolveUsingBarrierMethod();
                break;
           case 'd':
-               clp.SolveDualRecipe();
+               clp.SolveUsingDualSimplex();
                break;
           case 'e':
-               clp.SolveEitherRecipe();
+               clp.SolveUsingEitherSimplex();
                break;
           case 'p':
           default:
-               clp.SolvePrimalRecipe();
+               clp.SolveUsingPrimalSimplex();
                break;
      }
 
