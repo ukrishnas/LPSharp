@@ -1122,6 +1122,14 @@ int ClpMain1(int argc, const char *argv[], AbcSimplex *models)
               model2->factorization()->setGoSmallThreshold(smallCode);
             model2->factorization()->goDenseOrSmall(model2->numberRows());
 #endif
+            std::cout << "Special options " << model2->specialOptions() << std::endl;
+            std::cout << "More special options " << model2->moreSpecialOptions() << std::endl;
+            std::cout << "Perturbation = " << model2->perturbation() << std::endl;
+            for (int i = 0; i < 3; i++) {
+                std::cout << "Independent option " << i << " = " << solveOptions.independentOption(i) << std::endl;
+            }
+            std::cout << "Presolve type " << solveOptions.getPresolveType() << " passes " << solveOptions.getPresolvePasses() << std::endl;
+
             try {
               status = model2->initialSolve(solveOptions);
               if (usingAmpl) {
