@@ -68,11 +68,11 @@ public:
   /** which translation is:
          which:
          0 - startup in Dual  (nothing if basis exists).:
-                      0 - no basis
+           0 - no basis
        	   1 - crash
        	   2 - use initiative about idiot! but no crash
          1 - startup in Primal (nothing if basis exists):
-                      0 - use initiative
+           0 - use initiative
        	   1 - use crash
        	   2 - use idiot and look at further info
        	   3 - use sprint and look at further info
@@ -80,23 +80,23 @@ public:
        	   5 - use initiative but no idiot
        	   6 - use initiative but no sprint
        	   7 - use initiative but no crash
-                      8 - do allslack or idiot
-                      9 - do allslack or sprint
+           8 - do allslack or idiot
+           9 - do allslack or sprint
        	   10 - slp before
        	   11 - no nothing and primal(0)
          2 - interrupt handling - 0 yes, 1 no (for threadsafe)
          3 - whether to make +- 1matrix - 0 yes, 1 no
          4 - for barrier
-                      0 - dense cholesky
+           0 - dense cholesky
        	   1 - Wssmp allowing some long columns
        	   2 - Wssmp not allowing long columns
        	   3 - Wssmp using KKT
-                      4 - Using Florida ordering
+           4 - Using Florida ordering
        	   8 - bit set to do scaling
        	   16 - set to be aggressive with gamma/delta?
-                      32 - Use KKT
+           32 - Use KKT
          5 - for presolve
-                      1 - switch off dual stuff
+           1 - switch off dual stuff
          6 - extra switches
                       
      */
