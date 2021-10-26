@@ -14,7 +14,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
     /// Represents an abstract class for an LP solver. It holds methods and properties
     /// that are common to all solvers.
     /// </summary>
-    public abstract class LPSolverAbstract
+    public abstract class LPSolverAbstract : ILPInterface
     {
         /// <summary>
         /// The solver metrics;
@@ -40,6 +40,18 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// Gets a copy of the solver metrics.
         /// </summary>
         public ExecutionResult Metrics => new(this.metrics);
+
+        /// <inheritdoc />
+        public abstract bool Load(LPModel model);
+
+        /// <inheritdoc />
+        public abstract void Reset();
+
+        /// <inheritdoc />
+        public abstract void Set(SolverParameter parameter, params object[] arguments);
+
+        /// <inheritdoc />
+        public abstract bool Solve();
 
         /// <inheritdoc />
         public override string ToString()

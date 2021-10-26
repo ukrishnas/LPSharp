@@ -7,7 +7,9 @@
 namespace Microsoft.LPSharp.LPDriver.Model
 {
     /// <summary>
-    /// Represents the interface implementation for CLP solver.
+    /// Represents the interface implementation for CLP solver. This is currently implemented
+    /// as an OrTool solver and requires CLP to packaged with the OrTools library. Use this only
+    /// if LPSharp is built with a Google.OrTools nuget package with a 3-number version string.
     /// </summary>
     public class ClpSolver : OrtoolsSolver
     {

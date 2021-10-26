@@ -37,17 +37,18 @@ namespace Microsoft.LPSharp.Powershell
         public SwitchParameter Default { get; set; }
 
         /// <summary>
-        /// Gets or sets the solver parameter.
+        /// Gets or sets the solver parameter name.
         /// </summary>
         [Parameter]
-        [Alias("param")]
-        public SolverParameter? SolverParameter { get; set; }
+        [Alias("name")]
+        public SolverParameter? SolverParameterName { get; set; }
 
         /// <summary>
-        /// Gets or sets the parameter arguments.
+        /// Gets or sets the parameter values.
         /// </summary>
-        [Alias("args")]
-        public object[] SolverParameterArguments { get; set; }
+        [Parameter]
+        [Alias("value", "values")]
+        public object[] SolverParameterValues { get; set; }
 
         /// <summary>
         /// The process record.
@@ -86,15 +87,15 @@ namespace Microsoft.LPSharp.Powershell
 
             var solverAbstract = solver as LPSolverAbstract;
 
-            if (this.SolverParameter != null)
+            if (this.SolverParameterName != null)
             {
-                var parameter = this.SolverParameter.Value;
+                var name = this.SolverParameterName.Value;
                 this.WriteHost(
-                    "Set solver parameter solve key={0} parameter={1} arguments={2}",
+                    "Set solver parameter solve key={0} name={1} values={2}",
                     solverAbstract.Key,
-                    parameter,
-                    this.SolverParameterArguments?.Length);
-                solver.Set(parameter, this.SolverParameterArguments);
+                    name,
+                    this.SolverParameterValues?.Length);
+                solver.Set(name, this.SolverParameterValues);
             }
         }
     }

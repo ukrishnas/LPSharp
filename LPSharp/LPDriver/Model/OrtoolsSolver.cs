@@ -17,7 +17,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
     /// <summary>
     /// Represents a generic Google OR-Tools linear solver.
     /// </summary>
-    public class OrtoolsSolver : LPSolverAbstract, ILPInterface
+    public class OrtoolsSolver : LPSolverAbstract
     {
         /// <summary>
         /// The LP solver object.
@@ -33,6 +33,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// The MP solver parameters.
         /// </summary>
         protected MPSolverParameters mpParameters;
+
+        /// <summary>
+        /// A value indicating whether the solver parameters have been changed by user.
+        /// </summary>
+        private bool defaultParameters = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrtoolsSolver"/> class.
@@ -59,8 +64,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             this.mpSolverId = mpSolverId;
 
-            // Create an empty parameters and set dual method as default.
-            this.mpParameters = this.DualSimplexParameters();
+            // Create empty parameters with default values.
+            this.mpParameters = new MPSolverParameters();
+            this.defaultParameters = true;
         }
 
         /// <inheritdoc />
@@ -70,7 +76,20 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public bool Load(LPModel model)
+        public override void Reset()
+        {
+            // This clears the linear program offset, all variables and coefficients, and the optimization
+            // direction.
+            this.linearSolver.Clear();
+
+            // This clears the extracted model so that the next call to Solve() will be from scratch.
+            // This does not reset parameters that were set with SetSolverSpecificParametersAsString()
+            // or set_time_limit() or even clear the linear program.
+            this.linearSolver.Reset();
+        }
+
+        /// <inheritdoc />
+        public override bool Load(LPModel model)
         {
             if (!model.IsValid())
             {
@@ -79,6 +98,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             var stopwatch = Stopwatch.StartNew();
 
+            // Clear  offset, all variables and coefficients, and the optimization
+            // direction.
             this.linearSolver.Clear();
 
             // Get the lower and upper variable bounds from the model.
@@ -134,19 +155,63 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public bool Solve()
+        public override void Set(SolverParameter name, params object[] values)
+        {
+            int integerValue;
+
+            this.defaultParameters = false;
+
+            switch (name)
+            {
+                case SolverParameter.DualSimplex:
+                    this.mpParameters.SetIntegerParam(
+                        MPSolverParameters.IntegerParam.LP_ALGORITHM,
+                        (int)MPSolverParameters.LpAlgorithmValues.DUAL);
+                    integerValue = this.mpParameters.GetIntegerParam(MPSolverParameters.IntegerParam.LP_ALGORITHM);
+                    Trace.WriteLine($"LP algorithm = {integerValue} (DUAL), GLOP solver may return abnormal or not solved status");
+                    break;
+
+                case SolverParameter.PrimalSimplex:
+                    this.mpParameters.SetIntegerParam(
+                        MPSolverParameters.IntegerParam.LP_ALGORITHM,
+                        (int)MPSolverParameters.LpAlgorithmValues.PRIMAL);
+                    integerValue = this.mpParameters.GetIntegerParam(MPSolverParameters.IntegerParam.LP_ALGORITHM);
+                    Trace.WriteLine($"LP algorithm = {integerValue} (PRIMAL)");
+                    break;
+
+                case SolverParameter.TimeLimitInSeconds:
+                    if (values?.Length == 1 && values[0] is int timeLimit)
+                    {
+                        this.linearSolver.SetTimeLimit(timeLimit * 1000);
+                        Console.WriteLine("Time limit = {0} ms", timeLimit * 1000);
+                    }
+
+                    break;
+
+                default:
+                    // There is no case for barrier method because GLOP does not support it.
+                    Trace.WriteLine($"Unsupported solver parameter {name}");
+                    break;
+            }
+
+            return;
+        }
+
+        /// <inheritdoc />
+        public override bool Solve()
         {
             this.metrics[LPMetric.SolverName] = this.Key;
 
             var stopwatch = Stopwatch.StartNew();
 
-            // Set 1 minute time limit.
-            this.linearSolver.SetTimeLimit(60 * 1000);
+            // Note that non-default parameters may make the problem unsolvable, or abnormal. Please
+            // be aware of what you are doing.
+            if (!this.defaultParameters)
+            {
+                Console.WriteLine("Warning, non-default parameters may be in use!");
+            }
 
-            // Reset solver internal state.
-            this.linearSolver.Reset();
-
-            // Solve.
+            // Solve the linear program.
             var resultStatus = this.linearSolver.Solve(this.mpParameters);
 
             stopwatch.Stop();
@@ -168,26 +233,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
             return resultStatus == MPResultStatus.OPTIMAL;
         }
 
-        /// <inheritdoc />
-        public void Set(SolverParameter parameter, params object[] arguments)
-        {
-            switch (parameter)
-            {
-                case SolverParameter.DualSimplex:
-                    this.mpParameters = this.DualSimplexParameters();
-                    break;
-
-                case SolverParameter.PrimalSimplex:
-                    this.mpParameters = this.PrimalSimplexParameters();
-                    break;
-
-                default:
-                    throw new LPSharpException("Unsupported solver parameter {0}", parameter);
-            }
-
-            return;
-        }
-
         /// <summary>
         /// Converts GLOP result to standard LP result.
         /// </summary>
@@ -205,32 +250,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 MPResultStatus.NOT_SOLVED => LPResultStatus.NOT_SOLVED,
                 _ => LPResultStatus.UNDEFINED,
             };
-        }
-
-        /// <summary>
-        /// Sets dual simplex parameters.
-        /// </summary>
-        /// <returns>The MP parameters. </returns>
-        private MPSolverParameters DualSimplexParameters()
-        {
-            var parameters = new MPSolverParameters();
-            parameters.SetIntegerParam(
-                MPSolverParameters.IntegerParam.LP_ALGORITHM,
-                (int)MPSolverParameters.LpAlgorithmValues.DUAL);
-            return parameters;
-        }
-
-        /// <summary>
-        /// Sets primal simplex parameters.
-        /// </summary>
-        /// <returns>The MP parameters. </returns>
-        private MPSolverParameters PrimalSimplexParameters()
-        {
-            var parameters = new MPSolverParameters();
-            parameters.SetIntegerParam(
-                MPSolverParameters.IntegerParam.LP_ALGORITHM,
-                (int)MPSolverParameters.LpAlgorithmValues.PRIMAL);
-            return parameters;
         }
     }
 }

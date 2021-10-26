@@ -14,6 +14,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public interface ILPInterface
     {
         /// <summary>
+        /// Resets the linear program and the stored state from the previous Solve() call. After
+        /// reset, a new call to Solve() will take exactly the same time as before.
+        /// </summary>
+        public void Reset();
+
+        /// <summary>
         /// Loads a model.
         /// </summary>
         /// <param name="model">The solver model.</param>
@@ -21,16 +27,16 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         bool Load(LPModel model);
 
         /// <summary>
+        /// Sets a solver parameter.
+        /// </summary>
+        /// <param name="name">The parameter name.</param>
+        /// <param name="values">The parameter values.</param>
+        void Set(SolverParameter name, params object[] values);
+
+        /// <summary>
         /// Solves the model.
         /// </summary>
         /// <returns>True if the result status is optimal, false otherwise.</returns>
         bool Solve();
-
-        /// <summary>
-        /// Sets a solver parameter.
-        /// </summary>
-        /// <param name="parameter">The parameter type.</param>
-        /// <param name="arguments">The parameter arguments.</param>
-        void Set(SolverParameter parameter, params object[] arguments);
     }
 }

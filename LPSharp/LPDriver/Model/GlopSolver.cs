@@ -25,15 +25,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// </summary>
         public void SetSpecificParameters()
         {
-            // Parameters need to be protocol buffer serialized string of type GlopParameters.
-            // The SetSolverSpecificParametersAsString converts the string back into GlopParameters
-            // and updates parameters. Some settings are shown below. See also
+            // Parameters need to be a protocol buffer serialized string of type GlopParameters.
+            // The SetSolverSpecificParametersAsString() converts the string back into GlopParameters
+            // and updates solver parameters.. Some settings are shown below. See also
             // ortools/glop/parameters.proto.
             //
             // InitialBasisHeuristic initial_basis = NONE, BIXBY, TRIANGULAR (default), MAROS.
             // PricingRule feasibility_rule = DANTZIG, STEEPEST_EDGE (default), DEVEX.
             // PricingRule optimization_rule.
-            this.linearSolver.SetSolverSpecificParametersAsString(null);
+            //
+            // This function is a placeholder until the rest of the mechanics are figured out.
         }
     }
 }

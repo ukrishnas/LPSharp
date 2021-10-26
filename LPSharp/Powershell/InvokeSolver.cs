@@ -73,6 +73,11 @@ namespace Microsoft.LPSharp.Powershell
 
             var resultKey = this.ResultKey ?? $"{model.Name}_{solverAbstract.Key}";
             this.LPDriver.AddResult(resultKey, solverAbstract.Metrics);
+
+            foreach (var kv in solverAbstract.Metrics)
+            {
+                this.WriteHost("{0,-20} {1,25}", kv.Key, kv.Value);
+            }
         }
     }
 }

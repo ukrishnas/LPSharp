@@ -7,7 +7,7 @@
 namespace Microsoft.LPSharp.LPDriver.Contract
 {
     /// <summary>
-    /// Represents a solver parameter.
+    /// Represents a solver parameter name.
     /// </summary>
     public enum SolverParameter
     {
@@ -25,5 +25,10 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// Barrier method and options.
         /// </summary>
         BarrierMethod,
+
+        /// <summary>
+        /// The solve time limit in seconds.
+        /// </summary>
+        TimeLimitInSeconds,
     }
 }
