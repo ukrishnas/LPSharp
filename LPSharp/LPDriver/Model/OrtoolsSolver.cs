@@ -30,6 +30,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         protected readonly string mpSolverId;
 
         /// <summary>
+        /// The MP solver parameters.
+        /// </summary>
+        protected MPSolverParameters mpParameters;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="OrtoolsSolver"/> class.
         /// </summary>
         /// <param name="key">The solver key.</param>
@@ -47,8 +52,15 @@ namespace Microsoft.LPSharp.LPDriver.Model
             // Create the Google OrTools solver. The parameter is a string representation of
             // the desired optimization problem type.
             this.linearSolver = Solver.CreateSolver(mpSolverId);
+            if (this.linearSolver == null)
+            {
+                throw new LPSharpException("Unable to create OrTools solver {}", mpSolverId);
+            }
 
             this.mpSolverId = mpSolverId;
+
+            // Create an empty parameters and set dual method as default.
+            this.mpParameters = this.DualSimplexParameters();
         }
 
         /// <inheritdoc />
@@ -128,12 +140,14 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             var stopwatch = Stopwatch.StartNew();
 
-            var parameters = new MPSolverParameters();
-            parameters.SetIntegerParam(
-                MPSolverParameters.IntegerParam.LP_ALGORITHM,
-                (int)MPSolverParameters.LpAlgorithmValues.DUAL);
+            // Set 1 minute time limit.
+            this.linearSolver.SetTimeLimit(60 * 1000);
 
-            var resultStatus = this.linearSolver.Solve();
+            // Reset solver internal state.
+            this.linearSolver.Reset();
+
+            // Solve.
+            var resultStatus = this.linearSolver.Solve(this.mpParameters);
 
             stopwatch.Stop();
 
@@ -154,6 +168,26 @@ namespace Microsoft.LPSharp.LPDriver.Model
             return resultStatus == MPResultStatus.OPTIMAL;
         }
 
+        /// <inheritdoc />
+        public void Set(SolverParameter parameter, params object[] arguments)
+        {
+            switch (parameter)
+            {
+                case SolverParameter.DualSimplex:
+                    this.mpParameters = this.DualSimplexParameters();
+                    break;
+
+                case SolverParameter.PrimalSimplex:
+                    this.mpParameters = this.PrimalSimplexParameters();
+                    break;
+
+                default:
+                    throw new LPSharpException("Unsupported solver parameter {0}", parameter);
+            }
+
+            return;
+        }
+
         /// <summary>
         /// Converts GLOP result to standard LP result.
         /// </summary>
@@ -171,6 +205,32 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 MPResultStatus.NOT_SOLVED => LPResultStatus.NOT_SOLVED,
                 _ => LPResultStatus.UNDEFINED,
             };
+        }
+
+        /// <summary>
+        /// Sets dual simplex parameters.
+        /// </summary>
+        /// <returns>The MP parameters. </returns>
+        private MPSolverParameters DualSimplexParameters()
+        {
+            var parameters = new MPSolverParameters();
+            parameters.SetIntegerParam(
+                MPSolverParameters.IntegerParam.LP_ALGORITHM,
+                (int)MPSolverParameters.LpAlgorithmValues.DUAL);
+            return parameters;
+        }
+
+        /// <summary>
+        /// Sets primal simplex parameters.
+        /// </summary>
+        /// <returns>The MP parameters. </returns>
+        private MPSolverParameters PrimalSimplexParameters()
+        {
+            var parameters = new MPSolverParameters();
+            parameters.SetIntegerParam(
+                MPSolverParameters.IntegerParam.LP_ALGORITHM,
+                (int)MPSolverParameters.LpAlgorithmValues.PRIMAL);
+            return parameters;
         }
     }
 }

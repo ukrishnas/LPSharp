@@ -8,6 +8,7 @@ namespace Microsoft.LPSharp.Powershell
 {
     using System.Management.Automation;
     using Microsoft.LPSharp.LPDriver.Contract;
+    using Microsoft.LPSharp.LPDriver.Model;
 
     /// <summary>
     /// Invokes the solver.
@@ -34,6 +35,19 @@ namespace Microsoft.LPSharp.Powershell
         /// </summary>
         [Parameter]
         public SwitchParameter Default { get; set; }
+
+        /// <summary>
+        /// Gets or sets the solver parameter.
+        /// </summary>
+        [Parameter]
+        [Alias("param")]
+        public SolverParameter? SolverParameter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parameter arguments.
+        /// </summary>
+        [Alias("args")]
+        public object[] SolverParameterArguments { get; set; }
 
         /// <summary>
         /// The process record.
@@ -68,6 +82,19 @@ namespace Microsoft.LPSharp.Powershell
             {
                 this.LPDriver.DefaultSolverKey = this.Key;
                 this.WriteHost($"Solver key={this.LPDriver.DefaultSolverKey} is default solver");
+            }
+
+            var solverAbstract = solver as LPSolverAbstract;
+
+            if (this.SolverParameter != null)
+            {
+                var parameter = this.SolverParameter.Value;
+                this.WriteHost(
+                    "Set solver parameter solve key={0} parameter={1} arguments={2}",
+                    solverAbstract.Key,
+                    parameter,
+                    this.SolverParameterArguments?.Length);
+                solver.Set(parameter, this.SolverParameterArguments);
             }
         }
     }

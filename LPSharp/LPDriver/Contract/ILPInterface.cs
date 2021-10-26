@@ -25,5 +25,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// </summary>
         /// <returns>True if the result status is optimal, false otherwise.</returns>
         bool Solve();
+
+        /// <summary>
+        /// Sets a solver parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter type.</param>
+        /// <param name="arguments">The parameter arguments.</param>
+        void Set(SolverParameter parameter, params object[] arguments);
     }
 }

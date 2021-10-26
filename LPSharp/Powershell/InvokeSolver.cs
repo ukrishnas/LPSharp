@@ -29,6 +29,12 @@ namespace Microsoft.LPSharp.Powershell
         public string Key { get; set; }
 
         /// <summary>
+        /// Gets or sets the key to store the result in.
+        /// </summary>
+        [Parameter]
+        public string ResultKey { get; set; }
+
+        /// <summary>
         /// The process record.
         /// </summary>
         protected override void ProcessRecord()
@@ -65,7 +71,7 @@ namespace Microsoft.LPSharp.Powershell
             var isoptimal = solver.Solve();
             this.WriteHost("Solved model {0} result={1}", model.Name, isoptimal ? "optimal" : "not optimal");
 
-            var resultKey = $"{model.Name}_{solverAbstract.Key}";
+            var resultKey = this.ResultKey ?? $"{model.Name}_{solverAbstract.Key}";
             this.LPDriver.AddResult(resultKey, solverAbstract.Metrics);
         }
     }
