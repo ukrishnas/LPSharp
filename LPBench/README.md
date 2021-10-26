@@ -76,24 +76,36 @@ $ python plot_lpbench.py --help  # for usage
 $ python plot_lpbench.py wanlpv2_results.csv --baseline MSF_i7 --measurements CLPDual_i7 CLPPrimal_i7 Glop_i7
 ```
 
-CLP results are using Clp.exe built from CLP code in this repository using two
-solve methods: dual simplex and primal simplex. Reported times are iterations
-time + presolve time. MSF results are total times from Invoke-MSFSolve using
-Network Designer. Note that these results are not from LPSharp.
+MSF results are total times from Invoke-MSFSolve using Network Designer. These
+results are not from LPSharp.
 
-CLP has a dual Simplex, primal Simplex, idiot solve methods. In terms of
-performance idiot is not fast, dual simplex is very fast but took a while with
-sonal-* mps models. Primal simplex solved sonal-* models quickly but not the
-edge and sliceperf ones (primal becomes infeasible and it needs to readjust and
-solve).
+CLP results are using `coinwrap.exe`, which is our wrapper around Clp solver
+methods in `libClp` and `libCoinUtils` built from code this repository. It is
+not yet using LPSharp because the support is under development. Clp build also
+produces a standalone executable, and the results of CoinWrap and Clp standalone
+executables are the same when used with default settings. Clp standalone exposes
+a number of settings in a user-unfriendly way, and CoinWrap exposes a subset in
+a user-friendly manner.
 
-GLOP results are using GLOP code in this repository and the C# language wrapper
-driven by LPSharp. The locally built library (version 9.1.55.1) match the public
-OR-Tools in nuget.org (version 9.1.9490). This confirms that we are able to
-locally replicate the public build.
+GLOP results are using GLOP nuget packages in this repository and the C#
+language wrapper driven by LPSharp. The locally built library (version 9.1.55.1)
+match the public OR-Tools in nuget.org (version 9.1.9490). This confirms that we
+are able to locally replicate the public build.
 
-GLOP is 3 times and CLP is 5 times faster than MSF. Both CLP and GLOP solve all
-29 models.
+||GLOP|CLP Primal|CLP Dual|
+|--|--|--|--|
+|Speedup vs MSF|3|7|10|
+
+- Both CLP and GLOP solve all 29 models.
+- CLP dual with default settings uses all slacks starting basis that converges
+  more slowly for the sonal-maxmin[0-5].mps models. Using the crash starting
+  basis method is faster by 40%. CLP primal automatically selects from three
+  starting basis methods. Fixing it to Idiot starting basis gives a small
+  speedup of 10% that is not worth the loss of flexibility.
+- CLP message handler has two log level controls. One of them is a facility
+  based logger and it affects wall clock time. This has been turned off in
+  CoinWrap.
+- GLOP settings have not yet been tuned.
 
 ## Netlib results
 
