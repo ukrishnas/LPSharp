@@ -254,7 +254,7 @@ void ClpInterface::Solve() {
 void ClpInterface::SolveUsingDualSimplex() {
     SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
     SetPresolve(true, DefaultPresolvePasses);
-    SetDualStartingBasis(StartingBasis::Default);
+    SetDualStartingBasis(StartingBasis::Crash);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
 

@@ -96,7 +96,7 @@ enum PivotAlgorithm {
 /*
  * Represents the technique to select the starting basis. Only a subset of Clp
  * choices are available, and extra options for the basis method cannot be set.
- * For more information, see:
+ * For more information on initial basis methods, see:
  *
  * R. Bixby. Implementing the simplex method: the initial basis. Part II.
  */
@@ -213,6 +213,14 @@ class ClpInterface {
     // Default value is 100.
     int Perturbation() { return clp_->perturbation(); }
     void SetPerturbation(int value) { clp_->setPerturbation(value); }
+
+    // Gets or sets the iteration limit.
+    int MaximumIterations() { return clp_->maximumIterations(); }
+    void SetMaximumIterations(int value) { clp_->setMaximumIterations(value); }
+
+    // Gets or sets the time limit from when set is called.
+    double MaximumSeconds() { return clp_->maximumSeconds(); }
+    void SetMaximumSeconds(double value) { clp_->setMaximumSeconds(value); }
 
     // Sets the log level. Values range [0, 4] with 0 being none and 4 being
     // verbose.

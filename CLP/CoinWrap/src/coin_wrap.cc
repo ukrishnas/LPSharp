@@ -42,6 +42,16 @@ int main(int argc, const char *argv[]) {
      clp.SetLogLevel(3);
      std::cout << "Set log level 3" << std::endl;
 
+     clp.SetMaximumSeconds(300);
+     // clp.SetMaximumIterations(60000);
+     std::cout << "Set limits maximum seconds=" << clp.MaximumSeconds() << 
+          " maximum iterations=" << clp.MaximumIterations() << std::endl;
+
+     // clp.SetDualTolerance(1e-6);
+     // clp.SetPrimalTolerance(1e-6);
+     std::cout << "Set tolerances dual=" << clp.DualTolerance() << 
+          " primal=" << clp.PrimalTolerance() << std::endl;
+
      bool status = clp.ReadMps(filename);
      std::cout << "Read " << filename << " status=" << status << std::endl;
 
