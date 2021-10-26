@@ -73,7 +73,7 @@ You can plot the results by executing:
 
 ```
 $ python plot_lpbench.py --help  # for usage
-$ python plot_lpbench.py wanlpv2_results.csv --baseline MSF_i7 --measurements CLPDual_i7 CLPPrimal_i7 Glop_i7
+$ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements ClpDual_i7 ClpPrimal_i7 ClpDualCrash_i7 ClpPrimalIdiot_i7 GlopPrimal_i7 GlopDual_i7
 ```
 
 MSF results are total times from Invoke-MSFSolve using Network Designer. These
