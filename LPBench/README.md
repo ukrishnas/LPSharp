@@ -105,7 +105,9 @@ are able to locally replicate the public build.
 - CLP message handler has two log level controls. One of them is a facility
   based logger and it affects wall clock time. This has been turned off in
   CoinWrap.
-- GLOP settings have not yet been tuned.
+- GLOP times are for primal simplex. Dual simplex does not run the maximize
+  problems like max-min models. It could have to do with my setting of
+  parameters. 
 
 ## Netlib results
 
