@@ -169,6 +169,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
                         (int)MPSolverParameters.LpAlgorithmValues.DUAL);
                     integerValue = this.mpParameters.GetIntegerParam(MPSolverParameters.IntegerParam.LP_ALGORITHM);
                     Trace.WriteLine($"LP algorithm = {integerValue} (DUAL), GLOP solver may return abnormal or not solved status");
+
+                    // Turn off presolve.
+                    this.mpParameters.SetIntegerParam(
+                        MPSolverParameters.IntegerParam.PRESOLVE,
+                        (int)MPSolverParameters.PresolveValues.PRESOLVE_OFF);
+
+                    // Turn off scaling.
+                    this.mpParameters.SetIntegerParam(
+                        MPSolverParameters.IntegerParam.SCALING,
+                        (int)MPSolverParameters.ScalingValues.SCALING_OFF);
                     break;
 
                 case SolverParameter.PrimalSimplex:

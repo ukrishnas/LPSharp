@@ -31,3 +31,70 @@ LPSharp is meant to be a test bench for the following LP solvers:
 - MSF: Microsoft Solver Foundation LP solver.
 - GLOP: Google Operations Research Tools (OR-Tools) LP solver.
 - CLP: Computation Infrastructure for Operations Research (COIN-OR) LP solver.
+
+
+## LPSharp Cheatsheet
+
+Start the powershell console using the executable.
+
+```
+$ PowershellConsole\bin\Release\net5.0\PowershellConsole.exe
+LPSharp>
+```
+
+Read a model with `read-mps`. The model can be accessed using a key which is the
+filename without extension or the name given using `-key`. Use the `-format
+free` option to read files in MPS free format. The default fixed format is
+faster.
+```
+LPSharp> read-mps 80bau38.mps
+```
+
+Create a solver with the `set-solver -create`. The argument is the solver type
+(supported values are `GLOP` with future support for `CLP` and `MSF`). The
+solver can be accessed using the key defined by `-key`. The `-default` option
+means this will be the solver used in future `invoke-solver` commands if no key
+is given.
+```
+LPSharp> set-solver -create GLOP -key glop -default
+```
+
+Change solver parameters. You can change parameters to non-default values using
+the `set-solver`. Do this after you have tried defaults. Setting time limit is
+useful to automatically interrupt the solver after a time limit. With GLOP, it
+is best to not to use dual simplex because certain models cause it to return
+abnormal or not solved status and the root cause is under investigation. Based
+on the parameter, pass the arguments in `-values`, as an array of objects.
+```
+LPSharp> set-solver -key glop -name TimeLimitInSeconds -values @(900)
+LPSharp> set-solver -key glop -name PrimalSimplex
+```
+
+Load the model into the solver and solve it. The first argument is the model
+key. You can select a non-default solver using `-key`. 
+```
+LPSharp> invoke-solver s250r10
+Loading model s250r10
+Solving model s250r10...
+Warning, non-default parameters may be in use!
+Solved model s250r10 result=optimal
+Model                                  s250r10
+Solver                                    glop
+SolveTimeMs                              12957
+Objective                 -0.17267704190548064
+Iterations                               11387
+LoadTimeMs                                1192
+ResultStatus                           OPTIMAL
+```
+
+Get the execution results. The execution key is a combination of the model and
+solver keys. You can see more details by saving the output of `get-results` into
+a variable. Each execution result is a dictionary of string keys and object
+values.
+```
+LPSharp> get-results
+
+Key             Value
+---             -----
+rmine15_lp_glop {[Model, rmine15_lp], [Solver, glop], [SolveTimeMs, 846300], [Objective, -5042.482962975563].}
+```

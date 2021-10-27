@@ -1,5 +1,6 @@
 import argparse
 import csv
+import math
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics
@@ -16,7 +17,10 @@ def load_data(filename):
             for key, value in row.items():
                 key = key.strip()
                 if key != 'Model':
-                    value = float(value)
+                    try:
+                        value = float(value)
+                    except (TypeError, ValueError):
+                        value = math.inf
                 if key not in data:
                     data[key] = []
                 data[key].append(value)
@@ -126,7 +130,6 @@ if __name__ == '__main__':
         ax.plot(x, y, marker=marker, ms=4, markevery=1, ls='-', label=label)
     ax.set_xticks(x)
     ax.set_xticklabels(xlabels, rotation=75)
-    ax.set_yticks([-10, -5, -1, 1, 5, 10, 15, 20])
     ax.axhline(1, color='tab:gray')
     ax.axhline(-1, color='tab:gray')
     ax.add_patch(plt.Rectangle((-1, -1), len(x)+1, 2, edgecolor='tab:gray', fill=False, hatch='///'))

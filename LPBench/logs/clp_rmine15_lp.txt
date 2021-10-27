@@ -1,0 +1,131 @@
+C:\Users\krish\Work\WANLP\CLP\CoinWrap>build\Release\coinwrap.exe ..\..\..\lpbench\plato\rmine15_lp.mps either
+Successfully initialized clp interface
+Set log level 3
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+Reading mps file ..\..\..\lpbench\plato\rmine15_lp.mps
+At line 2 NAME          rmine15.mps.gz
+At line 3 ROWS
+At line 358400 COLUMNS
+At line 1280571 RHS
+At line 1280602 BOUNDS
+At line 1323041 ENDATA
+Problem rmine15.mps.gz has 358395 rows, 42438 columns and 879732 elements
+Model was imported from ..\..\..\lpbench\plato\rmine15_lp.mps in 1.019 seconds
+Read ..\..\..\lpbench\plato\rmine15_lp.mps status=1
+Solve type 5
+Special options 0
+More special options 16386
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+0 rows dropped after presolve pass 1
+Presolve 358395 (0) rows, 42438 (0) columns and 879732 (0) elements
+Presolve took 0.27 seconds (total 0.27)
+Matrix can not be converted into +- 1
+Bounds were tightened 0 times
+Initial range of elements is 1 to 99.99754
+Range of elements is 0.1018251 to 9.820761
+Range of elements is 0.11300471 to 8.8491888
+Final range of elements is 0.1018251 to 9.820761
+Absolute values of scaled rhs range from 112.50277 to 112.58804, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00020623598 to 22.450358
+Absolute values of scaled bounds range from 0.1018251 to 0.1018251, minimum gap 0.1018251
+0  Obj 0 Dual inf 90333.168 (28687)
+6000  Obj -7710.9001 Primal inf 71327.081 (69166)
+10000  Obj -7256.3055 Primal inf 67851.778 (65764)
+13000  Obj -6960.59 Primal inf 71517.344 (63533)
+15000  Obj -6774.7965 Primal inf 64674.038 (61823)
+17000  Obj -6581.8092 Primal inf 64723.552 (59961)
+19000  Obj -6398.1032 Primal inf 84122.778 (56745)
+20000  Obj -6320.685 Primal inf 72186.676 (55612)
+22000  Obj -6147.9204 Primal inf 67415.995 (52413)
+24000  Obj -5992.2156 Primal inf 67683.104 (50160)
+25000  Obj -5923.8329 Primal inf 55207.213 (48811)
+26000  Obj -5862.0901 Primal inf 58335.405 (47635)
+27000  Obj -5793.2184 Primal inf 60001.913 (46468)
+28000  Obj -5744.417 Primal inf 57484.537 (45131)
+29000  Obj -5687.3616 Primal inf 59531.194 (44279)
+30000  Obj -5636.8656 Primal inf 67228.295 (42523)
+31000  Obj -5587.3117 Primal inf 91184.236 (41042)
+32000  Obj -5546.6239 Primal inf 77397.667 (39959)
+33000  Obj -5495.8339 Primal inf 72074.898 (38436)
+34000  Obj -5460.1955 Primal inf 57177.56 (37928)
+35000  Obj -5431.6835 Primal inf 83844.034 (35718)
+36000  Obj -5397.0284 Primal inf 54052.252 (34580)
+37000  Obj -5357.41 Primal inf 46541.378 (30946)
+38000  Obj -5320.6025 Primal inf 57550.042 (28693)
+39000  Obj -5295.0362 Primal inf 110331.03 (28782)
+40000  Obj -5278.5641 Primal inf 118874.06 (32480)
+40360  Obj -5266.3742 Primal inf 207718.65 (27511)
+41360  Obj -5247.1498 Primal inf 527974.94 (33170)
+42360  Obj -5226.879 Primal inf 170896.33 (29427)
+43360  Obj -5209.3412 Primal inf 96884.547 (29270)
+44299  Obj -5199.96 Primal inf 278710.54 (35972)
+45299  Obj -5192.2771 Primal inf 712399.15 (31046)
+45928  Obj -5185.866 Primal inf 64152.705 (24541)
+46928  Obj -5169.1823 Primal inf 68905.11 (20867)
+47660  Obj -5163.1393 Primal inf 221276.49 (26742)
+48660  Obj -5156.7597 Primal inf 156744.55 (31006)
+49533  Obj -5151.8491 Primal inf 665587.16 (49668)
+49976  Obj -5149.7348 Primal inf 1661499.3 (46936)
+50444  Obj -5144.4723 Primal inf 5722547.9 (41371)
+50808  Obj -5141.8329 Primal inf 608246.73 (36558)
+51391  Obj -5136.8929 Primal inf 187903.13 (39216)
+52334  Obj -5131.7872 Primal inf 553450.21 (40008)
+52937  Obj -5128.6882 Primal inf 4060167.4 (43684)
+53281  Obj -5125.4922 Primal inf 154495.82 (51877)
+53367  Obj -5124.2557 Primal inf 1053751.5 (56999)
+53777  Obj -5120.3634 Primal inf 290045.35 (51245)
+54610  Obj -5115.9153 Primal inf 1437147.3 (37485)
+55370  Obj -5112.5897 Primal inf 464966.79 (42555)
+55812  Obj -5107.6954 Primal inf 744089.89 (53928)
+56104  Obj -5105.4294 Primal inf 4061320.5 (44317)
+56681  Obj -5101.4527 Primal inf 307124.42 (37242)
+57049  Obj -5099.4418 Primal inf 788737.51 (40073)
+57795  Obj -5096.4018 Primal inf 994925.21 (45398)
+58618  Obj -5093.9069 Primal inf 2943953.7 (47160)
+59018  Obj -5092.6511 Primal inf 410241.29 (37570)
+60018  Obj -5088.3675 Primal inf 6039497 (40266)
+60713  Obj -5084.2872 Primal inf 13690820 (34951)
+61630  Obj -5080.592 Primal inf 373282.83 (31475)
+62177  Obj -5078.9058 Primal inf 2452313.8 (42096)
+62802  Obj -5076.7588 Primal inf 581787.19 (44291)
+63794  Obj -5073.8189 Primal inf 906472.17 (40427)
+64794  Obj -5069.3205 Primal inf 838183.31 (28040)
+65685  Obj -5066.7029 Primal inf 499425.84 (26682)
+66609  Obj -5064.3636 Primal inf 657588.03 (40954)
+67326  Obj -5062.2418 Primal inf 102658.97 (31693)
+67810  Obj -5060.7691 Primal inf 3020335 (43155)
+68076  Obj -5059.6527 Primal inf 169219.74 (34120)
+68563  Obj -5058.0317 Primal inf 17434024 (46354)
+68678  Obj -5057.6602 Primal inf 37329127 (59127)
+68941  Obj -5056.9485 Primal inf 254428.73 (39502)
+69334  Obj -5056.2585 Primal inf 352796.71 (44301)
+69858  Obj -5054.8087 Primal inf 2636538.5 (39173)
+70298  Obj -5053.8663 Primal inf 44571.694 (30189)
+70639  Obj -5053.1729 Primal inf 506599.55 (22164)
+71639  Obj -5051.3578 Primal inf 814653.84 (24538)
+72279  Obj -5050.1898 Primal inf 1142067.2 (30729)
+72724  Obj -5049.2445 Primal inf 1134474.9 (24139)
+73272  Obj -5048.4732 Primal inf 1125448.7 (34967)
+73593  Obj -5048.1219 Primal inf 518206.07 (43269)
+73850  Obj -5047.8091 Primal inf 112046.33 (16138)
+74462  Obj -5046.8966 Primal inf 58503.182 (24241)
+75003  Obj -5046.2908 Primal inf 458267.65 (26624)
+75814  Obj -5045.5172 Primal inf 88185.347 (31818)
+76473  Obj -5044.968 Primal inf 325122.16 (31897)
+77473  Obj -5044.2719 Primal inf 59624.94 (33956)
+78473  Obj -5043.522 Primal inf 25224.567 (14719)
+79255  Obj -5043.0047 Primal inf 49590.794 (28650)
+79818  Obj -5042.8097 Primal inf 13826.641 (18398)
+80818  Obj -5042.4951 Primal inf 1869.5932 (6973)
+81047  Obj -5042.483
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value -5042.483
+Dual took 480.58 seconds (total 480.85)
+Optimal objective -5042.482963 - 81047 iterations time 480.852

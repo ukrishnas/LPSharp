@@ -1,0 +1,82 @@
+LPSharp> read-mps ..\..\lpbench\plato\s250r10.mps -format free
+Read MPS file ..\..\lpbench\plato\s250r10.mps as model Name=s250r10 Obj=obj A=(10881, 253497) RHS=(1, 271) RowTypes=10963 Lower=(1, 273142) Upper=(1, 273142) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 3281 ms, read_errors=0, model_key=s250r10
+s250r10
+
+LPSharp> set-solver -create GLOP -key glop -default
+Created solver GLOP_LINEAR_PROGRAMMING solver Key=glop
+Solver key=glop is default solver
+
+LPSharp> set-solver -key glop -name PrimalSimplex
+Set solver parameter solve key=glop name=PrimalSimplex values=
+
+LPSharp> set-solver -key glop -name TimeLimitInSeconds -value @(60)
+Set solver parameter solve key=glop name=TimeLimitInSeconds values=1
+Time limit = 60000 ms
+
+LPSharp> invoke-solver s250r10
+Loading model s250r10
+Solving model s250r10...
+Warning, non-default parameters may be in use!
+Solved model s250r10 result=optimal
+Model                                  s250r10
+Solver                                    glop
+SolveTimeMs                              12957
+Objective                 -0.17267704190548064
+Iterations                               11387
+LoadTimeMs                                1192
+ResultStatus                           OPTIMAL
+
+LPSharp> read-mps ..\..\lpbench\plato\rmine15_lp.mps -format free
+Read MPS file ..\..\lpbench\plato\rmine15_lp.mps as model Name=rmine15_lp Obj=obj A=(358396, 42438) RHS=(1, 30) RowTypes=358396 Lower=(1, 42438) Upper=(1, 42438) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 2346 ms, read_errors=0, model_key=rmine15_lp
+rmine15_lp
+
+LPSharp> set-solver -key glop -name TimeLimitInSeconds -value @(900)
+Set solver parameter solve key=glop name=TimeLimitInSeconds values=1
+Time limit = 900000 ms
+
+LPSharp> invoke-solver rmine15_lp
+Loading model rmine15_lp
+Solving model rmine15_lp...
+Warning, non-default parameters may be in use!
+Solved model rmine15_lp result=optimal
+Model                               rmine15_lp
+Solver                                    glop
+SolveTimeMs                             742031
+Objective                   -5042.482962975563
+Iterations                              114663
+LoadTimeMs                                 887
+ResultStatus                           OPTIMAL
+
+LPSharp> invoke-solver qap15
+Loading model qap15
+Solving model qap15...
+Warning, non-default parameters may be in use!
+Solved model qap15 result=optimal
+Model                                    qap15
+Solver                                    glop
+SolveTimeMs                             780605
+Objective                   1040.9940409587412
+Iterations                              243074
+LoadTimeMs                                 141
+ResultStatus                           OPTIMAL
+
+LPSharp> read-mps ..\..\lpbench\plato\datt256_lp.mps -format free
+Read MPS file ..\..\lpbench\plato\datt256_lp.mps as model Name=datt256_lp Obj=obj A=(11078, 262144) RHS=(1, 513) RowTypes=11078 Lower=(1, 262144) Upper=(1, 262144) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 3511 ms, read_errors=0, model_key=datt256_lp
+datt256_lp
+
+LPSharp> set-solver -key glop -name TimeLimitInSeconds -value @(3000)
+Set solver parameter solve key=glop name=TimeLimitInSeconds values=1
+Time limit = 3000000 ms
+
+LPSharp> invoke-solver datt256_lp
+Loading model datt256_lp
+Solving model datt256_lp...
+Warning, non-default parameters may be in use!
+Solved model datt256_lp result=optimal
+Model                               datt256_lp
+Solver                                    glop
+SolveTimeMs                            1375842
+Objective                    256.0000000004487
+Iterations                               74144
+LoadTimeMs                                 873
+ResultStatus                           OPTIMAL

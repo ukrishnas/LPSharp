@@ -1,0 +1,110 @@
+C:\Users\krish\Work\WANLP\CLP\CoinWrap>build\Release\coinwrap.exe ..\..\..\lpbench\plato\s250r10.mps primal
+Successfully initialized clp interface
+Set log level 3
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+Reading mps file ..\..\..\lpbench\plato\s250r10.mps
+At line 1 NAME          s250r10
+At line 2 ROWS
+At line 10966 COLUMNS
+At line 1583071 RHS
+At line 1583343 BOUNDS
+At line 1856486 ENDATA
+Problem s250r10 has 10962 rows, 273142 columns and 1318607 elements
+Model was imported from ..\..\..\lpbench\plato\s250r10.mps in 1.477 seconds
+Read ..\..\..\lpbench\plato\s250r10.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+2977 rows dropped after presolve pass 1
+3062 rows dropped after presolve pass 2
+3117 rows dropped after presolve pass 3
+3159 rows dropped after presolve pass 4
+3190 rows dropped after presolve pass 5
+Presolve 7772 (-3190) rows, 270095 (-3047) columns and 1209107 (-109500) elements
+Presolve took 0.85 seconds (total 0.85)
+** Objective offset is 0.035875
+Initial range of elements is 1 to 43200
+Range of elements is 0.0084313915 to 118.60438
+Range of elements is 0.13735697 to 7.2803006
+Final range of elements is 0.16799688 to 5.9524915
+5 infeas 34.89717, obj -0.083161422 - mu 0.0003333, its 105, 19595 interior
+Exiting due to number of major iterations
+largest infeasibility is 17399.2
+largest infeasibility is 17387.6
+largest infeasibility is 17387.6
+sum of infeasibilities 11.244 - average 0.00144673, 248405 fixed columns
+5529 rows dropped after presolve pass 1
+5696 rows dropped after presolve pass 2
+5720 rows dropped after presolve pass 3
+5739 rows dropped after presolve pass 4
+5756 rows dropped after presolve pass 5
+Presolve 2016 (-5756) rows, 12262 (-257833) columns and 53890 (-1155217) elements
+Initial range of elements is 1 to 43200
+Range of elements is 0.0094280904 to 106.06602
+Range of elements is 0.12182776 to 8.2083095
+Final range of elements is 0.15347716 to 6.5156273
+Absolute values of scaled rhs range from 0.20547157 to 172.80572, minimum gap 1.1268676
+Absolute values of scaled objective range from 0.00029605592 to 0.12098224
+Absolute values of scaled bounds range from 0.071514186 to 8.2656763, minimum gap 0.071514186
+0  Obj -0.069531604 Primal inf 40.839655 (1771) Dual inf 4.2114506e+16 (12135)
+End of values pass after 12037 iterations
+Perturbing problem by 0.001% of 0.46745032 - largest nonzero change 2.9669929e-05 ( 0.0026900504%) - largest zero change 2.9986583e-05
+Absolute values of scaled rhs range from 0.20547157 to 172.80572, minimum gap 1.1268676
+Absolute values of scaled objective range from 0.00029605592 to 0.12098224
+Absolute values of scaled bounds range from 0.071514186 to 8.2656763, minimum gap 0.071514186
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -0.15383143
+Absolute values of scaled rhs range from 0.20547157 to 172.80572, minimum gap 1.1268676
+Absolute values of scaled objective range from 0.00029605592 to 0.12098224
+Absolute values of scaled bounds range from 0.071514186 to 8.2656763, minimum gap 0.071514186
+Optimal - objective value -0.15383143
+After Postsolve, objective -0.15383143, infeasibilities - dual 0 (0), primal 0 (0)
+Initial range of elements is 1 to 43200
+Range of elements is 0.0084313915 to 118.60438
+Range of elements is 0.13735697 to 7.2803006
+Final range of elements is 0.16799688 to 5.9524915
+Absolute values of scaled rhs range from 0.20547157 to 103.97339, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00022546732 to 0.20261384
+Absolute values of scaled bounds range from 0.08701749 to 9.8709939, minimum gap 0.08701749
+0  Obj -0.15383143 Dual inf 795.66473 (81754)
+Perturbing problem by 0.001% of 0.58114105 - largest nonzero change 2.9967637e-05 ( 0.0026900504%) - largest zero change 2.9996631e-05
+1150  Obj -0.15383917 Dual inf 1732.5558 (82009)
+1840  Obj -0.15480779 Dual inf 3282.6729 (120732)
+2760  Obj -0.15714564 Dual inf 1041.3719 (84576)
+3220  Obj -0.15788915 Dual inf 5704.2037 (97038)
+3450  Obj -0.15790846 Dual inf 5017.7483 (92211)
+3910  Obj -0.16004288 Dual inf 3020.0351 (93254)
+4600  Obj -0.16113834 Dual inf 2002.7762 (105021)
+Initializing steepest edge weights - old 2, new 279.57493
+5055  Obj -0.16132353 Dual inf 903.76207 (74300)
+5869  Obj -0.16348004 Dual inf 241.18787 (52398)
+6559  Obj -0.16573846 Dual inf 71.00968 (33600)
+7479  Obj -0.16807999 Dual inf 216.38905 (51707)
+8399  Obj -0.16947307 Dual inf 241.03295 (47186)
+9319  Obj -0.1705643 Dual inf 80.864524 (34351)
+10239  Obj -0.17139544 Dual inf 65.138246 (40470)
+10929  Obj -0.17182702 Dual inf 43.108476 (26561)
+12309  Obj -0.17261902 Dual inf 0.36075634 (6127)
+Absolute values of scaled rhs range from 0.20547157 to 103.97339, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00022546732 to 0.20261384
+Absolute values of scaled bounds range from 0.08701749 to 9.8709939, minimum gap 0.08701749
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -0.17267704
+Absolute values of scaled rhs range from 0.20547157 to 103.97339, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00022546732 to 0.20261384
+Absolute values of scaled bounds range from 0.08701749 to 9.8709939, minimum gap 0.08701749
+Optimal - objective value -0.17267704
+Idiot Crash took 16.06 seconds (total 16.92)
+Absolute values of scaled rhs range from 0.20547157 to 103.97339, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00022546732 to 0.20261384
+Absolute values of scaled bounds range from 0.08701749 to 9.8709939, minimum gap 0.08701749
+Optimal - objective value -0.17267704
+Primal took 0.06 seconds (total 16.97)
+After Postsolve, objective -0.17267704, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -0.1726770419 - 0 iterations time 17.002, Presolve 0.88, Idiot 16.06
