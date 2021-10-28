@@ -45,14 +45,13 @@ def process_results(data, basekey, measurekey):
 
     x = np.arange(n)
     xlabels = np.array(data['Model'])
-    label = 'time({}) / time({})'.format(basekey, measurekey)
+    label = '{} / {}'.format(basekey, measurekey)
     return x, xlabels, speedups, label
 
 
 def compute_means(data, basekey, measurekeys):
     """Returns data for a plot showing harmonic means of measurements vs baseline."""
     x, y = [], []
-
     for key in measurekeys:
         x.append(key)
 
@@ -61,10 +60,7 @@ def compute_means(data, basekey, measurekeys):
         ratios = series1 / series2
         mean = statistics.harmonic_mean(ratios)
         y.append(mean)
-
-    title = "Harmonic mean of solve time ratios, baseline {}".format(basekey)
-
-    return x, y, title
+    return x, y
 
 
 def autolabel(rects, texts, offset, color):
@@ -134,13 +130,14 @@ if __name__ == '__main__':
     ax.axhline(1, color='tab:gray')
     ax.axhline(-1, color='tab:gray')
     ax.add_patch(plt.Rectangle((-1, -1), len(x)+1, 2, edgecolor='tab:gray', fill=False, hatch='///'))
-    ax.set_title('Ratio of solve times')
+    ax.set_title('Ratio of metrics')
     ax.annotate('Speedup', xy=(0,2.5), va='top')
     ax.annotate('Slowdown', xy=(0,-3), va='bottom')
     ax.legend()
 
     ax = axes[1]
-    x, y, title = compute_means(data, basekey, measurekeys)
+    x, y = compute_means(data, basekey, measurekeys)
+    title = 'Harmonic mean of ratios, baseline {}'.format(basekey)
     rects = ax.bar(x, y, width, fill=True, color='tab:cyan')
     autolabel(rects, np.around(y,1), 1, 'black')
     ax.axhline(1, color='tab:gray')

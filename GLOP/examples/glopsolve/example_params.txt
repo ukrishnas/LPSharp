@@ -1,0 +1,6 @@
+# These settings turn on cost perturbation with custom values.
+# It is helpful for some models which have high degeneracy.
+use_dual_simplex: 1
+perturb_costs_in_dual_simplex: 1
+relative_cost_perturbation: 1e3
+relative_max_cost_perturbation: 1e5

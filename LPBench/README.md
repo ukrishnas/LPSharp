@@ -87,8 +87,9 @@ __GlopSolve cheatsheet__
 All solver-specific settings are baked into the executable. You need to
 recompile the program to change them.
 ```
-$ glopsolve.exe wanlpv2\edge-pri0-maxmin0.mps primal
-$ glopsolve.exe wanlpv2\edge-pri0-maxmin0.mps dual
+$ glopsolve.exe -helpfull
+$ glopsolve.exe -mpsfile edge-pri0-maxmin0.mps -timelimit 30 -lpalgorithm dual
+$ glopsolve.exe ... -timelimit 30 -params_file example_params.txt
 ```
 
 ## WANLPv2 results
@@ -118,20 +119,22 @@ $ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements Cl
 - CLP message handler has two log level controls. One of them is a facility
   based logger and it affects wall clock time. This has been turned off in
   CoinWrap.
-- GLOP can automatically switch between primal and dual based on the model shape
-  and other characteristics. It prefers primal simplex for the models in this
-  benchmark. Its dual simplex could not solve the max-min models with default
-  settings. Due to the nature of the model, different perturbation cost settings
-  are needed to make the code choose to perturb the model when the
-  infeasibilities are high. The modified perturbation settings help the max-min
-  models but penalize the other models. However, we have kept the modified
-  settings for all models since our benchmark criterion is that same settings
-  should be used for all models. The custom settings were done using
-  `glopsolve`.
+- Although we forced the solvers to primal or dual simplex for this benchmark,
+  CLP and GLOP can select either simplex based the model. GLOP does this by
+  default, and CLP does this when the solve method is automatic.
+- GLOP dual simplex could not solve the max-min models with default settings.
+  Dual simplex does not converge due to high degeneracy in the model. Cost
+  perturbation changes costs by random values and this helps in convergence. I
+  had to enable cost perturbation and change its default thresholds. The
+  modified perturbation settings help the max-min models but penalize the other
+  models. However, we have kept the modified settings for all models since our
+  benchmark criterion is that same settings should be used for all models. The
+  custom settings were done using `glopsolve -paramsfile <filename>` with these
+  solver-specific settings.
   ```
-  parameters->set_perturb_costs_in_dual_simplex(true);
-  parameters->set_relative_cost_perturbation(1e3);
-  parameters->set_relative_max_cost_perturbation(1e5);
+  perturb_costs_in_dual_simplex: 1
+  relative_cost_perturbation: 1e3
+  relative_max_cost_perturbation: 1e5
   ```
 
 
@@ -157,6 +160,9 @@ The `LPSharp` MPS reader can read this file without issue.
 - GLOP dual simplex is 20% slower than its primal simplex. We tried with default
   and modified perturbation cost settings. The modified ones are better.
   Generally, GLOP dual is slightly more fragile than its primal simplex.
+- Qap12 does not lend itself to dual simplex. We see this with qap15 in the
+  Plato benchmark too. Some problems are easier to solve with one technique.
+  GLOP dual simplex could not solve qap12.
 
 ## Plato results
 
@@ -178,9 +184,10 @@ model, accumulated errors, etc. With unknown problems like in this benchmark, it
 is the best option. CLP log level was set to 3.
 
 The starting basis is another determinant of performance. Notice how s250r10 is
-the fast with GLOP and CLP primal but slow with CLP dual and either. The
-starting basis heuristics of GLOP are Bixby, Triangular (default), and Moros.
-The starting basis methods for CLP are all-slacks, crash, idiot, and sprint (in
+fast with GLOP and CLP primal but slow with CLP dual and either. The starting
+basis heuristics of GLOP are Bixby, Triangular (default), and Moros. The
+starting basis methods for CLP are all-slacks, crash, idiot, and sprint (in
 primal only), and various combinations of them. If a heuristic selects a better
-starting basis, fewer iterations needed to reach optimal make the solve time
-better.
+starting basis, fewer iterations are needed to reach optimal, which makes the
+solve time better.
+
