@@ -23,11 +23,11 @@ __Results summary__. Each cell shows speedup when compared to the reference
 solver. ClpBest is the best of different Clp settings. We have not been able to
 try GLOP in different settings.
 
-|Benchmark|Reference|GLOP Primal|CLP Primal|CLP Dual|CLP Either|CLP Best|
-|--|--|--|--|--|--|--|
-|WANLPv2|MSF|3|7|10|
-|Netlib|GLOP|1|1|1.8|2.3|
-|Plato|GLOP|1|||1.2|1.7|
+|Benchmark|Reference|GLOP Primal|GLOP Dual|CLP Primal|CLP Dual|CLP Either|CLP Best|
+|--|--|--|--|--|--|--|--|
+|WANLPv2|MSF|3|10|7|10|
+|Netlib|GLOP Primal|1||1|1.8|2.3|
+|Plato|GLOP Primal|1||||1.2|1.7|
 
 MSF results are from Network Designer using Invoke-MSFSolve, because LPSharp
 does not support MSF.
@@ -43,14 +43,10 @@ a user-friendly manner.
 GLOP results are using GLOP nuget packages in this repository and the C#
 language wrapper driven by LPSharp. The locally built library (version 9.1.90.1)
 matches the public OR-Tools in nuget.org (version 9.1.9490). This confirms that
-we are able to locally replicate the public build.
-
-With GLOP, we have not been able to change its settings because the API to do
-that, SetSolverSpecificParameters(), requires serializing GlopParameters into a
-string. Logging is only available in the C++ version. So we wrote a standalone
-program that reads the MPS file and links with google-ortools-native.dll built
-from this repository. GLOP performance from either the standalone executable or
-LPSharp is equivalent. This work is under development.
+we are able to locally replicate the public build. We also have `glopsolve.exe`,
+which is our C++ based standalone linked with the C++ libraries. This is used to
+view verbose logging and alter GLOP-specific parameters. GLOP performance from
+either the standalone executable or LPSharp is equivalent.
 
 __LPSharp cheatsheet__
 
@@ -89,7 +85,8 @@ $ coinwrap.exe plato\s250r10.mps primal
 __GlopSolve cheatsheet__
 
 ```
-$ glopsolve.exe plato\s250r10.mps
+$ glopsolve.exe wanlpv2\edge-pri0-maxmin0.mps primal
+$ glopsolve.exe wanlpv2\edge-pri0-maxmin0.mps dual
 ```
 
 ## WANLPv2 results
@@ -107,6 +104,9 @@ $ python plot_lpbench.py --help  # for usage
 $ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements ClpDual_i7 ClpPrimal_i7 ClpDualCrash_i7 ClpPrimalIdiot_i7 GlopPrimal_i7 GlopDual_i7
 ```
 
+- MSF times are for primal simplex. Its dual simplex exceeded solve time limits
+  and likely needs non-default settings. MSF primal simplex is the reference for
+  all speedup ratios even if the target solver uses dual simplex.
 - Both CLP and GLOP solve all 29 models.
 - CLP dual with default settings uses all slacks starting basis that converges
   more slowly for the sonal-maxmin[0-5].mps models. Using the crash starting
@@ -116,9 +116,22 @@ $ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements Cl
 - CLP message handler has two log level controls. One of them is a facility
   based logger and it affects wall clock time. This has been turned off in
   CoinWrap.
-- GLOP times are for primal simplex. Dual simplex does not run the maximize
-  problems like max-min models. It could have to do with my setting of
-  parameters. 
+- GLOP times for primal simplex and if no LP algorithm is specified are the
+  same. GLOP can automatically switch between primal and dual based the model
+  shape and other characteristics.
+- GLOP dual times are from two different settings. For minimize problems, they
+  use default solver settings. For max-min problems, they use custom
+  perturbation cost settings. This was needed because of the nature of the model
+  and default settings cause the solver to not converge. The settings are tuned
+  for the max-min models only (they make other models run slower). The custom
+  settings were done using `glopsolve`.
+  ```
+  parameters->set_perturb_costs_in_dual_simplex(true);
+  parameters->set_relative_cost_perturbation(1e3);
+  parameters->set_relative_max_cost_perturbation(1e5);
+  ```
+
+
 
 ## Netlib results
 
