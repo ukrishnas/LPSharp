@@ -54,8 +54,7 @@ def compute_means(data, basekey, measurekeys):
     x, y = [], []
 
     for key in measurekeys:
-        label = '{}/{}'.format(basekey, key)
-        x.append(label)
+        x.append(key)
 
         series1 = np.array(data[basekey])
         series2 = np.array(data[key])
@@ -63,7 +62,9 @@ def compute_means(data, basekey, measurekeys):
         mean = statistics.harmonic_mean(ratios)
         y.append(mean)
 
-    return x, y
+    title = "Harmonic mean of solve time ratios, baseline {}".format(basekey)
+
+    return x, y, title
 
 
 def autolabel(rects, texts, offset, color):
@@ -139,11 +140,11 @@ if __name__ == '__main__':
     ax.legend()
 
     ax = axes[1]
-    x, y = compute_means(data, basekey, measurekeys)
+    x, y, title = compute_means(data, basekey, measurekeys)
     rects = ax.bar(x, y, width, fill=True, color='tab:cyan')
     autolabel(rects, np.around(y,1), 1, 'black')
     ax.axhline(1, color='tab:gray')
-    ax.set_title('Harmonic mean of ratio of solve times')
+    ax.set_title(title)
 
     fig.set_tight_layout(True)
     fig.set_size_inches(10.0, 8.0)

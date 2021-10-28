@@ -1,3 +1,179 @@
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-diverse5.mps dual
+I1028 11:05:22.855641 23496 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:05:22.855871 23496 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:05:25.553062 23496 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-diverse5.mps
+I1028 11:05:25.553190 23496 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:05:43.155409 23496 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:05:43.155562 23496 glop_solve.cc:97] Solve time = 17601
+I1028 11:05:43.156160 23496 glop_solve.cc:99] Objective value = 8.11744e+12
+I1028 11:05:43.156613 23496 glop_solve.cc:100] Iterations = 49133
+I1028 11:05:43.156982 23496 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:05:43.157068 23496 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:05:43.157505 23496 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:05:43.157962 23496 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:05:43.158412 23496 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:05:43.158885 23496 glop_solve.cc:135] Use scaling = 1
+I1028 11:05:43.159249 23496 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:05:43.159344 23496 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:05:43.159889 23496 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:05:43.160319 23496 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:05:43.160748 23496 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:05:43.161179 23496 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin0.mps dual
+I1028 06:40:35.239468 28216 glop_solve.cc:48] Set solve time limit to 30s
+I1028 06:40:35.239714 28216 glop_solve.cc:58] Set LP algorithm to dual
+I1028 06:40:37.620890 28216 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin0.mps
+I1028 06:40:37.621036 28216 glop_solve.cc:90] Solving model with parameters ...
+I1028 06:40:41.952235 28216 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 06:40:41.952373 28216 glop_solve.cc:97] Solve time = 4330
+I1028 06:40:41.952915 28216 glop_solve.cc:99] Objective value = -3.04111e+07
+I1028 06:40:41.953604 28216 glop_solve.cc:100] Iterations = 26061
+I1028 06:40:41.954107 28216 glop_solve.cc:130] Use dual simplex = 1
+I1028 06:40:41.954970 28216 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 06:40:41.955095 28216 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 06:40:41.955176 28216 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 06:40:41.955548 28216 glop_solve.cc:134] Scaling algorithm = 1
+I1028 06:40:41.955638 28216 glop_solve.cc:135] Use scaling = 1
+I1028 06:40:41.955958 28216 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 06:40:41.956317 28216 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 06:40:41.956408 28216 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 06:40:41.956721 28216 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 06:40:41.956806 28216 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 06:40:41.957128 28216 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin1.mps dual
+I1028 06:40:53.850292 27288 glop_solve.cc:48] Set solve time limit to 30s
+I1028 06:40:53.850538 27288 glop_solve.cc:58] Set LP algorithm to dual
+I1028 06:40:56.221781 27288 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin1.mps
+I1028 06:40:56.221929 27288 glop_solve.cc:90] Solving model with parameters ...
+I1028 06:40:58.918988 27288 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 06:40:58.919134 27288 glop_solve.cc:97] Solve time = 2696
+I1028 06:40:58.919671 27288 glop_solve.cc:99] Objective value = -3.49387e+07
+I1028 06:40:58.920099 27288 glop_solve.cc:100] Iterations = 26981
+I1028 06:40:58.920191 27288 glop_solve.cc:130] Use dual simplex = 1
+I1028 06:40:58.920514 27288 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 06:40:58.920607 27288 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 06:40:58.921033 27288 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 06:40:58.921468 27288 glop_solve.cc:134] Scaling algorithm = 1
+I1028 06:40:58.921899 27288 glop_solve.cc:135] Use scaling = 1
+I1028 06:40:58.922326 27288 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 06:40:58.922761 27288 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 06:40:58.923194 27288 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 06:40:58.923627 27288 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 06:40:58.924052 27288 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 06:40:58.924481 27288 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin2.mps dual
+I1028 06:41:10.777222 26184 glop_solve.cc:48] Set solve time limit to 30s
+I1028 06:41:10.777456 26184 glop_solve.cc:58] Set LP algorithm to dual
+I1028 06:41:13.167136 26184 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin2.mps
+I1028 06:41:13.167284 26184 glop_solve.cc:90] Solving model with parameters ...
+I1028 06:41:15.889392 26184 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 06:41:15.889531 26184 glop_solve.cc:97] Solve time = 2721
+I1028 06:41:15.890080 26184 glop_solve.cc:99] Objective value = -4.00844e+07
+I1028 06:41:15.890496 26184 glop_solve.cc:100] Iterations = 26989
+I1028 06:41:15.890947 26184 glop_solve.cc:130] Use dual simplex = 1
+I1028 06:41:15.891466 26184 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 06:41:15.892015 26184 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 06:41:15.892465 26184 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 06:41:15.892900 26184 glop_solve.cc:134] Scaling algorithm = 1
+I1028 06:41:15.893311 26184 glop_solve.cc:135] Use scaling = 1
+I1028 06:41:15.893745 26184 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 06:41:15.894178 26184 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 06:41:15.894611 26184 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 06:41:15.895041 26184 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 06:41:15.895468 26184 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 06:41:15.895894 26184 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin3.mps dual
+I1028 06:41:28.139019 22176 glop_solve.cc:48] Set solve time limit to 30s
+I1028 06:41:28.139275 22176 glop_solve.cc:58] Set LP algorithm to dual
+I1028 06:41:30.521553 22176 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin3.mps
+I1028 06:41:30.521689 22176 glop_solve.cc:90] Solving model with parameters ...
+I1028 06:41:33.031363 22176 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 06:41:33.031509 22176 glop_solve.cc:97] Solve time = 2508
+I1028 06:41:33.032021 22176 glop_solve.cc:99] Objective value = -4.38104e+07
+I1028 06:41:33.032427 22176 glop_solve.cc:100] Iterations = 26892
+I1028 06:41:33.032858 22176 glop_solve.cc:130] Use dual simplex = 1
+I1028 06:41:33.033292 22176 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 06:41:33.033722 22176 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 06:41:33.034156 22176 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 06:41:33.034590 22176 glop_solve.cc:134] Scaling algorithm = 1
+I1028 06:41:33.034992 22176 glop_solve.cc:135] Use scaling = 1
+I1028 06:41:33.035420 22176 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 06:41:33.035853 22176 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 06:41:33.036282 22176 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 06:41:33.036707 22176 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 06:41:33.037136 22176 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 06:41:33.037560 22176 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin4.mps dual
+I1028 06:41:46.674903  1296 glop_solve.cc:48] Set solve time limit to 30s
+I1028 06:41:46.675255  1296 glop_solve.cc:58] Set LP algorithm to dual
+I1028 06:41:49.041084  1296 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin4.mps
+I1028 06:41:49.041217  1296 glop_solve.cc:90] Solving model with parameters ...
+I1028 06:41:51.587568  1296 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 06:41:51.587708  1296 glop_solve.cc:97] Solve time = 2545
+I1028 06:41:51.588264  1296 glop_solve.cc:99] Objective value = -4.52852e+07
+I1028 06:41:51.588673  1296 glop_solve.cc:100] Iterations = 26859
+I1028 06:41:51.589105  1296 glop_solve.cc:130] Use dual simplex = 1
+I1028 06:41:51.589551  1296 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 06:41:51.590003  1296 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 06:41:51.590483  1296 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 06:41:51.590936  1296 glop_solve.cc:134] Scaling algorithm = 1
+I1028 06:41:51.591381  1296 glop_solve.cc:135] Use scaling = 1
+I1028 06:41:51.591818  1296 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 06:41:51.592250  1296 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 06:41:51.592673  1296 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 06:41:51.593101  1296 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 06:41:51.593523  1296 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 06:41:51.593943  1296 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-mincost.mps dual
+I1028 11:06:23.121166 21048 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:06:23.121425 21048 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:06:25.511971 21048 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-mincost.mps
+I1028 11:06:25.512097 21048 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:06:42.572129 21048 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:06:42.572308 21048 glop_solve.cc:97] Solve time = 17059
+I1028 11:06:42.573187 21048 glop_solve.cc:99] Objective value = 8.09768e+12
+I1028 11:06:42.573574 21048 glop_solve.cc:100] Iterations = 49224
+I1028 11:06:42.573959 21048 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:06:42.574390 21048 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:06:42.574847 21048 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:06:42.575310 21048 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:06:42.575767 21048 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:06:42.576206 21048 glop_solve.cc:135] Use scaling = 1
+I1028 11:06:42.576637 21048 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:06:42.577071 21048 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:06:42.577507 21048 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:06:42.577935 21048 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:06:42.578366 21048 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:06:42.578795 21048 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-minutil.mps dual
+I1028 11:06:59.998190 20484 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:06:59.998386 20484 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:07:05.534224 20484 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-minutil.mps
+I1028 11:07:05.534327 20484 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:07:10.331810 20484 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:07:10.331931 20484 glop_solve.cc:97] Solve time = 4796
+I1028 11:07:10.332928 20484 glop_solve.cc:99] Objective value = 1
+I1028 11:07:10.333355 20484 glop_solve.cc:100] Iterations = 26605
+I1028 11:07:10.333770 20484 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:07:10.334195 20484 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:07:10.334628 20484 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:07:10.335056 20484 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:07:10.335414 20484 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:07:10.335821 20484 glop_solve.cc:135] Use scaling = 1
+I1028 11:07:10.336220 20484 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:07:10.336623 20484 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:07:10.337029 20484 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:07:10.337428 20484 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:07:10.337827 20484 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:07:10.338224 20484 glop_solve.cc:141] Relative max cost perturbation = 100000
+
 C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sliceperf-pri0-diverse5.mps dual
 I1027 23:53:24.248214 27140 glop_solve.cc:48] Set solve time limit to 30s
 I1027 23:53:24.248771 27140 glop_solve.cc:58] Set LP algorithm to dual
@@ -41,6 +217,28 @@ I1028 06:33:52.310123    32 glop_solve.cc:138] Solution feasibility tolerance = 
 I1028 06:33:52.310538    32 glop_solve.cc:139] Perturb costs in dual simplex = 1
 I1028 06:33:52.310929    32 glop_solve.cc:140] Relative cost perturbation = 1000
 I1028 06:33:52.311631    32 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sliceperf-pri0-diverse5.mps dual
+I1028 11:07:31.448528 23036 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:07:31.448761 23036 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:07:34.488270 23036 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sliceperf-pri0-diverse5.mps
+I1028 11:07:34.488434 23036 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:07:46.659313 23036 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:07:46.659432 23036 glop_solve.cc:97] Solve time = 12169
+I1028 11:07:46.660431 23036 glop_solve.cc:99] Objective value = 1.77144e+12
+I1028 11:07:46.660843 23036 glop_solve.cc:100] Iterations = 45587
+I1028 11:07:46.661237 23036 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:07:46.661625 23036 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:07:46.662017 23036 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:07:46.662433 23036 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:07:46.662892 23036 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:07:46.663503 23036 glop_solve.cc:135] Use scaling = 1
+I1028 11:07:46.663927 23036 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:07:46.664400 23036 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:07:46.664827 23036 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:07:46.665248 23036 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:07:46.665610 23036 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:07:46.665981 23036 glop_solve.cc:141] Relative max cost perturbation = 100000
 
 C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sliceperf-pri0-maxmin0.mps dual
 I1028 06:35:44.079192 16248 glop_solve.cc:48] Set solve time limit to 30s
@@ -196,280 +394,332 @@ I1028 06:39:12.855907 25652 glop_solve.cc:139] Perturb costs in dual simplex = 1
 I1028 06:39:12.856332 25652 glop_solve.cc:140] Relative cost perturbation = 1000
 I1028 06:39:12.856754 25652 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin0.mps dual
-I1028 06:40:35.239468 28216 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:40:35.239714 28216 glop_solve.cc:58] Set LP algorithm to dual
-I1028 06:40:37.620890 28216 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin0.mps
-I1028 06:40:37.621036 28216 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:40:41.952235 28216 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:40:41.952373 28216 glop_solve.cc:97] Solve time = 4330
-I1028 06:40:41.952915 28216 glop_solve.cc:99] Objective value = -3.04111e+07
-I1028 06:40:41.953604 28216 glop_solve.cc:100] Iterations = 26061
-I1028 06:40:41.954107 28216 glop_solve.cc:130] Use dual simplex = 1
-I1028 06:40:41.954970 28216 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:40:41.955095 28216 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:40:41.955176 28216 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:40:41.955548 28216 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:40:41.955638 28216 glop_solve.cc:135] Use scaling = 1
-I1028 06:40:41.955958 28216 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:40:41.956317 28216 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:40:41.956408 28216 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:40:41.956721 28216 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:40:41.956806 28216 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:40:41.957128 28216 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sliceperf-pri0-mincost.mps dual
+I1028 11:08:22.430175 25388 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:08:22.430375 25388 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:08:25.218724 25388 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sliceperf-pri0-mincost.mps
+I1028 11:08:25.218875 25388 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:08:37.649266 25388 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:08:37.649405 25388 glop_solve.cc:97] Solve time = 12429
+I1028 11:08:37.649941 25388 glop_solve.cc:99] Objective value = 1.7529e+12
+I1028 11:08:37.650356 25388 glop_solve.cc:100] Iterations = 45466
+I1028 11:08:37.650746 25388 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:08:37.651192 25388 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:08:37.651639 25388 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:08:37.652097 25388 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:08:37.652550 25388 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:08:37.652995 25388 glop_solve.cc:135] Use scaling = 1
+I1028 11:08:37.653434 25388 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:08:37.653865 25388 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:08:37.654288 25388 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:08:37.654709 25388 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:08:37.655132 25388 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:08:37.655561 25388 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin1.mps dual
-I1028 06:40:53.850292 27288 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:40:53.850538 27288 glop_solve.cc:58] Set LP algorithm to dual
-I1028 06:40:56.221781 27288 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin1.mps
-I1028 06:40:56.221929 27288 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:40:58.918988 27288 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:40:58.919134 27288 glop_solve.cc:97] Solve time = 2696
-I1028 06:40:58.919671 27288 glop_solve.cc:99] Objective value = -3.49387e+07
-I1028 06:40:58.920099 27288 glop_solve.cc:100] Iterations = 26981
-I1028 06:40:58.920191 27288 glop_solve.cc:130] Use dual simplex = 1
-I1028 06:40:58.920514 27288 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:40:58.920607 27288 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:40:58.921033 27288 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:40:58.921468 27288 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:40:58.921899 27288 glop_solve.cc:135] Use scaling = 1
-I1028 06:40:58.922326 27288 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:40:58.922761 27288 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:40:58.923194 27288 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:40:58.923627 27288 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:40:58.924052 27288 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:40:58.924481 27288 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sliceperf-pri3-minutil.mps dual
+I1028 11:08:54.074957 26868 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:08:54.075214 26868 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:08:55.115804 26868 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sliceperf-pri3-minutil.mps
+I1028 11:08:55.115936 26868 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:08:55.704673 26868 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:08:55.704829 26868 glop_solve.cc:97] Solve time = 587
+I1028 11:08:55.705714 26868 glop_solve.cc:99] Objective value = 1
+I1028 11:08:55.706149 26868 glop_solve.cc:100] Iterations = 5920
+I1028 11:08:55.706583 26868 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:08:55.707019 26868 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:08:55.707453 26868 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:08:55.707886 26868 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:08:55.708319 26868 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:08:55.708715 26868 glop_solve.cc:135] Use scaling = 1
+I1028 11:08:55.708763 26868 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:08:55.709143 26868 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:08:55.709568 26868 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:08:55.709993 26868 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:08:55.710420 26868 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:08:55.710844 26868 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin2.mps dual
-I1028 06:41:10.777222 26184 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:41:10.777456 26184 glop_solve.cc:58] Set LP algorithm to dual
-I1028 06:41:13.167136 26184 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin2.mps
-I1028 06:41:13.167284 26184 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:41:15.889392 26184 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:41:15.889531 26184 glop_solve.cc:97] Solve time = 2721
-I1028 06:41:15.890080 26184 glop_solve.cc:99] Objective value = -4.00844e+07
-I1028 06:41:15.890496 26184 glop_solve.cc:100] Iterations = 26989
-I1028 06:41:15.890947 26184 glop_solve.cc:130] Use dual simplex = 1
-I1028 06:41:15.891466 26184 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:41:15.892015 26184 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:41:15.892465 26184 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:41:15.892900 26184 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:41:15.893311 26184 glop_solve.cc:135] Use scaling = 1
-I1028 06:41:15.893745 26184 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:41:15.894178 26184 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:41:15.894611 26184 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:41:15.895041 26184 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:41:15.895468 26184 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:41:15.895894 26184 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-diverse1.mps dual
+I1028 11:09:13.140909 20360 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:09:13.141160 20360 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:09:14.868125 20360 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-diverse1.mps
+I1028 11:09:14.868268 20360 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:09:16.482601 20360 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:09:16.482741 20360 glop_solve.cc:97] Solve time = 1613
+I1028 11:09:16.483307 20360 glop_solve.cc:99] Objective value = 1.47915e+12
+I1028 11:09:16.483724 20360 glop_solve.cc:100] Iterations = 17819
+I1028 11:09:16.484126 20360 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:09:16.484652 20360 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:09:16.485211 20360 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:09:16.485654 20360 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:09:16.486085 20360 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:09:16.486521 20360 glop_solve.cc:135] Use scaling = 1
+I1028 11:09:16.486955 20360 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:09:16.487389 20360 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:09:16.487819 20360 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:09:16.488246 20360 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:09:16.488673 20360 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:09:16.489099 20360 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin3.mps dual
-I1028 06:41:28.139019 22176 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:41:28.139275 22176 glop_solve.cc:58] Set LP algorithm to dual
-I1028 06:41:30.521553 22176 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin3.mps
-I1028 06:41:30.521689 22176 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:41:33.031363 22176 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:41:33.031509 22176 glop_solve.cc:97] Solve time = 2508
-I1028 06:41:33.032021 22176 glop_solve.cc:99] Objective value = -4.38104e+07
-I1028 06:41:33.032427 22176 glop_solve.cc:100] Iterations = 26892
-I1028 06:41:33.032858 22176 glop_solve.cc:130] Use dual simplex = 1
-I1028 06:41:33.033292 22176 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:41:33.033722 22176 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:41:33.034156 22176 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:41:33.034590 22176 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:41:33.034992 22176 glop_solve.cc:135] Use scaling = 1
-I1028 06:41:33.035420 22176 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:41:33.035853 22176 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:41:33.036282 22176 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:41:33.036707 22176 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:41:33.037136 22176 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:41:33.037560 22176 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-diverse5.mps dual
+I1028 11:09:26.092498 26680 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:09:26.092724 26680 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:09:27.829269 26680 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-diverse5.mps
+I1028 11:09:27.829406 26680 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:09:29.496493 26680 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:09:29.496641 26680 glop_solve.cc:97] Solve time = 1666
+I1028 11:09:29.497183 26680 glop_solve.cc:99] Objective value = 1.48632e+12
+I1028 11:09:29.497602 26680 glop_solve.cc:100] Iterations = 18120
+I1028 11:09:29.498010 26680 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:09:29.498613 26680 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:09:29.499145 26680 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:09:29.499591 26680 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:09:29.500027 26680 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:09:29.500462 26680 glop_solve.cc:135] Use scaling = 1
+I1028 11:09:29.500896 26680 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:09:29.501327 26680 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:09:29.501756 26680 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:09:29.502182 26680 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:09:29.502610 26680 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:09:29.503039 26680 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin4.mps dual
-I1028 06:41:46.674903  1296 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:41:46.675255  1296 glop_solve.cc:58] Set LP algorithm to dual
-I1028 06:41:49.041084  1296 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-maxmin4.mps
-I1028 06:41:49.041217  1296 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:41:51.587568  1296 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:41:51.587708  1296 glop_solve.cc:97] Solve time = 2545
-I1028 06:41:51.588264  1296 glop_solve.cc:99] Objective value = -4.52852e+07
-I1028 06:41:51.588673  1296 glop_solve.cc:100] Iterations = 26859
-I1028 06:41:51.589105  1296 glop_solve.cc:130] Use dual simplex = 1
-I1028 06:41:51.589551  1296 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:41:51.590003  1296 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:41:51.590483  1296 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:41:51.590936  1296 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:41:51.591381  1296 glop_solve.cc:135] Use scaling = 1
-I1028 06:41:51.591818  1296 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:41:51.592250  1296 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:41:51.592673  1296 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:41:51.593101  1296 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:41:51.593523  1296 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:41:51.593943  1296 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin0.mps dual
+I1028 11:09:44.448537  3312 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:09:44.448796  3312 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:09:46.140410  3312 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin0.mps
+I1028 11:09:46.140559  3312 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:09:48.571037  3312 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:09:48.571180  3312 glop_solve.cc:97] Solve time = 2429
+I1028 11:09:48.571742  3312 glop_solve.cc:99] Objective value = -1.72531e+07
+I1028 11:09:48.572168  3312 glop_solve.cc:100] Iterations = 12230
+I1028 11:09:48.572260  3312 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:09:48.572687  3312 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:09:48.573119  3312 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:09:48.573552  3312 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:09:48.573988  3312 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:09:48.574420  3312 glop_solve.cc:135] Use scaling = 1
+I1028 11:09:48.574853  3312 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:09:48.575290  3312 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:09:48.575713  3312 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:09:48.576140  3312 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:09:48.576568  3312 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:09:48.576996  3312 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\edge-pri0-mincost.mps primal
-I1028 06:42:54.970024  1304 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:42:57.358750  1304 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\edge-pri0-mincost.mps
-I1028 06:42:57.358928  1304 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:43:13.853372  1304 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:43:13.853523  1304 glop_solve.cc:97] Solve time = 16493
-I1028 06:43:13.854268  1304 glop_solve.cc:99] Objective value = 8.09768e+12
-I1028 06:43:13.854708  1304 glop_solve.cc:100] Iterations = 42491
-I1028 06:43:13.854800  1304 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:43:13.855194  1304 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:43:13.855608  1304 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:43:13.856051  1304 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:43:13.856508  1304 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:43:13.856992  1304 glop_solve.cc:135] Use scaling = 1
-I1028 06:43:13.857459  1304 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:43:13.857919  1304 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:43:13.858406  1304 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:43:13.859149  1304 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:43:13.859245  1304 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:43:13.859664  1304 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin0.mps dual
+I1028 11:09:58.913557 14820 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:09:58.913832 14820 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:10:00.606818 14820 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin0.mps
+I1028 11:10:00.606962 14820 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:10:03.017228 14820 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:10:03.017383 14820 glop_solve.cc:97] Solve time = 2409
+I1028 11:10:03.017895 14820 glop_solve.cc:99] Objective value = -1.72531e+07
+I1028 11:10:03.018365 14820 glop_solve.cc:100] Iterations = 12230
+I1028 11:10:03.018757 14820 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:10:03.019150 14820 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:10:03.019546 14820 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:10:03.019938 14820 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:10:03.020327 14820 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:10:03.020715 14820 glop_solve.cc:135] Use scaling = 1
+I1028 11:10:03.021103 14820 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:10:03.021484 14820 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:10:03.021865 14820 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:10:03.022246 14820 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:10:03.022626 14820 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:10:03.023008 14820 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin0.mps primal
-I1028 06:43:41.337635  9584 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:43:43.019917  9584 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin0.mps
-I1028 06:43:43.020058  9584 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:43:44.140782  9584 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:43:44.140966  9584 glop_solve.cc:97] Solve time = 1120
-I1028 06:43:44.141838  9584 glop_solve.cc:99] Objective value = -1.72531e+07
-I1028 06:43:44.142216  9584 glop_solve.cc:100] Iterations = 17486
-I1028 06:43:44.142304  9584 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:43:44.142632  9584 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:43:44.142722  9584 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:43:44.143048  9584 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:43:44.143143  9584 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:43:44.143470  9584 glop_solve.cc:135] Use scaling = 1
-I1028 06:43:44.143563  9584 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:43:44.143891  9584 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:43:44.143988  9584 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:43:44.144353  9584 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:43:44.144439  9584 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:43:44.144761  9584 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin1.mps dual
+I1028 11:10:18.125942  4284 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:10:18.126208  4284 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:10:19.813719  4284 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin1.mps
+I1028 11:10:19.813853  4284 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:10:22.455722  4284 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:10:22.455873  4284 glop_solve.cc:97] Solve time = 2641
+I1028 11:10:22.456477  4284 glop_solve.cc:99] Objective value = -2.35961e+07
+I1028 11:10:22.456897  4284 glop_solve.cc:100] Iterations = 12774
+I1028 11:10:22.457308  4284 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:10:22.457814  4284 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:10:22.458302  4284 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:10:22.458696  4284 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:10:22.459134  4284 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:10:22.459568  4284 glop_solve.cc:135] Use scaling = 1
+I1028 11:10:22.460006  4284 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:10:22.460440  4284 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:10:22.460871  4284 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:10:22.461300  4284 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:10:22.461728  4284 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:10:22.462155  4284 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin1.mps primal
-I1028 06:43:56.210501  9416 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:43:57.885022  9416 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin1.mps
-I1028 06:43:57.885164  9416 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:43:58.879789  9416 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:43:58.879933  9416 glop_solve.cc:97] Solve time = 994
-I1028 06:43:58.880511  9416 glop_solve.cc:99] Objective value = -2.35961e+07
-I1028 06:43:58.880981  9416 glop_solve.cc:100] Iterations = 18720
-I1028 06:43:58.881384  9416 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:43:58.881827  9416 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:43:58.882278  9416 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:43:58.882733  9416 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:43:58.883182  9416 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:43:58.883631  9416 glop_solve.cc:135] Use scaling = 1
-I1028 06:43:58.884067  9416 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:43:58.884495  9416 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:43:58.884918  9416 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:43:58.885342  9416 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:43:58.885764  9416 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:43:58.886190  9416 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin2.mps dual
+I1028 11:11:37.334360 27820 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:11:37.334620 27820 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:11:39.024948 27820 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin2.mps
+I1028 11:11:39.025097 27820 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:11:42.005732 27820 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:11:42.005874 27820 glop_solve.cc:97] Solve time = 2980
+I1028 11:11:42.006414 27820 glop_solve.cc:99] Objective value = -3.06903e+07
+I1028 11:11:42.006869 27820 glop_solve.cc:100] Iterations = 13146
+I1028 11:11:42.007258 27820 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:11:42.007792 27820 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:11:42.008272 27820 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:11:42.008704 27820 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:11:42.009139 27820 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:11:42.009574 27820 glop_solve.cc:135] Use scaling = 1
+I1028 11:11:42.010008 27820 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:11:42.010447 27820 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:11:42.010884 27820 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:11:42.011312 27820 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:11:42.011740 27820 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:11:42.012166 27820 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin2.mps primal
-I1028 06:44:12.601690  8360 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:44:14.272753  8360 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin2.mps
-I1028 06:44:14.272900  8360 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:44:15.277300  8360 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:44:15.277439  8360 glop_solve.cc:97] Solve time = 1003
-I1028 06:44:15.277977  8360 glop_solve.cc:99] Objective value = -3.06903e+07
-I1028 06:44:15.278398  8360 glop_solve.cc:100] Iterations = 18903
-I1028 06:44:15.278488  8360 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:44:15.278805  8360 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:44:15.278895  8360 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:44:15.279206  8360 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:44:15.279298  8360 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:44:15.279608  8360 glop_solve.cc:135] Use scaling = 1
-I1028 06:44:15.279699  8360 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:44:15.280008  8360 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:44:15.280098  8360 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:44:15.280414  8360 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:44:15.280468  8360 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:44:15.280953  8360 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin3.mps dual
+I1028 11:20:41.124300 16236 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:20:41.124498 16236 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:20:42.813687 16236 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin3.mps
+I1028 11:20:42.813808 16236 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:20:46.193063 16236 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:20:46.193214 16236 glop_solve.cc:97] Solve time = 3378
+I1028 11:20:46.193428 16236 glop_solve.cc:99] Objective value = -3.65954e+07
+I1028 11:20:46.193545 16236 glop_solve.cc:100] Iterations = 13594
+I1028 11:20:46.193656 16236 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:20:46.193763 16236 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:20:46.193868 16236 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:20:46.193973 16236 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:20:46.194077 16236 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:20:46.194188 16236 glop_solve.cc:135] Use scaling = 1
+I1028 11:20:46.194294 16236 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:20:46.194396 16236 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:20:46.194484 16236 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:20:46.194594 16236 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:20:46.194634 16236 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:20:46.194720 16236 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin3.mps primal
-I1028 06:44:31.307434  1180 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:44:32.974966  1180 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin3.mps
-I1028 06:44:32.975112  1180 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:44:33.910316  1180 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:44:33.910468  1180 glop_solve.cc:97] Solve time = 934
-I1028 06:44:33.911056  1180 glop_solve.cc:99] Objective value = -3.65954e+07
-I1028 06:44:33.911471  1180 glop_solve.cc:100] Iterations = 18998
-I1028 06:44:33.911899  1180 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:44:33.912343  1180 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:44:33.912792  1180 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:44:33.913248  1180 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:44:33.913694  1180 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:44:33.914141  1180 glop_solve.cc:135] Use scaling = 1
-I1028 06:44:33.914572  1180 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:44:33.915043  1180 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:44:33.915409  1180 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:44:33.915867  1180 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:44:33.916358  1180 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:44:33.916796  1180 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin4.mps dual
+I1028 11:21:09.306253 26632 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:21:09.306496 26632 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:21:10.995744 26632 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin4.mps
+I1028 11:21:10.995902 26632 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:21:14.310309 26632 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:21:14.310455 26632 glop_solve.cc:97] Solve time = 3313
+I1028 11:21:14.311333 26632 glop_solve.cc:99] Objective value = -3.84436e+07
+I1028 11:21:14.311780 26632 glop_solve.cc:100] Iterations = 13682
+I1028 11:21:14.312291 26632 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:21:14.312776 26632 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:21:14.313203 26632 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:21:14.313635 26632 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:21:14.314067 26632 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:21:14.314504 26632 glop_solve.cc:135] Use scaling = 1
+I1028 11:21:14.314939 26632 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:21:14.315363 26632 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:21:14.315792 26632 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:21:14.316216 26632 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:21:14.316635 26632 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:21:14.317062 26632 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin4.mps primal
-I1028 06:44:40.105371 23076 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:44:41.898539 23076 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin4.mps
-I1028 06:44:41.898684 23076 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:44:42.820526 23076 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:44:42.820652 23076 glop_solve.cc:97] Solve time = 921
-I1028 06:44:42.821173 23076 glop_solve.cc:99] Objective value = -3.84436e+07
-I1028 06:44:42.821584 23076 glop_solve.cc:100] Iterations = 18979
-I1028 06:44:42.822013 23076 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:44:42.822453 23076 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:44:42.822903 23076 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:44:42.823369 23076 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:44:42.823814 23076 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:44:42.824270 23076 glop_solve.cc:135] Use scaling = 1
-I1028 06:44:42.824704 23076 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:44:42.825139 23076 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:44:42.825563 23076 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:44:42.825986 23076 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:44:42.826406 23076 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:44:42.826826 23076 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin5.mps dual
+I1028 11:21:19.075924  6924 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:21:19.076118  6924 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:21:20.748646  6924 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin5.mps
+I1028 11:21:20.748842  6924 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:21:24.217539  6924 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:21:24.217684  6924 glop_solve.cc:97] Solve time = 3467
+I1028 11:21:24.218227  6924 glop_solve.cc:99] Objective value = -3.89509e+07
+I1028 11:21:24.218655  6924 glop_solve.cc:100] Iterations = 13961
+I1028 11:21:24.218752  6924 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:21:24.219173  6924 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:21:24.219607  6924 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:21:24.220044  6924 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:21:24.220482  6924 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:21:24.220915  6924 glop_solve.cc:135] Use scaling = 1
+I1028 11:21:24.221348  6924 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:21:24.221779  6924 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:21:24.222210  6924 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:21:24.222639  6924 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:21:24.223064  6924 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:21:24.223494  6924 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-maxmin5.mps primal
-I1028 06:44:55.770396 23828 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:44:57.441631 23828 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-maxmin5.mps
-I1028 06:44:57.441775 23828 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:44:59.144758 23828 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:44:59.144903 23828 glop_solve.cc:97] Solve time = 1702
-I1028 06:44:59.145435 23828 glop_solve.cc:99] Objective value = -3.89509e+07
-I1028 06:44:59.145851 23828 glop_solve.cc:100] Iterations = 19107
-I1028 06:44:59.146279 23828 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:44:59.146723 23828 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:44:59.147175 23828 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:44:59.147627 23828 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:44:59.148077 23828 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:44:59.148497 23828 glop_solve.cc:135] Use scaling = 1
-I1028 06:44:59.148588 23828 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:44:59.148975 23828 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:44:59.149410 23828 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:44:59.149854 23828 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:44:59.150282 23828 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:44:59.150709 23828 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-mincost.mps dual
+I1028 11:21:35.249872 22388 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:21:35.250123 22388 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:21:36.947462 22388 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-mincost.mps
+I1028 11:21:36.947615 22388 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:21:38.528813 22388 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:21:38.528959 22388 glop_solve.cc:97] Solve time = 1580
+I1028 11:21:38.529497 22388 glop_solve.cc:99] Objective value = 1.47789e+12
+I1028 11:21:38.529913 22388 glop_solve.cc:100] Iterations = 17989
+I1028 11:21:38.530316 22388 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:21:38.530860 22388 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:21:38.531398 22388 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:21:38.531838 22388 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:21:38.532274 22388 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:21:38.532710 22388 glop_solve.cc:135] Use scaling = 1
+I1028 11:21:38.533148 22388 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:21:38.533586 22388 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:21:38.534014 22388 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:21:38.534450 22388 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:21:38.534812 22388 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:21:38.534903 22388 glop_solve.cc:141] Relative max cost perturbation = 100000
 
-C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\sonal-mincost.mps primal
-I1028 06:45:17.149957 21880 glop_solve.cc:48] Set solve time limit to 30s
-I1028 06:45:18.831596 21880 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\sonal-mincost.mps
-I1028 06:45:18.831745 21880 glop_solve.cc:90] Solving model with parameters ...
-I1028 06:45:20.894491 21880 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
-I1028 06:45:20.894635 21880 glop_solve.cc:97] Solve time = 2062
-I1028 06:45:20.895535 21880 glop_solve.cc:99] Objective value = 1.47789e+12
-I1028 06:45:20.895875 21880 glop_solve.cc:100] Iterations = 26805
-I1028 06:45:20.895932 21880 glop_solve.cc:130] Use dual simplex = 0
-I1028 06:45:20.896260 21880 glop_solve.cc:131] Initial basis heuristic = 2
-I1028 06:45:20.896318 21880 glop_solve.cc:132] Feasibility pricing rule = 1
-I1028 06:45:20.896649 21880 glop_solve.cc:133] Optimization pricing rule = 1
-I1028 06:45:20.896708 21880 glop_solve.cc:134] Scaling algorithm = 1
-I1028 06:45:20.897043 21880 glop_solve.cc:135] Use scaling = 1
-I1028 06:45:20.897101 21880 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
-I1028 06:45:20.897439 21880 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
-I1028 06:45:20.897496 21880 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
-I1028 06:45:20.897878 21880 glop_solve.cc:139] Perturb costs in dual simplex = 1
-I1028 06:45:20.897956 21880 glop_solve.cc:140] Relative cost perturbation = 1000
-I1028 06:45:20.898286 21880 glop_solve.cc:141] Relative max cost perturbation = 100000
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\wander-minutil1.mps dual
+I1028 11:21:54.433288 24432 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:21:54.433516 24432 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:21:54.733420 24432 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\wander-minutil1.mps
+I1028 11:21:54.733539 24432 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:21:55.453794 24432 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:21:55.453924 24432 glop_solve.cc:97] Solve time = 719
+I1028 11:21:55.454869 24432 glop_solve.cc:99] Objective value = 0.679411
+I1028 11:21:55.455293 24432 glop_solve.cc:100] Iterations = 4413
+I1028 11:21:55.455716 24432 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:21:55.456197 24432 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:21:55.456693 24432 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:21:55.457219 24432 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:21:55.457654 24432 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:21:55.458074 24432 glop_solve.cc:135] Use scaling = 1
+I1028 11:21:55.458506 24432 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:21:55.458944 24432 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:21:55.459371 24432 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:21:55.459800 24432 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:21:55.460215 24432 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:21:55.460631 24432 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\wander-primal1.mps dual
+I1028 11:22:00.542206  8932 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:22:00.542504  8932 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:22:00.561137  8932 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\wander-primal1.mps
+I1028 11:22:00.561293  8932 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:22:00.563147  8932 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:22:00.563268  8932 glop_solve.cc:97] Solve time = 1
+I1028 11:22:00.563713  8932 glop_solve.cc:99] Objective value = -1590.64
+I1028 11:22:00.564149  8932 glop_solve.cc:100] Iterations = 0
+I1028 11:22:00.564582  8932 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:22:00.565017  8932 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:22:00.565451  8932 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:22:00.565884  8932 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:22:00.566317  8932 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:22:00.566747  8932 glop_solve.cc:135] Use scaling = 1
+I1028 11:22:00.567175  8932 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:22:00.567605  8932 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:22:00.568034  8932 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:22:00.568460  8932 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:22:00.568887  8932 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:22:00.569315  8932 glop_solve.cc:141] Relative max cost perturbation = 100000
+
+C:\Users\krish\Work\WANLP\GLOP\examples\glopsolve>build2\Release\glopsolve.exe ..\..\..\..\lpbench\wanlpv2\wander-primal2.mps dual
+I1028 11:22:03.369666  8360 glop_solve.cc:48] Set solve time limit to 30s
+I1028 11:22:03.370004  8360 glop_solve.cc:58] Set LP algorithm to dual
+I1028 11:22:03.387618  8360 glop_solve.cc:87] Loaded model from ..\..\..\..\lpbench\wanlpv2\wander-primal2.mps
+I1028 11:22:03.387753  8360 glop_solve.cc:90] Solving model with parameters ...
+I1028 11:22:03.390387  8360 glop_solve.cc:96] Result status = MPSOLVER_OPTIMAL
+I1028 11:22:03.390571  8360 glop_solve.cc:97] Solve time = 2
+I1028 11:22:03.391218  8360 glop_solve.cc:99] Objective value = -4.2471e+06
+I1028 11:22:03.391670  8360 glop_solve.cc:100] Iterations = 12
+I1028 11:22:03.392113  8360 glop_solve.cc:130] Use dual simplex = 1
+I1028 11:22:03.392556  8360 glop_solve.cc:131] Initial basis heuristic = 2
+I1028 11:22:03.392994  8360 glop_solve.cc:132] Feasibility pricing rule = 1
+I1028 11:22:03.393425  8360 glop_solve.cc:133] Optimization pricing rule = 1
+I1028 11:22:03.393858  8360 glop_solve.cc:134] Scaling algorithm = 1
+I1028 11:22:03.394291  8360 glop_solve.cc:135] Use scaling = 1
+I1028 11:22:03.394716  8360 glop_solve.cc:136] Primal feasibility tolerance = 1e-08
+I1028 11:22:03.395149  8360 glop_solve.cc:137] Dual feasibility tolerance = 1e-08
+I1028 11:22:03.395575  8360 glop_solve.cc:138] Solution feasibility tolerance = 1e-06
+I1028 11:22:03.396003  8360 glop_solve.cc:139] Perturb costs in dual simplex = 1
+I1028 11:22:03.396429  8360 glop_solve.cc:140] Relative cost perturbation = 1000
+I1028 11:22:03.396855  8360 glop_solve.cc:141] Relative max cost perturbation = 100000
