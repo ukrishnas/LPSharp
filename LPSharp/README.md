@@ -59,15 +59,37 @@ is given.
 LPSharp> set-solver -create GLOP -key glop -default
 ```
 
-Change solver parameters. You can change parameters to non-default values using
-the `set-solver`. Do this after you have tried defaults. Setting time limit is
-useful to automatically interrupt the solver after a time limit. With GLOP, it
-is best to not to use dual simplex because certain models cause it to return
-abnormal or not solved status and the root cause is under investigation. Based
-on the parameter, pass the arguments in `-values`, as an array of objects.
+Read solver parameters. LPSharp uses a data model shown below for solver
+parameters. Parameters under SolverParameters are for all solvers. These are the
+LP algorithm (Default, Dual, Primal, Barrier), and time limit in seconds. Each
+solver has its section of parameters. The parameters are loaded every time the
+solver is invoked.
 ```
-LPSharp> set-solver -key glop -name TimeLimitInSeconds -values @(900)
-LPSharp> set-solver -key glop -name PrimalSimplex
+LPSharp> read-parameters parameters.xml
+
+Contents of parameters.xml:
+
+<?xml version="1.0"?>
+<SolverParameters>
+  <!-- These parameters are common for all solvers. -->
+  <TimeLimitInSeconds>90</TimeLimitInSeconds>
+  <LPAlgorithm>Default</LPAlgorithm>
+
+  <GlopParameters>
+    <Parameters>
+      <Param Name="EnableOutput" Value="false" />
+      <Param Name="SolveWithParameters" Value="true" />
+    </Parameters>
+    <SolverSpecificParameterText>
+      use_dual_simplex: 1
+      perturb_costs_in_dual_simplex: 1
+      relative_cost_perturbation: 100
+      relative_max_cost_perturbation: 1
+    </SolverSpecificParameterText>
+  </GlopParameters>
+
+  <ClpParameters />
+</SolverParameters>
 ```
 
 Load the model into the solver and solve it. The first argument is the model
@@ -76,7 +98,6 @@ key. You can select a non-default solver using `-key`.
 LPSharp> invoke-solver s250r10
 Loading model s250r10
 Solving model s250r10...
-Warning, non-default parameters may be in use!
 Solved model s250r10 result=optimal
 Model                                  s250r10
 Solver                                    glop
