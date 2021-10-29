@@ -54,17 +54,18 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             // Set solver properties to default values.
+            this.SolveWithParameters = true;
             this.Presolve = true;
             this.Scaling = true;
             this.Incrementality = true;
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use default MP solver common parameters
-        /// with the solve method. When set, LPAlgorithm, Presolve, Scaling, and Incrementality
-        /// properties are ignored.
+        /// Gets or sets a value indicating whether to solve with parameters. When unset, it is
+        /// as through MP solver common and underlying solver specific parameters are empty.
+        /// The default value is true.
         /// </summary>
-        public bool UseDefaultMPParameters { get; set; }
+        public bool SolveWithParameters { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to show solver logs. The logs appear
@@ -226,12 +227,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             var stopwatch = Stopwatch.StartNew();
 
             MPResultStatus resultStatus;
-            if (this.UseDefaultMPParameters)
-            {
-                // Solve the linear program with default parameters.
-                resultStatus = this.linearSolver.Solve();
-            }
-            else
+            if (this.SolveWithParameters)
             {
                 // Set solver specific parameters. SetSolverSpecificParametersAsString() converts the string
                 // back into GlopParameters and updates solver parameters in Solve().
@@ -243,6 +239,14 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 // Solve with MP common parameters and the underlying solver specific parameters.
                 var mpParameters = this.GetMPSolverParameters();
                 resultStatus = this.linearSolver.Solve(mpParameters);
+            }
+            else
+            {
+                // Try to unset previously set solver specific parameters.
+                this.linearSolver.SetSolverSpecificParametersAsString(string.Empty);
+
+                // Solve the linear program with default parameters.
+                resultStatus = this.linearSolver.Solve();
             }
 
             stopwatch.Stop();
@@ -288,14 +292,14 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// </summary>
         /// <param name="algorithm">The LP algorithm.</param>
         /// <returns>The MP integer parameter.</returns>
-        private static MPSolverParameters.LpAlgorithmValues LPAlgorithmToMPIntegerParam(LPAlgorithm algorithm)
+        private static int LPAlgorithmToMPIntegerParam(LPAlgorithm algorithm)
         {
             return algorithm switch
             {
-                LPAlgorithm.PrimalSimplex => MPSolverParameters.LpAlgorithmValues.PRIMAL,
-                LPAlgorithm.DualSimplex => MPSolverParameters.LpAlgorithmValues.DUAL,
-                LPAlgorithm.BarrierMethod => MPSolverParameters.LpAlgorithmValues.BARRIER,
-                _ => MPSolverParameters.LpAlgorithmValues.PRIMAL,
+                LPAlgorithm.Primal => (int)MPSolverParameters.LpAlgorithmValues.PRIMAL,
+                LPAlgorithm.Dual => (int)MPSolverParameters.LpAlgorithmValues.DUAL,
+                LPAlgorithm.Barrier => (int)MPSolverParameters.LpAlgorithmValues.BARRIER,
+                _ => -1,  // Undefined value means use default.
             };
         }
 
@@ -348,7 +352,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 mpParameters.SetIntegerParam(
                         MPSolverParameters.IntegerParam.LP_ALGORITHM,
-                        (int)LPAlgorithmToMPIntegerParam(this.LPAlgorithm));
+                        LPAlgorithmToMPIntegerParam(this.LPAlgorithm));
             }
 
             // Set whether presolve should be enabled.

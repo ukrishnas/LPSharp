@@ -19,16 +19,16 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <summary>
         /// Dual simplex.
         /// </summary>
-        DualSimplex,
+        Dual,
 
         /// <summary>
         /// Primal simplex.
         /// </summary>
-        PrimalSimplex,
+        Primal,
 
         /// <summary>
-        /// Barrier method.
+        /// Barrier (interior-point) method.
         /// </summary>
-        BarrierMethod,
+        Barrier,
     }
 }
