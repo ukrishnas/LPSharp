@@ -57,12 +57,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public string DefaultSolverKey { get; set; }
 
         /// <inheritdoc />
+        public SolverParameters SolverParameters { get; set; }
+
+        /// <inheritdoc />
         public void Clear()
         {
             this.models.Clear();
             this.solvers.Clear();
             this.results.Clear();
             this.DefaultSolverKey = null;
+            this.SolverParameters = null;
         }
 
         /// <inheritdoc />

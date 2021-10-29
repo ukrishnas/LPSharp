@@ -27,9 +27,9 @@
 
 ABSL_FLAG(std::string, mpsfile, "", "MPS file name");
 ABSL_FLAG(int32_t, timelimit, -1, "Solve time limit in seconds");
-ABSL_FLAG(std::string, lpalgorithm, "primal", "Common parameters LP solver algorithm primal or dual");
-ABSL_FLAG(bool, presolve, true, "Common parameters presolve on or off");
-ABSL_FLAG(std::string, paramsfile, "", "GLOP parameters file name");
+ABSL_FLAG(std::string, lpalgorithm, "", "LP solver algorithm primal or dual");
+ABSL_FLAG(int32_t, presolve, -1, "Presolve on=1 off=0");
+ABSL_FLAG(std::string, paramsfile, "", "GLOP solver-specific parameters file name");
 
 namespace operations_research {
 namespace glop_solver {
@@ -65,6 +65,9 @@ class GlopSolver {
     // Sets the LP algorithm in the common parameters. GLOP only supports primal
     // and dual. It does not support barrier method.
     void SetLPAlgorithm(std::string value) {
+      if (value.empty()) {
+        return;
+      }
       char key = std::tolower(std::string_view(value)[0]);
       if (key == 'd') {
         mp_parameters_->SetIntegerParam(
@@ -80,17 +83,21 @@ class GlopSolver {
     }
 
     // Sets the parameter indicating whether to perform presolve.
-    void SetPresolve(bool value) {
-      if (value) {
+    void SetPresolve(int value) {
+      if (value == -1) {
+        return;
+      }
+      if (value != 0) {
         mp_parameters_->SetIntegerParam(
           MPSolverParameters::IntegerParam::PRESOLVE,
           (int)MPSolverParameters::PresolveValues::PRESOLVE_ON);
+        LOG(INFO) << "Set presolve on";
       } else {
         mp_parameters_->SetIntegerParam(
           MPSolverParameters::IntegerParam::PRESOLVE,
           (int)MPSolverParameters::PresolveValues::PRESOLVE_OFF);
+        LOG(INFO) << "Set presolve off";
       }
-      LOG(INFO) << "Set presolve to " << value;       
     }
 
   private:

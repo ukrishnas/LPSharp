@@ -30,16 +30,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
         protected readonly string mpSolverId;
 
         /// <summary>
-        /// The MP solver parameters.
-        /// </summary>
-        protected MPSolverParameters mpParameters;
-
-        /// <summary>
-        /// A value indicating whether the solver parameters have been changed by user.
-        /// </summary>
-        private bool defaultParameters = true;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="OrtoolsSolver"/> class.
         /// </summary>
         /// <param name="key">The solver key.</param>
@@ -56,18 +46,55 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             // Create the Google OrTools solver. The parameter is a string representation of
             // the desired optimization problem type.
+            this.mpSolverId = mpSolverId;
             this.linearSolver = Solver.CreateSolver(mpSolverId);
             if (this.linearSolver == null)
             {
                 throw new LPSharpException("Unable to create OrTools solver {}", mpSolverId);
             }
 
-            this.mpSolverId = mpSolverId;
-
-            // Create empty parameters with default values.
-            this.mpParameters = new MPSolverParameters();
-            this.defaultParameters = true;
+            // Set solver properties to default values.
+            this.Presolve = true;
+            this.Scaling = true;
+            this.Incrementality = true;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use default MP solver common parameters
+        /// with the solve method. When set, LPAlgorithm, Presolve, Scaling, and Incrementality
+        /// properties are ignored.
+        /// </summary>
+        public bool UseDefaultMPParameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show solver logs. The logs appear
+        /// on standard error. Default value is false.
+        /// </summary>
+        public bool EnableOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to perform presolve. The default value is true.
+        /// Presolve is good to do in most problems.
+        /// </summary>
+        public bool Presolve { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to perform scaling. The default value is true.
+        /// </summary>
+        public bool Scaling { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to perform incremental solving. The default value is true.
+        /// </summary>
+        public bool Incrementality { get; set; }
+
+        /// <summary>
+        /// Gets or sets the protocol buffer string representation of solver specific parameters.
+        /// The protocol buffer string serialization is of the form name: value separated by space
+        /// or newline. For example: "use_dual_simplex: 1". See ortools/glop/parameters.proto for
+        /// the full list of parameters.
+        /// </summary>
+        public string SolverSpecificParametersText { get; set; }
 
         /// <inheritdoc />
         public override string ToString()
@@ -76,12 +103,33 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public override void Reset()
+        public override void SetParameters(SolverParameters solverParameters)
+        {
+            base.SetParameters(solverParameters);
+
+            if (solverParameters?.GlopParameters == null)
+            {
+                return;
+            }
+
+            Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
+            this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
+        }
+
+        /// <inheritdoc />
+        public override void Clear()
         {
             // This clears the linear program offset, all variables and coefficients, and the optimization
             // direction.
             this.linearSolver.Clear();
 
+            // Clears the solver state from the last invocation.
+            this.Reset();
+        }
+
+        /// <inheritdoc />
+        public override void Reset()
+        {
             // This clears the extracted model so that the next call to Solve() will be from scratch.
             // This does not reset parameters that were set with SetSolverSpecificParametersAsString()
             // or set_time_limit() or even clear the linear program.
@@ -98,9 +146,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             var stopwatch = Stopwatch.StartNew();
 
-            // Clear  offset, all variables and coefficients, and the optimization
-            // direction.
-            this.linearSolver.Clear();
+            // Clear previous model and state.
+            this.Clear();
 
             // Get the lower and upper variable bounds from the model.
             model.GetVariableBounds(
@@ -155,79 +202,53 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public override void Set(SolverParameter name, params object[] values)
-        {
-            int integerValue;
-
-            this.defaultParameters = false;
-
-            switch (name)
-            {
-                case SolverParameter.DualSimplex:
-                    this.mpParameters.SetIntegerParam(
-                        MPSolverParameters.IntegerParam.LP_ALGORITHM,
-                        (int)MPSolverParameters.LpAlgorithmValues.DUAL);
-                    integerValue = this.mpParameters.GetIntegerParam(MPSolverParameters.IntegerParam.LP_ALGORITHM);
-                    Trace.WriteLine($"LP algorithm = {integerValue} (DUAL), GLOP solver may return abnormal or not solved status");
-
-                    // Turn off presolve.
-                    this.mpParameters.SetIntegerParam(
-                        MPSolverParameters.IntegerParam.PRESOLVE,
-                        (int)MPSolverParameters.PresolveValues.PRESOLVE_OFF);
-
-                    // Turn off scaling.
-                    this.mpParameters.SetIntegerParam(
-                        MPSolverParameters.IntegerParam.SCALING,
-                        (int)MPSolverParameters.ScalingValues.SCALING_OFF);
-                    break;
-
-                case SolverParameter.PrimalSimplex:
-                    this.mpParameters.SetIntegerParam(
-                        MPSolverParameters.IntegerParam.LP_ALGORITHM,
-                        (int)MPSolverParameters.LpAlgorithmValues.PRIMAL);
-                    integerValue = this.mpParameters.GetIntegerParam(MPSolverParameters.IntegerParam.LP_ALGORITHM);
-                    Trace.WriteLine($"LP algorithm = {integerValue} (PRIMAL)");
-                    break;
-
-                case SolverParameter.TimeLimitInSeconds:
-                    if (values?.Length == 1 && values[0] is int timeLimit)
-                    {
-                        this.linearSolver.SetTimeLimit(timeLimit * 1000);
-                        Console.WriteLine("Time limit = {0} ms", timeLimit * 1000);
-                    }
-
-                    break;
-
-                default:
-                    // There is no case for barrier method because GLOP does not support it.
-                    Trace.WriteLine($"Unsupported solver parameter {name}");
-                    break;
-            }
-
-            return;
-        }
-
-        /// <inheritdoc />
         public override bool Solve()
         {
             this.metrics[LPMetric.SolverName] = this.Key;
 
-            var stopwatch = Stopwatch.StartNew();
-
-            // Note that non-default parameters may make the problem unsolvable, or abnormal. Please
-            // be aware of what you are doing.
-            if (!this.defaultParameters)
+            // Set time limit in linear solver if configured. The linear solver set method takes
+            // milliseconds.
+            if (this.TimeLimitInSeconds != 0)
             {
-                Console.WriteLine("Warning, non-default parameters may be in use!");
+                this.linearSolver.SetTimeLimit(this.TimeLimitInSeconds * 1000);
             }
 
-            // Solve the linear program.
-            var resultStatus = this.linearSolver.Solve(this.mpParameters);
+            // If true enable solver logs.
+            if (this.EnableOutput)
+            {
+                this.linearSolver.EnableOutput();
+            }
+            else
+            {
+                this.linearSolver.SuppressOutput();
+            }
+
+            var stopwatch = Stopwatch.StartNew();
+
+            MPResultStatus resultStatus;
+            if (this.UseDefaultMPParameters)
+            {
+                // Solve the linear program with default parameters.
+                resultStatus = this.linearSolver.Solve();
+            }
+            else
+            {
+                // Set solver specific parameters. SetSolverSpecificParametersAsString() converts the string
+                // back into GlopParameters and updates solver parameters in Solve().
+                if (!string.IsNullOrEmpty(this.SolverSpecificParametersText))
+                {
+                    this.linearSolver.SetSolverSpecificParametersAsString(this.SolverSpecificParametersText);
+                }
+
+                // Solve with MP common parameters and the underlying solver specific parameters.
+                var mpParameters = this.GetMPSolverParameters();
+                resultStatus = this.linearSolver.Solve(mpParameters);
+            }
 
             stopwatch.Stop();
 
             this.metrics[LPMetric.SolveTimeMs] = stopwatch.ElapsedMilliseconds;
-            this.metrics[LPMetric.ResultStatus] = MPResultToLPResult(resultStatus);
+            this.metrics[LPMetric.ResultStatus] = this.ResultStatus = MPResultToLPResult(resultStatus);
 
             if (resultStatus == MPResultStatus.OPTIMAL)
             {
@@ -260,6 +281,92 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 MPResultStatus.NOT_SOLVED => LPResultStatus.NOT_SOLVED,
                 _ => LPResultStatus.UNDEFINED,
             };
+        }
+
+        /// <summary>
+        /// Converts LP algorithm to MP integer parameter.
+        /// </summary>
+        /// <param name="algorithm">The LP algorithm.</param>
+        /// <returns>The MP integer parameter.</returns>
+        private static MPSolverParameters.LpAlgorithmValues LPAlgorithmToMPIntegerParam(LPAlgorithm algorithm)
+        {
+            return algorithm switch
+            {
+                LPAlgorithm.PrimalSimplex => MPSolverParameters.LpAlgorithmValues.PRIMAL,
+                LPAlgorithm.DualSimplex => MPSolverParameters.LpAlgorithmValues.DUAL,
+                LPAlgorithm.BarrierMethod => MPSolverParameters.LpAlgorithmValues.BARRIER,
+                _ => MPSolverParameters.LpAlgorithmValues.PRIMAL,
+            };
+        }
+
+        /// <summary>
+        /// Converts presolve setting to integer parameter.
+        /// </summary>
+        /// <param name="presolve">The presolve setting.</param>
+        /// <returns>The MP integer parameter.</returns>
+        private static MPSolverParameters.PresolveValues PresolveToMPIntegerParam(bool presolve)
+        {
+            return presolve
+                ? MPSolverParameters.PresolveValues.PRESOLVE_ON
+                : MPSolverParameters.PresolveValues.PRESOLVE_OFF;
+        }
+
+        /// <summary>
+        /// Converts scaling setting to integer parameter.
+        /// </summary>
+        /// <param name="scaling">The scaling setting.</param>
+        /// <returns>The MP integer parameter.</returns>
+        private static MPSolverParameters.ScalingValues ScalingToMPIntegerParam(bool scaling)
+        {
+            return scaling
+                ? MPSolverParameters.ScalingValues.SCALING_ON
+                : MPSolverParameters.ScalingValues.SCALING_OFF;
+        }
+
+        /// <summary>
+        /// Converts incremental setting to integer parameter.
+        /// </summary>
+        /// <param name="incrementality">The incremental setting.</param>
+        /// <returns>The MP integer parameter.</returns>
+        private static MPSolverParameters.IncrementalityValues IncrementalityToMPIntegerParam(bool incrementality)
+        {
+            return incrementality
+                ? MPSolverParameters.IncrementalityValues.INCREMENTALITY_ON
+                : MPSolverParameters.IncrementalityValues.INCREMENTALITY_OFF;
+        }
+
+        /// <summary>
+        /// Generates common solver parameters from previously loaded parameters.
+        /// </summary>
+        /// <returns>The MP solver parameters.</returns>
+        private MPSolverParameters GetMPSolverParameters()
+        {
+            var mpParameters = new MPSolverParameters();
+
+            // Set LP algorithm in MP common parameters.
+            if (this.LPAlgorithm != LPAlgorithm.Default)
+            {
+                mpParameters.SetIntegerParam(
+                        MPSolverParameters.IntegerParam.LP_ALGORITHM,
+                        (int)LPAlgorithmToMPIntegerParam(this.LPAlgorithm));
+            }
+
+            // Set whether presolve should be enabled.
+            mpParameters.SetIntegerParam(
+                MPSolverParameters.IntegerParam.PRESOLVE,
+                (int)PresolveToMPIntegerParam(this.Presolve));
+
+            // Set whether scaling should be on.
+            mpParameters.SetIntegerParam(
+                MPSolverParameters.IntegerParam.SCALING,
+                (int)ScalingToMPIntegerParam(this.Scaling));
+
+            // Set whether incremental solving should be on.
+            mpParameters.SetIntegerParam(
+                MPSolverParameters.IntegerParam.INCREMENTALITY,
+                (int)IncrementalityToMPIntegerParam(this.Incrementality));
+
+            return mpParameters;
         }
     }
 }

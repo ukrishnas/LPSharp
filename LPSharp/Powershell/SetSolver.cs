@@ -37,18 +37,18 @@ namespace Microsoft.LPSharp.Powershell
         public SwitchParameter Default { get; set; }
 
         /// <summary>
-        /// Gets or sets the solver parameter name.
+        /// Gets or sets the solver parameters.
         /// </summary>
         [Parameter]
-        [Alias("name")]
-        public SolverParameter? SolverParameterName { get; set; }
+        public SwitchParameter Parameters { get; set; }
 
         /// <summary>
-        /// Gets or sets the parameter values.
+        /// Gets or sets a value indicating whether to reset the solver state. This resets
+        /// the extracted model, so that the next call will solve from scratch. This does not affect
+        /// parameters.
         /// </summary>
         [Parameter]
-        [Alias("value", "values")]
-        public object[] SolverParameterValues { get; set; }
+        public SwitchParameter Reset { get; set; }
 
         /// <summary>
         /// The process record.
@@ -67,14 +67,14 @@ namespace Microsoft.LPSharp.Powershell
                     return;
                 }
 
-                this.WriteHost($"Created solver {solver}");
+                this.WriteHost($"Solver {solver} created");
             }
             else
             {
                 solver = this.LPDriver.GetSolver(this.Key);
                 if (solver == null)
                 {
-                    this.WriteHost($"Could not find solver key={this.Key}");
+                    this.WriteHost($"Solver {this.Key} key not found");
                     return;
                 }
             }
@@ -82,20 +82,21 @@ namespace Microsoft.LPSharp.Powershell
             if (this.Default)
             {
                 this.LPDriver.DefaultSolverKey = this.Key;
-                this.WriteHost($"Solver key={this.LPDriver.DefaultSolverKey} is default solver");
+                this.WriteHost($"Solver {this.LPDriver.DefaultSolverKey} is default solver");
             }
 
-            var solverAbstract = solver as LPSolverAbstract;
+            var solver2 = solver as LPSolverAbstract;
 
-            if (this.SolverParameterName != null)
+            if (this.Parameters)
             {
-                var name = this.SolverParameterName.Value;
-                this.WriteHost(
-                    "Set solver parameter solve key={0} name={1} values={2}",
-                    solverAbstract.Key,
-                    name,
-                    this.SolverParameterValues?.Length);
-                solver.Set(name, this.SolverParameterValues);
+                solver.SetParameters(this.LPDriver.SolverParameters);
+                this.WriteHost($"Solver {solver2.Key} parameters set with previously read parameters");
+            }
+
+            if (this.Reset)
+            {
+                solver.Reset();
+                this.WriteHost($"Solver {solver2.Key} state from last execution reset");
             }
         }
     }

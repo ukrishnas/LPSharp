@@ -47,34 +47,34 @@ namespace Microsoft.LPSharp.Powershell
             }
 
             var solverKey = this.Key ?? this.LPDriver.DefaultSolverKey;
-            var solver = this.LPDriver.GetSolver(solverKey);
-            if (solver == null)
+            if (this.LPDriver.GetSolver(solverKey) is not LPSolverAbstract solver)
             {
                 this.WriteHost($"Solver {solverKey} not found. Please verify key or create solver with Set-Solver");
                 return;
             }
 
-            if (solver is not LPSolverAbstract solverAbstract)
-            {
-                this.WriteHost("Unable to access solver abstract");
-                return;
-            }
-
-            this.WriteHost($"Loading model {model.Name}");
             if (!solver.Load(model))
             {
-                this.WriteHost($"Unable to load model {model.Name}, possibly invalid model");
+                this.WriteHost($"Solver {solver.Key} could not load model {model.Name}");
                 return;
             }
 
-            this.WriteHost($"Solving model {model.Name}...");
-            var isoptimal = solver.Solve();
-            this.WriteHost("Solved model {0} result={1}", model.Name, isoptimal ? "optimal" : "not optimal");
+            this.WriteHost($"Solver {solver.Key} loaded model {model.Name}");
 
-            var resultKey = this.ResultKey ?? $"{model.Name}_{solverAbstract.Key}";
-            this.LPDriver.AddResult(resultKey, solverAbstract.Metrics);
+            if (this.LPDriver.SolverParameters != null)
+            {
+                solver.SetParameters(this.LPDriver.SolverParameters);
+                this.WriteHost($"Solver {solver.Key} set with previously read parameters");
+            }
 
-            foreach (var kv in solverAbstract.Metrics)
+            this.WriteHost($"Solver {solver.Key} solving model {model.Name}...");
+            solver.Solve();
+            this.WriteHost($"Solver {solver.Key} solved model {model.Name} result={solver.ResultStatus}");
+
+            var resultKey = this.ResultKey ?? $"{model.Name}_{solver.Key}";
+            this.LPDriver.AddResult(resultKey, solver.Metrics);
+
+            foreach (var kv in solver.Metrics)
             {
                 this.WriteHost("{0,-20} {1,25}", kv.Key, kv.Value);
             }

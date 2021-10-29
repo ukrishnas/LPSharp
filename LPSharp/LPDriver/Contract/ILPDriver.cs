@@ -40,6 +40,11 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         string DefaultSolverKey { get; set; }
 
         /// <summary>
+        /// Gets or sets the solver parameters.
+        /// </summary>
+        SolverParameters SolverParameters { get; set; }
+
+        /// <summary>
         /// Clears stored models and solvers.
         /// </summary>
         void Clear();

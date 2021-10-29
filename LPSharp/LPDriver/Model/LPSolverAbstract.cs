@@ -32,23 +32,53 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <summary>
-        /// Gets or sets the solver key.
+        /// Gets the solver key.
         /// </summary>
-        public string Key { get; protected set; }
+        public string Key { get; }
+
+        /// <summary>
+        /// Gets or sets the LP algorithm.
+        /// </summary>
+        public LPAlgorithm LPAlgorithm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the time limit in seconds.
+        /// </summary>
+        public long TimeLimitInSeconds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the result status from the last execution.
+        /// </summary>
+        public LPResultStatus ResultStatus { get; protected set; }
 
         /// <summary>
         /// Gets a copy of the solver metrics.
         /// </summary>
         public ExecutionResult Metrics => new(this.metrics);
 
+        /// <summary>
+        /// Sets solver parameters.
+        /// </summary>
+        /// <param name="solverParameters">The solver parameters.</param>
+        public virtual void SetParameters(SolverParameters solverParameters)
+        {
+            if (solverParameters == null)
+            {
+                return;
+            }
+
+            this.LPAlgorithm = solverParameters.LPAlgorithm;
+            this.TimeLimitInSeconds = solverParameters.TimeLimitInSeconds;
+        }
+
         /// <inheritdoc />
         public abstract bool Load(LPModel model);
 
         /// <inheritdoc />
-        public abstract void Reset();
+        public abstract void Clear();
 
         /// <inheritdoc />
-        public abstract void Set(SolverParameter parameter, params object[] arguments);
+        public abstract void Reset();
 
         /// <inheritdoc />
         public abstract bool Solve();
