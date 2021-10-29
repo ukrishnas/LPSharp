@@ -26,7 +26,7 @@ try GLOP in different settings.
 |Benchmark|Reference|GLOP Primal|GLOP Dual|CLP Primal|CLP Dual|CLP Either|CLP Best|
 |--|--|--|--|--|--|--|--|
 |WANLPv2|MSF Primal|3|6|7|10|
-|Netlib|GLOP Primal|1|0.8|1|1.8|2.3|
+|Netlib|GLOP Primal|1|0.7|1|1.8|2.3|
 |Plato|GLOP Primal|1||||1.2|1.7|
 
 MSF results are from Network Designer using Invoke-MSFSolve, because LPSharp
