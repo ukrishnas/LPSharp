@@ -25,7 +25,7 @@ try GLOP in different settings.
 
 |Benchmark|Reference|GLOP Primal|GLOP Dual|CLP Primal|CLP Dual|CLP Either|CLP Best|
 |--|--|--|--|--|--|--|--|
-|WANLPv2|MSF Primal|3|5|7|10|
+|WANLPv2|MSF Primal|3|6|7|10|
 |Netlib|GLOP Primal|1|0.8|1|1.8|2.3|
 |Plato|GLOP Primal|1||||1.2|1.7|
 
@@ -84,12 +84,17 @@ $ coinwrap.exe plato\s250r10.mps primal
 
 __GlopSolve cheatsheet__
 
-All solver-specific settings are baked into the executable. You need to
-recompile the program to change them.
 ```
 $ glopsolve.exe -helpfull
 $ glopsolve.exe -mpsfile edge-pri0-maxmin0.mps -timelimit 30 -lpalgorithm dual
-$ glopsolve.exe ... -timelimit 30 -params_file example_params.txt
+$ glopsolve.exe ... -timelimit 30 -params_file dual_params.txt
+```
+
+Dual_params.txt to use with WANLP models.
+```
+perturb_costs_in_dual_simplex: 1
+relative_cost_perturbation: 100
+relative_max_cost_perturbation: 1
 ```
 
 ## WANLPv2 results
@@ -104,7 +109,7 @@ You can plot the results by executing:
 
 ```
 $ python plot_lpbench.py --help  # for usage
-$ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements ClpDual_i7 ClpPrimal_i7 ClpDualCrash_i7 ClpPrimalIdiot_i7 GlopPrimal_i7 GlopDualPerturb_i7
+$ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements ClpDualCrash_i7 ClpPrimalIdiot_i7 GlopDualPerturb_i7 GlopPrimal_i7
 ```
 
 - MSF times are for primal simplex. Its dual simplex exceeded solve time limits.
@@ -122,21 +127,15 @@ $ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements Cl
 - Although we forced the solvers to primal or dual simplex for this benchmark,
   CLP and GLOP can select either simplex based the model. GLOP does this by
   default, and CLP does this when the solve method is automatic.
-- GLOP dual simplex could not solve the max-min models with default settings.
-  Dual simplex does not converge due to high degeneracy in the model. Cost
-  perturbation changes costs by random values and this helps in convergence. I
-  had to enable cost perturbation and change its default thresholds. The
-  modified perturbation settings help the max-min models but penalize the other
-  models. However, we have kept the modified settings for all models since our
-  benchmark criterion is that same settings should be used for all models. The
-  custom settings were done using `glopsolve -paramsfile <filename>` with these
-  solver-specific settings.
-  ```
-  perturb_costs_in_dual_simplex: 1
-  relative_cost_perturbation: 1e3
-  relative_max_cost_perturbation: 1e5
-  ```
-
+- GLOP dual simplex could not solve the max-min models like edge-pri0-maxmin0
+  with default settings. Max-min models have high degeneracy - non-zero elements
+  in the constraint matrix are 1, and the cost vector coefficients are 1. So
+  many columns are the same. Pure cycling is possible in such models. Dual
+  simplex needs cost perturbation to jiggle the values a bit and get it out of
+  the cycle. The downside of is that it decreases sparsity in models like
+  min-cost which do not need it, and operations like a bit longer. We have tuned
+  the cost perturbation parameters. With these, GLOP dual is twice as fast as
+  GLOP primal. The custom settings can be done in LPSharp or `glopsolve`.
 
 
 ## Netlib results

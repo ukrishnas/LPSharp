@@ -1,6 +1,6 @@
 /*
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * This code is licensed under the terms of the Eclipse Public License (EPL).
+ * This code is licensed under the terms of the Apache License Version 2.0.
  * 
  * Authors
  * 
@@ -8,8 +8,7 @@
  */
 
 /**
- * Standalone executable for GLOP solver. For example usage, please see usage()
- * below for example usage.
+ * Standalone executable for GLOP solver. Please see usage() below for example usage.
  */
 
 #include <fstream>
@@ -109,7 +108,7 @@ GlopSolver::GlopSolver() :
 
 void GlopSolver::LoadAndSolve(std::string model_filename) {
   // Read the MPS model. Explicitly check if the file is present, since I am not
-  // certain if the MPS reader reads an invalid status if file does not exist.
+  // certain if the MPS reader returns an invalid status if file does not exist.
   if (FILE *file = fopen(model_filename.c_str(), "r")) {
     fclose(file);
   } else {
@@ -126,7 +125,7 @@ void GlopSolver::LoadAndSolve(std::string model_filename) {
   std::string error_message;
   MPSolverResponseStatus load_status = solver_->LoadModelFromProto(input_model, &error_message);
   if (load_status != MPSolverResponseStatus::MPSOLVER_MODEL_IS_VALID) {
-    LOG(FATAL) << "Load model status " << load_status << " is invalid";
+    LOG(FATAL) << "Load model status " << load_status << " is invalid. " << error_message;
   }
   LOG(INFO) << "Loaded model from " << model_filename;
 
@@ -226,7 +225,7 @@ int main(int argc, char *argv[]) {
     LOG(FATAL) << "Please specify file name with -mpsfile";
   }
 
-  // Enable logging which is used by the solver and this module.
+  // Initialize logging which is used by the solver and this module.
   google::InitGoogleLogging(argv[0]);
 
   // Initialize the solver.
