@@ -290,10 +290,9 @@ class ClpInterface {
     // Solves the optimization problem using a barrier or interior point method.
     // It implements Mehrotra's primal dual predictor corrector algorithm. For
     // barrier code to be effective it needs a good Cholesky ordering and
-    // factorization. The default method is native, dense (implemented by
-    // ClpCholeskyDense.cpp), and choices are native ordering and factorization
-    // is not state of the art, although acceptable. Possible options for
-    // cholesky are: native, dense. See also
+    // factorization. The default method is native. Other methods like dense
+    // (implemented by ClpCholeskyDense.cpp), and third party methods are not
+    // available. See also
     // https://en.wikipedia.org/wiki/Mehrotra_predictor%E2%80%93corrector_method
     void SolveUsingBarrierMethod();
 
