@@ -8,38 +8,30 @@
  */
 
 /**
- * This project (CoinWrap) wraps ClpSimplex (the solver class) and ClpSolve
- * (class for options) methods and referenced types. SWIG is used to provide the
- * next level of wrappers in different languages, e.g. C# or Python. This
- * approach is inspired by the work of Google OR-Tools development team. See
- * https://github.com/google/or-tools/blob/stable/ortools/linear_solver/clp_interface.cc.
+ * This interface provides a more user friendly interface to ClpSolver (the
+ * source code for Clp standalone executable), ClpSimplex (the solver driver),
+ * and ClpSolve (the solver options), and related classes. The interface reverse
+ * engineers the settings used by Clp.exe, and you should get exactly the same
+ * answer with this interface as you would with Clp.exe with 'dualS', 'primalS',
+ * 'either', and 'barrier' commands with default options. In addition, it is
+ * possible to change presolve method, pivot algorithm, starting basis, plus
+ * minus 1-matrix, and other settings to customize the solver. The full
+ * functionality of Clp is not exposed. The functions needed to solve our LP
+ * problems have been exposed, but more functions can easily be added.
  *
- * Wrapped classes and methods are listed below.
- *
- * - ClpSolve
- *   - setPresolveType
- *   - setSolveType
- *   - setSpecialOption
- * - ClpSimplex
+ *  Methods still to be implemented:
  *   - addColumn
  *   - getColumnStatus
  *   - getIterationCount
  *   - getRowPrice
  *   - getRowStatus
  *   - modifyCoefficient
- *   - passInMessageHandler (passes CoinMessageHandler)
- *   - resize
  *   - setColumnBounds
  *   - setColumnName
- *   - setDualTolerance
- *   - setLogLevel
  *   - setObjectiveCoefficient
  *   - setObjectiveOffset
- *   - setOptimizationDirection
- *   - setPrimalTolerance
  *   - setRowBounds
  *   - setRowName
- *   - setStrParam
  */
 
 #ifndef COINWRAP_CLP_INTERFACE_H_

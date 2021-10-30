@@ -4,8 +4,8 @@ project(coinwrap LANGUAGES CXX)
 set(NAME ${PROJECT_NAME})
 
 list(APPEND _SRCS
-  src/coin_wrap.cc
-  src/clp_interface.cc
+  coin_wrap.cc
+  clp_interface.cc
 )
 add_executable(${NAME} ${_SRCS})
 
@@ -20,14 +20,14 @@ set_target_properties(${NAME} PROPERTIES
 target_link_options(${NAME} PRIVATE "/LTCG")
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-  ${PROJECT_SOURCE_DIR}/../Clp/src
-  ${PROJECT_SOURCE_DIR}/../CoinUtils/src
-  ${PROJECT_SOURCE_DIR}/../BuildTools/headers
+  ${PROJECT_SOURCE_DIR}/../../Clp/src
+  ${PROJECT_SOURCE_DIR}/../../CoinUtils/src
+  ${PROJECT_SOURCE_DIR}/../../BuildTools/headers
 )
 
 target_link_libraries(${NAME}
-  ${PROJECT_SOURCE_DIR}/../Clp/x64/Release/libClp.lib
-  ${PROJECT_SOURCE_DIR}/../CoinUtils/x64/Release/libCoinUtils.lib
+  ${PROJECT_SOURCE_DIR}/../../Clp/x64/Release/libClp.lib
+  ${PROJECT_SOURCE_DIR}/../../CoinUtils/x64/Release/libCoinUtils.lib
 )
 
 include(CTest)
