@@ -22,22 +22,19 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// </summary>
         public SolverParameters()
         {
+            this.GenericParameters = new List<Param>();
             this.ClpParameters = new List<Param>();
             this.GlopParameters = new GlopParameters();
             this.MsfParameters = new List<Param>();
         }
 
         /// <summary>
-        /// Gets or sets the LP algorithm. The default value is solver default.
+        /// Gets or sets the generic parameters that are common to all solvers. For example,
+        /// LP algorithm, time limit, and enable detailed logging.
         /// </summary>
         [DataMember]
-        public LPAlgorithm LPAlgorithm { get; set; }
-
-        /// <summary>
-        /// Gets or sets the time limit in seconds. The default value is no limit.
-        /// </summary>
-        [DataMember]
-        public long TimeLimitInSeconds { get; set; }
+        [XmlArrayItem(ElementName = "Param")]
+        public List<Param> GenericParameters { get; set; }
 
         /// <summary>
         /// Gets or sets the GLOP solver specific parameters.

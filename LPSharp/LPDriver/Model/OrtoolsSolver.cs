@@ -68,10 +68,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public bool SolveWithParameters { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to show solver logs. The logs appear
-        /// on standard error. Default value is false.
+        /// Gets or sets the LP algorithm. In case a solver does not implement a given algorithm,
+        /// the algorithm will be set to the solver default.
         /// </summary>
-        public bool EnableOutput { get; set; }
+        public LPAlgorithm LPAlgorithm { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to perform presolve. The default value is true.
@@ -215,7 +215,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             // If true enable solver logs.
-            if (this.EnableOutput)
+            if (this.EnableLogging)
             {
                 this.linearSolver.EnableOutput();
             }

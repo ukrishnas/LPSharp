@@ -37,14 +37,17 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public string Key { get; }
 
         /// <summary>
-        /// Gets or sets the LP algorithm.
-        /// </summary>
-        public LPAlgorithm LPAlgorithm { get; set; }
-
-        /// <summary>
-        /// Gets or sets the time limit in seconds.
+        /// Gets or sets the time limit in seconds. The solver is interrupted when this
+        /// time limit is exceeded and the objective result at that point is returned.
         /// </summary>
         public long TimeLimitInSeconds { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to log solver actions as it searches
+        /// for the optimal result. This is useful for debugging purposes but should be
+        /// turned off for performance measurement.
+        /// </summary>
+        public bool EnableLogging { get; set; }
 
         /// <summary>
         /// Gets or sets the result status from the last execution.
@@ -67,8 +70,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 return;
             }
 
-            this.LPAlgorithm = solverParameters.LPAlgorithm;
-            this.TimeLimitInSeconds = solverParameters.TimeLimitInSeconds;
+            Utility.SetPropertiesFromList(solverParameters.GenericParameters, this);
         }
 
         /// <inheritdoc />

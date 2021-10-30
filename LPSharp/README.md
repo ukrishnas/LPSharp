@@ -60,10 +60,9 @@ LPSharp> set-solver -create GLOP -key glop -default
 ```
 
 Read solver parameters. LPSharp uses a data model shown below for solver
-parameters. Parameters under SolverParameters are for all solvers. These are the
-LP algorithm (Default, Dual, Primal, Barrier), and time limit in seconds. Each
-solver has its section of parameters. The parameters are loaded every time the
-solver is invoked.
+parameters. Parameters under SolverParameters are for all solvers. Each solver
+has its section of parameters. The parameters are loaded every time the solver
+is invoked.
 ```
 LPSharp> read-parameters parameters.xml
 
@@ -72,12 +71,17 @@ Contents of parameters.xml:
 <?xml version="1.0"?>
 <SolverParameters>
   <!-- These parameters are common for all solvers. -->
-  <TimeLimitInSeconds>90</TimeLimitInSeconds>
-  <LPAlgorithm>Default</LPAlgorithm>
+  <GenericParameters>
+    <Param Name="TimeLimitInSeconds" Value="90" />
+    <Param Name="EnableOutput" Value="true" />
+  </GenericParameters>
 
+  <!-- GLOP solver parameters. MP solver common properties like presolve,
+  scaling, etc. are in the parameters section. LP solver specific parameters
+  are a protocol buffer text. -->
   <GlopParameters>
     <Parameters>
-      <Param Name="EnableOutput" Value="false" />
+      <Param Name="LPAlgorithm" Value="Primal" />
       <Param Name="SolveWithParameters" Value="true" />
     </Parameters>
     <SolverSpecificParameterText>
