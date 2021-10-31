@@ -8,6 +8,7 @@
  */
 
 #include <cctype>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -38,7 +39,7 @@ int main(int argc, const char *argv[]) {
     coinwrap::ClpInterface clp;
     std::cout << "Successfully initialized clp interface" << std::endl; 
 
-    int log_level = 1;
+    int log_level = 3;
     clp.SetLogLevel(log_level);
     std::cout << "Set log level " << log_level << std::endl;
 
@@ -69,6 +70,9 @@ int main(int argc, const char *argv[]) {
     } else {
         std::cout << "Unknown recipe " << recipe << std::endl;
     }
+
+    printf("Status = %d Objective = %.10g iterations = %ld \n",
+        clp.Status(), clp.Objective(), clp.Iterations());
 
     return 0;
 }

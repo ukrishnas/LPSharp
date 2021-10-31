@@ -22,7 +22,7 @@
 
  *  Methods still to be implemented:
  *   - addColumn
-  *   - modifyCoefficient
+ *   - modifyCoefficient
  *   - setColumnBounds
  *   - setColumnName
  *   - setObjectiveCoefficient
@@ -30,10 +30,8 @@
  *   - setRowBounds
  *   - setRowName
  *   - getColumnStatus
- *   - getIterationCount
  *   - getRowPrice
  *   - getRowStatus
-
  */
 
 #ifndef COINWRAP_CLP_INTERFACE_H_
@@ -136,6 +134,32 @@ enum SolveType {
 
     // Barrier method.
     Barrier,
+};
+
+/**
+ * Represents the status pf the problem.
+ */
+enum SolveStatus {
+    // Unknown, for example before solve or if post solve says not optimal.
+    Unknown = -1,
+
+    // Optimal found.
+    Optimal = 0,
+
+    // Primal is infeasible.
+    PrimalFeasible = 1,
+
+    // Dual is infeasible.
+    DualFeasible = 2,
+
+    // Stopped due to maximum iteration or time limit reached.
+    StoppedDueToLimits = 3,
+
+    // Stopped due to errors.
+    StoppedDueToErrors = 4,
+
+    // Stopped by event handler.
+    StoppedByEventHandler = 5,
 };
 
 /**
@@ -307,6 +331,15 @@ class ClpInterface {
     // Solves the optimization problem using primal simplex and idiot crash
     // starting basis. TODO: remove after testing.
     void SolveUsingPrimalIdiot();
+
+    // Gets the value of the objective.
+    double Objective() { return clp_->objectiveValue(); }
+
+    // Gets the number of iterations performed.
+    int Iterations() { return clp_->numberIterations(); }
+
+    // Gets the solution status of the problem.
+    SolveStatus Status() { return static_cast<SolveStatus>(clp_->status()); }
 
  private:
     // The Clp solver.
