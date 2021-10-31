@@ -254,6 +254,17 @@ void ClpInterface::Solve() {
 void ClpInterface::SolveUsingDualSimplex() {
     SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
     SetPresolve(true, DefaultPresolvePasses);
+    SetDualStartingBasis(StartingBasis::Default);
+    SetPerturbation(DefaultPerturbation);
+    MakePlusMinusOneMatrix(false);
+
+    SetSolveType(SolveType::Dual);
+    Solve();
+}
+
+void ClpInterface::SolveUsingDualCrash() {
+    SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
+    SetPresolve(true, DefaultPresolvePasses);
     SetDualStartingBasis(StartingBasis::Crash);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -263,6 +274,17 @@ void ClpInterface::SolveUsingDualSimplex() {
 }
 
 void ClpInterface::SolveUsingPrimalSimplex() {
+    SetPrimalPivotAlgorithm(PivotAlgorithm::Automatic);
+    SetPresolve(true, DefaultPresolvePasses);
+    SetPrimalStartingBasis(StartingBasis::Default);
+    SetPerturbation(DefaultPerturbation);
+    MakePlusMinusOneMatrix(false);
+
+    SetSolveType(SolveType::Primal);
+    Solve();
+}
+
+void ClpInterface::SolveUsingPrimalIdiot() {
     SetPrimalPivotAlgorithm(PivotAlgorithm::Automatic);
     SetPresolve(true, DefaultPresolvePasses);
     SetPrimalStartingBasis(StartingBasis::Idiot);

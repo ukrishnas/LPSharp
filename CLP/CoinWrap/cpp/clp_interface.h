@@ -17,21 +17,23 @@
  * possible to change presolve method, pivot algorithm, starting basis, plus
  * minus 1-matrix, and other settings to customize the solver. The full
  * functionality of Clp is not exposed. The functions needed to solve our LP
- * problems have been exposed, but more functions can easily be added.
- *
+ * problems have been exposed, but more functions can easily be added. This
+ * interface is geared for SWIG wrapper generation.
+
  *  Methods still to be implemented:
  *   - addColumn
- *   - getColumnStatus
- *   - getIterationCount
- *   - getRowPrice
- *   - getRowStatus
- *   - modifyCoefficient
+  *   - modifyCoefficient
  *   - setColumnBounds
  *   - setColumnName
  *   - setObjectiveCoefficient
  *   - setObjectiveOffset
  *   - setRowBounds
  *   - setRowName
+ *   - getColumnStatus
+ *   - getIterationCount
+ *   - getRowPrice
+ *   - getRowStatus
+
  */
 
 #ifndef COINWRAP_CLP_INTERFACE_H_
@@ -270,7 +272,7 @@ class ClpInterface {
     void Solve();
 
     // Solves the optimization problem using dual simplex and associated
-    // options. This method approximates the settings used by standalone
+    // options. This method replicates the settings used by standalone
     // Clp.exe -dualS.
     void SolveUsingDualSimplex();
 
@@ -284,7 +286,8 @@ class ClpInterface {
     // columns, elements in the model, settings like whether plus minus 1-matrix
     // is used, starting basis settings, and decides whether to call primal
     // (with or without sprint) or dual, and which starting basis method to use.
-    // Use this method, if you do not know what is best for your model.
+    // Use this method, if you do not know what is best for your model. This
+    // method replicates the settings used by standalone Clp.exe -either.
     void SolveUsingEitherSimplex();
 
     // Solves the optimization problem using a barrier or interior point method.
@@ -294,7 +297,16 @@ class ClpInterface {
     // (implemented by ClpCholeskyDense.cpp), and third party methods are not
     // available. See also
     // https://en.wikipedia.org/wiki/Mehrotra_predictor%E2%80%93corrector_method
+    // This method replicates the settings used by standalone Clp.exe -barrier.
     void SolveUsingBarrierMethod();
+
+    // Solves the optimization problem using dual simplex with crash
+    // starting basis. TODO: remove after testing.
+    void SolveUsingDualCrash();
+
+    // Solves the optimization problem using primal simplex and idiot crash
+    // starting basis. TODO: remove after testing.
+    void SolveUsingPrimalIdiot();
 
  private:
     // The Clp solver.
