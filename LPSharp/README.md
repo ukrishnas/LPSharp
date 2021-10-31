@@ -92,7 +92,12 @@ Contents of parameters.xml:
     </SolverSpecificParameterText>
   </GlopParameters>
 
-  <ClpParameters />
+  <!-- CLP solver parameters. -->
+  <ClpParameters>
+    <Param Name="SolveType" Value="Dual" />
+    <Param Name="LogLevel" Value="3" />
+  </ClpParameters>
+
 </SolverParameters>
 ```
 

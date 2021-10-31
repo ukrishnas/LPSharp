@@ -16,7 +16,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
     public class ClpSolver : LPSolverAbstract
     {
         /// <summary>
-        /// The CLP solver.
+        /// The CLP solver. This is a wrapper around the ClpSimplex driver, ClpSolve options,
+        /// and other related classes.
         /// </summary>
         private readonly ClpInterface clp;
 
