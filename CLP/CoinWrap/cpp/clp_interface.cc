@@ -10,7 +10,7 @@
 #include "clp_interface.h"
 
 #include <cstdio>
-#include <cassert>
+#include <cstdlib>
 #include <iostream>
 
 #include "ClpDualRowSteepest.hpp"
@@ -68,12 +68,10 @@ bool ClpInterface::ReadMps(std::string filename) {
     if (fp) {
         fclose(fp);
     } else {
-        std::cout << "Unable to open " << filename << std::endl;
         return false;
     }
 
     // Always keep names and do not ignore errors.
-    std::cout << "Reading mps file " << filename << std::endl;
     int status = clp_->readMps(filename.c_str(), true, false);
     return status == 0;
 }

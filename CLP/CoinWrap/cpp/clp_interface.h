@@ -39,6 +39,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "ClpSimplex.hpp"
 #include "ClpSolve.hpp"
@@ -334,13 +335,61 @@ class ClpInterface {
     void SolveUsingPrimalIdiot();
 
     // Gets the value of the objective.
-    double Objective() { return clp_->objectiveValue(); }
+    double ObjectiveValue() { return clp_->objectiveValue(); }
 
     // Gets the number of iterations performed.
     int Iterations() { return clp_->numberIterations(); }
 
     // Gets the status of the problem.
     ClpStatus Status() { return static_cast<ClpStatus>(clp_->status()); }
+
+    // Gets the secondary status. Need to turn this into a message. See
+    // ClpModel.hpp. A few are shown below:
+    // 0 - none.
+    // 1 - primal infeasible because dual limit reached or (probably primal
+    // infeasible but can't prove it. Main status is stopped due to errors.
+    // 2 - scaled problem optimal - unscaled problem has primal infeasibilities.
+    // 3 - scaled problem optimal - unscaled problem has dual infeasibilities.
+    int SecondaryStatus() { return clp_->secondaryStatus(); }
+
+    // Gets the column solution. The vector is owned by the caller and this
+    // method writes over previous contents. The vector size can be estimated
+    // during creation from the model.
+    void ColumnSolution(std::vector<double> &vec) {
+        int size = clp_->numberColumns();
+        const double* start = clp_->getColSolution();
+        vec.assign(start, start + size);
+    }
+
+    // Gets the reduced cost vector d = c - A^T y. It is the byproduct of dual
+    // simplex and represents how much the cost coefficient needs to be decrease
+    // before the variable could be considered in the solution.
+    void ReducedCost(std::vector<double> &vec) {
+        int size = clp_->numberColumns();
+        const double* start = clp_->getReducedCost();
+        vec.assign(start, start + size);
+    }
+
+    // Gets the objective, also known as cost vector from the model.
+    void Objective(std::vector<double> &vec) {
+        int size = clp_->numberColumns();
+        double * start = clp_->objective();
+        vec.assign(start, start + size);
+    }
+
+    // Gets the row activity vector.
+    void RowActivity(std::vector<double> &vec) {
+        int size = clp_->numberRows();
+        const double *start = clp_->getRowActivity();
+        vec.assign(start, start + size);
+    }
+
+    // Gets the row price vector.
+    void RowPrice(std::vector<double> &vec) {
+        int size = clp_->numberRows();
+        const double *start = clp_->getRowPrice();
+        vec.assign(start, start + size);
+    }
 
  private:
     // The Clp solver.

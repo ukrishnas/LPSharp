@@ -9,9 +9,11 @@
 
 #include <cctype>
 #include <cstdlib>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "clp_interface.h"
 
@@ -27,6 +29,10 @@ method     solve method, one of dual, primal, either, barrier";
     exit(1);
 }
 
+inline void print_double(double value) {
+    std::cout << std::setiosflags(std::ios::fixed | std::ios::showpoint) << std::setw(14) << value << " ";
+}
+
 // Main program.
 int main(int argc, const char *argv[]) {
     if (argc < 3) {
@@ -39,7 +45,7 @@ int main(int argc, const char *argv[]) {
     coinwrap::ClpInterface clp;
     std::cout << "Successfully initialized clp interface" << std::endl; 
 
-    int log_level = 3;
+    int log_level = 1;
     clp.SetLogLevel(log_level);
     std::cout << "Set log level " << log_level << std::endl;
 
@@ -72,7 +78,36 @@ int main(int argc, const char *argv[]) {
     }
 
     printf("Status = %d Objective = %.10g iterations = %ld \n",
-        clp.Status(), clp.Objective(), clp.Iterations());
+        clp.Status(), clp.ObjectiveValue(), clp.Iterations());
+
+    int maxLines = 40;
+
+    // Print the column solution, reduced cost, and objective.
+    std::vector<double> colSolution, reducedCost, objective;
+    clp.ColumnSolution(colSolution);
+    clp.ReducedCost(reducedCost);
+    clp.Objective(objective);
+    int n = maxLines < objective.size() ? maxLines : objective.size();
+    for (int i = 0; i < n; i++) {
+        std::cout << std::setw(6) << i << " ";
+        print_double(colSolution[i]);
+        print_double(reducedCost[i]);
+        print_double(objective[i]);
+        std::cout << std::endl;
+    }
+    std::cout << "--------------------------------------" << std::endl;
+
+    std::vector<double> rowActivity, rowPrice;
+    clp.RowActivity(rowActivity);
+    clp.RowPrice(rowPrice);
+    int m = maxLines < rowActivity.size() ? maxLines : rowActivity.size();
+    for (int i = 0; i < m; i++) {
+        std::cout << std::setw(6) << i << " ";
+        print_double(rowActivity[i]);
+        print_double(rowPrice[i]);
+        std::cout << std::endl;
+    }
+    std::cout << "--------------------------------------" << std::endl;
 
     return 0;
 }
