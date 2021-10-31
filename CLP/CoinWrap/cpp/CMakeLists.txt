@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project(coinwrap LANGUAGES CXX)
-
-set(NAME ${PROJECT_NAME})
+project(clpinterface-cpp LANGUAGES CXX)
+set(NAME ClpInterface-cpp)
 
 list(APPEND _SRCS
   coin_wrap.cc
@@ -19,7 +18,7 @@ set_target_properties(${NAME} PROPERTIES
 # Enable whole program optimization at link time since libClp is compiled with it.
 target_link_options(${NAME} PRIVATE "/LTCG")
 
-target_include_directories(${PROJECT_NAME} PUBLIC
+target_include_directories(${NAME} PUBLIC
   ${PROJECT_SOURCE_DIR}/../../Clp/src
   ${PROJECT_SOURCE_DIR}/../../CoinUtils/src
   ${PROJECT_SOURCE_DIR}/../../BuildTools/headers

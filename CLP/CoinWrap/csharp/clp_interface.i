@@ -9,7 +9,7 @@
 
 %module coinwrap
 
-%include "enums.swg"
+// %include "enums.swg"
 %include "stdint.i"
 
 %include "clp_interface.h"
