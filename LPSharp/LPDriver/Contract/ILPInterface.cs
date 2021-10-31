@@ -14,23 +14,10 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public interface ILPInterface
     {
         /// <summary>
-        /// Sets solver parameters.
-        /// </summary>
-        /// <param name="solverParameters">The solver parameters.</param>
-        void SetParameters(SolverParameters solverParameters);
-
-        /// <summary>
-        /// Clears the linear program and the stored state from the previous Solve() call. This
-        /// is a combination of Reset() and clearing the stored model. Previously set parameters
+        /// Clears the linear program and the stored state from the previous Solve() call. Parameters
         /// are not cleared.
         /// </summary>
         public void Clear();
-
-        /// <summary>
-        /// Resets the stored state from the previous Solve() call. After reset, a new call to Solve()
-        /// will take exactly the same time as before. The stored model and parameters are not affected.
-        /// </summary>
-        public void Reset();
 
         /// <summary>
         /// Loads a model.
@@ -38,6 +25,12 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// <param name="model">The solver model.</param>
         /// <returns>True if the model was loaded successfully, false otherwise.</returns>
         bool Load(LPModel model);
+
+        /// <summary>
+        /// Sets solver parameters.
+        /// </summary>
+        /// <param name="solverParameters">The solver parameters.</param>
+        void SetParameters(SolverParameters solverParameters);
 
         /// <summary>
         /// Solves the model.

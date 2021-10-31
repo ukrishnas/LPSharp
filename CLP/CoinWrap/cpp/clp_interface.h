@@ -137,9 +137,9 @@ enum SolveType {
 };
 
 /**
- * Represents the status pf the problem.
+ * Represents the status of the problem.
  */
-enum SolveStatus {
+enum ClpStatus {
     // Unknown, for example before solve or if post solve says not optimal.
     Unknown = -1,
 
@@ -264,14 +264,15 @@ class ClpInterface {
     bool SetDualPivotAlgorithm(PivotAlgorithm pivot_algorithm);
 
     // Sets whether presolve should be enabled and the number of presolve
-    // passes. Presolve analyzes the model to find such things as redundant
-    // equations, equations which fix some variables, equations which can be
-    // transformed into bounds, etc. Presolve is worth doing unless one knows
-    // that it will have no effect. Presolve will return if nothing is being
-    // taken out, so there is little need to fine tune the number of passes. Clp
-    // presolve has a file option that is not available in this interface. The
-    // default setting is on with Clp default number of passes.
-    void SetPresolve(bool enable, int number);
+    // passes. Zero passes disabled presolve, any other number enables it.
+    // Presolve analyzes the model to find such things as redundant equations,
+    // equations which fix some variables, equations which can be transformed
+    // into bounds, etc. Presolve is worth doing unless one knows that it will
+    // have no effect. Presolve will return if nothing is being taken out, so
+    // there is little need to fine tune the number of passes. Clp presolve has
+    // a file option that is not available in this interface. The default
+    // setting is on with Clp default number of passes.
+    void SetPresolve(int number);
 
     // Enables or disables making a plus minus 1-matrix. Clp will go slightly
     // faster if the matrix can be converted so that the elements are not stored
@@ -338,8 +339,8 @@ class ClpInterface {
     // Gets the number of iterations performed.
     int Iterations() { return clp_->numberIterations(); }
 
-    // Gets the solution status of the problem.
-    SolveStatus Status() { return static_cast<SolveStatus>(clp_->status()); }
+    // Gets the status of the problem.
+    ClpStatus Status() { return static_cast<ClpStatus>(clp_->status()); }
 
  private:
     // The Clp solver.

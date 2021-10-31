@@ -104,37 +104,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public override void SetParameters(SolverParameters solverParameters)
-        {
-            base.SetParameters(solverParameters);
-
-            if (solverParameters?.GlopParameters == null)
-            {
-                return;
-            }
-
-            Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
-            this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
-        }
-
-        /// <inheritdoc />
         public override void Clear()
-        {
-            // This clears the linear program offset, all variables and coefficients, and the optimization
-            // direction.
-            this.linearSolver.Clear();
-
-            // Clears the solver state from the last invocation.
-            this.Reset();
-        }
-
-        /// <inheritdoc />
-        public override void Reset()
         {
             // This clears the extracted model so that the next call to Solve() will be from scratch.
             // This does not reset parameters that were set with SetSolverSpecificParametersAsString()
             // or set_time_limit() or even clear the linear program.
             this.linearSolver.Reset();
+
+            // This clears the linear program offset, all variables and coefficients, and the optimization
+            // direction.
+            this.linearSolver.Clear();
         }
 
         /// <inheritdoc />
@@ -203,6 +182,20 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
+        public override void SetParameters(SolverParameters solverParameters)
+        {
+            base.SetParameters(solverParameters);
+
+            if (solverParameters?.GlopParameters == null)
+            {
+                return;
+            }
+
+            Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
+            this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
+        }
+
+        /// <inheritdoc />
         public override bool Solve()
         {
             this.metrics[LPMetric.SolverName] = this.Key;
@@ -251,10 +244,13 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             stopwatch.Stop();
 
-            this.metrics[LPMetric.SolveTimeMs] = stopwatch.ElapsedMilliseconds;
-            this.metrics[LPMetric.ResultStatus] = this.ResultStatus = MPResultToLPResult(resultStatus);
+            this.ResultStatus = MPResultToLPResult(resultStatus);
+            bool isOptimal = this.ResultStatus == LPResultStatus.Optimal;
 
-            if (resultStatus == MPResultStatus.OPTIMAL)
+            this.metrics[LPMetric.ResultStatus] = resultStatus.ToString();
+            this.metrics[LPMetric.SolveTimeMs] = stopwatch.ElapsedMilliseconds;
+
+            if (isOptimal)
             {
                 this.metrics[LPMetric.Objective] = this.linearSolver.Objective().Value();
                 this.metrics[LPMetric.Iterations] = this.linearSolver.Iterations();
@@ -265,7 +261,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.RemoveMetric(LPMetric.Iterations);
             }
 
-            return resultStatus == MPResultStatus.OPTIMAL;
+            return isOptimal;
         }
 
         /// <summary>
@@ -277,13 +273,13 @@ namespace Microsoft.LPSharp.LPDriver.Model
         {
             return result switch
             {
-                MPResultStatus.OPTIMAL => LPResultStatus.OPTIMAL,
-                MPResultStatus.FEASIBLE => LPResultStatus.FEASIBLE,
-                MPResultStatus.INFEASIBLE => LPResultStatus.INFEASIBLE,
-                MPResultStatus.UNBOUNDED => LPResultStatus.UNBOUNDED,
-                MPResultStatus.ABNORMAL => LPResultStatus.ABNORMAL,
-                MPResultStatus.NOT_SOLVED => LPResultStatus.NOT_SOLVED,
-                _ => LPResultStatus.UNDEFINED,
+                MPResultStatus.OPTIMAL => LPResultStatus.Optimal,
+                MPResultStatus.FEASIBLE => LPResultStatus.Feasible,
+                MPResultStatus.INFEASIBLE => LPResultStatus.Infeasible,
+                MPResultStatus.UNBOUNDED => LPResultStatus.Unbounded,
+                MPResultStatus.ABNORMAL => LPResultStatus.Other,
+                MPResultStatus.NOT_SOLVED => LPResultStatus.Unknown,
+                _ => LPResultStatus.Unknown,
             };
         }
 

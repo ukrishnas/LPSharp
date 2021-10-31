@@ -43,12 +43,11 @@ namespace Microsoft.LPSharp.Powershell
         public SwitchParameter Parameters { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to reset the solver state. This resets
-        /// the extracted model, so that the next call will solve from scratch. This does not affect
-        /// parameters.
+        /// Gets or sets a value indicating whether to clear the solver state. This resets
+        /// the extracted model and clears the loaded model. This does not affect parameters.
         /// </summary>
         [Parameter]
-        public SwitchParameter Reset { get; set; }
+        public SwitchParameter Clear { get; set; }
 
         /// <summary>
         /// The process record.
@@ -93,10 +92,10 @@ namespace Microsoft.LPSharp.Powershell
                 this.WriteHost($"Solver {solver2.Key} parameters set with previously read parameters");
             }
 
-            if (this.Reset)
+            if (this.Clear)
             {
-                solver.Reset();
-                this.WriteHost($"Solver {solver2.Key} state from last execution reset");
+                solver.Clear();
+                this.WriteHost($"Solver {solver2.Key} state and model cleared");
             }
         }
     }

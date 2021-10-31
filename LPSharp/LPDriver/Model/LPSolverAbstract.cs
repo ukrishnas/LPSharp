@@ -59,10 +59,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// </summary>
         public ExecutionResult Metrics => new(this.metrics);
 
-        /// <summary>
-        /// Sets solver parameters.
-        /// </summary>
-        /// <param name="solverParameters">The solver parameters.</param>
+        /// <inheritdoc />
         public virtual void SetParameters(SolverParameters solverParameters)
         {
             if (solverParameters == null)
@@ -78,9 +75,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
         /// <inheritdoc />
         public abstract void Clear();
-
-        /// <inheritdoc />
-        public abstract void Reset();
 
         /// <inheritdoc />
         public abstract bool Solve();

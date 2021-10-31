@@ -12,38 +12,38 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public enum LPResultStatus
     {
         /// <summary>
-        /// Problem not yet solved.
+        /// Unknown, for example the problem is not yet solved.
         /// </summary>
-        NOT_SOLVED,
+        Unknown,
 
         /// <summary>
         /// Optimal result.
         /// </summary>
-        OPTIMAL,
+        Optimal,
 
         /// <summary>
         /// Feasible problem.
         /// </summary>
-        FEASIBLE,
+        Feasible,
 
         /// <summary>
         /// Infeasible problem.
         /// </summary>
-        INFEASIBLE,
+        Infeasible,
 
         /// <summary>
         /// Unbounded problem.
         /// </summary>
-        UNBOUNDED,
+        Unbounded,
 
         /// <summary>
-        /// Abnormal problem.
+        /// Stopped problem due to limits exceeded or other events.
         /// </summary>
-        ABNORMAL,
+        Stopped,
 
         /// <summary>
-        /// Undefined result status.
+        /// Other result status.
         /// </summary>
-        UNDEFINED,
+        Other,
     }
 }

@@ -139,17 +139,17 @@ bool ClpInterface::SetPrimalPivotAlgorithm(PivotAlgorithm pivot_algorithm) {
     return true;
 }
 
-void ClpInterface::SetPresolve(bool enable, int passes) {
-    if (!enable) {
+void ClpInterface::SetPresolve(int passes) {
+    if (passes == 0) {
         solve_options_->setPresolveType(ClpSolve::presolveOff, 0);
     } else {
         solve_options_->setPresolveType(ClpSolve::presolveOn, passes);
 
         // This setting is important. It fixes infeasibility by allowing
-        //  presolve transforms to arbitrarily ignore infeasibility and set
-        //  arbitrary feasible bounds. This coupled with perturbation setting
-        //  causes the model to be perturbed in primal and dual to fix
-        //  infeasibility.
+        // presolve transforms to arbitrarily ignore infeasibility and set
+        // arbitrary feasible bounds. This coupled with perturbation setting
+        // causes the model to be perturbed in primal and dual to fix
+        // infeasibility.
         solve_options_->setPresolveActions(32768);
     }
 }
@@ -253,7 +253,7 @@ void ClpInterface::Solve() {
 
 void ClpInterface::SolveUsingDualSimplex() {
     SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(true, DefaultPresolvePasses);
+    SetPresolve(DefaultPresolvePasses);
     SetDualStartingBasis(StartingBasis::Default);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -264,7 +264,7 @@ void ClpInterface::SolveUsingDualSimplex() {
 
 void ClpInterface::SolveUsingDualCrash() {
     SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(true, DefaultPresolvePasses);
+    SetPresolve(DefaultPresolvePasses);
     SetDualStartingBasis(StartingBasis::Crash);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -275,7 +275,7 @@ void ClpInterface::SolveUsingDualCrash() {
 
 void ClpInterface::SolveUsingPrimalSimplex() {
     SetPrimalPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(true, DefaultPresolvePasses);
+    SetPresolve(DefaultPresolvePasses);
     SetPrimalStartingBasis(StartingBasis::Default);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -286,7 +286,7 @@ void ClpInterface::SolveUsingPrimalSimplex() {
 
 void ClpInterface::SolveUsingPrimalIdiot() {
     SetPrimalPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(true, DefaultPresolvePasses);
+    SetPresolve(DefaultPresolvePasses);
     SetPrimalStartingBasis(StartingBasis::Idiot);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -300,7 +300,7 @@ void ClpInterface::SolveUsingEitherSimplex() {
     // flexible, and ClpSimplex::housekeeping() modifies whether it factorizes.
     clp_->setMoreSpecialOptions(16384 | clp_->moreSpecialOptions());
 
-    SetPresolve(true, DefaultPresolvePasses);
+    SetPresolve(DefaultPresolvePasses);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(true);
 
@@ -315,7 +315,7 @@ void ClpInterface::SolveUsingBarrierMethod() {
     // optimal result, although the solve time is not optimized.
     solve_options_->setSpecialOption(4, 2048);
 
-    SetPresolve(true, DefaultPresolvePasses);
+    SetPresolve(DefaultPresolvePasses);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
 
