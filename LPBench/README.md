@@ -58,8 +58,7 @@ See [LPSharp readme](../LPSharp/Readme.md) for more help.
 LPSharp> read-mps netlib\80bau38.mps              # if WANLPv2 or Netlib
 LPSharp> read-mps plato\s250r10.mps -Format free  # if Plato
 LPSharp> set-solver -create GLOP -key glop -default
-LPSharp> set-solver -key glop -name PrimalSimplex
-LPSharp> set-solver -key glop -name TimeLimitInSeconds -value @(900)
+LPSharp> read-parameters parameters.xml           # to read custom solver parameters
 LPSharp> invoke-solver s250r10
 ```
 
@@ -72,14 +71,8 @@ WANLPv2.
 
 ```
 $ coinwrap.exe netlib\80bau38.mps either
-$ coinwrap.exe netlib\80bau38.mps dual
-$ coinwrap.exe netlib\80bau38.mps primal
-```
-
-```
-$ coinwrap.exe plato\s250r10.mps either
-$ coinwrap.exe plato\s250r10.mps dual
-$ coinwrap.exe plato\s250r10.mps primal
+$ coinwrap.exe netlib\80bau38.mps duals
+$ coinwrap.exe netlib\80bau38.mps primals
 ```
 
 __GlopSolve cheatsheet__
