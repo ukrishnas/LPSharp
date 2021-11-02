@@ -28,13 +28,16 @@ namespace coinwrap {
 // The default perturbation value.
 #define DefaultPerturbation 50
 
+// The default number of idiot crash passes to perform when this is the starting
+// basis method.
+#define DefaultIdiotPasses 1
+
 // Initializes a new instance of the ClpInterface with default values. The
 // values used here are the defaults.
 ClpInterface::ClpInterface() :
     clp_(new ClpSimplex),
     solve_options_(new ClpSolve),
     message_handler_(new CoinMessageHandler),
-    presolve_passes_(DefaultPresolvePasses),
     dual_pivot_algorithm_(PivotAlgorithm::Automatic),
     primal_pivot_algorithm_(PivotAlgorithm::Automatic),
     positive_edge_psi_(0.5) {
@@ -137,7 +140,17 @@ bool ClpInterface::SetPrimalPivotAlgorithm(PivotAlgorithm pivot_algorithm) {
     return true;
 }
 
-void ClpInterface::SetPresolve(int passes) {
+int ClpInterface::PresolvePasses() {
+    ClpSolve::PresolveType presolve_type = solve_options_->getPresolveType();
+    if (presolve_type == ClpSolve::presolveOff) {
+        return 0;
+    }
+
+    int presolve_passes = solve_options_->getPresolvePasses();
+    return presolve_passes;
+}
+
+void ClpInterface::SetPresolvePasses(int passes) {
     if (passes == 0) {
         solve_options_->setPresolveType(ClpSolve::presolveOff, 0);
     } else {
@@ -163,6 +176,19 @@ void ClpInterface::MakePlusMinusOneMatrix(bool enable) {
     }
 }
 
+StartingBasis ClpInterface::DualStartingBasis() {
+    int option = solve_options_->getSpecialOption(0);
+    if (option == 0) {
+        return StartingBasis::Default;
+    } else if (option == 1) {
+        return StartingBasis::Crash;
+    } else if (option == 2) {
+        return StartingBasis::Idiot;
+    }
+    
+    return StartingBasis::Other;
+}
+
 bool ClpInterface::SetDualStartingBasis(StartingBasis basis) {
     // The special option arguments are which and value. Which is 0 for setting
     // dual starting basis. The values are from comments in ClpSolve.hpp and
@@ -173,13 +199,30 @@ bool ClpInterface::SetDualStartingBasis(StartingBasis basis) {
     } else if (basis == StartingBasis::Crash) {
         solve_options_->setSpecialOption(0, 1);
     } else if (basis == StartingBasis::Idiot) {
-        solve_options_->setSpecialOption(0, 2);
+        solve_options_->setSpecialOption(0, 2, DefaultIdiotPasses);
     } else {
-        // Invalid or unsupported basis method.
+        // Unsupported basis method.
         return false;
     }
     
     return true;
+}
+
+StartingBasis ClpInterface::PrimalStartingBasis() {
+    int option = solve_options_->getSpecialOption(1);
+    if (option == 0) {
+        return StartingBasis::Default;
+    } else if (option == 1) {
+        return StartingBasis::Crash;
+    } else if (option == 2) {
+        return StartingBasis::Idiot;
+    } else if (option == 3) {
+        return StartingBasis::Sprint;
+    } else if (option == 4) {
+        return StartingBasis::AllSlack;
+    }
+    
+    return StartingBasis::Other;
 }
 
 bool ClpInterface::SetPrimalStartingBasis(StartingBasis basis) {
@@ -195,14 +238,30 @@ bool ClpInterface::SetPrimalStartingBasis(StartingBasis basis) {
     } else if (basis == StartingBasis::Crash) {
         solve_options_->setSpecialOption(1, 1);
     } else if (basis == StartingBasis::Idiot) {
-        solve_options_->setSpecialOption(1, 2);
+        solve_options_->setSpecialOption(1, 2, DefaultIdiotPasses);
     } else if (basis == StartingBasis::Sprint) {
         solve_options_->setSpecialOption(1, 3);
     } else {
+        // Unsupported basis method.
         return false;
     }
 
     return true;
+}
+
+SolveType ClpInterface::GetSolveType() {
+    ClpSolve::SolveType solve_type = solve_options_->getSolveType();
+
+    if (solve_type == ClpSolve::usePrimal || solve_type == ClpSolve::usePrimalorSprint) {
+        return SolveType::Primal;
+    } else if (solve_type == ClpSolve::automatic) {
+        return SolveType::Either;
+    } else if (solve_type == ClpSolve::useBarrier) {
+        return SolveType::Barrier;
+    } else {
+        // Default is always returned as dual.
+        return SolveType::Dual;
+    }
 }
 
 void ClpInterface::SetSolveType(SolveType solve_type) {
@@ -237,21 +296,18 @@ void ClpInterface::SetSolveType(SolveType solve_type) {
 }
 
 void ClpInterface::Solve() {
-    std::cout << "Solve type " << solve_options_->getSolveType() << std::endl;
-    std::cout << "Special options " << clp_->specialOptions() << std::endl;
-    std::cout << "More special options " << clp_->moreSpecialOptions() << std::endl;
+    std::cout << "Special options = " << clp_->specialOptions() << std::endl;
+    std::cout << "More special options = " << clp_->moreSpecialOptions() << std::endl;
     for (int i = 0; i < 3; i++) {
         std::cout << "Independent option " << i << " = " << solve_options_->independentOption(i) << std::endl;
     }
-    std::cout << "Perturbation " << Perturbation() << std::endl;
-    std::cout << "Presolve type=" << solve_options_->getPresolveType() << " passes=" << solve_options_->getPresolvePasses() << std::endl;
 
     clp_->initialSolve(*solve_options_);
 }
 
 void ClpInterface::SolveUsingDualSimplex() {
     SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(DefaultPresolvePasses);
+    SetPresolvePasses(DefaultPresolvePasses);
     SetDualStartingBasis(StartingBasis::Default);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -262,7 +318,7 @@ void ClpInterface::SolveUsingDualSimplex() {
 
 void ClpInterface::SolveUsingDualCrash() {
     SetDualPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(DefaultPresolvePasses);
+    SetPresolvePasses(DefaultPresolvePasses);
     SetDualStartingBasis(StartingBasis::Crash);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -273,7 +329,7 @@ void ClpInterface::SolveUsingDualCrash() {
 
 void ClpInterface::SolveUsingPrimalSimplex() {
     SetPrimalPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(DefaultPresolvePasses);
+    SetPresolvePasses(DefaultPresolvePasses);
     SetPrimalStartingBasis(StartingBasis::Default);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -284,7 +340,7 @@ void ClpInterface::SolveUsingPrimalSimplex() {
 
 void ClpInterface::SolveUsingPrimalIdiot() {
     SetPrimalPivotAlgorithm(PivotAlgorithm::Automatic);
-    SetPresolve(DefaultPresolvePasses);
+    SetPresolvePasses(DefaultPresolvePasses);
     SetPrimalStartingBasis(StartingBasis::Idiot);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
@@ -298,7 +354,7 @@ void ClpInterface::SolveUsingEitherSimplex() {
     // flexible, and ClpSimplex::housekeeping() modifies whether it factorizes.
     clp_->setMoreSpecialOptions(16384 | clp_->moreSpecialOptions());
 
-    SetPresolve(DefaultPresolvePasses);
+    SetPresolvePasses(DefaultPresolvePasses);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(true);
 
@@ -313,7 +369,7 @@ void ClpInterface::SolveUsingBarrierMethod() {
     // optimal result, although the solve time is not optimized.
     solve_options_->setSpecialOption(4, 2048);
 
-    SetPresolve(DefaultPresolvePasses);
+    SetPresolvePasses(DefaultPresolvePasses);
     SetPerturbation(DefaultPerturbation);
     MakePlusMinusOneMatrix(false);
 

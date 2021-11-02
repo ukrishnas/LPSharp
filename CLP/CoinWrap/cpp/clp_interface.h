@@ -105,6 +105,11 @@ enum StartingBasis {
     // feasible easily. Sprint is only available with primal method and has no
     // effect in other methods.
     Sprint,
+
+    // Represents any starting basis that is not enumerated. This can be
+    // returned by a get starting basis method but cannot be used to set the
+    // starting basis.
+    Other,
 };
 
 /**
@@ -160,10 +165,6 @@ class ClpInterface {
 
     // Destroys an instance of the class.
     ~ClpInterface();
-
-    // Gets or sets the number of presolve passes.
-    int PresolvePasses() { return presolve_passes_; }
-    void SetPresolvePasses(int value) { presolve_passes_ = value; }
 
     // Gets or sets the optimization direction. Use +1 for minimize, -1 for
     // maximize, and 0 for ignore. Default value is minimize.
@@ -256,16 +257,17 @@ class ClpInterface {
     // pivot algorithm is not supported or applicable.
     bool SetDualPivotAlgorithm(PivotAlgorithm pivot_algorithm);
 
-    // Sets whether presolve should be enabled and the number of presolve
-    // passes. Zero passes disabled presolve, any other number enables it.
-    // Presolve analyzes the model to find such things as redundant equations,
-    // equations which fix some variables, equations which can be transformed
-    // into bounds, etc. Presolve is worth doing unless one knows that it will
-    // have no effect. Presolve will return if nothing is being taken out, so
-    // there is little need to fine tune the number of passes. Clp presolve has
-    // a file option that is not available in this interface. The default
-    // setting is on with Clp default number of passes.
-    void SetPresolve(int number);
+    // Gets or sets whether presolve should be enabled and the number of
+    // presolve passes. Zero passes disabled presolve, any other number enables
+    // it. Presolve analyzes the model to find such things as redundant
+    // equations, equations which fix some variables, equations which can be
+    // transformed into bounds, etc. Presolve is worth doing unless one knows
+    // that it will have no effect. Presolve will return if nothing is being
+    // taken out, so there is little need to fine tune the number of passes. Clp
+    // presolve has a file option that is not available in this interface. The
+    // default setting is on with Clp default number of passes.
+    int PresolvePasses();
+    void SetPresolvePasses(int passes);
 
     // Enables or disables making a plus minus 1-matrix. Clp will go slightly
     // faster if the matrix can be converted so that the elements are not stored
@@ -274,13 +276,16 @@ class ClpInterface {
     // set this. Default is not make the plus minus 1-matrix.
     void MakePlusMinusOneMatrix(bool enable);
 
-    // Sets the starting basis method for dual simplex.
+    // Gets or sets the starting basis method for dual simplex.
+    StartingBasis DualStartingBasis();
     bool SetDualStartingBasis(StartingBasis basis);
 
     // Sets the starting basis method for primal simplex.
+    StartingBasis PrimalStartingBasis();
     bool SetPrimalStartingBasis(StartingBasis basis);
 
-    // Sets the solve type.
+    // Gets or sets the solve type.
+    SolveType GetSolveType();
     void SetSolveType(SolveType solve_type);
 
     // Solves the optimization problem using the previously set solve type and
@@ -294,10 +299,18 @@ class ClpInterface {
     // Clp.exe -dualS.
     void SolveUsingDualSimplex();
 
+    // Solves the optimization problem using dual simplex with crash
+    // starting basis.
+    void SolveUsingDualCrash();
+
     // Solves the optimization problem using primal simplex and associated
     // options. This method replicates the settings used by standalone
     // Clp.exe -primalS.
     void SolveUsingPrimalSimplex();
+
+    // Solves the optimization problem using primal simplex and idiot crash
+    // starting basis.
+    void SolveUsingPrimalIdiot();
 
     // Solves the optimization problem using either primal or dual simplex based
     // on dubious analysis of the model. The analysis looks at number of rows,
@@ -317,14 +330,6 @@ class ClpInterface {
     // https://en.wikipedia.org/wiki/Mehrotra_predictor%E2%80%93corrector_method
     // This method replicates the settings used by standalone Clp.exe -barrier.
     void SolveUsingBarrierMethod();
-
-    // Solves the optimization problem using dual simplex with crash
-    // starting basis. TODO: remove after testing.
-    void SolveUsingDualCrash();
-
-    // Solves the optimization problem using primal simplex and idiot crash
-    // starting basis. TODO: remove after testing.
-    void SolveUsingPrimalIdiot();
 
     // Gets the value of the objective.
     double ObjectiveValue() { return clp_->objectiveValue(); }
@@ -402,9 +407,6 @@ class ClpInterface {
 
     // The message handler.
     std::unique_ptr<CoinMessageHandler> message_handler_;
-
-    // The number of presolve passes. The default value is 10.
-    int presolve_passes_;
 
     // The primal column pivot algorithm.
     PivotAlgorithm primal_pivot_algorithm_;

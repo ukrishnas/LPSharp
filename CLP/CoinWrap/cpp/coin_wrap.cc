@@ -50,17 +50,18 @@ int main(int argc, const char *argv[]) {
     std::cout << "Set log level " << log_level << std::endl;
 
     // clp.SetMaximumSeconds(300);
-    // clp.SetMaximumIterations(60000);
     std::cout << "Set limits maximum seconds=" << clp.MaximumSeconds() << 
         " maximum iterations=" << clp.MaximumIterations() << std::endl;
-
-    // clp.SetDualTolerance(1e-6);
-    // clp.SetPrimalTolerance(1e-6);
     std::cout << "Set tolerances dual=" << clp.DualTolerance() << 
         " primal=" << clp.PrimalTolerance() << std::endl;
 
     bool status = clp.ReadMps(filename);
+    if (!status) {
+        std::cout << "ReadMps failed" << std::endl;
+        return -1;
+    }
     std::cout << "Read " << filename << " status=" << status << std::endl;
+
     if (recipe == "barrier") {
         clp.SolveUsingBarrierMethod();
     } else if (recipe == "duals") {
@@ -75,14 +76,19 @@ int main(int argc, const char *argv[]) {
         clp.SolveUsingPrimalIdiot();
     } else {
         std::cout << "Unknown recipe " << recipe << std::endl;
+        return -1;
     }
 
-    printf("Status = %d Objective = %.10g iterations = %ld \n",
-        clp.Status(), clp.ObjectiveValue(), clp.Iterations());
+    // Print the solver settings.
+    std::cout << "Recipe = " << recipe << std::endl;
+    std::cout << "Solve type = " << clp.GetSolveType() << " dual starting basis = " << clp.DualStartingBasis() 
+        << " primal starting basis = " << clp.PrimalStartingBasis() << std::endl;
+    std::cout << "Presolve passes = " << clp.PresolvePasses() <<  ", perturbation = " << clp.Perturbation() << std::endl;
+    printf("Status = %d Objective = %.10g iterations = %ld \n", clp.Status(), clp.ObjectiveValue(), clp.Iterations());
 
     int maxLines = 0;
 
-    // Print the column solution, reduced cost, and objective.
+    // Print the column solutions.
     std::vector<double> colSolution, reducedCost, objective;
     clp.PrimalColumnSolution(colSolution);
     clp.DualColumnSolution(reducedCost);
@@ -97,7 +103,7 @@ int main(int argc, const char *argv[]) {
         if (i == n - 1) std::cout << "--------------------------------------" << std::endl;
     }
     
-
+    // Print the row solutions.
     std::vector<double> rowActivity, rowPrice;
     clp.PrimalRowSolution(rowActivity);
     clp.DualRowSolution(rowPrice);
