@@ -19,19 +19,6 @@
  * functionality of Clp is not exposed. The functions needed to solve our LP
  * problems have been exposed, but more functions can easily be added. This
  * interface is geared for SWIG wrapper generation.
-
- *  Methods still to be implemented:
- *   - addColumn
- *   - modifyCoefficient
- *   - setColumnBounds
- *   - setColumnName
- *   - setObjectiveCoefficient
- *   - setObjectiveOffset
- *   - setRowBounds
- *   - setRowName
- *   - getColumnStatus
- *   - getRowPrice
- *   - getRowStatus
  */
 
 #ifndef COINWRAP_CLP_INTERFACE_H_
@@ -229,11 +216,16 @@ class ClpInterface {
     // Gets or sets the perturbation value. 50 switches on perturbation. 100
     // automatically perturns if it takes too long (1.0e-6 largest non-zero).
     // 101 means we are perturbed, and 102 means don't try perturbing again.
-    // Default value is 100.
+    // Default value is 50.
     int Perturbation() { return clp_->perturbation(); }
     void SetPerturbation(int value) { clp_->setPerturbation(value); }
 
-    // Gets or sets the iteration limit.
+    // Gets or sets the iteration limit. Note that this limit controls the
+    // iterations performed by a solver stage, not the entire optimization. For
+    // example, Clp will terminate the primal simplex upon reaching this limit,
+    // the iteration count restarts from zero while solving using dual simplex.
+    // To control the limit for the entire optimization, it is better to use
+    // maximum seconds.
     int MaximumIterations() { return clp_->maximumIterations(); }
     void SetMaximumIterations(int value) { clp_->setMaximumIterations(value); }
 
@@ -343,51 +335,61 @@ class ClpInterface {
     // Gets the status of the problem.
     ClpStatus Status() { return static_cast<ClpStatus>(clp_->status()); }
 
-    // Gets the secondary status. Need to turn this into a message. See
-    // ClpModel.hpp. A few are shown below:
+    // Gets the secondary status. The values are described in ClpModel.hpp and
+    // and updated based on comments in the code:
     // 0 - none.
-    // 1 - primal infeasible because dual limit reached or (probably primal
-    // infeasible but can't prove it. Main status is stopped due to errors.
+    // 1 - primal infeasible because dual limit reached or probably primal
+    //     infeasible but can't prove it (status was 4).
     // 2 - scaled problem optimal - unscaled problem has primal infeasibilities.
     // 3 - scaled problem optimal - unscaled problem has dual infeasibilities.
+    // 4 - scaled problem optimal - unscaled problem has primal and dual infeasibilities.
+    // 5 - giving up in primal with flagged variables.
+    // 6 - failed due to empty problem check.
+    // 7 - either preSolve or postSolve says not optimal.
+    // 8 - failed due to bad element check.
+    // 9 - status was 3 and stopped on time.
+	// 10 - status was 3 but stopped as primal feasible.
     int SecondaryStatus() { return clp_->secondaryStatus(); }
 
-    // Gets the column solution. The vector is owned by the caller and this
-    // method writes over previous contents. The vector size can be estimated
-    // during creation from the model.
-    void ColumnSolution(std::vector<double> &vec) {
+    // Gets the primal column solution. This is the solution of the variables to
+    // achieve the objective in the primal simplex. The dot product of this
+    // vector and the objective is the objective result.
+    void PrimalColumnSolution(std::vector<double> &vec) {
         int size = clp_->numberColumns();
         const double* start = clp_->getColSolution();
         vec.assign(start, start + size);
     }
 
-    // Gets the reduced cost vector d = c - A^T y. It is the byproduct of dual
-    // simplex and represents how much the cost coefficient needs to be decrease
-    // before the variable could be considered in the solution.
-    void ReducedCost(std::vector<double> &vec) {
+    // Gets the dual column solution, also known as the reduced cost vector d =
+    // c - A^T y in the dual simplex. It is the byproduct of dual simplex and
+    // represents how much the cost coefficient needs to be decrease before the
+    // corresponding variable could be considered in the solution.
+    void DualColumnSolution(std::vector<double> &vec) {
         int size = clp_->numberColumns();
         const double* start = clp_->getReducedCost();
         vec.assign(start, start + size);
     }
 
-    // Gets the objective, also known as cost vector from the model.
-    void Objective(std::vector<double> &vec) {
-        int size = clp_->numberColumns();
-        double * start = clp_->objective();
-        vec.assign(start, start + size);
-    }
-
-    // Gets the row activity vector.
-    void RowActivity(std::vector<double> &vec) {
+    // Gets the primal row solution, also called the row activity by the code.
+    void PrimalRowSolution(std::vector<double> &vec) {
         int size = clp_->numberRows();
         const double *start = clp_->getRowActivity();
         vec.assign(start, start + size);
     }
 
-    // Gets the row price vector.
-    void RowPrice(std::vector<double> &vec) {
+    // Gets the dual row solution, also called the row price by the code.
+    void DualRowSolution(std::vector<double> &vec) {
         int size = clp_->numberRows();
         const double *start = clp_->getRowPrice();
+        vec.assign(start, start + size);
+    }
+
+    // Gets the objective from the model. The objective is the cost vector. The
+    // dot product of this vector and the primal column solution is the
+    // objective value.
+    void Objective(std::vector<double> &vec) {
+        int size = clp_->numberColumns();
+        double * start = clp_->objective();
         vec.assign(start, start + size);
     }
 

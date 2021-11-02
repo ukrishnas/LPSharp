@@ -80,12 +80,12 @@ int main(int argc, const char *argv[]) {
     printf("Status = %d Objective = %.10g iterations = %ld \n",
         clp.Status(), clp.ObjectiveValue(), clp.Iterations());
 
-    int maxLines = 40;
+    int maxLines = 0;
 
     // Print the column solution, reduced cost, and objective.
     std::vector<double> colSolution, reducedCost, objective;
-    clp.ColumnSolution(colSolution);
-    clp.ReducedCost(reducedCost);
+    clp.PrimalColumnSolution(colSolution);
+    clp.DualColumnSolution(reducedCost);
     clp.Objective(objective);
     int n = maxLines < objective.size() ? maxLines : objective.size();
     for (int i = 0; i < n; i++) {
@@ -94,20 +94,21 @@ int main(int argc, const char *argv[]) {
         print_double(reducedCost[i]);
         print_double(objective[i]);
         std::cout << std::endl;
+        if (i == n - 1) std::cout << "--------------------------------------" << std::endl;
     }
-    std::cout << "--------------------------------------" << std::endl;
+    
 
     std::vector<double> rowActivity, rowPrice;
-    clp.RowActivity(rowActivity);
-    clp.RowPrice(rowPrice);
+    clp.PrimalRowSolution(rowActivity);
+    clp.DualRowSolution(rowPrice);
     int m = maxLines < rowActivity.size() ? maxLines : rowActivity.size();
     for (int i = 0; i < m; i++) {
         std::cout << std::setw(6) << i << " ";
         print_double(rowActivity[i]);
         print_double(rowPrice[i]);
         std::cout << std::endl;
+        if (i == n - 1) std::cout << "--------------------------------------" << std::endl;
     }
-    std::cout << "--------------------------------------" << std::endl;
-
+    
     return 0;
 }
