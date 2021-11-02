@@ -1,0 +1,695 @@
+=============================================================================================
+Primal simplex
+
+>> foreach ($m in $sliceperf)
+>> {
+>>     build3\Release\ClpInterface-cpp.exe $dir\$m primals
+>> }
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 88648 COLUMNS
+At line 1143129 RHS
+At line 1187452 ENDATA
+Problem MODEL has 88644 rows, 189319 columns and 1825106 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-diverse5.mps in 0.838 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-diverse5.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44896 (-43748) rows, 188053 (-1266) columns and 1636525 (-188581) elements
+Perturbing problem by 0.001% of 8704.4701 - largest nonzero change 0.99858145 ( 1.681029%) - largest zero change 0
+8082  Obj 1.0676141e+12 Primal inf 4872494.6 (15554) Dual inf 7.9596957e+13 (114112)
+17062  Obj 1.6312913e+12 Primal inf 734018.29 (9605) Dual inf 2.5496235e+13 (40280)
+22001  Obj 1.7954044e+12 Primal inf 1.8801528 (6950) Dual inf 4.055335e+08 (15057)
+24246  Obj 1.7816675e+12 Primal inf 1.8801528 (6950) Dual inf 84396000 (8427)
+26940  Obj 1.7724459e+12 Primal inf 1.8801528 (6950) Dual inf 1695500 (993)
+32184  Obj 1.7714397e+12 Dual inf 1.998575e+08 (2428)
+Optimal - objective value 1.7714397e+12
+After Postsolve, objective 1.7714397e+12, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 1.771439728e+12 - 34612 iterations time 5.592, Presolve 0.54
+Status = 0 Objective = 1.771439728e+12 iterations = 34612
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1091102 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin0.mps in 0.751 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin0.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 22867 (-23044) rows, 185437 (-3882) columns and 1367727 (-414646) elements
+End of values pass after 1121 iterations
+Optimal - objective value -4499183
+Pass 1 took 1121 iterations, objective -4499183, dual infeasibilities 177255( 177255)
+Optimal - objective value -12351885
+Pass 2 took 7730 iterations, objective -12351885, dual infeasibilities 109764( 109764)
+6780  Obj -17765749 Dual inf 565.99943 (566)
+Optimal - objective value -17853044
+Pass 3 took 6903 iterations, objective -17853044, dual infeasibilities 49997( 49997)
+0  Obj -17853044 Dual inf 49996.95 (49997)
+Optimal - objective value -22057396
+Pass 4 took 5794 iterations, objective -22057396, dual infeasibilities 0( 0)
+0  Obj -22057396
+Optimal - objective value -22057396
+sample size increased from 68601 to 82321
+Pass 5 took 0 iterations, objective -22057396, dual infeasibilities 0( 0)
+0  Obj -22057396
+Optimal - objective value -22057396
+After Postsolve, objective -22057396, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -22057396 - 21548 iterations time 1.762, Presolve 0.52
+Status = 0 Objective = -22057396 iterations = 21548
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin1.mps in 0.825 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin1.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44053 (-1858) rows, 186896 (-2423) columns and 1601431 (-180942) elements
+Perturbing problem by 0.001% of 13541.176 - largest nonzero change 0.98756318 ( 0.099976641%) - largest zero change 0
+8900  Obj -13610782 Primal inf 12963757 (16786) Dual inf 96645588 (100406)
+18245  Obj -26063377 Primal inf 3361187.8 (11926) Dual inf 30332820 (39666)
+22695  Obj -29996383 Primal inf 1176.823 (9982) Dual inf 7526335 (17505)
+23777  Obj -30283214 Primal inf 4.2956583 (9976)
+Primal infeasible - objective value -30283214
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -30283214, infeasibilities - dual 9918.999 (9919), primal 28.134094 (21028)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999532e-07 ( 9.9999532e-05%) - largest zero change 0
+0  Obj -30283188 Dual inf 9918.9901 (9919)
+2200  Obj -30283188 Dual inf 7718.9923 (7719)
+6200  Obj -30283188 Dual inf 3718.9963 (3719)
+Optimal - objective value -30283188
+Optimal objective -30283188 - 33696 iterations time 6.882, Presolve 0.54
+Status = 0 Objective = -30283188 iterations = 33696
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin2.mps in 0.814 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin2.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44318 (-1593) rows, 187236 (-2083) columns and 1623938 (-158435) elements
+Perturbing problem by 0.001% of 15633.372 - largest nonzero change 0.99199854 ( 0.099998796%) - largest zero change 0
+8028  Obj -16223174 Primal inf 18568105 (17290) Dual inf 1.0563523e+08 (106981)
+16502  Obj -30894733 Primal inf 6660914.5 (13018) Dual inf 40459365 (47161)
+22300  Obj -37995294 Primal inf 411900.37 (10334) Dual inf 43240947 (39839)
+22746  Obj -38273768 Primal inf 127859.42 (10257) Dual inf 19185296 (31771)
+23192  Obj -38512342 Primal inf 5.1479316 (10224) Dual inf 8501.4902 (9822)
+24196  Obj -39030023 Primal inf 5.1479316 (10224)
+24196  Obj -39030023 Primal inf 5.1479316 (10224)
+24196  Obj -39030023 Primal inf 5.1479316 (10224)
+Primal infeasible - objective value -39030023
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -39030023, infeasibilities - dual 10117.999 (10118), primal 36.01791 (21189)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.999937e-07 ( 9.999937e-05%) - largest zero change 0
+0  Obj -39029992 Dual inf 10117.99 (10118)
+2800  Obj -39029992 Dual inf 7317.9927 (7318)
+5200  Obj -39029992 Dual inf 4917.9951 (4918)
+7200  Obj -39029992 Dual inf 2917.9971 (2918)
+9400  Obj -39029992 Dual inf 717.99928 (718)
+Optimal - objective value -39029992
+Optimal objective -39029992 - 34314 iterations time 11.822, Presolve 0.58
+Status = 0 Objective = -39029992 iterations = 34314
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin3.mps in 0.996 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin3.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44377 (-1534) rows, 187278 (-2041) columns and 1629935 (-152438) elements
+Perturbing problem by 0.001% of 16518.569 - largest nonzero change 0.97476332 ( 0.099999582%) - largest zero change 0
+8474  Obj -19865310 Primal inf 22455667 (17166) Dual inf 1.0126859e+08 (102208)
+16502  Obj -36210828 Primal inf 8236292.3 (13226) Dual inf 40428697 (49677)
+21854  Obj -44044369 Primal inf 887577.45 (10821) Dual inf 40565671 (39348)
+22746  Obj -44556866 Primal inf 341036.73 (10611) Dual inf 13521803 (20169)
+23192  Obj -44568441 Primal inf 270711.19 (10558) Dual inf 17963756 (40050)
+23638  Obj -44617440 Primal inf 155906.55 (10510) Dual inf 13838237 (22835)
+24084  Obj -44709620 Primal inf 63780.749 (10477) Dual inf 45414014 (29815)
+24530  Obj -44870375 Primal inf 6.7904763 (10461) Dual inf 61338.973 (27488)
+26086  Obj -45235811 Primal inf 6.7904763 (10461)
+26086  Obj -45235811 Primal inf 6.7904763 (10461)
+Primal infeasible - objective value -45235811
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -45235811, infeasibilities - dual 10364.999 (10365), primal 41.309907 (21235)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999532e-07 ( 9.9999532e-05%) - largest zero change 0
+0  Obj -45235776 Dual inf 10364.99 (10365)
+2200  Obj -45235776 Dual inf 8164.9918 (8165)
+3800  Obj -45235776 Dual inf 6564.9934 (6565)
+7800  Obj -45235776 Dual inf 2564.9974 (2565)
+10000  Obj -45235776 Dual inf 364.99964 (365)
+Optimal - objective value -45235776
+Optimal objective -45235776 - 36451 iterations time 14.542, Presolve 0.54
+Status = 0 Objective = -45235776 iterations = 36451
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin4.mps in 0.826 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin4.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44404 (-1507) rows, 187328 (-1991) columns and 1631571 (-150802) elements
+Perturbing problem by 0.001% of 16948.366 - largest nonzero change 0.99182355 ( 0.099999554%) - largest zero change 0
+4023  Obj -9946768.7 Primal inf 35812118 (19426) Dual inf 1.4531921e+08 (145247)
+13410  Obj -31049732 Primal inf 15791425 (14832) Dual inf 61586176 (68377)
+20115  Obj -43772619 Primal inf 3476766.3 (11722) Dual inf 63104302 (46520)
+21903  Obj -45715731 Primal inf 1413686 (10978) Dual inf 66922052 (40575)
+22350  Obj -45919620 Primal inf 1167981.8 (10842) Dual inf 45233322 (41622)
+22797  Obj -46088168 Primal inf 1014662.1 (10736) Dual inf 16363102 (17019)
+23244  Obj -46504626 Primal inf 660991.21 (10639) Dual inf 29143925 (29452)
+23691  Obj -46794690 Primal inf 386366.07 (10581) Dual inf 1.3121002e+08 (44058)
+24138  Obj -46883737 Primal inf 267034.88 (10543) Dual inf 21807103 (39253)
+24585  Obj -46899593 Primal inf 193691.53 (10515) Dual inf 20322690 (23807)
+25032  Obj -46964257 Primal inf 91681.001 (10488) Dual inf 46713652 (29775)
+25479  Obj -46993552 Primal inf 13490.426 (10470) Dual inf 82028.998 (2111)
+25926  Obj -47072740 Primal inf 8.4674418 (10465) Dual inf 1392.9986 (1393)
+27326  Obj -47224803 Primal inf 8.4674418 (10465)
+27326  Obj -47224803 Primal inf 8.4674418 (10465)
+Primal infeasible - objective value -47224803
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -47224803, infeasibilities - dual 10368.999 (10369), primal 45.231169 (21238)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999532e-07 ( 9.9999532e-05%) - largest zero change 0
+0  Obj -47224764 Dual inf 10368.99 (10369)
+3000  Obj -47224764 Dual inf 7368.9926 (7369)
+6800  Obj -47224764 Dual inf 3568.9964 (3569)
+Optimal - objective value -47224764
+Optimal objective -47224764 - 37695 iterations time 22.522, Presolve 1.03
+Status = 0 Objective = -47224764 iterations = 37695
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin5.mps in 0.777 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin5.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44404 (-1507) rows, 187328 (-1991) columns and 1631571 (-150802) elements
+Perturbing problem by 0.001% of 16989.794 - largest nonzero change 0.99182355 ( 0.099999554%) - largest zero change 0
+8046  Obj -18943603 Primal inf 28406333 (17415) Dual inf 1.058253e+08 (107208)
+16539  Obj -37685184 Primal inf 10118984 (13386) Dual inf 43820965 (49519)
+21903  Obj -46314134 Primal inf 1285264.3 (10930) Dual inf 41651704 (31440)
+22350  Obj -46397913 Primal inf 1114083.8 (10823) Dual inf 1.3011897e+08 (38474)
+22797  Obj -46712091 Primal inf 741941.56 (10719) Dual inf 1.5472096e+08 (38937)
+23244  Obj -46878317 Primal inf 568399.11 (10660) Dual inf 1.7546353e+08 (45527)
+23691  Obj -47024455 Primal inf 382196.98 (10611) Dual inf 1.79077e+08 (44254)
+24138  Obj -47094883 Primal inf 281693.94 (10566) Dual inf 1.5634989e+08 (43107)
+24585  Obj -47180882 Primal inf 177153.76 (10533) Dual inf 1.136399e+08 (44504)
+25032  Obj -47247460 Primal inf 82961.976 (10516) Dual inf 45304552 (36721)
+25479  Obj -47300322 Primal inf 8618.8621 (10492) Dual inf 7725495 (8987)
+26947  Obj -47376055 Primal inf 9.2172643 (10485)
+26947  Obj -47376055 Primal inf 9.2172643 (10485)
+Primal infeasible - objective value -47376055
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -47376055, infeasibilities - dual 10359.999 (10360), primal 48.161123 (21256)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999532e-07 ( 9.9999532e-05%) - largest zero change 0
+0  Obj -47376016 Dual inf 10359.99 (10360)
+3800  Obj -47376016 Dual inf 6559.9934 (6560)
+8000  Obj -47376016 Dual inf 2359.9976 (2360)
+Optimal - objective value -47376016
+Optimal objective -47376016 - 37307 iterations time 22.012, Presolve 0.65
+Status = 0 Objective = -47376016 iterations = 37307
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-mincost.mps in 1.466 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-mincost.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44826 (-1085) rows, 187384 (-1935) columns and 1634134 (-148239) elements
+Perturbing problem by 0.001% of 16904.122 - largest nonzero change 0.99564675 ( 0.099943531%) - largest zero change 0
+4490  Obj 4.9124499e+11 Primal inf 15285875 (18109) Dual inf 1.0217345e+14 (145683)
+13021  Obj 1.3252761e+12 Primal inf 2409442.7 (12384) Dual inf 4.3791656e+13 (65026)
+21552  Obj 1.7791489e+12 Primal inf 26693.98 (7226) Dual inf 4.6898221e+12 (15847)
+23348  Obj 1.7717536e+12 Primal inf 2.2299375 (7143) Dual inf 1.3932e+08 (10091)
+25593  Obj 1.7586195e+12 Primal inf 2.2299375 (7143) Dual inf 12164500 (3431)
+27762  Obj 1.7529035e+12 Primal inf 2.2299375 (7143)
+27762  Obj 1.7529035e+12 Primal inf 2.2299375 (7143)
+Primal infeasible - objective value 1.7529035e+12
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective 1.7529035e+12, infeasibilities - dual 0 (0), primal 11.71107 (15498)
+PrimalInfeasible objective 1.752903547e+12 - 27762 iterations time 6.432, Presolve 0.82
+Status = 1 Objective = 1.752903547e+12 iterations = 27762
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 22137 COLUMNS
+At line 597760 RHS
+At line 608435 ENDATA
+Problem MODEL has 22133 rows, 50602 columns and 1125912 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri3-minutil.mps in 0.476 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri3-minutil.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 9706 (-12427) rows, 32931 (-17671) columns and 346982 (-778930) elements
+Optimal - objective value 0.99999974
+After Postsolve, objective 0.99999974, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 0.9999997418 - 4073 iterations time 0.382, Presolve 0.24
+Status = 0 Objective = 0.9999997418 iterations = 4073
+
+
+=============================================================================================
+Primal simplex with idiot crash
+
+>> foreach ($m in $sliceperf)
+>> {
+>>     build3\Release\ClpInterface-cpp.exe $dir\$m primalidiot
+>> }
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 88648 COLUMNS
+At line 1143129 RHS
+At line 1187452 ENDATA
+Problem MODEL has 88644 rows, 189319 columns and 1825106 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-diverse5.mps in 0.837 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-diverse5.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44896 (-43748) rows, 188053 (-1266) columns and 1636525 (-188581) elements
+8 infeas 2034396, obj 1.6977798e+12 - mu 1e-30, its 105, 19527 interior
+0  Obj 1.6977798e+12 Primal inf 2034396 (21339) Dual inf 2.0268319e+16 (173279)
+End of values pass after 19527 iterations
+19976  Obj 1.7361681e+12 Primal inf 692392.64 (13368) Dual inf 1.1341372e+15 (124635)
+27609  Obj 1.7839532e+12 Primal inf 280912.13 (5750) Dual inf 3.5087331e+13 (60033)
+33446  Obj 1.8405614e+12 Primal inf 1624.1983 (33) Dual inf 1.2304159e+11 (23719)
+35691  Obj 1.8038447e+12 Dual inf 2.56363e+08 (13946)
+38385  Obj 1.7858989e+12 Dual inf 73072000 (9333)
+41079  Obj 1.7745704e+12 Dual inf 8947500 (3087)
+Optimal - objective value 1.7714397e+12
+After Postsolve, objective 1.7714397e+12, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 1.771439728e+12 - 43181 iterations time 6.652, Presolve 0.58, Idiot 0.88
+Status = 0 Objective = 1.771439728e+12 iterations = 43181
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1091102 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin0.mps in 1.007 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin0.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 22867 (-23044) rows, 185437 (-3882) columns and 1367727 (-414646) elements
+3 infeas 0.040263276, obj -4499591.1 - mu 0.001, its 105, 34109 interior
+5 infeas 0.014473449, obj -4499704.3 - mu 0.0003333, its 105, 43804 interior
+7 infeas 0.11129901, obj -4499798.8 - mu 0.00011108889, its 105, 46812 interior
+sum of infeasibilities 5.7317e-11 - average 2.50654e-15, 138625 fixed columns
+Presolve 6676 (-16191) rows, 24018 (-161419) columns and 60093 (-1307634) elements
+0  Obj -9592933.8 Primal inf 5646967.8 (3084) Dual inf 1.3061e+16 (22712)
+End of values pass after 23684 iterations
+Optimal - objective value -19704804
+Optimal - objective value -19704804
+After Postsolve, objective -19704804, infeasibilities - dual 0 (0), primal 0 (0)
+0  Obj -19704804 Dual inf 59073.941 (59074)
+5763  Obj -21585863 Dual inf 14979.985 (14612)
+Optimal - objective value -22057396
+Optimal - objective value -22057396
+Optimal - objective value -22057396
+After Postsolve, objective -22057396, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -22057396 - 0 iterations time 4.932, Presolve 0.53, Idiot 4.32
+Status = 0 Objective = -22057396 iterations = 0
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin1.mps in 0.8 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin1.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44053 (-1858) rows, 186896 (-2423) columns and 1601431 (-180942) elements
+4 infeas 779574.31, obj -22354536 - mu 0.0003333, its 105, 26658 interior
+7 infeas 325486.67, obj -22805093 - mu 0.00011108889, its 105, 32708 interior
+0  Obj -22871300 Primal inf 258710.18 (20940) Dual inf 3.109805e+16 (180703)
+23879  Obj -28406580 Primal inf 115434.1 (10807) Dual inf 9.83908e+15 (94014)
+End of values pass after 33107 iterations
+Perturbing problem by 0.001% of 13646.037 - largest nonzero change 0.038300147 ( 0.0010870976%) - largest zero change 0
+35777  Obj -30212403 Primal inf 31720.797 (4490) Dual inf 3.4539e+14 (38433)
+Optimal - objective value -30283188
+After Postsolve, objective -30283188, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -30283188 - 40899 iterations time 4.772, Presolve 0.59, Idiot 2.14
+Status = 0 Objective = -30283188 iterations = 40899
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin2.mps in 0.89 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin2.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44318 (-1593) rows, 187236 (-2083) columns and 1623938 (-158435) elements
+4 infeas 820649.25, obj -30415305 - mu 0.0003333, its 105, 27130 interior
+7 infeas 342490.66, obj -30888263 - mu 0.00011108889, its 105, 32992 interior
+0  Obj -30960559 Primal inf 269967.34 (21106) Dual inf 3.122057e+16 (179361)
+24893  Obj -37262229 Primal inf 121429.58 (10822) Dual inf 9.74808e+15 (94104)
+End of values pass after 33973 iterations
+Perturbing problem by 0.001% of 15715.905 - largest nonzero change 0.040585652 ( 0.0010908098%) - largest zero change 0
+36203  Obj -38861240 Primal inf 37475.909 (5023) Dual inf 42001068 (47217)
+41555  Obj -38951535 Dual inf 41206.479 (20616)
+Optimal - objective value -39029992
+After Postsolve, objective -39029992, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -39029992 - 41923 iterations time 5.512, Presolve 0.56, Idiot 2.10
+Status = 0 Objective = -39029992 iterations = 41923
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin3.mps in 0.851 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin3.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44377 (-1534) rows, 187278 (-2041) columns and 1629935 (-152438) elements
+4 infeas 842093.5, obj -38994546 - mu 0.0003333, its 105, 27144 interior
+6 infeas 478528.08, obj -39354728 - mu 0.0003333, its 105, 30586 interior
+8 infeas 286602.55, obj -39544752 - mu 1e-30, its 105, 34361 interior
+0  Obj -39544752 Primal inf 286578.5 (21170) Dual inf 3.102858e+16 (177763)
+23920  Obj -44100867 Primal inf 138900.03 (11400) Dual inf 1.092258e+16 (98152)
+End of values pass after 33999 iterations
+Perturbing problem by 0.001% of 16592.822 - largest nonzero change 0.04061969 ( 0.0010900144%) - largest zero change 0
+37121  Obj -45166265 Primal inf 33822.023 (4283) Dual inf 40659895 (39141)
+42355  Obj -45235776
+Optimal - objective value -45235776
+After Postsolve, objective -45235776, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -45235776 - 42355 iterations time 5.262, Presolve 0.61, Idiot 2.30
+Status = 0 Objective = -45235776 iterations = 42355
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin4.mps in 0.888 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin4.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44404 (-1507) rows, 187328 (-1991) columns and 1631571 (-150802) elements
+4 infeas 859235.32, obj -44684078 - mu 0.0003333, its 105, 27343 interior
+7 infeas 366863.11, obj -45172045 - mu 0.00011108889, its 105, 33038 interior
+0  Obj -45248472 Primal inf 290037.45 (21191) Dual inf 3.140589e+16 (177209)
+23148  Obj -46960027 Primal inf 151775.68 (11916) Dual inf 1.201448e+16 (102962)
+End of values pass after 34272 iterations
+Perturbing problem by 0.001% of 17024.089 - largest nonzero change 0.098968511 ( 0.0010880256%) - largest zero change 0
+35613  Obj -47176064 Primal inf 48702.993 (6047) Dual inf 1.4450367e+08 (61395)
+41424  Obj -47222435 Primal inf 2329.0025 (251) Dual inf 6230440 (5525)
+Optimal - objective value -47224764
+After Postsolve, objective -47224764, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -47224764 - 42029 iterations time 5.452, Presolve 0.66, Idiot 2.06
+Status = 0 Objective = -47224764 iterations = 42029
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin5.mps in 0.882 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-maxmin5.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44404 (-1507) rows, 187328 (-1991) columns and 1631571 (-150802) elements
+4 infeas 853951.8, obj -46416138 - mu 0.0003333, its 105, 27546 interior
+7 infeas 367884.72, obj -46896911 - mu 0.00011108889, its 105, 33128 interior
+0  Obj -46971850 Primal inf 292381.85 (21201) Dual inf 3.12909e+16 (177356)
+21392  Obj -47169997 Primal inf 168553.26 (12738) Dual inf 1.368436e+16 (109966)
+End of values pass after 34237 iterations
+Perturbing problem by 0.001% of 17065.003 - largest nonzero change 0.098978933 ( 0.0010862824%) - largest zero change 0
+35131  Obj -47322796 Primal inf 53227.991 (6491) Dual inf 1.5937838e+08 (56740)
+39601  Obj -47357323 Primal inf 18705.026 (2166) Dual inf 52170018 (17731)
+Optimal - objective value -47376016
+After Postsolve, objective -47376016, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -47376016 - 42501 iterations time 5.832, Presolve 0.58, Idiot 2.15
+Status = 0 Objective = -47376016 iterations = 42501
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 45915 COLUMNS
+At line 1078935 RHS
+At line 1101892 ENDATA
+Problem MODEL has 45911 rows, 189319 columns and 1782373 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-mincost.mps in 0.803 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri0-mincost.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 44826 (-1085) rows, 187384 (-1935) columns and 1634134 (-148239) elements
+8 infeas 2217109.3, obj 1.6717074e+12 - mu 1e-30, its 105, 19682 interior
+0  Obj 1.6717074e+12 Primal inf 2217109.3 (21349) Dual inf 2.0414852e+16 (170087)
+18343  Obj 1.7092609e+12 Primal inf 865334.26 (14153) Dual inf 2.5231936e+15 (131425)
+End of values pass after 19682 iterations
+27315  Obj 1.7601884e+12 Primal inf 325710.1 (6070) Dual inf 2.9100007e+13 (54583)
+34050  Obj 1.8054041e+12 Dual inf 6.76533e+08 (22075)
+35846  Obj 1.7866485e+12 Dual inf 1.89137e+08 (14261)
+39438  Obj 1.7614307e+12 Dual inf 30865500 (7106)
+42581  Obj 1.7530349e+12 Dual inf 221500 (382)
+Optimal - objective value 1.7529018e+12
+After Postsolve, objective 1.7529018e+12, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 1.752901833e+12 - 42861 iterations time 6.012, Presolve 0.59, Idiot 0.77
+Status = 0 Objective = 1.752901833e+12 iterations = 42861
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 22137 COLUMNS
+At line 597760 RHS
+At line 608435 ENDATA
+Problem MODEL has 22133 rows, 50602 columns and 1125912 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri3-minutil.mps in 0.462 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\sliceperf-pri3-minutil.mps status=1
+Solve type 1
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 9706 (-12427) rows, 32931 (-17671) columns and 346982 (-778930) elements
+0  Obj 0.99088218 Primal inf 650.01726 (3837) Dual inf 4.8814802e+16 (17482)
+End of values pass after 12180 iterations
+Perturbing problem by 0.001% of 1823.3116 - largest nonzero change 2.9995922e-05 ( 0.0029200159%) - largest zero change 0
+Optimal - objective value 0.99999974
+After Postsolve, objective 0.99999974, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 0.999999742 - 12585 iterations time 1.132, Presolve 0.24, Idiot 0.68
+Status = 0 Objective = 0.999999742 iterations = 12585
