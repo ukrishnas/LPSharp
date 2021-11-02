@@ -1,340 +1,3 @@
-===============================================================================================
-Primal Simplex
-
-$dir = "c:\users\krish\work\lpbench\wanlpv2"
-$models = @("edge-pri0-diverse5.mps", "edge-pri0-maxmin0.mps", "edge-pri0-maxmin1.mps", "edge-pri0-maxmin2.mps", 
-    "edge-pri0-maxmin3.mps", "edge-pri0-maxmin4.mps", "edge-pri0-mincost.mps", "edge-pri0-minutil.mps")
-foreach ($m in $models) 
-{
-    build3\Release\ClpInterface-cpp.exe $dir\$m primals
-}
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 107773 COLUMNS
-At line 985590 RHS
-At line 1038930 ENDATA
-Problem MODEL has 107769 rows, 160230 columns and 1514848 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-diverse5.mps in 0.726 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-diverse5.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 52908 (-54861) rows, 151776 (-8454) columns and 1052750 (-462098) elements
-Perturbing problem by 0.001% of 6699.3742 - largest nonzero change 0.9833133 ( 121.4728%) - largest zero change 0
-9780  Obj 3.1841323e+12 Primal inf 11185879 (16602) Dual inf 2.9939865e+14 (99949)
-20049  Obj 6.7298386e+12 Primal inf 2299029.5 (7809) Dual inf 1.13055e+14 (41919)
-25917  Obj 8.0832406e+12 Primal inf 87360.439 (3510) Dual inf 1.4479126e+12 (13263)
-26895  Obj 8.1472307e+12 Primal inf 0.54513862 (3433) Dual inf 3.5325325e+08 (11448)
-27873  Obj 8.1359253e+12 Primal inf 0.54513862 (3433) Dual inf 75912000 (7577)
-28851  Obj 8.1269797e+12 Primal inf 0.54513862 (3433) Dual inf 27290000 (4242)
-29340  Obj 8.1238973e+12 Primal inf 0.54513862 (3433) Dual inf 16152500 (3779)
-29829  Obj 8.1206902e+12 Primal inf 0.54513862 (3433) Dual inf 11002000 (3154)
-30807  Obj 8.1176558e+12 Primal inf 0.54513862 (3433) Dual inf 762000 (922)
-31234  Obj 8.117447e+12 Primal inf 0.54513862 (3433)
-Primal infeasible - objective value 8.1174432e+12
-Presolved problem not optimal, resolve after postsolve
-After Postsolve, objective 8.1174432e+12, infeasibilities - dual 1.2408995e+09 (3425), primal 0 (0)
-Perturbing problem by 1e-08% of 3131000 - largest nonzero change 9.9999292e-07 ( 4.9372691e-08%) - largest zero change 0
-0  Obj 8.1174432e+12 Dual inf 1.2408995e+09 (3425)
-1600  Obj 8.117443e+12 Dual inf 2.60753e+08 (1825)
-2200  Obj 8.117443e+12 Dual inf 76919500 (1225)
-3000  Obj 8.117443e+12 Dual inf 6998500 (425)
-Optimal - objective value 8.117443e+12
-Optimal objective 8.117442982e+12 - 34659 iterations time 14.122, Presolve 0.51
-Status = 0 Objective = 8.117442982e+12 iterations = 34659
-
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 58118 COLUMNS
-At line 910716 RHS
-At line 926519 ENDATA
-Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin0.mps in 1.307 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin0.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 27021 (-31093) rows, 148441 (-11789) columns and 870906 (-594287) elements
-Perturbing problem by 0.001% of 14550.329 - largest nonzero change 0.99273637 ( 0.00098717882%) - largest zero change 0
-10800  Obj -14974024 Dual inf 72139.928 (72140)
-15840  Obj -20624098 Dual inf 43999.956 (43875)
-21600  Obj -26830487 Dual inf 19288.981 (19207)
-23760  Obj -28920293 Dual inf 14068.488 (11663)
-24480  Obj -29469411 Dual inf 28372.729 (21041)
-24840  Obj -29715748 Dual inf 79013.979 (20518)
-25766  Obj -30411141
-Optimal - objective value -30411124
-After Postsolve, objective -30411124, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective -30411123.92 - 25766 iterations time 5.922, Presolve 0.53
-Status = 0 Objective = -30411123.92 iterations = 25766
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 58118 COLUMNS
-At line 910716 RHS
-At line 938691 ENDATA
-Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin1.mps in 0.756 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin1.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 48903 (-9211) rows, 147170 (-13060) columns and 1004141 (-461052) elements
-Perturbing problem by 0.001% of 10993.404 - largest nonzero change 0.99419421 ( 0.0017619754%) - largest zero change 0
-8442  Obj -13739608 Primal inf 19744573 (20011) Dual inf 83331293 (83399)
-19229  Obj -28236359 Primal inf 6443345.6 (14188) Dual inf 26089143 (28743)
-25795  Obj -34741947 Primal inf 178263.06 (11084) Dual inf 13129284 (14045)
-26264  Obj -34822864 Primal inf 76030.587 (11039) Dual inf 5776541 (9101)
-26733  Obj -34864661 Primal inf 4207.8506 (11011) Dual inf 4989427 (9395)
-27792  Obj -34938707 Primal inf 5.6549556 (11007)
-27792  Obj -34938707 Primal inf 5.6549556 (11007)
-Primal infeasible - objective value -34938707
-Presolved problem not optimal, resolve after postsolve
-After Postsolve, objective -34938707, infeasibilities - dual 10694.999 (10695), primal 29.156433 (22370)
-Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
-0  Obj -34938682 Primal inf 0.00024500008 (8) Dual inf 10694.989 (10695)
-3400  Obj -34938682 Dual inf 7633.9924 (7634)
-6200  Obj -34938682 Dual inf 4805.9952 (4806)
-6800  Obj -34938682 Dual inf 4205.9958 (4206)
-9400  Obj -34938682 Dual inf 1603.9984 (1604)
-Optimal - objective value -34938682
-Optimal objective -34938681.92 - 38547 iterations time 11.272, Presolve 0.51
-Status = 0 Objective = -34938681.92 iterations = 38547
-
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 58118 COLUMNS
-At line 910716 RHS
-At line 938691 ENDATA
-Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin2.mps in 0.754 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin2.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 49160 (-8954) rows, 147601 (-12629) columns and 1019408 (-445785) elements
-Perturbing problem by 0.001% of 12849.757 - largest nonzero change 0.98325753 ( 0.0014591603%) - largest zero change 0
-6580  Obj -13351984 Primal inf 24260010 (21104) Dual inf 96795719 (96787)
-16450  Obj -29190714 Primal inf 10327106 (15617) Dual inf 39777378 (40928)
-17860  Obj -31040714 Primal inf 8600809.9 (14930) Dual inf 33077389 (37083)
-21150  Obj -35359058 Primal inf 4543076.2 (13222) Dual inf 24207462 (26389)
-24440  Obj -38469911 Primal inf 1471739.3 (11771) Dual inf 27958177 (21733)
-25380  Obj -39200122 Primal inf 748338.38 (11443) Dual inf 20914823 (20792)
-26790  Obj -39862919 Primal inf 88429.601 (11035) Dual inf 19427760 (18441)
-27260  Obj -39936981 Primal inf 251.96348 (10994) Dual inf 10042.998 (2047)
-28617  Obj -40084386 Primal inf 5.9615075 (10993)
-Primal infeasible - objective value -40084386
-Presolved problem not optimal, resolve after postsolve
-After Postsolve, objective -40084386, infeasibilities - dual 10681.999 (10682), primal 33.422646 (22539)
-Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
-0  Obj -40084358 Primal inf 0.00023800014 (15) Dual inf 10681.989 (10682)
-3400  Obj -40084358 Dual inf 7878.9921 (7879)
-7200  Obj -40084358 Dual inf 4027.996 (4028)
-11133  Obj -40084358
-Optimal - objective value -40084358
-Optimal objective -40084357.92 - 39750 iterations time 11.252, Presolve 0.51
-Status = 0 Objective = -40084357.92 iterations = 39750
-
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 58118 COLUMNS
-At line 910716 RHS
-At line 938691 ENDATA
-Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin3.mps in 0.714 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin3.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 49221 (-8893) rows, 147627 (-12603) columns and 1021446 (-443747) elements
-Perturbing problem by 0.001% of 13357.834 - largest nonzero change 0.99030263 ( 0.0010752612%) - largest zero change 0
-10362  Obj -22392713 Primal inf 20520476 (19005) Dual inf 71346309 (71513)
-20253  Obj -38005166 Primal inf 5781032.4 (13709) Dual inf 22475288 (27189)
-25434  Obj -43179212 Primal inf 606233.85 (11351) Dual inf 16459962 (15504)
-26376  Obj -43623101 Primal inf 143186.57 (11117) Dual inf 29586194 (18135)
-26847  Obj -43690001 Primal inf 41784.656 (11074) Dual inf 42434545 (21062)
-27318  Obj -43782579 Primal inf 6.7349911 (11051) Dual inf 1171.9988 (1172)
-28438  Obj -43810431 Primal inf 6.7349911 (11051)
-Primal infeasible - objective value -43810431
-Presolved problem not optimal, resolve after postsolve
-After Postsolve, objective -43810431, infeasibilities - dual 10707.999 (10708), primal 36.803062 (22581)
-Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
-0  Obj -43810400 Primal inf 0.00026500014 (13) Dual inf 10707.989 (10708)
-3400  Obj -43810400 Dual inf 7949.992 (7950)
-7200  Obj -43810400 Dual inf 4149.9959 (4150)
-11000  Obj -43810400 Dual inf 293.99971 (294)
-Optimal - objective value -43810400
-Optimal objective -43810399.92 - 39544 iterations time 10.042, Presolve 0.49
-Status = 0 Objective = -43810399.92 iterations = 39544
-
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 58118 COLUMNS
-At line 910716 RHS
-At line 938691 ENDATA
-Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin4.mps in 0.738 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin4.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 49235 (-8879) rows, 147642 (-12588) columns and 1022106 (-443087) elements
-Perturbing problem by 0.001% of 13595.384 - largest nonzero change 0.97961841 ( 0.00099705885%) - largest zero change 0
-9420  Obj -21577467 Primal inf 23251123 (19583) Dual inf 77142131 (77553)
-19782  Obj -39152742 Primal inf 6158584.7 (14183) Dual inf 24666099 (28503)
-25905  Obj -45034148 Primal inf 191730.05 (11350) Dual inf 24075756 (18411)
-26376  Obj -45111696 Primal inf 81106.668 (11308) Dual inf 13786476 (16243)
-26847  Obj -45173012 Primal inf 3139.2408 (11263) Dual inf 16696321 (14105)
-27844  Obj -45285268 Primal inf 7.7883173 (11263)
-Primal infeasible - objective value -45285268
-Presolved problem not optimal, resolve after postsolve
-After Postsolve, objective -45285268, infeasibilities - dual 11108.999 (11102), primal 38.714743 (22581)
-Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
-0  Obj -45285236 Primal inf 0.00032000015 (14) Dual inf 11112.989 (11106)
-3400  Obj -45285236 Dual inf 8268.9917 (8269)
-7200  Obj -45285236 Dual inf 4468.9955 (4469)
-11200  Obj -45285236 Dual inf 462.99954 (463)
-Optimal - objective value -45285236
-Optimal objective -45285235.92 - 39314 iterations time 9.522, Presolve 0.48
-Status = 0 Objective = -45285235.92 iterations = 39314
-
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 58118 COLUMNS
-At line 910716 RHS
-At line 939228 ENDATA
-Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-mincost.mps in 0.724 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-mincost.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 52224 (-5890) rows, 148447 (-11783) columns and 1042862 (-422331) elements
-Perturbing problem by 0.001% of 13059.218 - largest nonzero change 0.9847535 ( 0.0017983281%) - largest zero change 0
-9720  Obj 2.7647875e+12 Primal inf 12131831 (16709) Dual inf 2.9309223e+14 (97962)
-20412  Obj 6.7475653e+12 Primal inf 2166817.7 (8148) Dual inf 1.0040754e+14 (36160)
-25758  Obj 8.1526371e+12 Primal inf 1.1929388 (4589) Dual inf 2.62044e+08 (9158)
-26244  Obj 8.1411313e+12 Primal inf 1.1929388 (4589) Dual inf 1.9504025e+08 (8756)
-27216  Obj 8.1223931e+12 Primal inf 1.1929388 (4589) Dual inf 71710000 (7597)
-27702  Obj 8.1183346e+12 Primal inf 1.1929388 (4589) Dual inf 60587750 (6328)
-28674  Obj 8.1102964e+12 Primal inf 1.1929388 (4589) Dual inf 33029250 (5068)
-29646  Obj 8.1031303e+12 Primal inf 1.1929388 (4589) Dual inf 12102500 (3490)
-30618  Obj 8.0986291e+12 Primal inf 1.1929388 (4589) Dual inf 2622125 (1439)
-31398  Obj 8.0976833e+12 Primal inf 1.1929388 (4589)
-Primal infeasible - objective value 8.0976778e+12
-Presolved problem not optimal, resolve after postsolve
-After Postsolve, objective 8.0976778e+12, infeasibilities - dual 1.6109165e+09 (4579), primal 0 (0)
-Perturbing problem by 1e-08% of 3131000 - largest nonzero change 9.9999292e-07 ( 4.9372691e-08%) - largest zero change 0
-0  Obj 8.0976778e+12 Dual inf 1.6109165e+09 (4579)
-3600  Obj 8.0976775e+12 Dual inf 29903500 (979)
-Optimal - objective value 8.0976775e+12
-Optimal objective 8.097677504e+12 - 35977 iterations time 10.872, Presolve 0.49
-Status = 0 Objective = 8.097677504e+12 iterations = 35977
-
-
-Successfully initialized clp interface
-Set log level 1
-Set limits maximum seconds=-1 maximum iterations=2147483647
-Set tolerances dual=1e-07 primal=1e-07
-At line 1 NAME          MODEL
-At line 2 ROWS
-At line 71082 COLUMNS
-At line 1991884 RHS
-At line 2026878 ENDATA
-Problem MODEL has 71078 rows, 160231 columns and 3761141 elements
-Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-minutil.mps in 1.805 seconds
-Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-minutil.mps status=1
-Solve type 2
-Special options 0
-More special options 2
-Independent option 0 = 0
-Independent option 1 = 32768
-Independent option 2 = 3
-Perturbation 50
-Presolve type=0 passes=10
-Presolve 49167 (-21911) rows, 135600 (-24631) columns and 1717812 (-2043329) elements
-Perturbing problem by 0.001% of 436.47534 - largest nonzero change 0.001790428 ( 0.0035516934%) - largest zero change 0
-8460  Obj 1 Primal inf 530639.31 (15741) Dual inf 3.4130976e+15 (82541)
-17390  Obj 1 Primal inf 123917.77 (8945) Dual inf 1.2575094e+15 (33534)
-22560  Obj 1 Primal inf 3353.9996 (5237) Dual inf 1.2130473e+14 (15123)
-23030  Obj 1 Primal inf 225.35307 (5138) Dual inf 8.5281966e+13 (17431)
-23185  Obj 1 Primal inf 1.4842271 (5121) Dual inf 6.6951826e+11 (71)
-Primal infeasible - objective value 0.99999996
-Presolved problem not optimal, resolve after postsolve
-After Postsolve, objective 1, infeasibilities - dual 0 (0), primal 9.5729843 (15897)
-PrimalInfeasible objective 1 - 23286 iterations time 5.432, Presolve 1.10
-Status = 1 Objective = 1 iterations = 23286
-
-
 =================================================================================================================
 Dual Simplex
 
@@ -894,6 +557,344 @@ After Postsolve, objective 1, infeasibilities - dual 0 (0), primal 0 (0)
 Optimal objective 1 - 23413 iterations time 2.872, Presolve 1.14
 Status = 0 Objective = 1 iterations = 23413
 
+
+===============================================================================================
+Primal Simplex
+
+$dir = "c:\users\krish\work\lpbench\wanlpv2"
+$models = @("edge-pri0-diverse5.mps", "edge-pri0-maxmin0.mps", "edge-pri0-maxmin1.mps", "edge-pri0-maxmin2.mps", 
+    "edge-pri0-maxmin3.mps", "edge-pri0-maxmin4.mps", "edge-pri0-mincost.mps", "edge-pri0-minutil.mps")
+foreach ($m in $models) 
+{
+    build3\Release\ClpInterface-cpp.exe $dir\$m primals
+}
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 107773 COLUMNS
+At line 985590 RHS
+At line 1038930 ENDATA
+Problem MODEL has 107769 rows, 160230 columns and 1514848 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-diverse5.mps in 0.726 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-diverse5.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 52908 (-54861) rows, 151776 (-8454) columns and 1052750 (-462098) elements
+Perturbing problem by 0.001% of 6699.3742 - largest nonzero change 0.9833133 ( 121.4728%) - largest zero change 0
+9780  Obj 3.1841323e+12 Primal inf 11185879 (16602) Dual inf 2.9939865e+14 (99949)
+20049  Obj 6.7298386e+12 Primal inf 2299029.5 (7809) Dual inf 1.13055e+14 (41919)
+25917  Obj 8.0832406e+12 Primal inf 87360.439 (3510) Dual inf 1.4479126e+12 (13263)
+26895  Obj 8.1472307e+12 Primal inf 0.54513862 (3433) Dual inf 3.5325325e+08 (11448)
+27873  Obj 8.1359253e+12 Primal inf 0.54513862 (3433) Dual inf 75912000 (7577)
+28851  Obj 8.1269797e+12 Primal inf 0.54513862 (3433) Dual inf 27290000 (4242)
+29340  Obj 8.1238973e+12 Primal inf 0.54513862 (3433) Dual inf 16152500 (3779)
+29829  Obj 8.1206902e+12 Primal inf 0.54513862 (3433) Dual inf 11002000 (3154)
+30807  Obj 8.1176558e+12 Primal inf 0.54513862 (3433) Dual inf 762000 (922)
+31234  Obj 8.117447e+12 Primal inf 0.54513862 (3433)
+Primal infeasible - objective value 8.1174432e+12
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective 8.1174432e+12, infeasibilities - dual 1.2408995e+09 (3425), primal 0 (0)
+Perturbing problem by 1e-08% of 3131000 - largest nonzero change 9.9999292e-07 ( 4.9372691e-08%) - largest zero change 0
+0  Obj 8.1174432e+12 Dual inf 1.2408995e+09 (3425)
+1600  Obj 8.117443e+12 Dual inf 2.60753e+08 (1825)
+2200  Obj 8.117443e+12 Dual inf 76919500 (1225)
+3000  Obj 8.117443e+12 Dual inf 6998500 (425)
+Optimal - objective value 8.117443e+12
+Optimal objective 8.117442982e+12 - 34659 iterations time 14.122, Presolve 0.51
+Status = 0 Objective = 8.117442982e+12 iterations = 34659
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 926519 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin0.mps in 1.307 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin0.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 27021 (-31093) rows, 148441 (-11789) columns and 870906 (-594287) elements
+Perturbing problem by 0.001% of 14550.329 - largest nonzero change 0.99273637 ( 0.00098717882%) - largest zero change 0
+10800  Obj -14974024 Dual inf 72139.928 (72140)
+15840  Obj -20624098 Dual inf 43999.956 (43875)
+21600  Obj -26830487 Dual inf 19288.981 (19207)
+23760  Obj -28920293 Dual inf 14068.488 (11663)
+24480  Obj -29469411 Dual inf 28372.729 (21041)
+24840  Obj -29715748 Dual inf 79013.979 (20518)
+25766  Obj -30411141
+Optimal - objective value -30411124
+After Postsolve, objective -30411124, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -30411123.92 - 25766 iterations time 5.922, Presolve 0.53
+Status = 0 Objective = -30411123.92 iterations = 25766
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin1.mps in 0.756 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin1.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 48903 (-9211) rows, 147170 (-13060) columns and 1004141 (-461052) elements
+Perturbing problem by 0.001% of 10993.404 - largest nonzero change 0.99419421 ( 0.0017619754%) - largest zero change 0
+8442  Obj -13739608 Primal inf 19744573 (20011) Dual inf 83331293 (83399)
+19229  Obj -28236359 Primal inf 6443345.6 (14188) Dual inf 26089143 (28743)
+25795  Obj -34741947 Primal inf 178263.06 (11084) Dual inf 13129284 (14045)
+26264  Obj -34822864 Primal inf 76030.587 (11039) Dual inf 5776541 (9101)
+26733  Obj -34864661 Primal inf 4207.8506 (11011) Dual inf 4989427 (9395)
+27792  Obj -34938707 Primal inf 5.6549556 (11007)
+27792  Obj -34938707 Primal inf 5.6549556 (11007)
+Primal infeasible - objective value -34938707
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -34938707, infeasibilities - dual 10694.999 (10695), primal 29.156433 (22370)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -34938682 Primal inf 0.00024500008 (8) Dual inf 10694.989 (10695)
+3400  Obj -34938682 Dual inf 7633.9924 (7634)
+6200  Obj -34938682 Dual inf 4805.9952 (4806)
+6800  Obj -34938682 Dual inf 4205.9958 (4206)
+9400  Obj -34938682 Dual inf 1603.9984 (1604)
+Optimal - objective value -34938682
+Optimal objective -34938681.92 - 38547 iterations time 11.272, Presolve 0.51
+Status = 0 Objective = -34938681.92 iterations = 38547
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin2.mps in 0.754 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin2.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 49160 (-8954) rows, 147601 (-12629) columns and 1019408 (-445785) elements
+Perturbing problem by 0.001% of 12849.757 - largest nonzero change 0.98325753 ( 0.0014591603%) - largest zero change 0
+6580  Obj -13351984 Primal inf 24260010 (21104) Dual inf 96795719 (96787)
+16450  Obj -29190714 Primal inf 10327106 (15617) Dual inf 39777378 (40928)
+17860  Obj -31040714 Primal inf 8600809.9 (14930) Dual inf 33077389 (37083)
+21150  Obj -35359058 Primal inf 4543076.2 (13222) Dual inf 24207462 (26389)
+24440  Obj -38469911 Primal inf 1471739.3 (11771) Dual inf 27958177 (21733)
+25380  Obj -39200122 Primal inf 748338.38 (11443) Dual inf 20914823 (20792)
+26790  Obj -39862919 Primal inf 88429.601 (11035) Dual inf 19427760 (18441)
+27260  Obj -39936981 Primal inf 251.96348 (10994) Dual inf 10042.998 (2047)
+28617  Obj -40084386 Primal inf 5.9615075 (10993)
+Primal infeasible - objective value -40084386
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -40084386, infeasibilities - dual 10681.999 (10682), primal 33.422646 (22539)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -40084358 Primal inf 0.00023800014 (15) Dual inf 10681.989 (10682)
+3400  Obj -40084358 Dual inf 7878.9921 (7879)
+7200  Obj -40084358 Dual inf 4027.996 (4028)
+11133  Obj -40084358
+Optimal - objective value -40084358
+Optimal objective -40084357.92 - 39750 iterations time 11.252, Presolve 0.51
+Status = 0 Objective = -40084357.92 iterations = 39750
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin3.mps in 0.714 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin3.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 49221 (-8893) rows, 147627 (-12603) columns and 1021446 (-443747) elements
+Perturbing problem by 0.001% of 13357.834 - largest nonzero change 0.99030263 ( 0.0010752612%) - largest zero change 0
+10362  Obj -22392713 Primal inf 20520476 (19005) Dual inf 71346309 (71513)
+20253  Obj -38005166 Primal inf 5781032.4 (13709) Dual inf 22475288 (27189)
+25434  Obj -43179212 Primal inf 606233.85 (11351) Dual inf 16459962 (15504)
+26376  Obj -43623101 Primal inf 143186.57 (11117) Dual inf 29586194 (18135)
+26847  Obj -43690001 Primal inf 41784.656 (11074) Dual inf 42434545 (21062)
+27318  Obj -43782579 Primal inf 6.7349911 (11051) Dual inf 1171.9988 (1172)
+28438  Obj -43810431 Primal inf 6.7349911 (11051)
+Primal infeasible - objective value -43810431
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -43810431, infeasibilities - dual 10707.999 (10708), primal 36.803062 (22581)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -43810400 Primal inf 0.00026500014 (13) Dual inf 10707.989 (10708)
+3400  Obj -43810400 Dual inf 7949.992 (7950)
+7200  Obj -43810400 Dual inf 4149.9959 (4150)
+11000  Obj -43810400 Dual inf 293.99971 (294)
+Optimal - objective value -43810400
+Optimal objective -43810399.92 - 39544 iterations time 10.042, Presolve 0.49
+Status = 0 Objective = -43810399.92 iterations = 39544
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin4.mps in 0.738 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin4.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 49235 (-8879) rows, 147642 (-12588) columns and 1022106 (-443087) elements
+Perturbing problem by 0.001% of 13595.384 - largest nonzero change 0.97961841 ( 0.00099705885%) - largest zero change 0
+9420  Obj -21577467 Primal inf 23251123 (19583) Dual inf 77142131 (77553)
+19782  Obj -39152742 Primal inf 6158584.7 (14183) Dual inf 24666099 (28503)
+25905  Obj -45034148 Primal inf 191730.05 (11350) Dual inf 24075756 (18411)
+26376  Obj -45111696 Primal inf 81106.668 (11308) Dual inf 13786476 (16243)
+26847  Obj -45173012 Primal inf 3139.2408 (11263) Dual inf 16696321 (14105)
+27844  Obj -45285268 Primal inf 7.7883173 (11263)
+Primal infeasible - objective value -45285268
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -45285268, infeasibilities - dual 11108.999 (11102), primal 38.714743 (22581)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -45285236 Primal inf 0.00032000015 (14) Dual inf 11112.989 (11106)
+3400  Obj -45285236 Dual inf 8268.9917 (8269)
+7200  Obj -45285236 Dual inf 4468.9955 (4469)
+11200  Obj -45285236 Dual inf 462.99954 (463)
+Optimal - objective value -45285236
+Optimal objective -45285235.92 - 39314 iterations time 9.522, Presolve 0.48
+Status = 0 Objective = -45285235.92 iterations = 39314
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 939228 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-mincost.mps in 0.724 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-mincost.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 52224 (-5890) rows, 148447 (-11783) columns and 1042862 (-422331) elements
+Perturbing problem by 0.001% of 13059.218 - largest nonzero change 0.9847535 ( 0.0017983281%) - largest zero change 0
+9720  Obj 2.7647875e+12 Primal inf 12131831 (16709) Dual inf 2.9309223e+14 (97962)
+20412  Obj 6.7475653e+12 Primal inf 2166817.7 (8148) Dual inf 1.0040754e+14 (36160)
+25758  Obj 8.1526371e+12 Primal inf 1.1929388 (4589) Dual inf 2.62044e+08 (9158)
+26244  Obj 8.1411313e+12 Primal inf 1.1929388 (4589) Dual inf 1.9504025e+08 (8756)
+27216  Obj 8.1223931e+12 Primal inf 1.1929388 (4589) Dual inf 71710000 (7597)
+27702  Obj 8.1183346e+12 Primal inf 1.1929388 (4589) Dual inf 60587750 (6328)
+28674  Obj 8.1102964e+12 Primal inf 1.1929388 (4589) Dual inf 33029250 (5068)
+29646  Obj 8.1031303e+12 Primal inf 1.1929388 (4589) Dual inf 12102500 (3490)
+30618  Obj 8.0986291e+12 Primal inf 1.1929388 (4589) Dual inf 2622125 (1439)
+31398  Obj 8.0976833e+12 Primal inf 1.1929388 (4589)
+Primal infeasible - objective value 8.0976778e+12
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective 8.0976778e+12, infeasibilities - dual 1.6109165e+09 (4579), primal 0 (0)
+Perturbing problem by 1e-08% of 3131000 - largest nonzero change 9.9999292e-07 ( 4.9372691e-08%) - largest zero change 0
+0  Obj 8.0976778e+12 Dual inf 1.6109165e+09 (4579)
+3600  Obj 8.0976775e+12 Dual inf 29903500 (979)
+Optimal - objective value 8.0976775e+12
+Optimal objective 8.097677504e+12 - 35977 iterations time 10.872, Presolve 0.49
+Status = 0 Objective = 8.097677504e+12 iterations = 35977
+
+
+Successfully initialized clp interface
+Set log level 1
+Set limits maximum seconds=-1 maximum iterations=2147483647
+Set tolerances dual=1e-07 primal=1e-07
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 71082 COLUMNS
+At line 1991884 RHS
+At line 2026878 ENDATA
+Problem MODEL has 71078 rows, 160231 columns and 3761141 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-minutil.mps in 1.805 seconds
+Read c:\users\krish\work\lpbench\wanlpv2\edge-pri0-minutil.mps status=1
+Solve type 2
+Special options 0
+More special options 2
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Perturbation 50
+Presolve type=0 passes=10
+Presolve 49167 (-21911) rows, 135600 (-24631) columns and 1717812 (-2043329) elements
+Perturbing problem by 0.001% of 436.47534 - largest nonzero change 0.001790428 ( 0.0035516934%) - largest zero change 0
+8460  Obj 1 Primal inf 530639.31 (15741) Dual inf 3.4130976e+15 (82541)
+17390  Obj 1 Primal inf 123917.77 (8945) Dual inf 1.2575094e+15 (33534)
+22560  Obj 1 Primal inf 3353.9996 (5237) Dual inf 1.2130473e+14 (15123)
+23030  Obj 1 Primal inf 225.35307 (5138) Dual inf 8.5281966e+13 (17431)
+23185  Obj 1 Primal inf 1.4842271 (5121) Dual inf 6.6951826e+11 (71)
+Primal infeasible - objective value 0.99999996
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective 1, infeasibilities - dual 0 (0), primal 9.5729843 (15897)
+PrimalInfeasible objective 1 - 23286 iterations time 5.432, Presolve 1.10
+Status = 1 Objective = 1 iterations = 23286
+
+
 =============================================================================================
 
 Primal simplex with idiot crash starting basis.
@@ -1191,3 +1192,300 @@ Optimal - objective value 1
 Optimal objective 1 - 43622 iterations time 6.672, Presolve 0.94, Idiot 3.82
 Unscaled problem has primal infeasibilities
 Status = 0 Objective = 1 iterations = 43622
+
+===============================================================================================================
+
+Primal simplex using Clp standalone executable. This is to show that the
+internally developed ClpInterface and Clp give the same answers. Notice how the
+times vary for the same execution. This is likely due to the laptop processor or
+some other CPU activity increasing the wall clock time.
+
+PS C:\Users\krish\Work\WANLP\CLP\CoinWrap> foreach ($m in $edge)
+>> {
+>>     #build3\Release\ClpInterface-cpp.exe $dir\$m primals
+>>     ..\x64\release\clp.exe $dir\$m primals
+>> }
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-diverse5.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 107773 COLUMNS
+At line 985590 RHS
+At line 1038930 ENDATA
+Problem MODEL has 107769 rows, 160230 columns and 1514848 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-diverse5.mps in 0.836 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 52908 (-54861) rows, 151776 (-8454) columns and 1052750 (-462098) elements
+Perturbing problem by 0.001% of 6699.3742 - largest nonzero change 0.9833133 ( 121.4728%) - largest zero change 0
+9780  Obj 3.1841323e+12 Primal inf 11185879 (16602) Dual inf 2.9939865e+14 (99949)
+19560  Obj 6.586131e+12 Primal inf 2574406.8 (8225) Dual inf 1.190446e+14 (44229)
+25917  Obj 8.0832406e+12 Primal inf 87360.439 (3510) Dual inf 1.4479126e+12 (13263)
+26895  Obj 8.1472307e+12 Primal inf 0.54513862 (3433) Dual inf 3.5325325e+08 (11448)
+27873  Obj 8.1359253e+12 Primal inf 0.54513862 (3433) Dual inf 75912000 (7577)
+28362  Obj 8.1317048e+12 Primal inf 0.54513862 (3433) Dual inf 52748000 (5729)
+28851  Obj 8.1269797e+12 Primal inf 0.54513862 (3433) Dual inf 27290000 (4242)
+29829  Obj 8.1206902e+12 Primal inf 0.54513862 (3433) Dual inf 11002000 (3154)
+30807  Obj 8.1176558e+12 Primal inf 0.54513862 (3433) Dual inf 762000 (922)
+31234  Obj 8.117447e+12 Primal inf 0.54513862 (3433)
+31234  Obj 8.117447e+12 Primal inf 0.54513862 (3433)
+31234  Obj 8.117447e+12 Primal inf 0.54513862 (3433)
+31234  Obj 8.117447e+12 Primal inf 0.54513862 (3433)
+31234  Obj 8.117447e+12 Primal inf 0.54513862 (3433)
+Primal infeasible - objective value 8.1174432e+12
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective 8.1174432e+12, infeasibilities - dual 1.2408995e+09 (3425), primal 0 (0)
+Perturbing problem by 1e-08% of 3131000 - largest nonzero change 9.9999292e-07 ( 4.9372691e-08%) - largest zero change 0
+0  Obj 8.1174432e+12 Dual inf 1.2408995e+09 (3425)
+400  Obj 8.1174432e+12 Dual inf 9.57294e+08 (3025)
+800  Obj 8.1174431e+12 Dual inf 7.051005e+08 (2625)
+1600  Obj 8.117443e+12 Dual inf 2.60753e+08 (1825)
+2800  Obj 8.117443e+12 Dual inf 15626500 (625)
+Optimal - objective value 8.117443e+12
+Optimal objective 8.117442982e+12 - 34659 iterations time 21.622, Presolve 0.53
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin0.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 926519 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin0.mps in 0.805 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 27021 (-31093) rows, 148441 (-11789) columns and 870906 (-594287) elements
+Perturbing problem by 0.001% of 14550.329 - largest nonzero change 0.99273637 ( 0.00098717882%) - largest zero change 0
+11520  Obj -15776940 Dual inf 67572.932 (67573)
+20880  Obj -26152755 Dual inf 25003.973 (26899)
+24480  Obj -29469411 Dual inf 28372.729 (21041)
+25560  Obj -30348859 Dual inf 12629.991 (9447)
+Optimal - objective value -30411124
+After Postsolve, objective -30411124, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -30411123.92 - 25766 iterations time 4.152, Presolve 0.48
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin1.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin1.mps in 0.693 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 48903 (-9211) rows, 147170 (-13060) columns and 1004141 (-461052) elements
+Perturbing problem by 0.001% of 10993.404 - largest nonzero change 0.99419421 ( 0.0017619754%) - largest zero change 0
+10787  Obj -16975974 Primal inf 16823770 (18714) Dual inf 68531330 (68681)
+22043  Obj -31661856 Primal inf 3270456.3 (12728) Dual inf 16385876 (20171)
+25795  Obj -34741947 Primal inf 178263.06 (11084) Dual inf 13129284 (14045)
+26264  Obj -34822864 Primal inf 76030.587 (11039) Dual inf 5776541 (9101)
+26733  Obj -34864661 Primal inf 4207.8506 (11011) Dual inf 4989427 (9395)
+27792  Obj -34938707 Primal inf 5.6549556 (11007)
+Primal infeasible - objective value -34938707
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -34938707, infeasibilities - dual 10694.999 (10695), primal 29.156433 (22370)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -34938682 Primal inf 0.00024500008 (8) Dual inf 10694.989 (10695)
+3600  Obj -34938682 Dual inf 7433.9926 (7434)
+7600  Obj -34938682 Dual inf 3405.9966 (3406)
+Optimal - objective value -34938682
+Optimal objective -34938681.92 - 38547 iterations time 7.842, Presolve 0.47
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin2.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin2.mps in 0.682 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 49160 (-8954) rows, 147601 (-12629) columns and 1019408 (-445785) elements
+Perturbing problem by 0.001% of 12849.757 - largest nonzero change 0.98325753 ( 0.0014591603%) - largest zero change 0
+10810  Obj -20551161 Primal inf 18124594 (18773) Dual inf 69087068 (69494)
+21150  Obj -35359058 Primal inf 4543076.2 (13222) Dual inf 24207462 (26389)
+24910  Obj -38883032 Primal inf 1082393.5 (11605) Dual inf 11547789 (22009)
+25850  Obj -39500286 Primal inf 449727.34 (11284) Dual inf 6993353.7 (18276)
+26790  Obj -39862919 Primal inf 88429.601 (11035) Dual inf 19427760 (18441)
+27260  Obj -39936981 Primal inf 251.96348 (10994) Dual inf 10042.998 (2047)
+28617  Obj -40084386 Primal inf 5.9615075 (10993)
+Primal infeasible - objective value -40084386
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -40084386, infeasibilities - dual 10681.999 (10682), primal 33.422646 (22539)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -40084358 Primal inf 0.00023800014 (15) Dual inf 10681.989 (10682)
+3600  Obj -40084358 Dual inf 7678.9923 (7679)
+7400  Obj -40084358 Dual inf 3827.9962 (3828)
+Optimal - objective value -40084358
+Optimal objective -40084357.92 - 39750 iterations time 9.162, Presolve 0.47
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin3.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin3.mps in 0.659 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 49221 (-8893) rows, 147627 (-12603) columns and 1021446 (-443747) elements
+Perturbing problem by 0.001% of 13357.834 - largest nonzero change 0.99030263 ( 0.0010752612%) - largest zero change 0
+10833  Obj -23166571 Primal inf 19789711 (18737) Dual inf 68371338 (68556)
+21666  Obj -39954049 Primal inf 3869030.7 (13051) Dual inf 18819631 (26846)
+25905  Obj -43462198 Primal inf 325113.04 (11218) Dual inf 8950705 (10159)
+26376  Obj -43623101 Primal inf 143186.57 (11117) Dual inf 29586194 (18135)
+26847  Obj -43690001 Primal inf 41784.656 (11074) Dual inf 42434545 (21062)
+27318  Obj -43782579 Primal inf 6.7349911 (11051) Dual inf 1171.9988 (1172)
+28438  Obj -43810431 Primal inf 6.7349911 (11051)
+Primal infeasible - objective value -43810431
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -43810431, infeasibilities - dual 10707.999 (10708), primal 36.803062 (22581)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -43810400 Primal inf 0.00026500014 (13) Dual inf 10707.989 (10708)
+3600  Obj -43810400 Dual inf 7749.9922 (7750)
+7600  Obj -43810400 Dual inf 3787.9962 (3788)
+Optimal - objective value -43810400
+Optimal objective -43810399.92 - 39544 iterations time 9.402, Presolve 0.46
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin4.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 938691 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-maxmin4.mps in 0.648 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 49235 (-8879) rows, 147642 (-12588) columns and 1022106 (-443087) elements
+Perturbing problem by 0.001% of 13595.384 - largest nonzero change 0.97961841 ( 0.00099705885%) - largest zero change 0
+10833  Obj -23919568 Primal inf 20953019 (18848) Dual inf 68584517 (69265)
+22137  Obj -41903361 Primal inf 3419545 (13019) Dual inf 17355556 (20834)
+25905  Obj -45034148 Primal inf 191730.05 (11350) Dual inf 24075756 (18411)
+26376  Obj -45111696 Primal inf 81106.668 (11308) Dual inf 13786476 (16243)
+26847  Obj -45173012 Primal inf 3139.2408 (11263) Dual inf 16696321 (14105)
+27844  Obj -45285268 Primal inf 7.7883173 (11263)
+27844  Obj -45285268 Primal inf 7.7883173 (11263)
+Primal infeasible - objective value -45285268
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective -45285268, infeasibilities - dual 11108.999 (11102), primal 38.714743 (22581)
+Perturbing problem by 1e-08% of 1 - largest nonzero change 9.9999109e-07 ( 9.9999109e-05%) - largest zero change 0
+0  Obj -45285236 Primal inf 0.00032000015 (14) Dual inf 11112.989 (11106)
+2800  Obj -45285236 Dual inf 8868.9911 (8869)
+6000  Obj -45285236 Dual inf 5668.9943 (5669)
+9200  Obj -45285236 Dual inf 2467.9975 (2468)
+Optimal - objective value -45285236
+Optimal objective -45285235.92 - 39314 iterations time 9.762, Presolve 0.48
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-mincost.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 58118 COLUMNS
+At line 910716 RHS
+At line 939228 ENDATA
+Problem MODEL has 58114 rows, 160230 columns and 1465193 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-mincost.mps in 0.7 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 52224 (-5890) rows, 148447 (-11783) columns and 1042862 (-422331) elements
+Perturbing problem by 0.001% of 13059.218 - largest nonzero change 0.9847535 ( 0.0017983281%) - largest zero change 0
+9234  Obj 2.6846231e+12 Primal inf 12604286 (17106) Dual inf 3.0132056e+14 (100660)
+18954  Obj 6.270843e+12 Primal inf 3087718.8 (9287) Dual inf 1.2180887e+14 (42242)
+25758  Obj 8.1526371e+12 Primal inf 1.1929388 (4589) Dual inf 2.62044e+08 (9158)
+26244  Obj 8.1411313e+12 Primal inf 1.1929388 (4589) Dual inf 1.9504025e+08 (8756)
+27216  Obj 8.1223931e+12 Primal inf 1.1929388 (4589) Dual inf 71710000 (7597)
+27702  Obj 8.1183346e+12 Primal inf 1.1929388 (4589) Dual inf 60587750 (6328)
+28674  Obj 8.1102964e+12 Primal inf 1.1929388 (4589) Dual inf 33029250 (5068)
+29646  Obj 8.1031303e+12 Primal inf 1.1929388 (4589) Dual inf 12102500 (3490)
+30618  Obj 8.0986291e+12 Primal inf 1.1929388 (4589) Dual inf 2622125 (1439)
+31398  Obj 8.0976833e+12 Primal inf 1.1929388 (4589)
+Primal infeasible - objective value 8.0976778e+12
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective 8.0976778e+12, infeasibilities - dual 1.6109165e+09 (4579), primal 0 (0)
+Perturbing problem by 1e-08% of 3131000 - largest nonzero change 9.9999292e-07 ( 4.9372691e-08%) - largest zero change 0
+0  Obj 8.0976778e+12 Dual inf 1.6109165e+09 (4579)
+4000  Obj 8.0976775e+12 Dual inf 9924500 (579)
+Optimal - objective value 8.0976775e+12
+Optimal objective 8.097677504e+12 - 35977 iterations time 10.432, Presolve 0.49
+
+
+Coin LP version trunk, build Oct 23 2021
+command line - C:\Users\krish\Work\WANLP\CLP\x64\release\Clp.exe c:\users\krish\work\lpbench\wanlpv2\edge-pri0-minutil.mps primals
+At line 1 NAME          MODEL
+At line 2 ROWS
+At line 71082 COLUMNS
+At line 1991884 RHS
+At line 2026878 ENDATA
+Problem MODEL has 71078 rows, 160231 columns and 3761141 elements
+Model was imported from c:\users\krish\work\lpbench\wanlpv2\edge-pri0-minutil.mps in 1.55 seconds
+Special options 0
+More special options 2
+Perturbation = 50
+Independent option 0 = 0
+Independent option 1 = 32768
+Independent option 2 = 3
+Presolve type 0 passes 10
+Presolve 49167 (-21911) rows, 135600 (-24631) columns and 1717812 (-2043329) elements
+Perturbing problem by 0.001% of 436.47534 - largest nonzero change 0.001790428 ( 0.0035516934%) - largest zero change 0
+9870  Obj 0.99999998 Primal inf 434150.27 (14647) Dual inf 3.0130019e+15 (73854)
+18800  Obj 1 Primal inf 86509.325 (7912) Dual inf 8.4596124e+14 (26841)
+23030  Obj 1 Primal inf 225.35307 (5138) Dual inf 8.5281966e+13 (17431)
+23286  Obj 0.99999996 Primal inf 0.098520071 (5120)
+Primal infeasible - objective value 0.99999996
+Presolved problem not optimal, resolve after postsolve
+After Postsolve, objective 1, infeasibilities - dual 0 (0), primal 9.5729843 (15897)
+PrimalInfeasible objective 1 - 23286 iterations time 5.032, Presolve 0.96
+
+=================================================================================================================
