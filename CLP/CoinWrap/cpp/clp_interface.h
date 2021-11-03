@@ -19,6 +19,14 @@
  * functionality of Clp is not exposed. The functions needed to solve our LP
  * problems have been exposed, but more functions can easily be added. This
  * interface is geared for SWIG wrapper generation.
+ *
+ * Clp model can be built using CoinBuild, CoinModel, CoinPackedMatrix and then
+ * uploaded efficiently into ClpModel. CoinBuild is extremely lightweight and
+ * best suited for adding entire column or row vectors. CoinModel has more
+ * flexibility, like adding an element at a time, for the cost of being five
+ * times slower than CoinBuild but four times faster than ClpModel. This
+ * interface uses CoinModel. Add methods require row and column indices, and
+ * CoinModelHash is used to convert names to indices.
  */
 
 #ifndef COINWRAP_CLP_INTERFACE_H_
@@ -31,6 +39,8 @@
 #include "ClpSimplex.hpp"
 #include "ClpSolve.hpp"
 #include "CoinMessageHandler.hpp"
+#include "CoinModel.hpp"
+#include "CoinModelUseful.hpp"
 
 namespace coinwrap {
 
@@ -234,6 +244,9 @@ class ClpInterface {
     double MaximumSeconds() { return clp_->maximumSeconds(); }
     void SetMaximumSeconds(double value) { clp_->setMaximumSeconds(value); }
 
+    // Gets the solve time in milliseconds.
+    double SolveTimeMs() { return solve_timems_; }
+
     // Sets the log level. Values range [0, 4] with 0 being none and 4 being
     // verbose.
     void SetLogLevel(int level);
@@ -398,6 +411,37 @@ class ClpInterface {
         vec.assign(start, start + size);
     }
 
+    // Starts a new model and clears the old model build object. This should be
+    // the first call when building a model. This does not affect the state of
+    // the solver.
+    void StartModel();
+
+    // Creates a variable with specified name, and upper and lower bounds.
+    // It returns the column index assigned to the variable, or -1 if the name
+    // is already in use.
+    int AddVariable(const char* column_name, double lower_bound, double upper_bound);
+
+    // Creates a constraint with specified name, and upper and lower bounds. It
+    // returns the row index assigned to the constraint or -1 if the name is
+    // already in use.
+    int AddConstraint(const char* row_name, double lower_bound, double upper_bound);
+
+    // Sets a coefficient for an element in the constraint matrix using indices.
+    void SetCoefficient(int row_index, int column_index, double value);
+    
+    // Sets a coefficient for an element in the constraint matrix using names.
+    bool SetCoefficient(const char* row_name, const char* column_name, double value);
+    
+    // Sets the coefficient for a column in the objective using column index.
+    void SetObjective(int column_index, double value);
+
+    // Sets the coefficient for a column in the objective using column name.
+    bool SetObjective(const char* column_name, double value);
+
+    // Loads the model build object into the solver. This should be the final
+    // call after constructing the model.
+    void LoadModel();
+
  private:
     // The Clp solver.
     std::unique_ptr<ClpSimplex> clp_;
@@ -416,6 +460,16 @@ class ClpInterface {
 
     // The psi weight for positive edge pivot selection methods.
     double positive_edge_psi_;
+
+    // The solve time.
+    double solve_timems_;
+
+    // The model build object.
+    CoinModel coin_model_;
+
+    // The hash table mapping row and column names to indices.
+    CoinModelHash row_hash_;
+    CoinModelHash column_hash_;
 };
 
 } // namespace coinwrap

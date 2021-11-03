@@ -29,6 +29,8 @@ method     solve method, one of dual, primal, either, barrier";
     exit(1);
 }
 
+void CreateAndSolveModel(coinwrap::ClpInterface &clp);
+
 inline void print_double(double value) {
     std::cout << std::setiosflags(std::ios::fixed | std::ios::showpoint) << std::setw(14) << value << " ";
 }
@@ -74,6 +76,8 @@ int main(int argc, const char *argv[]) {
         clp.SolveUsingPrimalSimplex();
     } else if (recipe == "primalidiot") {
         clp.SolveUsingPrimalIdiot();
+    } else if (recipe == "makemodel") {
+        CreateAndSolveModel(clp);
     } else {
         std::cout << "Unknown recipe " << recipe << std::endl;
         return -1;
@@ -85,6 +89,7 @@ int main(int argc, const char *argv[]) {
         << " primal starting basis = " << clp.PrimalStartingBasis() << std::endl;
     std::cout << "Presolve passes = " << clp.PresolvePasses() <<  ", perturbation = " << clp.Perturbation() << std::endl;
     printf("Status = %d Objective = %.10g iterations = %ld \n", clp.Status(), clp.ObjectiveValue(), clp.Iterations());
+    std::cout << "Solve time milliseconds = " << clp.SolveTimeMs() << std::endl;
 
     int maxLines = 0;
 
@@ -117,4 +122,33 @@ int main(int argc, const char *argv[]) {
     }
     
     return 0;
+}
+
+// Creates and solves a model.
+void CreateAndSolveModel(coinwrap::ClpInterface &clp) {
+    double plusinf = std::numeric_limits<double>::infinity();
+    double minusinf = -1.0 * std::numeric_limits<double>::infinity();
+
+    int c1 = clp.AddVariable("c1", 0.0, 2.0);
+    int c2 = clp.AddVariable("c2", 0.0, plusinf);
+    int c3 = clp.AddVariable("c3", 0.0, 4.0);
+
+    int r1 = clp.AddConstraint("r1", 0.0, 1.0);
+    int r2 = clp.AddConstraint("r2", 0.0, 0.0);
+
+    clp.SetCoefficient(r1, c1, 1.0);
+    clp.SetCoefficient(r1, c2, 0);
+    clp.SetCoefficient(r1, c3, 1.0);
+
+    clp.SetCoefficient(r2, c1, 1.0);
+    clp.SetCoefficient(r2, c2, -5.0);
+    clp.SetCoefficient(r2, c3, 1.0);
+
+    clp.SetObjective(c1, 1.0);
+    clp.SetObjective(c2, 0);
+    clp.SetObjective(c3, 4.0);
+
+    clp.LoadModel();
+
+    clp.SolveUsingDualSimplex();
 }

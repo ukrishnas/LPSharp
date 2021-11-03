@@ -4,7 +4,6 @@ set(NAME ClpInterface-cpp)
 
 list(APPEND _SRCS
   clp_interface.cc
-  clp_model_builder.cc
   coin_wrap.cc
 )
 add_executable(${NAME} ${_SRCS})

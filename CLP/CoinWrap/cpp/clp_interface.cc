@@ -19,6 +19,9 @@
 #include "ClpPEPrimalColumnSteepest.hpp"
 #include "ClpSimplex.hpp"
 #include "ClpSolve.hpp"
+#include "CoinModel.hpp"
+#include "CoinModelUseful.hpp"
+#include "CoinTime.hpp"
 
 namespace coinwrap {
 
@@ -47,6 +50,10 @@ ClpInterface::ClpInterface() :
     message_handler_->setPrefix(false);
     clp_->passInMessageHandler(message_handler_.get());
     clp_->setLogLevel(0);
+
+    coin_model_ = CoinModel();
+    row_hash_ = CoinModelHash();
+    column_hash_ = CoinModelHash();
 }
 
 ClpInterface::~ClpInterface() {}
@@ -302,7 +309,9 @@ void ClpInterface::Solve() {
         std::cout << "Independent option " << i << " = " << solve_options_->independentOption(i) << std::endl;
     }
 
+    double time1 = CoinCpuTime();
     clp_->initialSolve(*solve_options_);
+    solve_timems_ = (CoinCpuTime() - time1) * 1000;
 }
 
 void ClpInterface::SolveUsingDualSimplex() {
@@ -375,6 +384,80 @@ void ClpInterface::SolveUsingBarrierMethod() {
 
     SetSolveType(SolveType::Barrier);
     Solve();
+}
+
+void ClpInterface::StartModel() {
+    // Clear the model build object and the associated hash tables.
+    coin_model_ = CoinModel();
+    row_hash_ = CoinModelHash();
+    column_hash_ = CoinModelHash();
+}
+
+int ClpInterface::AddVariable(const char* column_name, double lower_bound, double upper_bound) {
+    int column_index = column_hash_.hash(column_name);
+    if (column_index != -1) {
+        return -1;
+    }
+
+    column_index = column_hash_.numberItems();
+    column_hash_.addHash(column_index, column_name);
+    assert(column_index == column_hash_->hash(column_name));
+
+    coin_model_.setColumnName(column_index, column_name);
+    coin_model_.setColumnBounds(column_index, lower_bound, upper_bound);
+    return column_index;
+}
+
+int ClpInterface::AddConstraint(const char* row_name, double lower_bound, double upper_bound) {
+    int row_index = row_hash_.hash(row_name);
+    if (row_index != -1) {
+        return -1;
+    }
+
+    row_index = row_hash_.numberItems();
+    row_hash_.addHash(row_index, row_name);
+    assert(row_index == row_hash_.hash(row_name));
+
+    coin_model_.setRowName(row_index, row_name);
+    coin_model_.setRowBounds(row_index, lower_bound, upper_bound);
+    return row_index;
+}
+
+void ClpInterface::SetCoefficient(int row_index, int column_index, double value) {
+    // Note that no error checking is performaed. If the column index is not
+    // present, a new column index is added along with zero columns until this
+    // index.
+    coin_model_.setElement(row_index, column_index, value);
+}
+
+bool ClpInterface::SetCoefficient(const char* row_name, const char* column_name, double value) {
+    int row_index = row_hash_.hash(row_name);
+    int column_index = column_hash_.hash(column_name);
+    if (row_index == -1 || column_index == -1) {
+        return false;
+    }
+    coin_model_.setElement(row_index, column_index, value);
+    return true;
+}
+
+void ClpInterface::SetObjective(int column_index, double value) {
+    // Note that no error checking is performaed. If the column index is not
+    // present, a new column index is added along with zero columns until this
+    // index.
+    coin_model_.setColumnObjective(column_index, value);
+}
+
+bool ClpInterface::SetObjective(const char* column_name, double value) {
+    int column_index = column_hash_.hash(column_name);
+    if (column_index == -1) {
+        return false;
+    }
+    coin_model_.setColumnObjective(column_index, value);
+    return true;
+}
+
+void ClpInterface::LoadModel() {
+    clp_->loadProblem(coin_model_, false);
 }
 
 } // namespace coinwrap
