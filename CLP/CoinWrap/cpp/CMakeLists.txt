@@ -3,8 +3,9 @@ project(clpinterface-cpp LANGUAGES CXX)
 set(NAME ClpInterface-cpp)
 
 list(APPEND _SRCS
-  coin_wrap.cc
   clp_interface.cc
+  clp_model_builder.cc
+  coin_wrap.cc
 )
 add_executable(${NAME} ${_SRCS})
 
@@ -25,8 +26,8 @@ target_include_directories(${NAME} PUBLIC
 )
 
 target_link_libraries(${NAME}
-  ${PROJECT_SOURCE_DIR}/../../Clp/x64/Release/libClp.lib
-  ${PROJECT_SOURCE_DIR}/../../CoinUtils/x64/Release/libCoinUtils.lib
+  ${PROJECT_SOURCE_DIR}/../../x64/Release/libClp.lib
+  ${PROJECT_SOURCE_DIR}/../../x64/Release/libCoinUtils.lib
 )
 
 include(CTest)

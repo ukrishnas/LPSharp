@@ -8,49 +8,23 @@
  */
 
 /**
- * This is a wrapper around the Clp methods to build a model. First some
- * terminology, ClpModel is the model class, ClpSimplex is the solver class and
- * a subclass of ClpModel. CoinBuild is more efficient at adding rows or columns
- * and it is 20 times faster to build the model in CoinBuild and then sending
- * the build object to ClpModel. Alternatively a PackedMatrix can be used to
- * create the matrix and then loaded into the model.
- * 
- * multiple ways to build a model. It is more efficient to add rows or columns
- * into a build object (CoinBuild) and add the entire build object into Clp
- * model. This approach can be 20 times faster than adding rows or columns one
- * at a time into the model.
- * 
- * Note that ClpModel is a base class for ClpSimplex. The
- * solver class (ClpSimplex) is a subclass of the model class (ClpModel).  Using CoinBuild you can add rows or columns,
- * and then load the entire build object efficiently. or column at a time. This requires the
- * column to be fully formed. This wrapperCoinModel and ClpModel to incrementally add
- * variables and constraints. The recommended way to add column vectors into
- * CoinModel and then adding the entire CoinModel into the solver model is the 
- *
- *  which form the columns and rows of the model. Normal Clp methods Columns
- * Represents an interface to build a Clp model. Cl similar to the
- * MPSolverInterface in OR-Tools. The difference is that no state is maintained
- * this class and it uses native CLP model building tools like CoinBuild.
- *
- *  Methods still to be implemented:
- *   - addColumn
- *   - modifyCoefficient
- *   - setColumnBounds
- *   - setColumnName
- *   - setObjectiveCoefficient
- *   - setObjectiveOffset
- *   - setRowBounds
- *   - setRowName
+ * Clp model can be built using CoinBuild, CoinModel, CoinPackedMatrix and then
+ * uploaded efficiently into ClpModel. CoinBuild is extremely lightweight and
+ * best suited for adding entire column or row vectors. CoinModel has more
+ * flexibility like adding an element at a time for the cost of being five times
+ * slower than CoinBuild but four times faster than ClpModel. Add methods
+ * require row and column indices and a separate hash table, like CoinModelHash.
+ * This interface uses CoinModel.
  */
 
-#ifndef COINWRAP_CLPMODEL_H_
-#define COINWRAP_CLPMODEL_H_
+#ifndef COINWRAP_CLP_MODEL_BUILDER_H_
+#define COINWRAP_CLP_MODEL_BUILDER_H_
 
 #include <string>
-#include <map>
 
 #include "ClpModel.hpp"
-#include "CoinBuild.hpp"
+#include "CoinModel.hpp"
+#include "CoinModelUseful.hpp"
 
 namespace coinwrap {
 
@@ -60,30 +34,46 @@ namespace coinwrap {
 class ClpModelBuilder {
  public:
     // Initializes a new instance of the class.
-    explicit ClpModelBuilder(ClpModel *model);
+    explicit ClpModelBuilder();
 
     // Destroys an instance of the class.
     ~ClpModelBuilder();
 
-    // Create a variable with specified name, and upper and lower bound.
-    // It returns the variable index. This index can be used in add column calls.
-    int MakeRealVariable(std::string name, double lowerBound, double upperBound);
+    // Creates a variable with specified name, and upper and lower bounds.
+    // It returns the column index assigned to the variable, or -1 if the name
+    // is already in use.
+    int AddVariable(std::string name, double lower_bound, double upper_bound);
 
-    // Creates a constraint.
-    double * MakeConstraint(double lowerBound, double upperBound);
+    // Creates a constraint with specified name, and upper and lower bounds. It
+    // returns the row index assigned to the constraint or -1 if the name is
+    // already in use.
+    int AddConstraint(std::string name, double lower_bound, double upper_bound);
 
-    // Sets a coefficient in the constraint.
-    void SetCoefficient(double* constraint, std::string column, double value);
+    // Sets a coefficient in the constraint matrix by index.
+    bool SetCoefficient(int row_index, int column_index, double value);
 
-    // Creates an objective.
-    void SetObjective(std::string name);
+    // Sets a coefficient in the constraint matrix by name.
+    bool SetCoefficient(std::string row_name, std::string column_name, double value);
+    
+    // Sets the objective.
+    bool SetObjective(std::string column_name, double value);
 
-    void SetObjective(double* objective, std::string column, double value);
+    // Loads the model into the solver.
+    void LoadModel(ClpModel *clp);
 
  private:
-    ClpModel *model_;
-}
+    // The model build object.
+    CoinModel coin_model_;
+
+    // The hash table mapping row and column names to indices.
+    CoinModelHash row_hash_;
+    CoinModelHash column_hash_;
+
+    // The next row and column indices to assign to new rows and columns.
+    int next_row_index_;
+    int next_column_index_;
+};
 
 } // namespace coinwrap
 
-#endif // COINWRAP_CLPMODEL_H_
+#endif // COINWRAP_CLP_MODEL_BUILDER_H_
