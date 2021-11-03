@@ -33,7 +33,6 @@
 #define COINWRAP_CLP_INTERFACE_H_
 
 #include <memory>
-#include <string>
 #include <vector>
 
 #include "ClpSimplex.hpp"
@@ -260,7 +259,10 @@ class ClpInterface {
 
     // Loads a model from an MPS file into the solver. Returns true on success,
     // false otherwise.
-    bool ReadMps(std::string filename);
+    bool ReadMps(const char *filename);
+
+    // Writes the solver model to an MPS file.
+    void WriteMps(const char *filename) { clp_->writeMps(filename); }
 
     // Sets the primal column pivot algorithm. Returns true on success, false if
     // the pivot algorithm is not supported or applicable.
@@ -374,7 +376,7 @@ class ClpInterface {
     // vector and the objective is the objective result.
     void PrimalColumnSolution(std::vector<double> &vec) {
         int size = clp_->numberColumns();
-        const double* start = clp_->getColSolution();
+        const double *start = clp_->getColSolution();
         vec.assign(start, start + size);
     }
 
@@ -384,7 +386,7 @@ class ClpInterface {
     // corresponding variable could be considered in the solution.
     void DualColumnSolution(std::vector<double> &vec) {
         int size = clp_->numberColumns();
-        const double* start = clp_->getReducedCost();
+        const double *start = clp_->getReducedCost();
         vec.assign(start, start + size);
     }
 
@@ -407,7 +409,7 @@ class ClpInterface {
     // objective value.
     void Objective(std::vector<double> &vec) {
         int size = clp_->numberColumns();
-        double * start = clp_->objective();
+        double *start = clp_->objective();
         vec.assign(start, start + size);
     }
 
@@ -419,24 +421,24 @@ class ClpInterface {
     // Creates a variable with specified name, and upper and lower bounds.
     // It returns the column index assigned to the variable, or -1 if the name
     // is already in use.
-    int AddVariable(const char* column_name, double lower_bound, double upper_bound);
+    int AddVariable(const char *column_name, double lower_bound, double upper_bound);
 
     // Creates a constraint with specified name, and upper and lower bounds. It
     // returns the row index assigned to the constraint or -1 if the name is
     // already in use.
-    int AddConstraint(const char* row_name, double lower_bound, double upper_bound);
+    int AddConstraint(const char *row_name, double lower_bound, double upper_bound);
 
     // Sets a coefficient for an element in the constraint matrix using indices.
     void SetCoefficient(int row_index, int column_index, double value);
     
     // Sets a coefficient for an element in the constraint matrix using names.
-    bool SetCoefficient(const char* row_name, const char* column_name, double value);
+    bool SetCoefficient(const char *row_name, const char *column_name, double value);
     
     // Sets the coefficient for a column in the objective using column index.
     void SetObjective(int column_index, double value);
 
     // Sets the coefficient for a column in the objective using column name.
-    bool SetObjective(const char* column_name, double value);
+    bool SetObjective(const char *column_name, double value);
 
     // Loads the model build object into the solver. This should be the final
     // call after constructing the model.

@@ -72,9 +72,9 @@ void ClpInterface::Reset() {
     clp_->allSlackBasis(true);
 }
 
-bool ClpInterface::ReadMps(std::string filename) {
+bool ClpInterface::ReadMps(const char *filename) {
     FILE *fp;
-    fp = fopen(filename.c_str(), "r");
+    fp = fopen(filename, "r");
     if (fp) {
         fclose(fp);
     } else {
@@ -82,7 +82,7 @@ bool ClpInterface::ReadMps(std::string filename) {
     }
 
     // Always keep names and do not ignore errors.
-    int status = clp_->readMps(filename.c_str(), true, false);
+    int status = clp_->readMps(filename, true, false);
     return status == 0;
 }
 
@@ -393,7 +393,7 @@ void ClpInterface::StartModel() {
     column_hash_ = CoinModelHash();
 }
 
-int ClpInterface::AddVariable(const char* column_name, double lower_bound, double upper_bound) {
+int ClpInterface::AddVariable(const char *column_name, double lower_bound, double upper_bound) {
     int column_index = column_hash_.hash(column_name);
     if (column_index != -1) {
         return -1;
@@ -408,7 +408,7 @@ int ClpInterface::AddVariable(const char* column_name, double lower_bound, doubl
     return column_index;
 }
 
-int ClpInterface::AddConstraint(const char* row_name, double lower_bound, double upper_bound) {
+int ClpInterface::AddConstraint(const char *row_name, double lower_bound, double upper_bound) {
     int row_index = row_hash_.hash(row_name);
     if (row_index != -1) {
         return -1;
@@ -430,7 +430,7 @@ void ClpInterface::SetCoefficient(int row_index, int column_index, double value)
     coin_model_.setElement(row_index, column_index, value);
 }
 
-bool ClpInterface::SetCoefficient(const char* row_name, const char* column_name, double value) {
+bool ClpInterface::SetCoefficient(const char *row_name, const char *column_name, double value) {
     int row_index = row_hash_.hash(row_name);
     int column_index = column_hash_.hash(column_name);
     if (row_index == -1 || column_index == -1) {
@@ -447,7 +447,7 @@ void ClpInterface::SetObjective(int column_index, double value) {
     coin_model_.setColumnObjective(column_index, value);
 }
 
-bool ClpInterface::SetObjective(const char* column_name, double value) {
+bool ClpInterface::SetObjective(const char *column_name, double value) {
     int column_index = column_hash_.hash(column_name);
     if (column_index == -1) {
         return false;
