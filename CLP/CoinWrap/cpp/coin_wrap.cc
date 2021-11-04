@@ -125,6 +125,9 @@ void CreateAndSolveTestModel1(coinwrap::ClpInterface &clp) {
     clp.LoadModel();
     clp.WriteMps("test1.mps");
     clp.SolveUsingDualSimplex();
+
+    double result = clp.ObjectiveValue();
+    assert(fabs(result - 2) < 1e-7);
 }
 
 // Creates and solves a test model 2.
@@ -160,7 +163,6 @@ void CreateAndSolveTestModel2(coinwrap::ClpInterface &clp) {
         for (int j = 0; j < numberCols; j++) {
             int idx = i * numberCols + j;
             if (idx < nElements) {
-                std::cout << "Setting A[" << i << "," << j << "]" << std::endl;
                 clp.SetCoefficient(rows[i], cols[j], matrixElements[idx]);
             }
         }
