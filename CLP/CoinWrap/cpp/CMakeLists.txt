@@ -1,32 +1,49 @@
 cmake_minimum_required(VERSION 3.15)
 project(clpinterface-cpp LANGUAGES CXX)
-set(NAME ClpInterface-cpp)
 
-list(APPEND _SRCS
-  clp_interface.cc
-  coin_wrap.cc
+# Add external dependencies for libClp and libCoinUtils. The import locations
+# are where they are placed by Visual Studio during build.
+add_library(LIB_CLP SHARED IMPORTED)
+set_target_properties(LIB_CLP PROPERTIES
+  IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/../../x64/Release/libClp.lib
 )
-add_executable(${NAME} ${_SRCS})
+add_library(LIB_COINUTILS SHARED IMPORTED)
+set_target_properties(LIB_COINUTILS PROPERTIES
+  IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/../../x64/Release/libCoinUtils.lib
+)
 
-set_target_properties(${NAME} PROPERTIES
+# Create a CMake pseudo target for properties, include directories, link
+# libraries, and link options. We enable whole program optimization at link time
+# since libClp is compiled with it.
+add_library(clp_pseudo INTERFACE)
+set_target_properties(clp_pseudo PROPERTIES
   CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON
   CXX_EXTENSIONS OFF
   POSITION_INDEPENDENT_CODE ON
 )
-
-# Enable whole program optimization at link time since libClp is compiled with it.
-target_link_options(${NAME} PRIVATE "/LTCG")
-
-target_include_directories(${NAME} PUBLIC
+target_link_options(clp_pseudo INTERFACE "/LTCG")
+target_include_directories(clp_pseudo INTERFACE
   ${PROJECT_SOURCE_DIR}/../../Clp/src
   ${PROJECT_SOURCE_DIR}/../../CoinUtils/src
   ${PROJECT_SOURCE_DIR}/../../BuildTools/headers
 )
+target_link_libraries(clp_pseudo INTERFACE
+  LIB_CLP
+  LIB_COINUTILS
+)
 
-target_link_libraries(${NAME}
-  ${PROJECT_SOURCE_DIR}/../../x64/Release/libClp.lib
-  ${PROJECT_SOURCE_DIR}/../../x64/Release/libCoinUtils.lib
+# Create the Clp interface library.
+set(LIB_CLP_INTERFACE clpinterface-cpp)
+add_library(${LIB_CLP_INTERFACE} clp_interface.cc)
+target_link_libraries(${LIB_CLP_INTERFACE} clp_pseudo)
+
+# Create the Clp interface executable.
+set(EXE_CLP_INTERFACE coinwrap)
+add_executable(${EXE_CLP_INTERFACE} coin_wrap.cc)
+target_link_libraries(${EXE_CLP_INTERFACE}
+  ${LIB_CLP_INTERFACE}
+  clp_pseudo
 )
 
 include(CTest)
@@ -37,14 +54,15 @@ function(add_coinwrap_test FILE_NAME)
   get_filename_component(TEST_NAME ${FILE_NAME} NAME_WE)
 
   add_executable(${TEST_NAME} ${FILE_NAME})
-  target_include_directories(${TEST_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}../src)
+  target_link_libraries(${TEST_NAME}
+    ${LIB_CLP_INTERFACE}
+    clp_pseudo
+  )
 
-  if(BUILD_TESTING)
-    add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
-  endif()
+  add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
   message(STATUS "Configuring test ${FILE_NAME}: ...DONE")
 endfunction()
 
 # Add unit tests.
-# add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_interface_test.cc)
-
+add_coinwrap_test(${PROJECT_SOURCE_DIR}/clp_build_model_test.cc)
+# add_coinwrap_test(${PROJECT_SOURCE_DIR}/clp_solve_model_test.cc)
