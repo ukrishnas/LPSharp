@@ -12,22 +12,22 @@ set_target_properties(LIB_COINUTILS PROPERTIES
   IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/../../x64/Release/libCoinUtils.lib
 )
 
+# Set some global defaults that are used to initialize target properties when
+# the targets are created.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_EXTENSIONS False)
+
 # Create a CMake pseudo target for properties, include directories, link
 # libraries, and link options. We enable whole program optimization at link time
 # since libClp is compiled with it.
 add_library(clp_pseudo INTERFACE)
-set_target_properties(clp_pseudo PROPERTIES
-  CXX_STANDARD 17
-  CXX_STANDARD_REQUIRED ON
-  CXX_EXTENSIONS OFF
-  POSITION_INDEPENDENT_CODE ON
-)
-target_link_options(clp_pseudo INTERFACE "/LTCG")
 target_include_directories(clp_pseudo INTERFACE
   ${PROJECT_SOURCE_DIR}/../../Clp/src
   ${PROJECT_SOURCE_DIR}/../../CoinUtils/src
   ${PROJECT_SOURCE_DIR}/../../BuildTools/headers
 )
+target_link_options(clp_pseudo INTERFACE "/LTCG")
 target_link_libraries(clp_pseudo INTERFACE
   LIB_CLP
   LIB_COINUTILS
@@ -36,6 +36,9 @@ target_link_libraries(clp_pseudo INTERFACE
 # Create the Clp interface library.
 set(LIB_CLP_INTERFACE clpinterface-cpp)
 add_library(${LIB_CLP_INTERFACE} clp_interface.cc)
+set_target_properties(${LIB_CLP_INTERFACE} PROPERTIES
+  POSITION_INDEPENDENT_CODE ON
+)
 target_link_libraries(${LIB_CLP_INTERFACE} clp_pseudo)
 
 # Create the Clp interface executable.
@@ -46,6 +49,7 @@ target_link_libraries(${EXE_CLP_INTERFACE}
   clp_pseudo
 )
 
+include(GnuInstallDirs)
 include(CTest)
 
 # Builds and adds a unit test.
@@ -63,6 +67,7 @@ function(add_coinwrap_test FILE_NAME)
   message(STATUS "Configuring test ${FILE_NAME}: ...DONE")
 endfunction()
 
-# Add unit tests.
+# Add unit tests and copy test files.
 add_coinwrap_test(${PROJECT_SOURCE_DIR}/clp_build_model_test.cc)
-# add_coinwrap_test(${PROJECT_SOURCE_DIR}/clp_solve_model_test.cc)
+add_coinwrap_test(${PROJECT_SOURCE_DIR}/clp_solve_model_test.cc)
+configure_file(${PROJECT_SOURCE_DIR}/testdata/80bau38.mps ${PROJECT_BINARY_DIR} COPYONLY)

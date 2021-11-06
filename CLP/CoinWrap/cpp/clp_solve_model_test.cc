@@ -7,26 +7,23 @@
  * Umesh Krishnaswamy
  */
 
+#ifdef NDEBUG
+#undef NDEBUG
+#endif // To enable assert.
+#include <cassert>
 #include <cctype>
+#include <cstdlib>
 #include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <tuple>
 #include <vector>
 
 #include "clp_interface.h"
 
-// Prints usage and exits.
-void usage(const char * program_name) {
-    char * usage_str = " filename recipe \n\
-\n\
-positional arguments: \n\
-filename   MPS file name \n\
-method     solve method, one of dual, primal, either, barrier";
-
-    std::cout << "usage: " << program_name << usage_str << std::endl;
-    exit(1);
-}
+// Tolerance for comparing double precision values.
+const double kTolerance = 1e-4;
 
 // Prints a formatted double value.
 inline void print_double(double value) {
@@ -70,36 +67,34 @@ void PrintSolution(coinwrap::ClpInterface &clp, int max_lines) {
     std::cout << "--------------------------------------" << std::endl;
 }
 
-// Main program.
-int main(int argc, const char* argv[]) {
-    namespace fs = std::filesystem;
-    fs::path basepath;
-    if (argc < 3) {
-        usage(argv[0]);
+// Loads and solves an MPS model using a specific solver method.
+void LoadAndSolve(std::string filename, std::string recipe, double expect_objective, int expect_iterations) {
+    std::cout << "TEST LoadAndSolve filename = " << filename << " recipe = " << recipe << std::endl;
+    
+    FILE *fp;
+    fp = fopen(filename.c_str(), "r");
+    if (fp) {
+        fclose(fp);
+    } else {
+        assert(false && "Test file not found");
     }
-
-    std::string filename = argv[1];
-    std::string recipe = argv[2];
 
     coinwrap::ClpInterface clp;
     std::cout << "Successfully initialized clp interface" << std::endl; 
 
     int log_level = 3;
     clp.SetLogLevel(log_level);
-    std::cout << "Set log level " << log_level << std::endl;
+    std::cout << "Log level = " << log_level << std::endl;
 
-    // clp.SetMaximumSeconds(300);
-    std::cout << "Set limits maximum seconds=" << clp.MaximumSeconds() << 
-        " maximum iterations=" << clp.MaximumIterations() << std::endl;
+    clp.SetMaximumSeconds(60);
+    std::cout << "Solver limits maximum seconds = " << clp.MaximumSeconds() << 
+        " maximum iterations = " << clp.MaximumIterations() << std::endl;
     std::cout << "Set tolerances dual=" << clp.DualTolerance() << 
         " primal=" << clp.PrimalTolerance() << std::endl;
 
     bool status = clp.ReadMps(filename.c_str());
-    if (!status) {
-        std::cout << "ReadMps failed" << std::endl;
-        return -1;
-    }
-    std::cout << "Read " << filename << " status=" << status << std::endl;
+    std::cout << "Read " << filename << " status = " << status << std::endl;
+    assert(status && "ReadMps failed");
 
     if (recipe == "barrier") {
         clp.SolveUsingBarrierMethod();
@@ -115,7 +110,7 @@ int main(int argc, const char* argv[]) {
         clp.SolveUsingPrimalIdiot();
     } else {
         std::cout << "Unknown recipe " << recipe << std::endl;
-        return -1;
+        assert(false && "Unknown recipe");
     }
 
     // Print the solver settings.
@@ -123,9 +118,38 @@ int main(int argc, const char* argv[]) {
     std::cout << "Solve type = " << clp.GetSolveType() << " dual starting basis = " << clp.DualStartingBasis() 
         << " primal starting basis = " << clp.PrimalStartingBasis() << std::endl;
     std::cout << "Presolve passes = " << clp.PresolvePasses() <<  ", perturbation = " << clp.Perturbation() << std::endl;
-    printf("Status = %d Objective = %.10g iterations = %ld \n", clp.Status(), clp.ObjectiveValue(), clp.Iterations());
+    printf("Status = %d Objective = %.14g iterations = %ld \n", clp.Status(), clp.ObjectiveValue(), clp.Iterations());
     std::cout << "Solve time milliseconds = " << clp.SolveTimeMs() << std::endl;
     PrintSolution(clp, 10);
 
-    return 0;
+    assert(fabs(clp.ObjectiveValue() - expect_objective) < kTolerance);
+    assert(expect_iterations == clp.Iterations());
+}
+
+// Main program.
+int main(int argc, const char* argv[]) {
+    namespace fs = std::filesystem;
+    fs::path basepath;
+    if (argc > 1) {
+        basepath /= argv[1];
+    }
+
+    std::string path_80bau38 = (basepath / "80bau38.mps").string();
+
+    std::vector<std::tuple<std::string, std::string, double, int>> tests;
+    tests.push_back(std::make_tuple(path_80bau38, "duals", 987224.1924, 5556));
+    tests.push_back(std::make_tuple(path_80bau38, "dualcrash", 987224.1924, 6438));
+    tests.push_back(std::make_tuple(path_80bau38, "primals",  987224.1924, 5398));
+    tests.push_back(std::make_tuple(path_80bau38, "primalidiot", 987224.1924, 7026));
+    tests.push_back(std::make_tuple(path_80bau38, "either", 987224.1924, 3253));
+    tests.push_back(std::make_tuple(path_80bau38, "barrier", 987224.1924, 381));
+
+    for(auto it = tests.begin(); it != tests.end(); it++) {
+        std::string filename = std::get<0>(*it);
+        std::string recipe = std::get<1>(*it);
+        double expect_objective = std::get<2>(*it);
+        int expect_iterations = std::get<3>(*it);
+
+        LoadAndSolve(filename, recipe, expect_objective, expect_iterations);
+    }
 }
