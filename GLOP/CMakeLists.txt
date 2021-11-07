@@ -153,3 +153,6 @@ cmake_pop_check_state()
 include(deps)
 include(cpp)
 include(dotnet)
+
+# Build examples.
+add_subdirectory(examples)

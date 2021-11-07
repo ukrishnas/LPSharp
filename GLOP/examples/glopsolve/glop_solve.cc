@@ -211,7 +211,7 @@ glopsolve -mpsfile <MPS file> -timelimit 30 -lpalgorithm dual \n\
 Turn on verbose logging and log to a file in the current directory (default \n\
 is the system log directory). Turn off logging to standard error which is on by default. \n\
 \n\
-glopsolve --mpsfile <MPS file> --nologtosterr -v=1 -log_dir=. \n\
+glopsolve --mpsfile <MPS file> --nologtostderr -v=1 -log_dir=. \n\
 \n\
 Set solver-specific parameters in command line. \n\
 glopsolve -mpsfile <MPS file> --glop_params=\"perturb_costs_in_dual_simplex: 1 optimization_rule: 2\" \n\
