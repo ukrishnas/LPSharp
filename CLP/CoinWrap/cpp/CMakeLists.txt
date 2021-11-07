@@ -58,6 +58,7 @@ function(add_coinwrap_test FILE_NAME)
   get_filename_component(TEST_NAME ${FILE_NAME} NAME_WE)
 
   add_executable(${TEST_NAME} ${FILE_NAME})
+  target_include_directories(${TEST_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
   target_link_libraries(${TEST_NAME}
     ${LIB_CLP_INTERFACE}
     clp_pseudo
@@ -68,6 +69,6 @@ function(add_coinwrap_test FILE_NAME)
 endfunction()
 
 # Add unit tests and copy test files.
-add_coinwrap_test(${PROJECT_SOURCE_DIR}/clp_build_model_test.cc)
-add_coinwrap_test(${PROJECT_SOURCE_DIR}/clp_solve_model_test.cc)
-configure_file(${PROJECT_SOURCE_DIR}/testdata/80bau38.mps ${PROJECT_BINARY_DIR} COPYONLY)
+add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_build_model_test.cc)
+add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_solve_model_test.cc)
+configure_file(${PROJECT_SOURCE_DIR}/tests/80bau38.mps ${PROJECT_BINARY_DIR} COPYONLY)

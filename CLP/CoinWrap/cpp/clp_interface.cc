@@ -401,7 +401,7 @@ int ClpInterface::AddVariable(const char *column_name, double lower_bound, doubl
 
     column_index = column_hash_.numberItems();
     column_hash_.addHash(column_index, column_name);
-    assert(column_index == column_hash_->hash(column_name));
+    assert(column_index == column_hash_.hash(column_name));
 
     coin_model_.setColumnName(column_index, column_name);
     coin_model_.setColumnBounds(column_index, lower_bound, upper_bound);
