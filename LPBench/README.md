@@ -32,10 +32,10 @@ try GLOP in different settings.
 MSF results are from Network Designer using Invoke-MSFSolve, because LPSharp
 does not support MSF.
 
-CLP results are using `ClpInterface-cpp.exe`, which is our wrapper around Clp
+CLP results are using `coinwrap.exe`, which is our wrapper around Clp
 solver methods in `libClp` and `libCoinUtils` built from code this repository.
 It is not yet using LPSharp because the support is under development. Clp build
-also produces a standalone executable, and the results of ClpInterface-cpp and
+also produces a standalone executable, and the results of CoinWrap and
 Clp standalone executables are the same when used with default settings. Clp
 standalone exposes a number of settings in a non-obvious way, and CoinWrap
 exposes a subset in a user-friendly manner.
@@ -62,7 +62,7 @@ LPSharp> read-parameters parameters.xml           # to read custom solver parame
 LPSharp> invoke-solver s250r10
 ```
 
-__ClpInterface-cpp cheatsheet__
+__CoinWrap cheatsheet__
 
 Example execution of Netlib and Plato models in different settings. The choice
 of starting basis is baked into the executable: dual uses crash and primal uses
@@ -70,9 +70,9 @@ idiot in the code version of 10/27/2021, because they give the best results in
 WANLPv2.
 
 ```
-$ ClpInterface-cpp.exe netlib\80bau38.mps either
-$ ClpInterface-cpp.exe netlib\80bau38.mps duals
-$ ClpInterface-cpp.exe netlib\80bau38.mps primals
+$ coinwrap.exe netlib\80bau38.mps either
+$ coinwrap.exe netlib\80bau38.mps duals
+$ coinwrap.exe netlib\80bau38.mps primals
 ```
 
 __GlopSolve cheatsheet__
