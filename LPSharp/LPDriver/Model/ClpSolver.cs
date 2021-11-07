@@ -6,6 +6,7 @@
 
 namespace Microsoft.LPSharp.LPDriver.Model
 {
+    using System.Collections.Generic;
     using System.Diagnostics;
     using CoinOr.Clp;
     using Microsoft.LPSharp.LPDriver.Contract;
@@ -59,8 +60,82 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override bool Load(LPModel model)
         {
-            // TODO: need to convert string to SWIG string. Also ReadMps() is not the right method.
-            this.clp.ReadMps(null);
+            if (!model.IsValid())
+            {
+                return false;
+            }
+
+            var stopwatch = Stopwatch.StartNew();
+
+            // Clear previous model and state.
+            this.Clear();
+            this.clp.StartModel();
+
+            // Get the lower and upper variable bounds from the model.
+            model.GetVariableBounds(
+                out SparseVector<string, double> lowerBound,
+                out SparseVector<string, double> upperBound);
+
+            // Create solver variables for each column in the model.
+            var rows = new Dictionary<string, int>();
+            var columns = new Dictionary<string, int>();
+            foreach (var colName in model.A.ColumnIndices)
+            {
+                columns[colName] = this.clp.AddVariable(
+                    colName,
+                    lowerBound[colName],
+                    upperBound[colName]);
+                if (columns[colName] == -1)
+                {
+                    throw new LPSharpException($"Variable {colName} could not be created");
+                }
+            }
+
+            // Get the lower and upper constraint bounds from the model.
+            model.GetConstraintBounds(
+                out SparseVector<string, double> lowerLimit,
+                out SparseVector<string, double> upperLimit);
+
+            // Create the constraints.
+            foreach (var rowName in model.A.Indices)
+            {
+                var row = model.A[rowName];
+
+                if (rowName == model.Objective)
+                {
+                    foreach (var colName in row.Indices)
+                    {
+                        if (!this.clp.SetObjective(colName, row[colName]))
+                        {
+                            throw new LPSharpException($"Objective column {colName} could not be set");
+                        }
+                    }
+                }
+                else
+                {
+                    rows[rowName] = this.clp.AddConstraint(rowName, lowerLimit[rowName], upperLimit[rowName]);
+                    if (rows[rowName] == -1)
+                    {
+                        throw new LPSharpException($"Constraint {rowName} could not be created");
+                    }
+
+                    foreach (var colName in row.Indices)
+                    {
+                        if (!this.clp.SetCoefficient(rowName, colName, row[colName]))
+                        {
+                            throw new LPSharpException($"Coefficient row {rowName} column {colName} could not be set");
+                        }
+                    }
+                }
+            }
+
+            // Load the model into the solver.
+            this.clp.LoadModel();
+
+            stopwatch.Stop();
+            this.metrics[LPMetric.LoadTimeMs] = stopwatch.ElapsedMilliseconds;
+            this.metrics[LPMetric.ModelName] = model.Name;
+
             return true;
         }
 
@@ -123,7 +198,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             if (isOptimal)
             {
-                this.metrics[LPMetric.Objective] = this.clp.Objective();
+                this.metrics[LPMetric.Objective] = this.clp.ObjectiveValue();
                 this.metrics[LPMetric.Iterations] = this.clp.Iterations();
             }
             else
