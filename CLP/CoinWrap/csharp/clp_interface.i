@@ -9,7 +9,11 @@
 
 %module coinwrap
 
-// %include "enums.swg"
 %include "stdint.i"
+%include "std_vector.i"
+
+namespace std {
+    %template (DoubleVector) vector<double>;
+};
 
 %include "clp_interface.h"

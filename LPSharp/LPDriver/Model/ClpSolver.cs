@@ -6,6 +6,7 @@
 
 namespace Microsoft.LPSharp.LPDriver.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using CoinOr.Clp;
@@ -205,6 +206,26 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 this.RemoveMetric(LPMetric.Objective);
                 this.RemoveMetric(LPMetric.Iterations);
+            }
+
+            // Just print the first few columns of the objective to verify the methods.
+            DoubleVector columnSolutionVec = new();
+            DoubleVector reducedCostVec = new();
+            DoubleVector objectiveVec = new();
+            this.clp.PrimalColumnSolution(columnSolutionVec);
+            this.clp.DualColumnSolution(reducedCostVec);
+            this.clp.Objective(objectiveVec);
+
+            int maxColumns = Math.Min(10, columnSolutionVec.Count);
+            Console.WriteLine("{0,10} {1,10} {2,10} {3,10}", "ColIndex", "ColSolution", "ReducedCost", "Objective");
+            for (int i = 0; i < maxColumns; i++)
+            {
+                Console.WriteLine(
+                    "{0:F6} {1:G10} {2:G10} {3:G10}",
+                    i,
+                    columnSolutionVec[i],
+                    reducedCostVec[i],
+                    objectiveVec[i]);
             }
 
             return isOptimal;
