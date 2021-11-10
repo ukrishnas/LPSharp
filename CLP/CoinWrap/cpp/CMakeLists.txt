@@ -34,7 +34,7 @@ target_link_libraries(clp_pseudo INTERFACE
 )
 
 # Create the Clp interface library.
-set(LIB_CLP_INTERFACE clpinterface-cpp)
+set(LIB_CLP_INTERFACE clpinterface_cpp)
 add_library(${LIB_CLP_INTERFACE} clp_interface.cc)
 set_target_properties(${LIB_CLP_INTERFACE} PROPERTIES
   POSITION_INDEPENDENT_CODE ON
@@ -48,6 +48,10 @@ target_link_libraries(${EXE_CLP_INTERFACE}
   ${LIB_CLP_INTERFACE}
   clp_pseudo
 )
+
+# Create an alias for the project. Alias targets can be used as linkable targets
+# and as targets to read properties from.
+add_library(coinwrap::ClpInterface ALIAS ${PROJECT_NAME})
 
 include(GnuInstallDirs)
 include(CTest)
