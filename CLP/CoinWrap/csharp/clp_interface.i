@@ -16,4 +16,8 @@ namespace std {
     %template (DoubleVector) vector<double>;
 };
 
+%{
+#include "clp_interface.h"
+%}
+
 %include "clp_interface.h"

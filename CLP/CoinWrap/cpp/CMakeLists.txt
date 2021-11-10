@@ -23,6 +23,7 @@ set_target_properties(LIB_COINUTILS PROPERTIES
 # since libClp is compiled with it.
 add_library(clp_pseudo INTERFACE)
 target_include_directories(clp_pseudo INTERFACE
+  ${PROJECT_SOURCE_DIR}
   ${PROJECT_SOURCE_DIR}/../../Clp/src
   ${PROJECT_SOURCE_DIR}/../../CoinUtils/src
   ${PROJECT_SOURCE_DIR}/../../BuildTools/headers
