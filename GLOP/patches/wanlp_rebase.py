@@ -152,7 +152,9 @@ def private_ortools_ignore(dirname, filenames):
         # Allow these miscellaneous files.
         if fnmatch(filename, 'README.md') or \
             fnmatch(filename, 'patches') or \
-            fnmatch(dirname, '*patches'):
+            fnmatch(dirname, '*patches') or \
+            fnmatch(filename, 'examples') or \
+            fnmatch(dirname, '*examples*'):
             allow.append(filename)
             continue
 

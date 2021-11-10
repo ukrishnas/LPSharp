@@ -46,7 +46,6 @@ include(utils)
 set_version(VERSION)
 
 project(ortools VERSION ${VERSION} LANGUAGES CXX)
-set(PROJECT_NAMESPACE ortools)
 message(STATUS "${PROJECT_NAME} version: ${PROJECT_VERSION}")
 
 set(CMAKE_CXX_STANDARD 17)
@@ -138,14 +137,12 @@ check_type_size("long long" SIZEOF_LONG_LONG LANGUAGE CXX)
 message(STATUS "Found long long size: ${SIZEOF_LONG_LONG}")
 check_type_size("int64_t" SIZEOF_INT64_T LANGUAGE CXX)
 message(STATUS "Found int64_t size: ${SIZEOF_INT64_T}")
-
 check_type_size("unsigned long" SIZEOF_ULONG LANGUAGE CXX)
 message(STATUS "Found unsigned long size: ${SIZEOF_ULONG}")
 check_type_size("unsigned long long" SIZEOF_ULONG_LONG LANGUAGE CXX)
 message(STATUS "Found unsigned long long size: ${SIZEOF_ULONG_LONG}")
 check_type_size("uint64_t" SIZEOF_UINT64_T LANGUAGE CXX)
 message(STATUS "Found uint64_t size: ${SIZEOF_UINT64_T}")
-
 check_type_size("int *" SIZEOF_INT_P LANGUAGE CXX)
 message(STATUS "Found int * size: ${SIZEOF_INT_P}")
 cmake_pop_check_state()
