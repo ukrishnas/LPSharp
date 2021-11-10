@@ -224,7 +224,7 @@ class ClpInterface {
     }
 
     // Gets or sets the perturbation value. 50 switches on perturbation. 100
-    // automatically perturns if it takes too long (1.0e-6 largest non-zero).
+    // automatically perturbs if it takes too long (1.0e-6 largest non-zero).
     // 101 means we are perturbed, and 102 means don't try perturbing again.
     // Default value is 50.
     int Perturbation() { return clp_->perturbation(); }

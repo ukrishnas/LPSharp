@@ -7,7 +7,7 @@
  * Umesh Krishnaswamy
  */
 
-%module coinwrap
+%module coinwrap_clp
 
 %include "stdint.i"
 %include "std_vector.i"

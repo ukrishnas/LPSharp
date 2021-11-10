@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(clpinterface-cpp LANGUAGES CXX)
+project(clpinterface_cpp LANGUAGES CXX)
 
 # Add external dependencies for libClp and libCoinUtils. The import locations
 # are where they are placed by Visual Studio during build.
@@ -69,6 +69,8 @@ function(add_coinwrap_test FILE_NAME)
 endfunction()
 
 # Add unit tests and copy test files.
-add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_build_model_test.cc)
-add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_solve_model_test.cc)
-configure_file(${PROJECT_SOURCE_DIR}/tests/80bau38.mps ${PROJECT_BINARY_DIR} COPYONLY)
+if(BUILD_TESTS)
+  add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_build_model_test.cc)
+  add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_solve_model_test.cc)
+  configure_file(${PROJECT_SOURCE_DIR}/tests/80bau38.mps ${PROJECT_BINARY_DIR} COPYONLY)
+endif()
