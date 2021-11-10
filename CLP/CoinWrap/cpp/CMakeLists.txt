@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
 project(clpinterface_cpp LANGUAGES CXX)
 
+# Set some global defaults that are used to initialize target properties when
+# the targets are created.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_EXTENSIONS False)
+
 # Add external dependencies for libClp and libCoinUtils. The import locations
 # are where they are placed by Visual Studio during build.
 add_library(LIB_CLP SHARED IMPORTED)
@@ -11,12 +17,6 @@ add_library(LIB_COINUTILS SHARED IMPORTED)
 set_target_properties(LIB_COINUTILS PROPERTIES
   IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/../../x64/Release/libCoinUtils.lib
 )
-
-# Set some global defaults that are used to initialize target properties when
-# the targets are created.
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_EXTENSIONS False)
 
 # Create a CMake pseudo target for properties, include directories, link
 # libraries, and link options. We enable whole program optimization at link time
@@ -69,7 +69,7 @@ function(add_coinwrap_test FILE_NAME)
 endfunction()
 
 # Add unit tests and copy test files.
-if(BUILD_TESTS)
+if(BUILD_TESTING)
   add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_build_model_test.cc)
   add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_solve_model_test.cc)
   configure_file(${PROJECT_SOURCE_DIR}/tests/80bau38.mps ${PROJECT_BINARY_DIR} COPYONLY)

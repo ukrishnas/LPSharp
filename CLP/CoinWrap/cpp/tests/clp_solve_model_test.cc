@@ -42,7 +42,8 @@ void PrintSolution(coinwrap::ClpInterface &clp, int max_lines) {
     clp.PrimalColumnSolution(colSolution);
     clp.DualColumnSolution(reducedCost);
     clp.Objective(objective);
-    int n = max_lines < objective.size() ? max_lines : objective.size();
+    int number_cols = static_cast<int>(objective.size());
+    int n = max_lines < number_cols ? max_lines : number_cols;
     for (int i = 0; i < n; i++) {
         std::cout << std::setw(6) << i << " ";
         print_double(colSolution[i]);
@@ -57,7 +58,8 @@ void PrintSolution(coinwrap::ClpInterface &clp, int max_lines) {
     std::vector<double> rowActivity, rowPrice;
     clp.PrimalRowSolution(rowActivity);
     clp.DualRowSolution(rowPrice);
-    int m = max_lines < rowActivity.size() ? max_lines : rowActivity.size();
+    int number_rows = static_cast<int>(rowActivity.size());
+    int m = max_lines < number_rows ? max_lines : number_rows;
     for (int i = 0; i < m; i++) {
         std::cout << std::setw(6) << i << " ";
         print_double(rowActivity[i]);

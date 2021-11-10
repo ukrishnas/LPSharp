@@ -70,7 +70,7 @@ void CreateAndSolveTestModel2() {
     rows.push_back(clp.AddConstraint("r1", 20, plusinf));
     rows.push_back(clp.AddConstraint("r2", minusinf, 30));
     rows.push_back(clp.AddConstraint("r3", 8, 8));
-    int numberRows = rows.size();
+    int number_rows = static_cast<int>(rows.size());
 
     std::vector<int> cols;
     cols.push_back(clp.AddVariable("c1", 0, plusinf));
@@ -78,9 +78,9 @@ void CreateAndSolveTestModel2() {
     cols.push_back(clp.AddVariable("c3", 0.0, plusinf));
     cols.push_back(clp.AddVariable("c4", 0, 20));
     cols.push_back(clp.AddVariable("c5", 0, 20));
-    int numberCols = cols.size();
+    int number_cols = static_cast<int>(cols.size());
 
-    std::cout << "Created " << numberRows << " rows and " << numberCols << " columns" << std::endl;
+    std::cout << "Created " << number_rows << " rows and " << number_cols << " columns" << std::endl;
 
     double matrixElements[] = {
         8.0, 5.0, 4.0, 4.0, -4.0,
@@ -88,9 +88,9 @@ void CreateAndSolveTestModel2() {
         1.0, -1.0, -1.0,
     };
     int nElements = 13;
-    for (int i = 0; i < numberRows; i++) {
-        for (int j = 0; j < numberCols; j++) {
-            int idx = i * numberCols + j;
+    for (int i = 0; i < number_rows; i++) {
+        for (int j = 0; j < number_cols; j++) {
+            int idx = i * number_cols + j;
             if (idx < nElements) {
                 clp.SetCoefficient(rows[i], cols[j], matrixElements[idx]);
             }
@@ -99,7 +99,7 @@ void CreateAndSolveTestModel2() {
     std::cout << "Set matrix coefficients" << std::endl;
 
     double objElements[] = { 1000, 400, 500, 10000, 10000 };
-    for (int i = 0; i < numberCols; i++) {
+    for (int i = 0; i < number_cols; i++) {
         clp.SetObjective(cols[i], objElements[i]);
     }
     std::cout << "Set objective coefficients" << std::endl;

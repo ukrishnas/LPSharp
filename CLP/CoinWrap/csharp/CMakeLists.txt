@@ -28,34 +28,16 @@ if (BUILD_SWIG)
   endif()
 endif()
 
-# Set policy that UseSWIG generates standard target names.
-if(POLICY CMP0078)
-  cmake_policy(SET CMP0078 NEW)
-endif()
-
-# Set policy that UseSWIG passes SWIG_MODULE_NAME property via -module flag to SWIG.
-if(POLICY CMP0086)
-  cmake_policy(SET CMP0086 NEW)
-endif()
-
-# UseSWIG generates library with default naming conventions for CSharp language.
-# This was introduced in CMake version 3.21 and hence this policy is set to OLD
-# for now.
-if(POLICY CMP0122)
-  cmake_policy(SET CMP0122 OLD)
-endif()
-
 include(UseSWIG)
 
 set(NAME clpinterface_csharp)
 set_property(SOURCE clp_interface.i PROPERTY CPLUSPLUS ON)
 set_property(SOURCE clp_interface.i PROPERTY COMPILE_OPTIONS
   -namespace CoinOr.Clp
-  -dllimport ClpInterface-cpp
-  -dllimport libClp
-  -dllimport libCoinUtils)
+  -dllimport clpInterface-cpp
+)
 swig_add_library(${NAME}
-  TYPE USE_BUILD_SHARED_LIBS
+  TYPE OBJECT
   LANGUAGE csharp
   OUTPUT_DIR ${PROJECT_BINARY_DIR}/csharp
   SOURCES clp_interface.i
@@ -65,3 +47,4 @@ set_target_properties(${NAME} PROPERTIES
   SWIG_USE_TARGET_INCLUDE_DIRECTORIES ON
   POSITION_INDEPENDENT_CODE ON
 )
+target_link_libraries(${NAME} PRIVATE clpinterface_cpp)
