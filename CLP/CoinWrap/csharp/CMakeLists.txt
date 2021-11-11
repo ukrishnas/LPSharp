@@ -13,5 +13,4 @@ set_target_properties(coinwrap_csharp PROPERTIES
   SWIG_USE_TARGET_INCLUDE_DIRECTORIES ON
   POSITION_INDEPENDENT_CODE ON
 )
-target_include_directories(coinwrap_csharp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../cpp)
 target_link_libraries(coinwrap_csharp PRIVATE coinwrap::ClpInterface)

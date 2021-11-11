@@ -17,10 +17,13 @@ if(POLICY CMP0122)
   cmake_policy(SET CMP0122 OLD)
 endif()
 
+# Include folder for additional cmake functions.
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 # Define project after setting policies.
 project(coinwrap)
 
-# Build the Clp interface. This is the interface that will wrapped using SWIG.
+# Build the Clp interface. This is a user-friendly interface over Clp functions.
 add_subdirectory(cpp)
 
 # Define the native library.
@@ -30,44 +33,16 @@ set_target_properties(coinwrap_cpp PROPERTIES
   POSITION_INDEPENDENT_CODE ON
 )
 
-# Fetch SWIG from public location if this is the first time and initialize SWIG.
-include(FetchContent)
-set(FETCHCONTENT_QUIET ON)
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-set(BUILD_SWIG ON)
-if (BUILD_SWIG)
-  message(CHECK_START "Fetching SWIG")
-  list(APPEND CMAKE_MESSAGE_INDENT "  ")
-  FetchContent_Declare(
-    SWIG
-    URL    "http://prdownloads.sourceforge.net/swig/swigwin-4.0.2.zip"
-  )
-  FetchContent_MakeAvailable(SWIG)
-  set(
-    SWIG_DIR "${swig_SOURCE_DIR}/Lib"
-    CACHE INTERNAL "SWIG directory" FORCE
-  )
-  set(
-    SWIG_EXECUTABLE "${swig_SOURCE_DIR}/swig.exe"
-    CACHE INTERNAL "SWIG executable location" FORCE
-  )
-  message(CHECK_PASS "fetched")
-  list(POP_BACK CMAKE_MESSAGE_INDENT)
-
-  set(CMAKE_SWIG_FLAGS)
-  find_package(SWIG REQUIRED)
-  if (NOT SWIG_FOUND)
-    message(FATAL_ERROR "SWIG not found after fetch")
-  endif()
-endif()
+include(swig)
 include(UseSWIG)
 
 # Generate C++ and C# wrapper code and import the generated C++ wrapper with the
 # Clp libraries into a new coinwrap_cpp.dll. At the end of this step, this DLL
-# should be present in the build tree.
-list(APPEND CMAKE_SWIG_FLAGS "-I${PROJECT_SOURCE_DIR}/cpp")
+# should be present in the build tree. We enable whole program optimization with
+# /LTCG at link time since the C++ code is compiled with it.
 add_subdirectory(csharp)
 target_link_libraries(coinwrap_cpp coinwrap_csharp)
+target_link_options(coinwrap_cpp PUBLIC "/LTCG")
 
 return()
 

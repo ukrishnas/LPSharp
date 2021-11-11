@@ -19,8 +19,8 @@ set_target_properties(LIB_COINUTILS PROPERTIES
 )
 
 # Create a CMake pseudo target for properties, include directories, link
-# libraries, and link options. We enable whole program optimization at link time
-# since libClp is compiled with it.
+# libraries, and link options. We enable whole program optimization with /LTCG
+# at link time since libClp is compiled with it.
 add_library(clp_pseudo INTERFACE)
 target_include_directories(clp_pseudo INTERFACE
   ${PROJECT_SOURCE_DIR}
@@ -59,23 +59,40 @@ include(CTest)
 
 # Builds and adds a unit test.
 function(add_coinwrap_test FILE_NAME)
-  message(STATUS "Configuring test ${FILE_NAME}: ...")
+  message(STATUS "Configuring test ${FILE_NAME}")
   get_filename_component(TEST_NAME ${FILE_NAME} NAME_WE)
+  list(APPEND _TESTS ${TEST_NAME})
 
   add_executable(${TEST_NAME} ${FILE_NAME})
-  target_include_directories(${TEST_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
   target_link_libraries(${TEST_NAME}
     ${LIB_CLP_INTERFACE}
     clp_pseudo
   )
-
   add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
-  message(STATUS "Configuring test ${FILE_NAME}: ...DONE")
 endfunction()
 
-# Add unit tests and copy test files.
+# Build and run unit tests.
 if(BUILD_TESTING)
-  add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_build_model_test.cc)
-  add_coinwrap_test(${PROJECT_SOURCE_DIR}/tests/clp_solve_model_test.cc)
+  # Copy test data files.
   configure_file(${PROJECT_SOURCE_DIR}/tests/80bau38.mps ${PROJECT_BINARY_DIR} COPYONLY)
+
+  # Build tests.
+  set(_TESTS)
+  list(APPEND _TESTS
+    ${PROJECT_SOURCE_DIR}/tests/clp_build_model_test.cc
+    ${PROJECT_SOURCE_DIR}/tests/clp_solve_model_test.cc
+  )
+  foreach(filename ${_TESTS})
+    add_coinwrap_test(${filename})
+  endforeach()
+
+  # Run tests after they are built.
+  add_custom_target(RunTests ALL
+    COMMAND ${CMAKE_CTEST_COMMAND} -test_dir . -C $<IF:$<CONFIG:Release>,Release,Debug>
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+  )
+  foreach(filename ${_TESTS})
+    get_filename_component(test_name ${filename} NAME_WE)
+    add_dependencies(RunTests ${test_name})
+  endforeach()
 endif()
