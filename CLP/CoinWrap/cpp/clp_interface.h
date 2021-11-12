@@ -243,6 +243,9 @@ class ClpInterface {
     double MaximumSeconds() { return clp_->maximumSeconds(); }
     void SetMaximumSeconds(double value) { clp_->setMaximumSeconds(value); }
 
+    // Gets the solve time in milliseconds.
+    double SolveTimeMs() { return solve_timems_; }
+
     // Gets or sets the log level. Values range [0, 4] with 0 being none and 4
     // being verbose.
     int LogLevel() { return clp_->logLevel(); }
@@ -460,6 +463,9 @@ class ClpInterface {
 
     // The psi weight for positive edge pivot selection methods.
     double positive_edge_psi_;
+
+    // The solve time.
+    double solve_timems_;
 
     // The model build object.
     CoinModel coin_model_;
