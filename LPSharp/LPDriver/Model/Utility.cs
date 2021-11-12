@@ -139,5 +139,22 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             return true;
         }
+
+        /// <summary>
+        /// Reads solver parameters from file.
+        /// </summary>
+        /// <param name="filename">The file name.</param>
+        /// <returns>The solver parameters.</returns>
+        public static SolverParameters ReadSolverParameters(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                return null;
+            }
+
+            using var stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+            TryDeserialize(stream, out SolverParameters solverParameters);
+            return solverParameters;
+        }
     }
 }

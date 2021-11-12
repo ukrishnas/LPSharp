@@ -6,6 +6,7 @@
 
 namespace Microsoft.LPSharp.Powershell
 {
+    using System.IO;
     using System.Management.Automation;
     using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
@@ -37,17 +38,24 @@ namespace Microsoft.LPSharp.Powershell
         public SwitchParameter Default { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to clear the solver state. This resets
+        /// the extracted model and clears the loaded model. This does not affect parameters.
+        /// </summary>
+        [Parameter]
+        public SwitchParameter Clear { get; set; }
+
+        /// <summary>
         /// Gets or sets the solver parameters.
         /// </summary>
         [Parameter]
         public SwitchParameter Parameters { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to clear the solver state. This resets
-        /// the extracted model and clears the loaded model. This does not affect parameters.
+        /// Gets or sets the parameters file. Solver parameters are set using this file.
         /// </summary>
         [Parameter]
-        public SwitchParameter Clear { get; set; }
+        [Alias("ParamsFile")]
+        public string ParametersFile { get; set; }
 
         /// <summary>
         /// The process record.
@@ -78,24 +86,36 @@ namespace Microsoft.LPSharp.Powershell
                 }
             }
 
+            var solver2 = solver as LPSolverAbstract;
+
             if (this.Default)
             {
                 this.LPDriver.DefaultSolverKey = this.Key;
                 this.WriteHost($"Solver {this.LPDriver.DefaultSolverKey} is default solver");
             }
 
-            var solver2 = solver as LPSolverAbstract;
+            if (this.Clear)
+            {
+                solver.Clear();
+                this.WriteHost($"Solver {solver2.Key} state and model cleared");
+            }
 
             if (this.Parameters)
             {
                 solver.SetParameters(this.LPDriver.SolverParameters);
                 this.WriteHost($"Solver {solver2.Key} parameters set with previously read parameters");
             }
-
-            if (this.Clear)
+            else if (!string.IsNullOrEmpty(this.ParametersFile))
             {
-                solver.Clear();
-                this.WriteHost($"Solver {solver2.Key} state and model cleared");
+                var solverParameters = Utility.ReadSolverParameters(this.ParametersFile);
+                if (solverParameters == null)
+                {
+                    this.WriteHost($"Solver parameters file {this.ParametersFile} not found or invalid");
+                    return;
+                }
+
+                solver.SetParameters(solverParameters);
+                this.WriteHost($"Set solver parameters from {this.ParametersFile}");
             }
         }
     }

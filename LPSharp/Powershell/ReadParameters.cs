@@ -28,23 +28,15 @@ namespace Microsoft.LPSharp.Powershell
         /// </summary>
         protected override void ProcessRecord()
         {
-            if (!File.Exists(this.FileName))
+            var solverParameters = Utility.ReadSolverParameters(this.FileName);
+            if (solverParameters == null)
             {
-                this.WriteHost($"Solver parameters file {this.FileName} not found");
+                this.WriteHost($"Solver parameters file {this.FileName} not found or invalid");
                 return;
             }
 
-            using (var stream = File.Open(this.FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                if (!Utility.TryDeserialize(stream, out SolverParameters solverParameters))
-                {
-                    this.WriteHost($"Unable to read {this.FileName} into solver parameters");
-                    return;
-                }
-
-                this.LPDriver.SolverParameters = solverParameters;
-                this.WriteHost($"Read solver parameters from {this.FileName}");
-            }
+            this.LPDriver.SolverParameters = solverParameters;
+            this.WriteHost($"Read solver parameters from {this.FileName}");
         }
     }
 }

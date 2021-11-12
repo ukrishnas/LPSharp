@@ -174,6 +174,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
             switch (this.SolveType)
             {
                 case SolveType.Dual:
+                    this.clp.SolveUsingDualSimplex();
+                    break;
+
+                case SolveType.DualCrash:
                     this.clp.SolveUsingDualCrash();
                     break;
 
@@ -182,6 +186,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     break;
 
                 case SolveType.Primal:
+                    this.clp.SolveUsingPrimalSimplex();
+                    break;
+
+                case SolveType.PrimalIdiot:
                     this.clp.SolveUsingPrimalIdiot();
                     break;
 
@@ -213,10 +221,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.RemoveMetric(LPMetric.Iterations);
             }
 
-            Console.WriteLine("Log level = {0}", this.clp.LogLevel());
+            Console.WriteLine("Log level = {0}, solve type = {1}, solve time = {2:F5} ms", this.clp.LogLevel(), this.SolveType, this.clp.SolveTimeMs());
             Console.WriteLine("Maximum seconds = {0}, maximum iterations = {1}", this.clp.MaximumSeconds(), this.clp.MaximumIterations());
             Console.WriteLine("Primal tolerance = {0}, dual tolerance = {1}", this.clp.PrimalTolerance(), this.clp.DualTolerance());
-            Console.WriteLine("Solve time from CLP = {0} ms from stopwatch = {1} ms", this.clp.SolveTimeMs(), stopwatch.ElapsedMilliseconds);
 
             // Just print the first few columns of the objective to verify the methods.
             DoubleVector columnSolutionVec = new();
