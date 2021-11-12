@@ -303,12 +303,13 @@ void ClpInterface::SetSolveType(SolveType solve_type) {
 }
 
 void ClpInterface::Solve() {
+#ifdef DEBUG
     std::cout << "Special options = " << clp_->specialOptions() << std::endl;
     std::cout << "More special options = " << clp_->moreSpecialOptions() << std::endl;
     for (int i = 0; i < 3; i++) {
         std::cout << "Independent option " << i << " = " << solve_options_->independentOption(i) << std::endl;
     }
-
+#endif
     double time1 = CoinCpuTime();
     clp_->initialSolve(*solve_options_);
     solve_timems_ = (CoinCpuTime() - time1) * 1000;
