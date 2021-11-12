@@ -41,7 +41,7 @@ when used with the same settings.
 GLOP results are using GLOP nuget packages from this repository and the C#
 language wrapper driven by LPSharp. The locally built library (version 9.1.90.1)
 matches the public OR-Tools in nuget.org (version 9.1.9490). This confirms that
-we are able to locally replicate the public build. `Glopsolve.exe` is our C++
+we are able to locally replicate the public build. `glop_solve.exe` is our C++
 based standalone executable linked with the C++ libraries. It is used to
 generate verbose logs or control the solver in ways not possible with the dotnet
 interface.
@@ -77,9 +77,9 @@ $ coinwrap.exe netlib\80bau38.mps primals
 __GlopSolve cheatsheet__
 
 ```
-$ glopsolve.exe -helpfull
-$ glopsolve.exe -mpsfile edge-pri0-maxmin0.mps -timelimit 30 -lpalgorithm dual
-$ glopsolve.exe ... -timelimit 30 -params_file dual_params.txt
+$ glop_solve.exe -helpfull
+$ glop_solve.exe -mpsfile edge-pri0-maxmin0.mps -timelimit 30 -lpalgorithm dual
+$ glop_solve.exe ... -timelimit 30 -params_file dual_params.txt
 ```
 
 Dual_params.txt to use with WANLP models.

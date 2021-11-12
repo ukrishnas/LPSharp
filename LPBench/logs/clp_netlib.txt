@@ -1,0 +1,730 @@
+NETLIB models using CLP from LPSharp with EitherSimplex.
+
+$dir = "c:\users\krish\work\lpbench\"
+set-solver -create CLP -key clp -default
+read-parameters $dir\SolverParameters.xml
+set-solver -key clp -parameters
+get-childitem -path $dir\netlib -filter *.mps | foreach-object {
+    $file = $_.FullName
+    $key = read-mps "$file"
+    invoke-solver $key
+}
+
+<?xml version="1.0"?>
+<SolverParameters>
+  <!-- These parameters are common for all solvers. -->
+  <GenericParameters>
+    <Param Name="TimeLimitInSeconds" Value="30" />
+    <Param Name="EnableLogging" Value="true" />
+  </GenericParameters>
+  <ClpParameters>
+    <Param Name="SolveType" Value="Either" />
+    <Param Name="LogLevel" Value="3" />
+  </ClpParameters>
+</SolverParameters>
+
+LPSharp> get-results
+
+Key                        Value
+---                        -----
+80bau38_clp                {[Model, 80bau38], [SolveTimeMs, 153], [Objective, 987224.1924090902], [Iterations, 3297].}
+cre-d_clp                  {[Model, cre-d], [SolveTimeMs, 834], [Objective, 24454969.764549244], [Iterations, 6430].}
+d6cube_clp                 {[Model, d6cube], [SolveTimeMs, 1056], [Objective, 315.4916666666703], [Iterations, 0].}
+dfl001_clp                 {[Model, dfl001], [SolveTimeMs, 7470], [Objective, 11266396.046671387], [Iterations, 22545].
+greenbea_clp               {[Model, greenbea], [SolveTimeMs, 201], [Objective, -72555248.12984604], [Iterations, 2479].
+greenbeb_clp               {[Model, greenbeb], [SolveTimeMs, 355], [Objective, -4302260.261206586], [Iterations, 3679].
+ken-18_clp                 {[Model, ken-18], [SolveTimeMs, 3069], [Objective, -52217025287.396805], [Iterations, 48318.
+osa-30_clp                 {[Model, osa-30], [SolveTimeMs, 542], [Objective, 2142139.873209787], [Iterations, 2235].}
+osa-60_clp                 {[Model, osa-60], [SolveTimeMs, 1771], [Objective, 4044072.5031574722], [Iterations, 4944].}
+pds-20_clp                 {[Model, pds-20], [SolveTimeMs, 1755], [Objective, 23821658640], [Iterations, 14369].}
+qap12_clp                  {[Model, qap12], [SolveTimeMs, 5022], [Objective, 522.8943505590496], [Iterations, 0].}
+stocfor3_clp               {[Model, stocfor3], [SolveTimeMs, 487], [Objective, -39976.78394364944], [Iterations, 6686].
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\80bau38.mps as model Name=80bau38 Obj=HOLLY A=(2238, 8061) RHS=(1, 346) RowTypes=2263 Lower=(1, 3555) Upper=(1, 3555) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 50 ms, read_errors=0, model_key=80bau38
+Solver clp loaded model 80bau38
+Solver clp set with previously read parameters
+Solver clp solving model 80bau38...
+411 rows dropped after presolve pass 1
+442 rows dropped after presolve pass 2
+448 rows dropped after presolve pass 3
+450 rows dropped after presolve pass 4
+451 rows dropped after presolve pass 5
+Presolve 1786 (-451) rows, 8578 (-1221) columns and 18768 (-2234) elements
+Presolve took 0.03 seconds (total 0.03)
+Matrix can not be converted into +- 1
+Bounds were tightened 5546 times
+Initial range of elements is 0.00022 to 104.74
+Range of elements is 0.014832397 to 67.419986
+Range of elements is 0.10334378 to 9.6764412
+Final range of elements is 0.10493585 to 9.5296318
+Absolute values of scaled rhs range from 3.6304351e-05 to 6365.1264, minimum gap 1e+100
+Absolute values of scaled objective range from 0.0020673781 to 1794.5539
+Absolute values of scaled bounds range from 1.1085887e-05 to 438503.99, minimum gap 4.4156266e-05
+0  Obj 493096.67 Primal inf 87199.361 (651) Dual inf 233482.19 (1058)
+0  Obj 493096.67 Primal inf 87199.361 (651) Dual inf 233482.19 (1058)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value 987224.19
+Dual took 0.12 seconds (total 0.15)
+After Postsolve, objective 987224.19, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 987224.1924 - 3297 iterations time 0.152, Presolve 0.03
+Log level = 3
+Maximum seconds = 255.308, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 153.99999999999636 ms from stopwatch = 153 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 531.1245039 1.221245327E-15 0
+1.000000 286.8013208 9.992007222E-15 0
+2.000000 544.7416022 5.773159728E-15 0
+3.000000 895.5392536 5.551115123E-15 0
+4.000000 1810.743785 -5.107025913E-15 0
+5.000000 1641.950484 -5.329070518E-15 0
+6.000000 1075.996436 4.884981308E-15 0
+7.000000 358.6983204 6.661338148E-15 0
+8.000000 345.8735517 2.109423747E-15 0
+9.000000 768.4426257 -5.995204333E-15 0
+Solver clp solved model 80bau38 result=Optimal
+Model                                  80bau38
+SolveTimeMs                                153
+Objective                    987224.1924090902
+Iterations                                3297
+LoadTimeMs                                  61
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\cre-d.mps as model Name=cre-d Obj=COST A=(6477, 69980) RHS=(1, 321) RowTypes=8927 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 364 ms, read_errors=0, model_key=cre-d
+Solver clp loaded model cre-d
+Solver clp set with previously read parameters
+Solver clp solving model cre-d...
+2494 rows dropped after presolve pass 1
+2494 rows dropped after presolve pass 2
+Presolve 3982 (-2494) rows, 25087 (-44893) columns and 82739 (-159907) elements
+Presolve took 0.09 seconds (total 0.09)
+Matrix can not be converted into +- 1
+Bounds were tightened 25563 times
+Initial range of elements is 0.5 to 71
+Range of elements is 0.11381286 to 8.7863531
+Range of elements is 0.19801057 to 5.0502354
+Final range of elements is 0.19904937 to 5.0238792
+Absolute values of scaled rhs range from 0.40620803 to 882.18994, minimum gap 1e+100
+Absolute values of scaled objective range from 1922.7513 to 137515.19
+Absolute values of scaled bounds range from 38.607423 to 9357.9887, minimum gap 38.607423
+Perturbing problem by 0.001% of 137515.19 - largest nonzero change 0.018452805 ( 0.00095786761%) - largest zero change 0
+0  Obj 0 Primal inf 7988.6808 (298)
+0  Obj 0 Primal inf 7988.6808 (298)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value 24454970
+Dual took 0.73 seconds (total 0.82)
+After Postsolve, objective 24454970, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 24454969.76 - 6430 iterations time 0.832, Presolve 0.10
+Log level = 3
+Maximum seconds = 256.188, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 834.0000000000032 ms from stopwatch = 834 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 0.04406326225 18920
+1.000000 5.253521127 0 82721
+2.000000 0 4241.69422 36345
+3.000000 0 11377 69242
+4.000000 0 1463.211059 41717
+5.000000 1 3.637978807E-12 54340
+6.000000 0 98807.57122 237583
+7.000000 0 43928.64761 104387
+8.000000 0 105438.197 198869
+9.000000 0 54890.63544 119814
+Solver clp solved model cre-d result=Optimal
+Model                                    cre-d
+SolveTimeMs                                834
+Objective                   24454969.764549244
+Iterations                                6430
+LoadTimeMs                                 285
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\d6cube.mps as model Name=d6cube Obj=1 A=(405, 6184) RHS=(1, 6) RowTypes=416 Lower=(1, 1) Upper=(1, 1) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 68 ms, read_errors=0, model_key=d6cube
+Solver clp loaded model d6cube
+Solver clp set with previously read parameters
+Solver clp solving model d6cube...
+2 rows dropped after presolve pass 1
+2 rows dropped after presolve pass 2
+Presolve 402 (-2) rows, 5447 (-737) columns and 34246 (-3458) elements
+Presolve took 0.02 seconds (total 0.02)
+Matrix can not be converted into +- 1
+** Objective offset is -1
+Initial range of elements is 1 to 360
+Range of elements is 0.052704628 to 18.973666
+Range of elements is 0.18718267 to 5.342375
+Final range of elements is 0.22572518 to 4.430166
+Exiting due to number of major iterations
+largest infeasibility is 10342.5
+largest infeasibility is 10342.5
+largest infeasibility is 10342.5
+sum of infeasibilities 3.06741 - average 0.00763037, 4955 fixed columns
+347 rows dropped after presolve pass 1
+347 rows dropped after presolve pass 2
+Presolve 55 (-347) rows, 140 (-5307) columns and 998 (-33248) elements
+Initial range of elements is 0.5 to 384
+Range of elements is 0.051031036 to 19.595918
+Range of elements is 0.18473362 to 5.4131998
+Final range of elements is 0.19901631 to 5.0247137
+Absolute values of scaled rhs range from 0.57574774 to 571.70648, minimum gap 1e+100
+Absolute values of scaled objective range from 0.52733848 to 14.64552
+0  Obj 604.35785 Primal inf 7.8686274 (55) Dual inf 1.7815766e+15 (140)
+End of values pass after 140 iterations
+Perturbing problem by 0.001% of 0.1 - largest nonzero change 0 ( 0%) - largest zero change 2.86473e-05
+Absolute values of scaled rhs range from 0.57574774 to 571.70648, minimum gap 1e+100
+Absolute values of scaled objective range from 0.52733848 to 14.64552
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 560.26042
+Absolute values of scaled rhs range from 0.57574774 to 571.70648, minimum gap 1e+100
+Absolute values of scaled objective range from 0.52733848 to 14.64552
+Optimal - objective value 560.26042
+After Postsolve, objective 560.26042, infeasibilities - dual 0 (0), primal 0 (0)
+Initial range of elements is 1 to 360
+Range of elements is 0.052704628 to 18.973666
+Range of elements is 0.18718267 to 5.342375
+Final range of elements is 0.22572518 to 4.430166
+Absolute values of scaled rhs range from 0.73299725 to 588.70806, minimum gap 1e+100
+Absolute values of scaled objective range from 0.45151404 to 8.8615819
+Absolute values of scaled bounds range from 0.90277335 to 0.90277335, minimum gap 1e+100
+0  Obj 560.26042 Dual inf 27538.576 (2909)
+Perturbing problem by 0.001% of 0.90287335 - largest nonzero change 0 ( 0%) - largest zero change 2.9918576e-05
+5546  Obj 315.78656 Dual inf 2341.833 (809)
+Absolute values of scaled rhs range from 0.73299725 to 588.70806, minimum gap 1e+100
+Absolute values of scaled objective range from 0.45151404 to 8.8615819
+Absolute values of scaled bounds range from 0.90277335 to 0.90277335, minimum gap 1e+100
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 315.49167
+Absolute values of scaled rhs range from 0.73299725 to 588.70806, minimum gap 1e+100
+Absolute values of scaled objective range from 0.45151404 to 8.8615819
+Absolute values of scaled bounds range from 0.90277335 to 0.90277335, minimum gap 1e+100
+Optimal - objective value 315.49167
+Idiot Crash took 1.00 seconds (total 1.03)
+Absolute values of scaled rhs range from 0.73299725 to 588.70806, minimum gap 1e+100
+Absolute values of scaled objective range from 0.45151404 to 8.8615819
+Absolute values of scaled bounds range from 0.90277335 to 0.90277335, minimum gap 1e+100
+Optimal - objective value 315.49167
+Primal took 0.02 seconds (total 1.05)
+After Postsolve, objective 315.49167, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 315.4916667 - 0 iterations time 1.062, Presolve 0.03, Idiot 1.00
+Log level = 3
+Maximum seconds = 257.21500000000003, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 1056.999999999988 ms from stopwatch = 1056 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 4.6 0 1
+1.000000 1.7 -1.942890293E-16 1
+2.000000 0 0.1666666667 1
+3.000000 0 0.5362079272 1
+4.000000 0 0.3333333333 1
+5.000000 0 0.3333333333 1
+6.000000 0 0.7261487509 1
+7.000000 0 0.5932115437 1
+8.000000 0 0.8231545424 1
+9.000000 0 0.5991362449 1
+Solver clp solved model d6cube result=Optimal
+Model                                   d6cube
+SolveTimeMs                               1056
+Objective                    315.4916666666703
+Iterations                                   0
+LoadTimeMs                                  42
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\dfl001.mps as model Name=dfl001 Obj=NIL A=(6072, 6241) RHS=(1, 1663) RowTypes=6072 Lower=(1, 13) Upper=(1, 13) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 74 ms, read_errors=0, model_key=dfl001
+Solver clp loaded model dfl001
+Solver clp set with previously read parameters
+Solver clp solving model dfl001...
+1987 rows dropped after presolve pass 1
+2132 rows dropped after presolve pass 2
+2166 rows dropped after presolve pass 3
+2184 rows dropped after presolve pass 4
+2197 rows dropped after presolve pass 5
+Presolve 3874 (-2197) rows, 9191 (-3039) columns and 30780 (-4852) elements
+Presolve took 0.08 seconds (total 0.08)
+Matrix can not be converted into +- 1
+Bounds were tightened 7445 times
+Initial range of elements is 0.083333333 to 2
+Range of elements is 0.28867513 to 3.4641016
+Range of elements is 0.47528991 to 2.103979
+Final range of elements is 0.26864248 to 1
+Absolute values of scaled rhs range from 0.84089642 to 210.09625, minimum gap 1e+100
+Absolute values of scaled objective range from 138.87975 to 40026203
+Absolute values of scaled bounds range from 0.82530362 to 1459.1001, minimum gap 1.0087044
+0  Obj 17994.31 Primal inf 7730.1516 (1360) Dual inf 636.22059 (2)
+0  Obj 17994.31 Primal inf 7730.1516 (1360) Dual inf 636.22059 (2)
+5472  Obj 10576383 Primal inf 35891.619 (1229)
+7600  Obj 11102164 Primal inf 8301.6134 (1182)
+9728  Obj 11216223 Primal inf 12705.557 (1184)
+11704  Obj 11237279 Primal inf 24054.368 (1364)
+13528  Obj 11249795 Primal inf 3688.5957 (1140)
+15352  Obj 11256663 Primal inf 50482.687 (1410)
+17176  Obj 11261053 Primal inf 2436.2134 (919)
+19000  Obj 11264040 Primal inf 16263.543 (1278)
+20824  Obj 11265762 Primal inf 1768.0728 (941)
+22545  Obj 11266396
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value 11266396
+Dual took 7.38 seconds (total 7.46)
+After Postsolve, objective 11266396, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 11266396.05 - 22545 iterations time 7.472, Presolve 0.09
+Log level = 3
+Maximum seconds = 258.48699999999997, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 7471.000000000004 ms from stopwatch = 7470 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0.1742192588 -6.821210263E-13 4267.32
+1.000000 0 3389.937655 0
+2.000000 0 9977577.943 10002244
+3.000000 0 3.296918294E-12 2620.11
+4.000000 0 32391.71868 0
+5.000000 0 1274.648509 9202.8
+6.000000 0.6155124684 -4.547473509E-13 0
+7.000000 0 31177.19072 0
+8.000000 0 9973478.113 10011311.85
+9.000000 -0 0 0
+Solver clp solved model dfl001 result=Optimal
+Model                                   dfl001
+SolveTimeMs                               7470
+Objective                   11266396.046671387
+Iterations                               22545
+LoadTimeMs                                  60
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\greenbea.mps as model Name=greenbea Obj=FAT0..J. A=(2390, 622) RHS=(0, 0) RowTypes=2393 Lower=(1, 432) Upper=(1, 432) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 59 ms, read_errors=0, model_key=greenbea
+Solver clp loaded model greenbea
+Solver clp set with previously read parameters
+Solver clp solving model greenbea...
+1094 rows dropped after presolve pass 1
+1094 rows dropped after presolve pass 2
+Presolve 1295 (-1094) rows, 3322 (-2083) columns and 20937 (-9940) elements
+Presolve took 0.02 seconds (total 0.02)
+Matrix can not be converted into +- 1
+Bounds were tightened 5828 times
+Initial range of elements is 1e-05 to 14.938751
+Range of elements is 0.0031622777 to 316.22777
+Range of elements is 0.022606609 to 44.234851
+Final range of elements is 0.027669835 to 36.140439
+Absolute values of scaled rhs range from 8.1391461 to 13514.996, minimum gap 53.498113
+Absolute values of scaled objective range from 0.08994999 to 5662.8962
+Absolute values of scaled bounds range from 0.12586682 to 9273876.9, minimum gap 0.12586682
+Perturbing problem by 0.001% of 5662.8962 - largest nonzero change 0.00090358951 ( 0.94825364%) - largest zero change 0.00090351151
+0  Obj -77825.904 Primal inf 116834.96 (231) Dual inf 184541.75 (175)
+0  Obj -77825.904 Primal inf 116834.96 (231) Dual inf 184541.75 (175)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -72555248
+Dual took 0.17 seconds (total 0.19)
+After Postsolve, objective -72555248, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -72555248.13 - 2479 iterations time 0.202, Presolve 0.03
+Log level = 3
+Maximum seconds = 266.144, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 201.99999999999818 ms from stopwatch = 201 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 205 -35.8375872 0
+1.000000 1825 -160.606505 0
+2.000000 830302.3455 1.421085472E-14 15.7
+3.000000 2325 -71.93784314 0
+4.000000 400 87.19936 0
+5.000000 572 201.3185317 0
+6.000000 850 -83.44557645 0
+7.000000 2600 42.1126624 0
+8.000000 955 -565.9499345 0
+9.000000 427 84.61711784 0
+Solver clp solved model greenbea result=Optimal
+Model                                 greenbea
+SolveTimeMs                                201
+Objective                   -72555248.12984604
+Iterations                                2479
+LoadTimeMs                                  29
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\greenbeb.mps as model Name=greenbeb Obj=FAT0..J. A=(2390, 622) RHS=(0, 0) RowTypes=2393 Lower=(1, 436) Upper=(1, 436) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 53 ms, read_errors=0, model_key=greenbeb
+Solver clp loaded model greenbeb
+Solver clp set with previously read parameters
+Solver clp solving model greenbeb...
+1092 rows dropped after presolve pass 1
+1092 rows dropped after presolve pass 2
+Presolve 1297 (-1092) rows, 3317 (-2088) columns and 20892 (-9985) elements
+Presolve took 0.02 seconds (total 0.02)
+Matrix can not be converted into +- 1
+Bounds were tightened 5016 times
+Initial range of elements is 1e-05 to 100
+Range of elements is 0.0031622777 to 316.22777
+Range of elements is 0.022606609 to 44.234851
+Final range of elements is 0.027669835 to 36.140439
+Absolute values of scaled rhs range from 5.000782 to 6468.7981, minimum gap 21.214769
+Absolute values of scaled objective range from 0.08994999 to 6705.5366
+Absolute values of scaled bounds range from 0.11046509 to 9444961.1, minimum gap 0.11046509
+Perturbing problem by 0.001% of 6705.5366 - largest nonzero change 0.00089944156 ( 0.80428909%) - largest zero change 0.00089943619
+0  Obj -597643.76 Primal inf 256577.62 (233) Dual inf 196754.35 (170)
+0  Obj -597643.76 Primal inf 256577.62 (233) Dual inf 196754.35 (170)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -4302260.3
+Dual took 0.30 seconds (total 0.33)
+After Postsolve, objective -4302260.3, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -4302260.261 - 3679 iterations time 0.342, Presolve 0.04
+Log level = 3
+Maximum seconds = 266.539, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 356.00000000002296 ms from stopwatch = 355 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 278 -0.2336373459 0
+1.000000 955 -0.5420689628 0
+2.000000 0 15.75749926 15.7
+3.000000 1130 0.05905685459 0
+4.000000 400 -0.05805274214 0
+5.000000 603 -1.039493641 0
+6.000000 650 0.02648076687 0
+7.000000 1800 0.08348636968 0
+8.000000 814 -77.1301966 0
+9.000000 405 -0.1418303739 0
+Solver clp solved model greenbeb result=Optimal
+Model                                 greenbeb
+SolveTimeMs                                355
+Objective                   -4302260.261206586
+Iterations                                3679
+LoadTimeMs                                  28
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\ken-18.mps as model Name=ken-18 Obj=COST A=(105128, 154548) RHS=(1, 23479) RowTypes=105128 Lower=(1, 154699) Upper=(1, 154699) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 1550 ms, read_errors=0, model_key=ken-18
+Solver clp loaded model ken-18
+Solver clp set with previously read parameters
+Solver clp solving model ken-18...
+65254 rows dropped after presolve pass 1
+65264 rows dropped after presolve pass 2
+65264 rows dropped after presolve pass 3
+Presolve 39863 (-65264) rows, 89347 (-65352) columns and 207206 (-150965) elements
+Presolve took 0.31 seconds (total 0.31)
+Bounds were tightened 27602 times
+Absolute values of scaled rhs range from 1 to 396675, minimum gap 420003
+Absolute values of scaled objective range from 0.54 to 87457.301
+Absolute values of scaled bounds range from 0.89999928 to 23876.1, minimum gap 3
+0  Obj -6.3200255e+09 Primal inf 740525.98 (19089) Dual inf 7.2561715e+08 (87861)
+0  Obj -6.3200255e+09 Primal inf 740525.98 (19089) Dual inf 7.2561715e+08 (87861)
+19928  Obj -5.5203743e+10 Primal inf 831931.69 (17982)
+33920  Obj -5.2922665e+10 Primal inf 399351.09 (10944)
+44096  Obj -5.2243556e+10 Primal inf 78988.396 (4435)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value -5.2217025e+10
+Dual took 2.71 seconds (total 3.02)
+After Postsolve, objective -5.2217025e+10, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -5.221702529e+10 - 48318 iterations time 3.062, Presolve 0.35
+Log level = 3
+Maximum seconds = 269.661, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 3068.000000000012 ms from stopwatch = 3069 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 36 0 -4427.410156
+1.000000 36 0 -10000
+2.000000 36 0 -5665.549805
+3.000000 36 0 -10000
+4.000000 36 3.637978807E-12 -10000
+5.000000 60 0 -1607.01001
+6.000000 60 -1.818989404E-12 -10000
+7.000000 60 0 -1914.51001
+8.000000 72 -5653.829835 -9313.379883
+9.000000 72 0 -4173.140137
+Solver clp solved model ken-18 result=Optimal
+Model                                   ken-18
+SolveTimeMs                               3069
+Objective                  -52217025287.396805
+Iterations                               48318
+LoadTimeMs                                 859
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-30.mps as model Name=osa-30 Obj=COST A=(4351, 100022) RHS=(1, 4313) RowTypes=4351 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 1027 ms, read_errors=0, model_key=osa-30
+Solver clp loaded model osa-30
+Solver clp set with previously read parameters
+Solver clp solving model osa-30...
+69 rows dropped after presolve pass 1
+69 rows dropped after presolve pass 2
+Presolve 4281 (-69) rows, 96206 (-3818) columns and 268679 (-331459) elements
+Presolve took 0.16 seconds (total 0.16)
+Matrix can not be converted into +- 1
+Bounds were tightened 101807 times
+Initial range of elements is 0.1572 to 13.1903
+Range of elements is 0.1202082 to 8.3188997
+Range of elements is 0.34671055 to 2.8842503
+Final range of elements is 0.12074337 to 1
+Absolute values of scaled rhs range from 0.87975065 to 22270.415, minimum gap 1e+100
+Absolute values of scaled objective range from 81.698105 to 725.1485
+Absolute values of scaled bounds range from 1.0951245 to 9.1507897, minimum gap 1.0951245
+Perturbing problem by 0.001% of 725.1485 - largest nonzero change 0.02446351 ( 0.0060393277%) - largest zero change 0.00029727012
+0  Obj 0 Primal inf 5942.4311 (13)
+0  Obj 0 Primal inf 5942.4311 (13)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 2142139.9
+Dual took 0.35 seconds (total 0.52)
+After Postsolve, objective 2142139.9, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 2142139.873 - 2235 iterations time 0.542, Presolve 0.19
+Log level = 3
+Maximum seconds = 274.628, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 543.0000000000064 ms from stopwatch = 542 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 3688.447 3688.447
+1.000000 0 4289.71153 4305.5918
+2.000000 0 2143.232 2693.7231
+3.000000 0 2496.610085 3058.3813
+4.000000 0 4330.917 4330.917
+5.000000 0 3987.488 3987.488
+6.000000 0 4236.6826 4236.6826
+7.000000 0 2259.0459 3367.0364
+8.000000 0 2765.977029 3888.3088
+9.000000 0 3411.0828 3411.0828
+Solver clp solved model osa-30 result=Optimal
+Model                                   osa-30
+SolveTimeMs                                542
+Objective                    2142139.873209787
+Iterations                                2235
+LoadTimeMs                                 770
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-60.mps as model Name=osa-60 Obj=COST A=(10281, 232965) RHS=(1, 10243) RowTypes=10281 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 2262 ms, read_errors=0, model_key=osa-60
+Solver clp loaded model osa-60
+Solver clp set with previously read parameters
+Solver clp solving model osa-60...
+69 rows dropped after presolve pass 1
+69 rows dropped after presolve pass 2
+Presolve 10211 (-69) rows, 224373 (-8593) columns and 597844 (-799949) elements
+Presolve took 0.37 seconds (total 0.37)
+Matrix can not be converted into +- 1
+Bounds were tightened 237410 times
+Initial range of elements is 0.3502 to 13.2064
+Range of elements is 0.17020553 to 5.8752499
+Range of elements is 0.41255973 to 2.4238915
+Final range of elements is 0.17244177 to 1
+Absolute values of scaled rhs range from 0.87193216 to 36928.967, minimum gap 1e+100
+Absolute values of scaled objective range from 183.61798 to 1159.621
+Absolute values of scaled bounds range from 1.0229862 to 6.4627748, minimum gap 1.0229862
+Perturbing problem by 0.001% of 1159.621 - largest nonzero change 0.024790398 ( 0.006558336%) - largest zero change 0
+0  Obj 0 Primal inf 8675.4738 (11)
+0  Obj 0 Primal inf 8675.4738 (11)
+1932  Obj 3637733.4 Primal inf 3038.4067 (1399)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 4044072.5
+Dual took 1.36 seconds (total 1.73)
+After Postsolve, objective 4044072.5, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 4044072.503 - 4944 iterations time 1.772, Presolve 0.41
+Log level = 3
+Maximum seconds = 279.601, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 1771.000000000015 ms from stopwatch = 1771 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 4003.8499 4003.8499
+1.000000 0 4506.6104 4506.6104
+2.000000 0 5272.888351 5292.4082
+3.000000 0 4013.5771 4013.5771
+4.000000 0 4678.63499 4695.9551
+5.000000 0 2700.9504 2700.9504
+6.000000 0 4059.8135 4059.8135
+7.000000 0 1782.762 4072.3245
+8.000000 0 2907.1086 2907.1086
+9.000000 0 3294.974521 3307.1724
+Solver clp solved model osa-60 result=Optimal
+
+
+Model                                   osa-60
+SolveTimeMs                               1771
+Objective                   4044072.5031574722
+Iterations                                4944
+LoadTimeMs                                2049
+ResultStatus                           Optimal
+Read MPS file C:\Users\krish\Work\lpbench\netlib\pds-20.mps as model Name=pds-20 Obj=C A=(33799, 73953) RHS=(1, 2469) RowTypes=33875 Lower=(1, 34888) Upper=(1, 34888) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 582 ms, read_errors=0, model_key=pds-20
+Solver clp loaded model pds-20
+Solver clp set with previously read parameters
+Solver clp solving model pds-20...
+21606 rows dropped after presolve pass 1
+22353 rows dropped after presolve pass 2
+23015 rows dropped after presolve pass 3
+23441 rows dropped after presolve pass 4
+23519 rows dropped after presolve pass 5
+Presolve 10279 (-23519) rows, 81977 (-23751) columns and 187893 (-42307) elements
+Presolve took 0.48 seconds (total 0.48)
+Bounds were tightened 105102 times
+Absolute values of scaled rhs range from 32 to 3600, minimum gap 1e+100
+Absolute values of scaled objective range from 36 to 99999
+Absolute values of scaled bounds range from 8 to 18123, minimum gap 8
+Perturbing problem by 0.001% of 99999 - largest nonzero change 0.0081108336 ( 0.021886486%) - largest zero change 0.008106159
+0  Obj 2.9313634e+10 Dual inf 22450388 (2096)
+0  Obj 2.9313634e+10 Dual inf 22450388 (2096)
+12144  Obj 2.3784417e+10 Primal inf 94032.201 (756)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value 2.3821659e+10
+Dual took 1.23 seconds (total 1.71)
+After Postsolve, objective 2.3821659e+10, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 2.382165864e+10 - 14369 iterations time 1.752, Presolve 0.52
+Log level = 3
+Maximum seconds = 282.568, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 1756.0000000000002 ms from stopwatch = 1755 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 351 -99354 0
+1.000000 96 -99354 0
+2.000000 513 -99354 0
+3.000000 359 0 0
+4.000000 202 0 0
+5.000000 114 -99354 0
+6.000000 39 -107 0
+7.000000 57 -99354 0
+8.000000 90 0 0
+9.000000 121 0 0
+Solver clp solved model pds-20 result=Optimal
+Model                                   pds-20
+SolveTimeMs                               1755
+Objective                          23821658640
+Iterations                               14369
+LoadTimeMs                                 435
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\qap12.mps as model Name=qap12 Obj=NOBJ A=(3193, 8712) RHS=(1, 24) RowTypes=3193 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 97 ms, read_errors=0, model_key=qap12
+Solver clp loaded model qap12
+Solver clp set with previously read parameters
+Solver clp solving model qap12...
+0 rows dropped after presolve pass 1
+Presolve 2817 (-375) rows, 8856 (0) columns and 33804 (-4500) elements
+Presolve took 0.06 seconds (total 0.06)
+44 infeas 0.44369134, obj 520.77025 - mu 4.5692739e-05, its 105, 5176 interior
+77 infeas 0.0017801525, obj 524.30458 - mu 1.8794197e-07, its 105, 7716 interior
+largest infeasibility is 3.92149e-07
+largest infeasibility is 2.8196e-07
+largest infeasibility is 2.8196e-07
+sum of infeasibilities 9.21449e-05 - average 3.27103e-08, 1132 fixed columns
+0 rows dropped after presolve pass 1
+Presolve 2817 (0) rows, 7695 (-1161) columns and 29780 (-4024) elements
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 80
+0  Obj 524.32484 Dual inf 7145800 (4852)
+End of values pass after 7539 iterations
+7539  Obj 523.52946 Dual inf 15311.115 (1900)
+Perturbing problem by 0.001% of 0.1 - largest nonzero change 1.3051003e-05 ( 0.0013051003%) - largest zero change 2.9664059e-05
+8587  Obj 522.94636 Dual inf 17457.066 (1942)
+9673  Obj 522.89118 Dual inf 411.05321 (738)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 80
+Looking optimal with tolerance of 1e-06
+10600  Obj 522.89424 Dual inf 2.1117989 (318)
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 522.89424
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 80
+Optimal - objective value 522.89435
+After Postsolve, objective 522.89435, infeasibilities - dual 0 (0), primal 0 (0)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 100
+0  Obj 522.89435
+Optimal - objective value 522.89435
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 100
+Optimal - objective value 522.89435
+Idiot Crash took 4.92 seconds (total 4.98)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 100
+Optimal - objective value 522.89435
+Primal took 0.03 seconds (total 5.01)
+After Postsolve, objective 522.89435, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 522.8943506 - 0 iterations time 5.012, Presolve 0.06, Idiot 4.92
+Log level = 3
+Maximum seconds = 284.523, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 5022.00000000002 ms from stopwatch = 5022 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0.07288681604 4.481748306E-12 0
+1.000000 0.1047346018 8.247624805E-12 0
+2.000000 0.1001251964 1.662670002E-12 0
+3.000000 0.0688012125 -1.382005621E-12 0
+4.000000 0.08384128124 9.467981954E-13 0
+5.000000 0.06660567938 -6.75015599E-13 0
+6.000000 0.06660567938 3.002043059E-13 0
+7.000000 0.08384128124 -1.421085472E-14 0
+8.000000 0.06869028649 3.264943871E-12 0
+9.000000 0.1032413351 -3.73745479E-12 0
+Solver clp solved model qap12 result=Optimal
+Model                                    qap12
+SolveTimeMs                               5022
+Objective                    522.8943505590496
+Iterations                                   0
+LoadTimeMs                                  58
+ResultStatus                           Optimal
+
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\stocfor3.mps as model Name=stocfor3 Obj=HARV A=(16676, 9129) RHS=(1, 8) RowTypes=16676 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 143 ms, read_errors=0, model_key=stocfor3
+Solver clp loaded model stocfor3
+Solver clp set with previously read parameters
+Solver clp solving model stocfor3...
+7579 rows dropped after presolve pass 1
+7963 rows dropped after presolve pass 2
+7963 rows dropped after presolve pass 3
+Presolve 8712 (-7963) rows, 9054 (-6641) columns and 41824 (-23051) elements
+Presolve took 0.05 seconds (total 0.05)
+Matrix can not be converted into +- 1
+Bounds were tightened 18266 times
+Initial range of elements is 0.049896286 to 336.6
+Range of elements is 0.054505828 to 18.346662
+Range of elements is 0.16721978 to 5.9801539
+Final range of elements is 0.22337476 to 4.4767814
+Absolute values of scaled rhs range from 0.0095877769 to 64.81, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00040722147 to 31611.7
+Absolute values of scaled bounds range from 0.022262646 to 58.022923, minimum gap 0.022262646
+Perturbing problem by 0.001% of 40.722147 - largest nonzero change 0.00014071112 ( 32.09704%) - largest zero change 0.00014064494
+0  Obj -199.46178 Primal inf 1477.6009 (355) Dual inf 23512.052 (2874)
+0  Obj -199.46178 Primal inf 1477.6009 (355) Dual inf 23512.052 (2874)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value -39976.784
+Dual took 0.43 seconds (total 0.48)
+After Postsolve, objective -39976.784, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -39976.78394 - 6686 iterations time 0.492, Presolve 0.06
+Log level = 3
+Maximum seconds = 289.834, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 487.99999999999955 ms from stopwatch = 487 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 92.30615095 0
+1.000000 0 65.00990943 0
+2.000000 0 29.07478362 0
+3.000000 0 10.12717182 0
+4.000000 0 2.613463696 0
+5.000000 18.77263535 5.684341886E-14 0
+6.000000 0.241 0 0
+7.000000 0.125 -1.421085472E-14 0
+8.000000 1.404 0 0
+9.000000 2.004 0 0
+Solver clp solved model stocfor3 result=Optimal
+Model                                 stocfor3
+SolveTimeMs                                487
+Objective                   -39976.78394364944
+Iterations                                6686
+LoadTimeMs                                 100
+ResultStatus                           Optimal
+
+LPSharp>

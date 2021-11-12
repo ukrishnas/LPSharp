@@ -1,0 +1,521 @@
+
+$dir = "c:\users\krish\work\lpbench"
+$edge = @("edge-pri0-diverse5.mps", "edge-pri0-maxmin0.mps", "edge-pri0-maxmin1.mps", "edge-pri0-maxmin2.mps", 
+    "edge-pri0-maxmin3.mps", "edge-pri0-maxmin4.mps", "edge-pri0-mincost.mps", "edge-pri0-minutil.mps")
+$sliceperf = @("sliceperf-pri0-diverse5.mps", "sliceperf-pri0-maxmin0.mps", "sliceperf-pri0-maxmin1.mps", "sliceperf-pri0-maxmin2.mps",
+    "sliceperf-pri0-maxmin3.mps", "sliceperf-pri0-maxmin4.mps", "sliceperf-pri0-maxmin5.mps",
+    "sliceperf-pri0-mincost.mps", "sliceperf-pri3-minutil.mps")
+$sonal = @("sonal-diverse1.mps", "sonal-diverse5.mps", "sonal-maxmin0.mps", "sonal-maxmin1.mps", "sonal-maxmin2.mps",
+    "sonal-maxmin3.mps", "sonal-maxmin4.mps", "sonal-maxmin5.mps", "sonal-mincost.mps")
+$all = $edge + $sliceperf + $sonal
+foreach ($m in $edge)
+{
+    read-mps $dir\wanlpv2\$m -key $m
+}
+set-solver -create CLP -key clp -default
+read-parameters $dir\SolverParameters.xml
+set-solver -key clp -parameters
+foreach ($m in $edge)
+{
+    # build3\cpp\Release\coinwrap.exe $dir\wanlpv2\$m primals
+    #..\x64\release\clp.exe $dir\wanlpv2\$m primals
+    invoke-solver $m
+}
+
+===========================================
+
+Primal simplex with idiot crash for WANLPv2 edge models.
+
+<?xml version="1.0"?>
+<SolverParameters>
+  <!-- These parameters are common for all solvers. -->
+  <GenericParameters>
+    <Param Name="TimeLimitInSeconds" Value="30" />
+    <Param Name="EnableLogging" Value="true" />
+  </GenericParameters>
+  <ClpParameters>
+    <Param Name="SolveType" Value="Primal" />
+    <Param Name="LogLevel" Value="3" />
+  </ClpParameters>
+</SolverParameters>
+
+Solver CLP solver Key=clp created
+Solver clp is default solver
+Read solver parameters from c:\users\krish\work\lpbench\SolverParameters.xml
+Solver clp parameters set with previously read parameters
+Solver clp loaded model edge-pri0-diverse5.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-diverse5.mps...
+52802 rows dropped after presolve pass 1
+52802 rows dropped after presolve pass 2
+Presolve 54967 (-52802) rows, 155795 (-4435) columns and 1368896 (-145952) elements
+Presolve took 0.59 seconds (total 0.59)
+** Objective offset is -4.54693e+08
+Exiting due to number of major iterations
+largest infeasibility is 111306
+largest infeasibility is 18605.9
+largest infeasibility is 18605.9
+Idiot Crash took 0.21 seconds (total 0.80)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 50.00105 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 2000 to 3131000
+Absolute values of scaled bounds range from 0.00032987399 to 7615.2925, minimum gap 1e+100
+14412  Obj 5.6952507e+12 Primal inf 9336237.6 (19078) Dual inf 2.3438648e+15 (122400)
+End of values pass after 15622 iterations
+24604  Obj 6.6894085e+12 Primal inf 3637481.9 (9432) Dual inf 1.8523806e+14 (69727)
+33087  Obj 8.2640085e+12 Primal inf 417493.63 (993) Dual inf 3.8979208e+13 (24801)
+35083  Obj 8.2132888e+12 Dual inf 6.01674e+08 (14679)
+35582  Obj 8.191635e+12 Dual inf 1.537545e+08 (10936)
+36580  Obj 8.1672251e+12 Dual inf 1.34822e+08 (10083)
+37578  Obj 8.1449969e+12 Dual inf 54390875 (7271)
+38077  Obj 8.1366234e+12 Dual inf 34373500 (6207)
+39075  Obj 8.1223829e+12 Dual inf 13388000 (4378)
+40572  Obj 8.1176128e+12 Dual inf 325250 (584)
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 8.117443e+12
+Primal took 9.83 seconds (total 10.64)
+After Postsolve, objective 8.117443e+12, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 8.117442982e+12 - 41018 iterations time 10.692, Presolve 0.65, Idiot 0.21
+Log level = 3
+Maximum seconds = 107.672, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 10694.000000000002 ms from stopwatch = 10694 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 10500 16000
+1.000000 175.7498241 0 8000
+2.000000 0 1000 9000
+3.000000 9.249990888 0 9000
+4.000000 0 26500 34500
+5.000000 0 51000 59000
+6.000000 0 40500 46000
+7.000000 0 51000 59000
+8.000000 0 0 68000
+9.000000 10854.68914 0 71000
+Solver clp solved model edge-pri0-diverse5.mps result=Optimal
+Model                   edge-pri0-diverse5.mps
+SolveTimeMs                              10694
+Objective                    8117442981617.315
+Iterations                               41018
+LoadTimeMs                                2455
+ResultStatus                           Optimal
+Solver clp loaded model edge-pri0-maxmin0.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-maxmin0.mps...
+27977 rows dropped after presolve pass 1
+27977 rows dropped after presolve pass 2
+Presolve 30137 (-27977) rows, 158602 (-1628) columns and 1239086 (-226107) elements
+Presolve took 0.47 seconds (total 0.47)
+Exiting due to number of major iterations
+largest infeasibility is 100
+largest infeasibility is 2.55795e-12
+largest infeasibility is 2.55795e-12
+sum of infeasibilities 4.36273e-12 - average 1.44763e-16, 139575 fixed columns
+21280 rows dropped after presolve pass 1
+21281 rows dropped after presolve pass 2
+21281 rows dropped after presolve pass 3
+Presolve 8856 (-21281) rows, 18902 (-139700) columns and 85826 (-1153260) elements
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 100 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 100 to 560999.97, minimum gap 100
+0  Obj -196926.23 Primal inf 9840.7381 (1) Dual inf 5.0000019e+12 (18902)
+End of values pass after 18902 iterations
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -15703089
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 100 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 100 to 560999.97, minimum gap 100
+Optimal - objective value -15703089
+After Postsolve, objective -15703089, infeasibilities - dual 0 (0), primal 0 (0)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 100 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 104
+0  Obj -15703089 Dual inf 104619.9 (104620)
+9750  Obj -24052939 Dual inf 34233.966 (34230)
+16875  Obj -30108041 Dual inf 4463.9957 (4335)
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -30411124
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 100 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 104
+Optimal - objective value -30411124
+Idiot Crash took 2.66 seconds (total 3.13)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 100 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 104
+Optimal - objective value -30411124
+Primal took 0.09 seconds (total 3.22)
+After Postsolve, objective -30411124, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -30411123.92 - 0 iterations time 3.282, Presolve 0.52, Idiot 2.66
+Log level = 3
+Maximum seconds = 120.893, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 3278.9999999999964 ms from stopwatch = 3278 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 185 0 -1
+1.000000 0 0 -1
+2.000000 0 0 -1
+3.000000 0 0 -1
+4.000000 0 0 -1
+5.000000 0 0 -1
+6.000000 0 0 -1
+7.000000 0 0 -1
+8.000000 10000 0 -1
+9.000000 0 0 -1
+Solver clp solved model edge-pri0-maxmin0.mps result=Optimal
+Model                    edge-pri0-maxmin0.mps
+SolveTimeMs                               3278
+Objective                      -30411123.92135
+Iterations                                   0
+LoadTimeMs                                2378
+ResultStatus                           Optimal
+Solver clp loaded model edge-pri0-maxmin1.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-maxmin1.mps...
+3166 rows dropped after presolve pass 1
+3166 rows dropped after presolve pass 2
+Presolve 54948 (-3166) rows, 155751 (-4479) columns and 1367276 (-97917) elements
+Presolve took 0.47 seconds (total 0.47)
+Exiting due to number of major iterations
+largest infeasibility is 10000
+largest infeasibility is 9423.73
+largest infeasibility is 9423.73
+Idiot Crash took 0.16 seconds (total 0.63)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+0  Obj -15176356 Primal inf 15298629 (25421) Dual inf 1.935075e+16 (155046)
+End of values pass after 18162 iterations
+Perturbing problem by 0.001% of 21476.112 - largest nonzero change 0.040530779 ( 0.0010070128%) - largest zero change 0
+21156  Obj -28426002 Primal inf 6652701.8 (14239) Dual inf 81044299 (82471)
+26146  Obj -30637462 Primal inf 4420677.8 (9361) Dual inf 47140876 (49561)
+34629  Obj -34245849 Primal inf 768145.33 (1515) Dual inf 12199830 (15453)
+38122  Obj -34924073 Dual inf 134.99987 (135)
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -34938682
+Primal took 3.14 seconds (total 3.77)
+After Postsolve, objective -34938682, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -34938681.92 - 38256 iterations time 3.812, Presolve 0.51, Idiot 0.16
+Log level = 3
+Maximum seconds = 126.781, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 3808.9999999999973 ms from stopwatch = 3809 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 0 -1
+1.000000 0 0 -1
+2.000000 0 0 -1
+3.000000 0 0 -1
+4.000000 0 0 -1
+5.000000 185 0 -1
+6.000000 0 0 -1
+7.000000 0 0 -1
+8.000000 11426 0 -1
+9.000000 0 0 -1
+Solver clp solved model edge-pri0-maxmin1.mps result=Optimal
+Model                    edge-pri0-maxmin1.mps
+SolveTimeMs                               3809
+Objective                   -34938681.92134812
+Iterations                               38256
+LoadTimeMs                                2517
+ResultStatus                           Optimal
+Solver clp loaded model edge-pri0-maxmin2.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-maxmin2.mps...
+3158 rows dropped after presolve pass 1
+3158 rows dropped after presolve pass 2
+Presolve 54956 (-3158) rows, 155790 (-4440) columns and 1368399 (-96794) elements
+Presolve took 0.43 seconds (total 0.43)
+Exiting due to number of major iterations
+largest infeasibility is 20000
+largest infeasibility is 15519.2
+largest infeasibility is 15519.2
+Idiot Crash took 0.15 seconds (total 0.58)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+0  Obj -21543983 Primal inf 14208630 (25397) Dual inf 2.375058e+16 (144822)
+End of values pass after 22810 iterations
+Perturbing problem by 0.001% of 21743.006 - largest nonzero change 0.082914144 ( 0.0010078875%) - largest zero change 0
+25804  Obj -34724639 Primal inf 5421324.3 (12063) Dual inf 1.3124547e+08 (69386)
+35784  Obj -38882580 Primal inf 1259510 (2554) Dual inf 25829560 (18854)
+39277  Obj -39975862 Primal inf 68254.759 (76) Dual inf 16252337 (11848)
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+Looking optimal with tolerance of 1e-06
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -40084358
+Primal took 2.85 seconds (total 3.42)
+After Postsolve, objective -40084358, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -40084357.92 - 41354 iterations time 3.462, Presolve 0.47, Idiot 0.15
+Log level = 3
+Maximum seconds = 132.913, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 3469.999999999999 ms from stopwatch = 3469 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 0 -1
+1.000000 0 0 -1
+2.000000 0 0 -1
+3.000000 0 0 -1
+4.000000 0 0 -1
+5.000000 0 0 -1
+6.000000 0 0 -1
+7.000000 185 0 -1
+8.000000 11426 0 -1
+9.000000 0 0 -1
+Solver clp solved model edge-pri0-maxmin2.mps result=Optimal
+Model                    edge-pri0-maxmin2.mps
+SolveTimeMs                               3469
+Objective                   -40084357.92134841
+Iterations                               41354
+LoadTimeMs                                2215
+ResultStatus                           Optimal
+Solver clp loaded model edge-pri0-maxmin3.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-maxmin3.mps...
+3155 rows dropped after presolve pass 1
+3155 rows dropped after presolve pass 2
+Presolve 54959 (-3155) rows, 155790 (-4440) columns and 1368571 (-96622) elements
+Presolve took 0.42 seconds (total 0.42)
+Exiting due to number of major iterations
+largest infeasibility is 39787.8
+largest infeasibility is 20849.6
+largest infeasibility is 20849.6
+Idiot Crash took 0.16 seconds (total 0.59)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+0  Obj -26126124 Primal inf 14746075 (25426) Dual inf 2.337714e+16 (144775)
+End of values pass after 22397 iterations
+Perturbing problem by 0.001% of 21945.557 - largest nonzero change 0.049349285 ( 0.001009883%) - largest zero change 0
+24892  Obj -37986996 Primal inf 5868445.7 (12637) Dual inf 1.376857e+08 (73139)
+35371  Obj -42510285 Primal inf 1343374.7 (2757) Dual inf 30756605 (17486)
+39363  Obj -43807757 Dual inf 1802.9982 (1803)
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+Looking optimal with tolerance of 1e-06
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -43810400
+Primal took 2.96 seconds (total 3.55)
+After Postsolve, objective -43810400, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -43810399.92 - 40994 iterations time 3.592, Presolve 0.47, Idiot 0.16
+Log level = 3
+Maximum seconds = 138.74200000000002, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 3596.999999999994 ms from stopwatch = 3596 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 0 -1
+1.000000 0 0 -1
+2.000000 0 0 -1
+3.000000 0 0 -1
+4.000000 0 0 -1
+5.000000 0 0 -1
+6.000000 0 0 -1
+7.000000 185 0 -1
+8.000000 11426 0 -1
+9.000000 0 0 -1
+Solver clp solved model edge-pri0-maxmin3.mps result=Optimal
+Model                    edge-pri0-maxmin3.mps
+SolveTimeMs                               3596
+Objective                   -43810399.92134839
+Iterations                               40994
+LoadTimeMs                                2222
+ResultStatus                           Optimal
+Solver clp loaded model edge-pri0-maxmin4.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-maxmin4.mps...
+3152 rows dropped after presolve pass 1
+3152 rows dropped after presolve pass 2
+Presolve 54962 (-3152) rows, 155790 (-4440) columns and 1368615 (-96578) elements
+Presolve took 0.52 seconds (total 0.52)
+Exiting due to number of major iterations
+largest infeasibility is 72785
+largest infeasibility is 20850.2
+largest infeasibility is 20850.2
+Idiot Crash took 0.21 seconds (total 0.73)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+0  Obj -29603090 Primal inf 14955009 (25429) Dual inf 2.327486e+16 (144746)
+End of values pass after 22283 iterations
+Perturbing problem by 0.001% of 22060.792 - largest nonzero change 0.089207696 ( 0.0010078875%) - largest zero change 0
+24279  Obj -39183960 Primal inf 6133255.6 (13151) Dual inf 1.47988e+08 (77684)
+34259  Obj -43531315 Primal inf 1788630.7 (3888) Dual inf 38713188 (22171)
+39249  Obj -45236773 Primal inf 49966.475 (58) Dual inf 4701324 (10723)
+Absolute values of scaled rhs range from 50.001099 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 104 to 797, minimum gap 1e+100
+Looking optimal with tolerance of 1e-06
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -45285236
+Primal took 3.05 seconds (total 3.78)
+After Postsolve, objective -45285236, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective -45285235.92 - 41626 iterations time 3.822, Presolve 0.56, Idiot 0.21
+Log level = 3
+Maximum seconds = 144.838, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 3825.0000000000027 ms from stopwatch = 3825 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 0 -1
+1.000000 0 0 -1
+2.000000 0 0 -1
+3.000000 0 0 -1
+4.000000 0 0 -1
+5.000000 0 0 -1
+6.000000 0 0 -1
+7.000000 185 0 -1
+8.000000 11426 0 -1
+9.000000 0 0 -1
+Solver clp solved model edge-pri0-maxmin4.mps result=Optimal
+Model                    edge-pri0-maxmin4.mps
+SolveTimeMs                               3825
+Objective                  -45285235.921348415
+Iterations                               41626
+LoadTimeMs                                2336
+ResultStatus                           Optimal
+Solver clp loaded model edge-pri0-mincost.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-mincost.mps...
+3147 rows dropped after presolve pass 1
+3147 rows dropped after presolve pass 2
+Presolve 54967 (-3147) rows, 155788 (-4442) columns and 1368858 (-96335) elements
+Presolve took 0.51 seconds (total 0.51)
+** Objective offset is -4.54693e+08
+Exiting due to number of major iterations
+largest infeasibility is 121080
+largest infeasibility is 20724.2
+largest infeasibility is 20724.2
+Idiot Crash took 0.19 seconds (total 0.70)
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 50.00105 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 2000 to 3131000
+0  Obj 3.7273482e+12 Primal inf 18369320 (25429) Dual inf 1.6917848e+16 (154077)
+End of values pass after 15641 iterations
+Perturbing problem by 0.001% of 22099.871 - largest nonzero change 0 ( 0%) - largest zero change 1.9129938e-05
+19633  Obj 5.8654314e+12 Primal inf 7090546.3 (14400) Dual inf 2.7822803e+14 (99985)
+29114  Obj 7.4409496e+12 Primal inf 1872132.6 (4950) Dual inf 9.7970969e+13 (41821)
+34603  Obj 8.3081089e+12 Dual inf 1.053664e+09 (15799)
+35601  Obj 8.179545e+12 Dual inf 1.978095e+08 (13054)
+36599  Obj 8.1481265e+12 Dual inf 3.204475e+08 (11833)
+37098  Obj 8.1423968e+12 Dual inf 63564500 (8198)
+38595  Obj 8.1108026e+12 Dual inf 27837500 (6251)
+39593  Obj 8.1017983e+12 Dual inf 12257500 (3650)
+40092  Obj 8.0992691e+12 Dual inf 3787500 (2179)
+41090  Obj 8.0977984e+12 Dual inf 527000 (703)
+Absolute values of scaled rhs range from 50.00105 to 2420000, minimum gap 1e+100
+Absolute values of scaled objective range from 2000 to 3131000
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 8.0976775e+12
+Primal took 10.62 seconds (total 11.31)
+After Postsolve, objective 8.0976775e+12, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 8.097677504e+12 - 41421 iterations time 11.362, Presolve 0.56, Idiot 0.19
+Log level = 3
+Maximum seconds = 151.047, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 11366.99999999999 ms from stopwatch = 11366 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 0 10500 16000
+1.000000 184.999815 0 8000
+2.000000 0 1000 9000
+3.000000 0 1000 9000
+4.000000 0 26500 34500
+5.000000 0 51000 59000
+6.000000 0 40500 46000
+7.000000 0 51000 59000
+8.000000 11425.98857 0 68000
+9.000000 0 0 71000
+Solver clp solved model edge-pri0-mincost.mps result=Optimal
+Model                    edge-pri0-mincost.mps
+SolveTimeMs                              11366
+Objective                    8097677503708.622
+Iterations                               41421
+LoadTimeMs                                2245
+ResultStatus                           Optimal
+Solver clp loaded model edge-pri0-minutil.mps
+Solver clp set with previously read parameters
+Solver clp solving model edge-pri0-minutil.mps...
+12674 rows dropped after presolve pass 1
+12678 rows dropped after presolve pass 2
+12678 rows dropped after presolve pass 3
+Presolve 57046 (-12678) rows, 155768 (-4463) columns and 2129584 (-1631557) elements
+Presolve took 1.16 seconds (total 1.16)
+Initial range of elements is 2.6737968e-07 to 1
+Range of elements is 0.00051708769 to 1933.908
+Range of elements is 0.070693222 to 14.145628
+Final range of elements is 0.10324866 to 9.6853559
+Exiting due to number of major iterations
+largest infeasibility is 229555
+largest infeasibility is 417722
+largest infeasibility is 229555
+Idiot Crash took 0.30 seconds (total 1.46)
+Initial range of elements is 2.6737968e-07 to 1
+Range of elements is 0.00051708769 to 1933.908
+Range of elements is 0.070693222 to 14.145628
+Final range of elements is 0.10324866 to 9.6853559
+Absolute values of scaled rhs range from 1.834553 to 297406.97, minimum gap 1e+100
+Absolute values of scaled objective range from 0.0016109576 to 0.0016109576
+Absolute values of scaled bounds range from 620.74881 to 620.74881, minimum gap 1e+100
+0  Obj 1.0040853 Primal inf 1440778 (25412) Dual inf 8.9950014e+16 (155768)
+End of values pass after 9666 iterations
+Perturbing problem by 0.001% of 1683.0136 - largest nonzero change 0.013665247 ( 0.00099800921%) - largest zero change 0
+15786  Obj 1 Primal inf 337495.78 (15328) Dual inf 2.8126396e+15 (92357)
+21396  Obj 1 Primal inf 191164.82 (9815) Dual inf 1.1832842e+15 (68162)
+26496  Obj 1 Primal inf 87715.329 (4810) Dual inf 5.0736609e+14 (46445)
+31086  Obj 1 Primal inf 5634.7123 (273) Dual inf 3.0170991e+14 (28920)
+31596  Obj 1 Primal inf 1353.35 (52) Dual inf 2.1667178e+14 (29008)
+32106  Obj 1 Primal inf 447.12372 (31) Dual inf 1.5887811e+14 (28626)
+32616  Obj 1 Primal inf 37.364048 (4) Dual inf 4.7126673e+13 (22418)
+Absolute values of scaled rhs range from 1.834553 to 297406.97, minimum gap 1e+100
+Absolute values of scaled objective range from 0.0016109576 to 0.0016109576
+Absolute values of scaled bounds range from 620.74881 to 620.74881, minimum gap 1e+100
+Looking optimal with tolerance of 1e-06
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 1
+Primal took 10.89 seconds (total 12.36)
+After Postsolve, objective 1, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 0.9999999985 - 32846 iterations time 12.432, Presolve 1.24, Idiot 0.30
+Log level = 3
+Maximum seconds = 167.73, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+Solve time from CLP = 12432.000000000016 ms from stopwatch = 12432 ms
+  ColIndex ColSolution ReducedCost  Objective
+0.000000 184.999815 0 0
+1.000000 0 0 0
+2.000000 0 0 0
+3.000000 0 0 0
+4.000000 0 0 0
+5.000000 0 0 0
+6.000000 0 0 0
+7.000000 0 0 0
+8.000000 11425.98857 0 0
+9.000000 0 0 0
+Solver clp solved model edge-pri0-minutil.mps result=Optimal
+Model                    edge-pri0-minutil.mps
+SolveTimeMs                              12432
+Objective                   0.9999999985125266
+Iterations                               32846
+LoadTimeMs                                5200
+ResultStatus                           Optimal
