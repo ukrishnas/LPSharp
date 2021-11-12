@@ -12,8 +12,8 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
 
     <!-- Pack Option -->
-    <Title>CoinOr.Clp @RUNTIME_IDENTIFIER@ v@PROJECT_VERSION@</Title>
-    <PackageId>@DOTNET_NATIVE_PROJECT@</PackageId>
+    <Title>@COINWRAP_PROJECT@ @RUNTIME_IDENTIFIER@ v@PROJECT_VERSION@</Title>
+    <PackageId>@COINWRAP_NATIVE_PROJECT@</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
