@@ -32,15 +32,13 @@ try GLOP in different settings.
 MSF results are from Network Designer using Invoke-MSFSolve, because LPSharp
 does not support MSF.
 
-CLP results are using `coinwrap.exe`, which is our wrapper around Clp
-solver methods in `libClp` and `libCoinUtils` built from code this repository.
-It is not yet using LPSharp because the support is under development. Clp build
-also produces a standalone executable, and the results of CoinWrap and
-Clp standalone executables are the same when used with default settings. Clp
-standalone exposes a number of settings in a non-obvious way, and CoinWrap
-exposes a subset in a user-friendly manner.
+CLP results are using CLP nuget packages from this repository of the CoinWrap
+interface and C# language wrapper called from LPSharp. The solver can also be
+invoked using `coinwrap.exe`, a standalone executable of the Clp interface, and
+`Clp.exe`, a standalone executable of the Clp solver. The results are the same
+when used with the same settings.
 
-GLOP results are using GLOP nuget packages in this repository and the C#
+GLOP results are using GLOP nuget packages from this repository and the C#
 language wrapper driven by LPSharp. The locally built library (version 9.1.90.1)
 matches the public OR-Tools in nuget.org (version 9.1.9490). This confirms that
 we are able to locally replicate the public build. `Glopsolve.exe` is our C++
@@ -57,6 +55,7 @@ See [LPSharp readme](../LPSharp/Readme.md) for more help.
 ```
 LPSharp> read-mps netlib\80bau38.mps              # if WANLPv2 or Netlib
 LPSharp> read-mps plato\s250r10.mps -Format free  # if Plato
+LPSharp> set-solver -create CLP -key clp
 LPSharp> set-solver -create GLOP -key glop -default
 LPSharp> read-parameters parameters.xml           # to read custom solver parameters
 LPSharp> invoke-solver s250r10

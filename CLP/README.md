@@ -55,24 +55,62 @@ __What has been removed?__
   easier to understand.
 
 
-## Dotnet C# support
+## CoinWrap - C# interface to Clp
 
-These are some choices for adding C# language support to Clp.
+The capabilities of Clp are quite extensive, but arcane. Starting basis methods,
+pivot algorithms, enabling plus-minus one matrix, using automatic algorithm,
+etc. require setting special options and more special options with seeming
+arbitrary integers representing bit fields and extra information. CoinWrap
+consists of a Clp interface which is a more user friendly interface to a subset
+of Clp functionality from ClpSolver (the source code for Clp standalone
+executable), ClpSimplex (the solver driver), ClpSolve (the solver options),
+CoinModel (to build models), and related classes.
 
-- __Sonnet__. Jan-Willem Goosens maintains
-  [Sonnet](https://github.com/coin-or/Sonnet), that provides C# support to Clp.
-  He started development in November 23, 2011. SonnetWrapper/ implements C++
-  wrappers over Clp and Cbc classes to provide automatic garbage collection.
-  Sonnet/ is C# code that calls the wrappers.
+It uses SWIG to generate C# language wrappers. This can be extended to other
+languages in the future. CMake is used to compile and build dotnet nuget
+packages for Windows x64 platforms only.
 
-- __OR-Tools__. We could link libClp into Google.OrTools package and use this
-  solver by invoking the MPInterface
-  `Solver.CreateSolver("CLP_LINEAR_PROGRAMMING")`. This reproduces the approach
-  envisaged by OR-Tools developers. Some Clp options are not exposed by
-  clp_interface.cc. For example, we may want to use ClpSolve::automatic
-  algorithm or call ClpSolve::setSpecialOption() to replicate the good benchmark
-  performance of `Clp.exe -either`, but this would require enhancements to
-  clp_interface.cc.
+CoinWrap allows us to use the full feature set of Clp but packaged in a more
+easy to use way that suits our needs. The implementation uses Clp natively and
+not the open solver interface, like some other implementations, in order to get
+full access to solver functions.
+
+A few miscellaneous points on CoinWrap:
+
+  - CoinWrap was inspired by Google OrTools approach to generating
+    MPSolverInterface wrappers using SWIG. We used their CMake code to generate
+    nuget packages.
+  - CoinWrap coding style follows the [Google C++ style
+    guide](https://google.github.io/styleguide/cppguide.html).
+  - Build using CMake. Do `cmake -S . -B build` to generate the build system,
+    and `cmake --build build --config Release` to build the release target on a
+    Windows platform. Build system expects libClp.lib and libCoinUtils.lib in
+    their respective build folders.
+  - CoinWrap generates two nuget packages in the `build/dotnet/packages` folder.
+    The native library has Clp interface, libClp, and libCoinUtils. The .Net
+    library has the C# code. The version number is based on the public release
+    number and the commit counts in the Clp and CoinWrap code bases.
+  - Import the packages to your C# project using:
+```
+$ dotnet add package CoinOr.Clp --version <version number>
+```
+
+### Related work
+
+- [__Sonnet__](https://github.com/coin-or/Sonnet), maintained by Jan-Willem Goosens,
+  provides C# support to Clp. SonnetWrapper/ implements C++ wrappers over Cbc,
+  Clp, and OsiClp classes, and Sonnet/ is C# code that calls the wrappers.
+
+- [__Google OrTools__](../GLOP/ortools) provides multi-language (including C#)
+  support to its linear solver interface, called MPSolverInterface, and an
+  [implementation](../GLOP/ortools/linear_solver/clp_interface.cc) of the
+  interface using Clp solver class. They use SWIG to generate language wrappers.
+
+- Both [Sonnet](https://github.com/coin-or/Sonnet) and [Google
+  OrTools](../GLOP/ortools) lack fine control for modifying Clp solver
+  parameters. For example, we may want to use ClpSolve::automatic algorithm,
+  call ClpSolve::setSpecialOption() to replicate the good benchmark performance,
+  but these would require enhancements to the interfaces.
 
 - __SWIG wrappers__. There are multiple projects that provide SWIG based
   wrappers to COIN solvers. The takeaway is that using SWIG for Clp is feasible.
@@ -83,31 +121,3 @@ These are some choices for adding C# language support to Clp.
   - [swIMP](http://swimp.sourceforge.net/) is a SWIG based Java wrapper to any
     open solver interface solver which includes Clp.
 
-## CoinWrap
-
-CoinWrap is our in-house development that uses ideas from Google OR-Tools, Clp
-standalone and library code. Like OR-Tools, it implements a different
-ClpInterface that encapsulates the solver functions and types that we need,
-generates C# wrappers using SWIG, and packages them using the CMake build system
-generator. The advantage of CoinWrap is it allows us to use the full feature set
-of Clp but packaged in a more easy to use way that suits our needs. It will be
-easier for us to maintain once developed. Building CoinWrap will generate dotnet
-and native nuget packages that can be linked with C# projects.
-
-A few miscellaneous points on CoinWrap:
-
-  - This work is under development.
-  - CoinWrap coding style follows the [Google C++ style
-    guide](https://google.github.io/styleguide/cppguide.html).
-  - Build using CMake. Do `cmake -S . -B build` to generate the build system,
-    and `cmake --build build --config Release` to build the release target on a
-    Windows platform. Build system expects libClp.lib and libCoinUtils.lib in
-    their respective build folders.
-  - The code borrows ideas from Google OrTools
-    [clp_interface.cc](../GLOP/ortools/linear_solver/clp_interface.cc), its
-    CMake build system, Clp standalone [ClpSolver.cpp](Clp/src/ClpSolver.cpp),
-    and obviously the rest of Clp code base. As far as I could, I have not
-    copied code, but  C++ code and build system may look similar. The CoinWrap
-    code is licensed under Eclipse Public License to conform to the rest of COIN
-    code base. Please check if this is correct since Google OR-Tools is licensed
-    under the Apache License.

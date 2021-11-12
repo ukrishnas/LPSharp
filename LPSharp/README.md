@@ -28,9 +28,9 @@ other C# programs.
 
 LPSharp is meant to be a test bench for the following LP solvers:
 
-- MSF: Microsoft Solver Foundation LP solver.
-- GLOP: Google Operations Research Tools (OR-Tools) LP solver.
 - CLP: Computation Infrastructure for Operations Research (COIN-OR) LP solver.
+- GLOP: Google Operations Research Tools (OR-Tools) LP solver.
+
 
 
 ## LPSharp Cheatsheet
@@ -51,11 +51,11 @@ LPSharp> read-mps 80bau38.mps
 ```
 
 Create a solver with the `set-solver -create`. The argument is the solver type
-(supported values are `GLOP` with future support for `CLP` and `MSF`). The
-solver can be accessed using the key defined by `-key`. The `-default` option
-means this will be the solver used in future `invoke-solver` commands if no key
-is given.
+(supported values are `GLOP` and `CLP`). The solver can be accessed using the
+key defined by `-key`. The `-default` option means this will be the solver used
+in future `invoke-solver` commands if no key is given.
 ```
+LPSharp> set-solver -create CLP -key clp
 LPSharp> set-solver -create GLOP -key glop -default
 ```
 
