@@ -17,11 +17,13 @@ if(POLICY CMP0122)
   cmake_policy(SET CMP0122 OLD)
 endif()
 
-# Include folder for additional cmake functions.
+# Include folder for additional cmake functions. 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Define project after setting policies.
-project(coinwrap)
+include(version)
+set_version(VERSION)
+project(coinwrap VERSION ${VERSION})
 
 # Build the Clp interface. This is a user-friendly interface over Clp functions.
 add_subdirectory(cpp)
@@ -44,22 +46,5 @@ add_subdirectory(csharp)
 target_link_libraries(coinwrap_cpp coinwrap_csharp)
 target_link_options(coinwrap_cpp PUBLIC "/LTCG")
 
-return()
-
-# This section is to compile the C# wrapper code and generate nuget packages.
-find_program(DOTNET_EXECUTABLE NAMES dotnet)
-if(NOT DOTNET_EXECUTABLE)
-  message(FATAL_ERROR "Check for dotnet Program: not found")
-else()
-  message(STATUS "Found dotnet Program: ${DOTNET_EXECUTABLE}")
-endif()
-
-set(COINWRAP_PACKAGE CoinOr.Clp)
-set(COINWRAP_PACKAGE_DIR "${PROJECT_BINARY_DIR}/csharp/packages")
-if(WIN32)
-  set(RUNTIME_IDENTIFIER win-x64)
-else()
-  message(FATAL_ERROR "Unsupported system !")
-endif()
-set(COINWRAP_NATIVE_PACKAGE ${COINWRAP_PACKAGE}.runtime.${RUNTIME_IDENTIFIER})
-set(COINWRAP_PROJECT ${COINWRAP_PACKAGE})
+# Build the dotnet nuget packages.
+include(dotnet)

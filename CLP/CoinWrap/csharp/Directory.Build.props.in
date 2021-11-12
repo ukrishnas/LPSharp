@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!-- These settings are applied to all projects recursive from here (unless overridden).-->
+  <PropertyGroup>
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+      <!-- Nuget Properties -->
+      <MinClientVersion>4.1.0</MinClientVersion>
+      <NeutralLanguage>en-US</NeutralLanguage>
+      <Authors>Umesh Krishnaswamy</Authors>
+      <Company>Microsoft Corporation</Company>
+
+       <!-- Pack Option -->
+       <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+       <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+       <PackageOutputPath>@COINWRAP_PACKAGES_DIR@</PackageOutputPath>
+       <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+       <RepositoryType>git</RepositoryType>
+       <RepositoryUrl>https://github.com/ukrishnas/Networking-WANLP</RepositoryUrl>
+        <!--Disable CS1591 "Missing XML comment for publicly visible type or member" (Swig doesn't generate documentation)-->
+        <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Label="BasePath">
+    <SolutionDir Condition="'$(SolutionDir)'==''">$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+</Project>

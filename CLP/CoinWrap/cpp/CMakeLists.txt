@@ -88,7 +88,7 @@ if(BUILD_TESTING)
 
   # Run tests after they are built.
   add_custom_target(RunTests ALL
-    COMMAND ${CMAKE_CTEST_COMMAND} -test_dir . -C $<IF:$<CONFIG:Release>,Release,Debug>
+    COMMAND ${CMAKE_CTEST_COMMAND} -test_dir . -C $<CONFIG>
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
   )
   foreach(filename ${_TESTS})
