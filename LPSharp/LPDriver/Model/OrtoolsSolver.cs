@@ -30,6 +30,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         protected readonly string mpSolverId;
 
         /// <summary>
+        /// Gets or sets the parameters from the last call to set parameters.
+        /// </summary>
+        protected string parameters;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="OrtoolsSolver"/> class.
         /// </summary>
         /// <param name="key">The solver key.</param>
@@ -100,7 +105,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{this.mpSolverId} solver {base.ToString()}";
+            return $"{this.mpSolverId} solver {base.ToString()} parameters={this.parameters} paramProtoBuf={this.SolverSpecificParametersText}";
         }
 
         /// <inheritdoc />
@@ -192,6 +197,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
             base.SetParameters(solverParameters);
             Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
             this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
+
+            this.parameters = string.Join(";", solverParameters.GenericParameters) + ";" + string.Join(";", solverParameters.GlopParameters.Parameters);
         }
 
         /// <inheritdoc />
@@ -258,6 +265,18 @@ namespace Microsoft.LPSharp.LPDriver.Model
             {
                 this.RemoveMetric(LPMetric.Objective);
                 this.RemoveMetric(LPMetric.Iterations);
+            }
+
+            // Just print the first few columns of the objective to verify the methods.
+            var columnSolutionVec = this.linearSolver.variables();
+            Console.WriteLine("{0,10} {1,10}", "ColIndex", "ColSolution");
+            int maxColumns = Math.Min(10, columnSolutionVec.Count);
+            for (int i = 0; i < maxColumns; i++)
+            {
+                Console.WriteLine(
+                    "{0,10} {1,10:G7}",
+                    i,
+                    columnSolutionVec[i].SolutionValue());
             }
 
             return isOptimal;

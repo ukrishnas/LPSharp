@@ -28,7 +28,7 @@ namespace Microsoft.LPSharp.Powershell
         /// </summary>
         protected override void ProcessRecord()
         {
-            var solverParameters = Utility.ReadSolverParameters(this.FileName);
+            var solverParameters = Utility.ReadParameters(this.FileName);
             if (solverParameters == null)
             {
                 this.WriteHost($"Solver parameters file {this.FileName} not found or invalid");

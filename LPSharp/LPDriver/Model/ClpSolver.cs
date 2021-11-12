@@ -13,6 +13,45 @@ namespace Microsoft.LPSharp.LPDriver.Model
     using Microsoft.LPSharp.LPDriver.Contract;
 
     /// <summary>
+    /// Represents CLP solver method and option settings as a single recipe. The options
+    /// control starting basis and other settings. Recipes are short hands for the
+    /// the individual settings. There is one enumeration for each recipe method in ClpInterface.
+    /// </summary>
+    public enum ClpRecipe
+    {
+        /// <summary>
+        /// Dual simplex with all-slacks starting basis.
+        /// </summary>
+        DualSimplex,
+
+        /// <summary>
+        /// Dual simplex with crash starting basis.
+        /// </summary>
+        DualCrash,
+
+        /// <summary>
+        /// Primal simplex with automatic starting basis.
+        /// </summary>
+        PrimalSimplex,
+
+        /// <summary>
+        /// Primal simplex with idiot starting basis.
+        /// </summary>
+        PrimalIdiot,
+
+        /// <summary>
+        /// Either primal or dual simplex based on the model. Also create a plus minus
+        /// one matrix for efficiency.
+        /// </summary>
+        Either,
+
+        /// <summary>
+        /// Barrier (interior point) method with default Cholesky factorization.
+        /// </summary>
+        Barrier,
+    }
+
+    /// <summary>
     /// Represents the interface implementation for CLP solver.
     /// </summary>
     public class ClpSolver : LPSolverAbstract
@@ -24,6 +63,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private readonly ClpInterface clp;
 
         /// <summary>
+        /// Gets or sets the parameters from the last call to set parameters.
+        /// </summary>
+        private string parameters;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ClpSolver"/> class.
         /// </summary>
         /// <param name="key">The solver key.</param>
@@ -33,13 +77,13 @@ namespace Microsoft.LPSharp.LPDriver.Model
             this.clp = new ClpInterface();
 
             // Default values.
-            this.SolveType = SolveType.Dual;
+            this.Recipe = ClpRecipe.PrimalSimplex;
         }
 
         /// <summary>
-        /// Gets or sets the solve type.
+        /// Gets or sets the CLP recipe.
         /// </summary>
-        public SolveType SolveType { get; set; }
+        public ClpRecipe Recipe { get; set; }
 
         /// <summary>
         /// Gets or sets the log level.
@@ -49,7 +93,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"CLP solver {base.ToString()}";
+            return $"CLP solver {base.ToString()} parameters={this.parameters}";
         }
 
         /// <inheritdoc />
@@ -150,6 +194,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             base.SetParameters(solverParameters);
             Utility.SetPropertiesFromList(solverParameters.ClpParameters, this);
+
+            this.parameters = string.Join(";", solverParameters.GenericParameters) + ";" + string.Join(";", solverParameters.ClpParameters);
         }
 
         /// <inheritdoc />
@@ -171,35 +217,35 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             var stopwatch = Stopwatch.StartNew();
 
-            switch (this.SolveType)
+            switch (this.Recipe)
             {
-                case SolveType.Dual:
+                case ClpRecipe.DualSimplex:
                     this.clp.SolveUsingDualSimplex();
                     break;
 
-                case SolveType.DualCrash:
+                case ClpRecipe.DualCrash:
                     this.clp.SolveUsingDualCrash();
                     break;
 
-                case SolveType.Either:
+                case ClpRecipe.Either:
                     this.clp.SolveUsingEitherSimplex();
                     break;
 
-                case SolveType.Primal:
+                case Model.ClpRecipe.PrimalSimplex:
                     this.clp.SolveUsingPrimalSimplex();
                     break;
 
-                case SolveType.PrimalIdiot:
+                case ClpRecipe.PrimalIdiot:
                     this.clp.SolveUsingPrimalIdiot();
                     break;
 
-                case SolveType.Barrier:
+                case ClpRecipe.Barrier:
                     this.clp.SolveUsingBarrierMethod();
                     break;
 
                 default:
-                    // Unknown or unsupported solve type.
-                    return false;
+                    this.clp.Solve();
+                    break;
             }
 
             stopwatch.Stop();
@@ -221,7 +267,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.RemoveMetric(LPMetric.Iterations);
             }
 
-            Console.WriteLine("Log level = {0}, solve type = {1}, solve time = {2:F5} ms", this.clp.LogLevel(), this.SolveType, this.clp.SolveTimeMs());
+            Console.WriteLine("Log level = {0}, recipe = {1}, solve time = {2:F0} ms", this.clp.LogLevel(), this.Recipe, this.clp.SolveTimeMs());
             Console.WriteLine("Maximum seconds = {0}, maximum iterations = {1}", this.clp.MaximumSeconds(), this.clp.MaximumIterations());
             Console.WriteLine("Primal tolerance = {0}, dual tolerance = {1}", this.clp.PrimalTolerance(), this.clp.DualTolerance());
 
@@ -238,7 +284,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             for (int i = 0; i < maxColumns; i++)
             {
                 Console.WriteLine(
-                    "{0:F6} {1:G10} {2:G10} {3:G10}",
+                    "{0,10} {1,10:G7} {2,10:G7} {3,10:G7}",
                     i,
                     columnSolutionVec[i],
                     reducedCostVec[i],

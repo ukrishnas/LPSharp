@@ -46,5 +46,11 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         [DataMember]
         [XmlAttribute]
         public string Value { get; set; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{this.Name}={this.Value}";
+        }
     }
 }

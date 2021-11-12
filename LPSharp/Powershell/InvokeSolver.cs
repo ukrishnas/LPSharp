@@ -59,14 +59,6 @@ namespace Microsoft.LPSharp.Powershell
                 return;
             }
 
-            this.WriteHost($"Solver {solver.Key} loaded model {model.Name}");
-
-            if (this.LPDriver.SolverParameters != null)
-            {
-                solver.SetParameters(this.LPDriver.SolverParameters);
-                this.WriteHost($"Solver {solver.Key} set with previously read parameters");
-            }
-
             this.WriteHost($"Solver {solver.Key} solving model {model.Name}...");
             solver.Solve();
             this.WriteHost($"Solver {solver.Key} solved model {model.Name} result={solver.ResultStatus}");

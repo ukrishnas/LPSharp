@@ -145,7 +145,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// </summary>
         /// <param name="filename">The file name.</param>
         /// <returns>The solver parameters.</returns>
-        public static SolverParameters ReadSolverParameters(string filename)
+        public static SolverParameters ReadParameters(string filename)
         {
             if (!File.Exists(filename))
             {
@@ -154,6 +154,31 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             using var stream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
             TryDeserialize(stream, out SolverParameters solverParameters);
+            return solverParameters;
+        }
+
+        /// <summary>
+        /// Parse solver parameters from a text representation of name-value pairs.
+        /// </summary>
+        /// <param name="parameters">The parameters text.</param>
+        /// <returns>The solver parameters.</returns>
+        public static SolverParameters ParseParameters(string parameters)
+        {
+            if (string.IsNullOrEmpty(parameters))
+            {
+                return null;
+            }
+
+            var paramPairs = parameters.Split(',', ';');
+            var paramList = (from param in paramPairs select param.Trim().Split('=') into kv where kv.Length == 2 select new Param(kv[0], kv[1])).ToList();
+
+            var solverParameters = new SolverParameters
+            {
+                GenericParameters = paramList,
+                ClpParameters = paramList,
+            };
+            solverParameters.GlopParameters.Parameters = paramList;
+
             return solverParameters;
         }
     }

@@ -6,7 +6,6 @@
 
 namespace Microsoft.LPSharp.Powershell
 {
-    using System.IO;
     using System.Management.Automation;
     using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
@@ -38,6 +37,12 @@ namespace Microsoft.LPSharp.Powershell
         public SwitchParameter Default { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to read default parameters from LP driver.
+        /// </summary>
+        [Parameter]
+        public SwitchParameter DefaultParameters { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to clear the solver state. This resets
         /// the extracted model and clears the loaded model. This does not affect parameters.
         /// </summary>
@@ -45,10 +50,11 @@ namespace Microsoft.LPSharp.Powershell
         public SwitchParameter Clear { get; set; }
 
         /// <summary>
-        /// Gets or sets the solver parameters.
+        /// Gets or sets the solver parameters as semicolon separated key-value pairs.
         /// </summary>
         [Parameter]
-        public SwitchParameter Parameters { get; set; }
+        [Alias("Parameters")]
+        public string ParametersText { get; set; }
 
         /// <summary>
         /// Gets or sets the parameters file. Solver parameters are set using this file.
@@ -100,14 +106,16 @@ namespace Microsoft.LPSharp.Powershell
                 this.WriteHost($"Solver {solver2.Key} state and model cleared");
             }
 
-            if (this.Parameters)
+            if (this.DefaultParameters && this.LPDriver.SolverParameters != null)
             {
                 solver.SetParameters(this.LPDriver.SolverParameters);
-                this.WriteHost($"Solver {solver2.Key} parameters set with previously read parameters");
+                this.WriteHost("Set solver parameters from LP driver");
             }
-            else if (!string.IsNullOrEmpty(this.ParametersFile))
+
+            bool hasParamsFile = !string.IsNullOrEmpty(this.ParametersFile);
+            if (hasParamsFile)
             {
-                var solverParameters = Utility.ReadSolverParameters(this.ParametersFile);
+                var solverParameters = Utility.ReadParameters(this.ParametersFile);
                 if (solverParameters == null)
                 {
                     this.WriteHost($"Solver parameters file {this.ParametersFile} not found or invalid");
@@ -116,6 +124,20 @@ namespace Microsoft.LPSharp.Powershell
 
                 solver.SetParameters(solverParameters);
                 this.WriteHost($"Set solver parameters from {this.ParametersFile}");
+            }
+
+            bool hasParameters = !string.IsNullOrEmpty(this.ParametersText);
+            if (hasParameters)
+            {
+                var solverParameters = Utility.ParseParameters(this.ParametersText);
+                if (solverParameters == null)
+                {
+                    this.WriteHost($"Solver parameters text is null or invalid");
+                    return;
+                }
+
+                solver.SetParameters(solverParameters);
+                this.WriteHost($"Set solver {solver2.Key} parameters from text");
             }
         }
     }
