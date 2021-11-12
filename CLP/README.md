@@ -3,7 +3,7 @@
 This folder contains the code of Computational Infrastructure for Operational
 Research (COIN-OR) linear programming (Clp) solver. 
 
-## Submodules
+## Change summary
 
 This superproject imports the following COIN-OR repositories as
 [submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules):
@@ -54,17 +54,24 @@ __What has been removed?__
   been stripped from all repositories. This was done to make the source code
   easier to understand.
 
+__What has been added?__
+
+- __ClpInterface__ is a more user friendly interface to Clp solver functions.
+  The interface library is also linked as a standalone executable called `coinwrap.exe`.
+- __CoinWrap__ is a SWIG and CMake based C# interface to Clp. It provides nuget
+  packages that be imported into C# projects.
+
 
 ## CoinWrap - C# interface to Clp
 
 The capabilities of Clp are quite extensive, but arcane. Starting basis methods,
 pivot algorithms, enabling plus-minus one matrix, using automatic algorithm,
-etc. require setting special options and more special options with seeming
-arbitrary integers representing bit fields and extra information. CoinWrap
-consists of a Clp interface which is a more user friendly interface to a subset
-of Clp functionality from ClpSolver (the source code for Clp standalone
-executable), ClpSimplex (the solver driver), ClpSolve (the solver options),
-CoinModel (to build models), and related classes.
+etc. require setting special options and more special options with integers
+representing bit fields and extra information. CoinWrap consists of a Clp
+interface which is a more user friendly interface to a subset of Clp
+functionality from ClpSolver (the source code for Clp standalone executable),
+ClpSimplex (the solver driver), ClpSolve (the solver options), CoinModel (to
+build models), and related classes.
 
 It uses SWIG to generate C# language wrappers. This can be extended to other
 languages in the future. CMake is used to compile and build dotnet nuget
@@ -78,14 +85,13 @@ full access to solver functions.
 A few miscellaneous points on CoinWrap:
 
   - CoinWrap was inspired by Google OrTools approach to generating
-    MPSolverInterface wrappers using SWIG. We used their CMake code to generate
-    nuget packages.
+    MPSolverInterface wrappers using SWIG and dotnet nuget packages using CMake.
   - CoinWrap coding style follows the [Google C++ style
     guide](https://google.github.io/styleguide/cppguide.html).
   - Build using CMake. Do `cmake -S . -B build` to generate the build system,
     and `cmake --build build --config Release` to build the release target on a
     Windows platform. Build system expects libClp.lib and libCoinUtils.lib in
-    their respective build folders.
+    their respective build folders. Build them first using `Clp.sln`.
   - CoinWrap generates two nuget packages in the `build/dotnet/packages` folder.
     The native library has Clp interface, libClp, and libCoinUtils. The .Net
     library has the C# code. The version number is based on the public release
@@ -112,8 +118,8 @@ $ dotnet add package CoinOr.Clp --version <version number>
   call ClpSolve::setSpecialOption() to replicate the good benchmark performance,
   but these would require enhancements to the interfaces.
 
-- __SWIG wrappers__. There are multiple projects that provide SWIG based
-  wrappers to COIN solvers. The takeaway is that using SWIG for Clp is feasible.
+- __SWIG wrappers__. Multiple projects provide SWIG based wrappers to COIN
+  solvers.
   - [Cbcpy](https://gitlab.com/ikus-soft/cbcpy) is a SWIG based python wrapper
     to Cbc (COIN branch and cut mixed integer program solver).
   - [JniCbc](https://github.com/babakmoazzez/jCbc) is a Java native interface
