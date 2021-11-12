@@ -148,20 +148,27 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 return;
             }
 
+            base.SetParameters(solverParameters);
             Utility.SetPropertiesFromList(solverParameters.ClpParameters, this);
         }
 
         /// <inheritdoc />
         public override bool Solve()
         {
-            this.clp.SetMaximumSeconds(this.TimeLimitInSeconds);
+            if (this.TimeLimitInSeconds != 0)
+            {
+                this.clp.SetMaximumSeconds(this.TimeLimitInSeconds);
+            }
+
             if (this.EnableLogging)
             {
                 this.clp.SetLogLevel(this.LogLevel == 0 ? 1 : this.LogLevel);
+                Console.WriteLine("Log level = {0}", this.LogLevel);
             }
             else
             {
                 this.clp.SetLogLevel(0);
+                Console.WriteLine("Log level = 0");
             }
 
             var stopwatch = Stopwatch.StartNew();
@@ -169,7 +176,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
             switch (this.SolveType)
             {
                 case SolveType.Dual:
-                    this.clp.SolveUsingDualSimplex();
+                    this.clp.SolveUsingDualCrash();
                     break;
 
                 case SolveType.Either:
@@ -177,7 +184,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     break;
 
                 case SolveType.Primal:
-                    this.clp.SolveUsingPrimalSimplex();
+                    this.clp.SolveUsingPrimalIdiot();
                     break;
 
                 case SolveType.Barrier:
@@ -217,6 +224,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
             this.clp.Objective(objectiveVec);
 
             int maxColumns = Math.Min(10, columnSolutionVec.Count);
+            Console.WriteLine("Maximum seconds = {0}, maximum iterations = {1}", this.clp.MaximumSeconds(), this.clp.MaximumIterations());
+            Console.WriteLine("Primal tolerance = {0}, dual tolerance = {1}", this.clp.PrimalTolerance(), this.clp.DualTolerance());
+
             Console.WriteLine("{0,10} {1,10} {2,10} {3,10}", "ColIndex", "ColSolution", "ReducedCost", "Objective");
             for (int i = 0; i < maxColumns; i++)
             {

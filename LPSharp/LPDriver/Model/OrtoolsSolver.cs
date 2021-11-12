@@ -184,13 +184,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override void SetParameters(SolverParameters solverParameters)
         {
-            base.SetParameters(solverParameters);
-
             if (solverParameters?.GlopParameters == null)
             {
                 return;
             }
 
+            base.SetParameters(solverParameters);
             Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
             this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
         }

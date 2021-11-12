@@ -40,7 +40,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// Gets or sets the time limit in seconds. The solver is interrupted when this
         /// time limit is exceeded and the objective result at that point is returned.
         /// </summary>
-        public long TimeLimitInSeconds { get; set; }
+        public int TimeLimitInSeconds { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to log solver actions as it searches
