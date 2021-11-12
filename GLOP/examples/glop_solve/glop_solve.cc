@@ -196,25 +196,25 @@ void GlopSolver::PrintGlopParameters() {
 } // namespace operations_research
 
 std::string usage() {
-  std::string usage_str = std::string("glopsolve");
+  std::string usage_str = std::string("<glop_solve>");
   usage_str += " minimal usage: -mpsfile <MPS file> -lpalgorithm <primal|dual> -timelimit <int>";
   usage_str += "\n\
 \n\
 Load and solve an MPS file with default parameters. \n\
 \n\
-glopsolve -mpsfile <MPS file> \n\
+<glop_solve> -mpsfile <MPS file> \n\
 \n\
 Load and solve with a 30 second solve time limit and dual simplex algorithm. \n\
 \n\
-glopsolve -mpsfile <MPS file> -timelimit 30 -lpalgorithm dual \n\
+<glop_solve> -mpsfile <MPS file> -timelimit 30 -lpalgorithm dual \n\
 \n\
 Turn on verbose logging and log to a file in the current directory (default \n\
 is the system log directory). Turn off logging to standard error which is on by default. \n\
 \n\
-glopsolve --mpsfile <MPS file> --nologtostderr -v=1 -log_dir=. \n\
+<glop_solve> --mpsfile <MPS file> --nologtostderr -v=1 -log_dir=. \n\
 \n\
 Set solver-specific parameters in command line. \n\
-glopsolve -mpsfile <MPS file> --glop_params=\"perturb_costs_in_dual_simplex: 1 optimization_rule: 2\" \n\
+<glop_solve> -mpsfile <MPS file> --glop_params=\"perturb_costs_in_dual_simplex: 1 optimization_rule: 2\" \n\
 ";
 
   return usage_str;

@@ -57,6 +57,8 @@ __What has been changed?__
     deleted. LPDecomposer is only used by binary optimization integer solver
     which has been removed. It references dynamic partitioning algorithm
     which is not part of the tree.
+- The examples folder has a standalone GLOP executable, that can be used to
+  exercise the solver without SWIG wrappers. It also has better logging support.
 
 __What has been removed?__
 
@@ -162,6 +164,33 @@ Deleting existing new-private. Press [yY] to continue: y
 Apply .\patches\wanlp-0-initial.patch, p to pick, c to check, any other letter to skip: p
 ```
 
+## Standalone GLOP cheatsheet
 
+In the examples folder, there is a standalone GLOP that is only C++ code, and
+does not use SWIG. After build, it can be found in `<build folder>/RELEASE/bin/glop_solve.exe`.
 
+Load and solve an MPS file with default parameters.
+
+```
+$ glop_solve.exe -mpsfile <MPS file>
+```
+
+Load and solve with a 30 second solve time limit and dual simplex algorithm.
+
+```
+$ glop_solve.exe -mpsfile <MPS file> -timelimit 30 -lpalgorithm dual
+```
+
+Turn on verbose logging and log to a file in the current directory (default
+is the system log directory). Turn off logging to standard error which is on by default.
+
+```
+$ glop_solve.exe --mpsfile <MPS file> --nologtostderr -v=1 -log_dir=.
+```
+
+Set solver-specific parameters in command line.
+
+```
+$ glop_solve.exe -mpsfile <MPS file> --glop_params="perturb_costs_in_dual_simplex: 1 optimization_rule: 2"
+```
 
