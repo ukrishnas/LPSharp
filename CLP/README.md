@@ -8,11 +8,11 @@ Research (COIN-OR) linear programming (Clp) solver.
 This superproject imports the following COIN-OR repositories as
 [submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules):
 
-- [BuildTools](https://github.com/coin-or-tools/BuildTools.git) for build
+- [BuildTools](https://github.com/coin-or-tools/BuildTools.git) has build
   headers.
-- [CoinUtils](https://github.com/coin-or/CoinUtils.git) for general utilities used
-  the solver.
-- [Clp](https://github.com/coin-or/Clp.git) for the solver.
+- [CoinUtils](https://github.com/coin-or/CoinUtils.git) has general utilities
+  used by the solver.
+- [Clp](https://github.com/coin-or/Clp.git) has the solver.
 
 The submodules have been modified in the following ways.
 
@@ -79,8 +79,7 @@ packages for Windows x64 platforms only.
 
 CoinWrap allows us to use the full feature set of Clp but packaged in a more
 easy to use way that suits our needs. The implementation uses Clp natively and
-not the open solver interface, like some other implementations, in order to get
-full access to solver functions.
+not the open solver interface, in order to get full access to solver functions.
 
 A few miscellaneous points on CoinWrap:
 
@@ -110,7 +109,8 @@ $ dotnet add package CoinOr.Clp --version <version number>
 - [__Google OrTools__](../GLOP/ortools) provides multi-language (including C#)
   support to its linear solver interface, called MPSolverInterface, and an
   [implementation](../GLOP/ortools/linear_solver/clp_interface.cc) of the
-  interface using Clp solver class. They use SWIG to generate language wrappers.
+  interface using ClpSimplex, ClpSolve, and CoinBuild classes. They use SWIG to
+  generate language wrappers.
 
 - Both [Sonnet](https://github.com/coin-or/Sonnet) and [Google
   OrTools](../GLOP/ortools) lack fine control for modifying Clp solver
@@ -119,7 +119,7 @@ $ dotnet add package CoinOr.Clp --version <version number>
   but these would require enhancements to the interfaces.
 
 - __SWIG wrappers__. Multiple projects provide SWIG based wrappers to COIN
-  solvers.
+  solvers, but do not have exactly what we need.
   - [Cbcpy](https://gitlab.com/ikus-soft/cbcpy) is a SWIG based python wrapper
     to Cbc (COIN branch and cut mixed integer program solver).
   - [JniCbc](https://github.com/babakmoazzez/jCbc) is a Java native interface

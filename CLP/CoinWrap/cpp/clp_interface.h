@@ -136,12 +136,6 @@ enum SolveType {
 
     // Barrier method.
     Barrier,
-
-    // Dual simplex with crash starting basis.
-    DualCrash,
-
-    // Primal simplex with idiot starting basis.
-    PrimalIdiot,
 };
 
 /**
