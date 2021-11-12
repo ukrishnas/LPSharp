@@ -12,5 +12,6 @@ swig_add_library(coinwrap_csharp
 set_target_properties(coinwrap_csharp PROPERTIES
   SWIG_USE_TARGET_INCLUDE_DIRECTORIES ON
   POSITION_INDEPENDENT_CODE ON
+  SWIG_DEPENDS coinwrap::ClpInterface
 )
 target_link_libraries(coinwrap_csharp PRIVATE coinwrap::ClpInterface)
