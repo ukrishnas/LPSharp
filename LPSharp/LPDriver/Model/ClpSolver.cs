@@ -163,12 +163,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
             if (this.EnableLogging)
             {
                 this.clp.SetLogLevel(this.LogLevel == 0 ? 1 : this.LogLevel);
-                Console.WriteLine("Log level = {0}", this.LogLevel);
             }
             else
             {
                 this.clp.SetLogLevel(0);
-                Console.WriteLine("Log level = 0");
             }
 
             var stopwatch = Stopwatch.StartNew();
@@ -215,6 +213,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.RemoveMetric(LPMetric.Iterations);
             }
 
+            Console.WriteLine("Log level = {0}", this.clp.LogLevel());
+            Console.WriteLine("Maximum seconds = {0}, maximum iterations = {1}", this.clp.MaximumSeconds(), this.clp.MaximumIterations());
+            Console.WriteLine("Primal tolerance = {0}, dual tolerance = {1}", this.clp.PrimalTolerance(), this.clp.DualTolerance());
+            Console.WriteLine("Solve time from CLP = {0} ms from stopwatch = {1} ms", this.clp.SolveTimeMs(), stopwatch.ElapsedMilliseconds);
+
             // Just print the first few columns of the objective to verify the methods.
             DoubleVector columnSolutionVec = new();
             DoubleVector reducedCostVec = new();
@@ -223,11 +226,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
             this.clp.DualColumnSolution(reducedCostVec);
             this.clp.Objective(objectiveVec);
 
-            int maxColumns = Math.Min(10, columnSolutionVec.Count);
-            Console.WriteLine("Maximum seconds = {0}, maximum iterations = {1}", this.clp.MaximumSeconds(), this.clp.MaximumIterations());
-            Console.WriteLine("Primal tolerance = {0}, dual tolerance = {1}", this.clp.PrimalTolerance(), this.clp.DualTolerance());
-
             Console.WriteLine("{0,10} {1,10} {2,10} {3,10}", "ColIndex", "ColSolution", "ReducedCost", "Objective");
+            int maxColumns = Math.Min(10, columnSolutionVec.Count);
             for (int i = 0; i < maxColumns; i++)
             {
                 Console.WriteLine(

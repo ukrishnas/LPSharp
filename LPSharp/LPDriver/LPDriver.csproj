@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoinOr.Clp" Version="1.17.1904.141" />
+    <PackageReference Include="CoinOr.Clp" Version="1.17.1904.143" />
     <PackageReference Include="Google.OrTools" Version="9.1.90.1" />
   </ItemGroup>
 
