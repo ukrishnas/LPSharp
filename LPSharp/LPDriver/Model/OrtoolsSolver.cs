@@ -30,11 +30,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
         protected readonly string mpSolverId;
 
         /// <summary>
-        /// Gets or sets the parameters from the last call to set parameters.
-        /// </summary>
-        protected string parameters;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="OrtoolsSolver"/> class.
         /// </summary>
         /// <param name="key">The solver key.</param>
@@ -105,7 +100,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{this.mpSolverId} solver {base.ToString()} parameters={this.parameters} paramProtoBuf={this.SolverSpecificParametersText}";
+            return $"{this.mpSolverId} solver {base.ToString()} SolveWithParameters={this.SolveWithParameters}"
+                + $" LPAlgorithm={this.LPAlgorithm} SolverSpecificParameters={this.SolverSpecificParametersText}";
         }
 
         /// <inheritdoc />
@@ -197,8 +193,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
             base.SetParameters(solverParameters);
             Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
             this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
-
-            this.parameters = string.Join(";", solverParameters.GenericParameters) + ";" + string.Join(";", solverParameters.GlopParameters.Parameters);
         }
 
         /// <inheritdoc />
@@ -280,6 +274,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             return isOptimal;
+        }
+
+        /// <inheritdoc />
+        public override void Write(string pathName)
+        {
         }
 
         /// <summary>

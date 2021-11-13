@@ -63,11 +63,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
         private readonly ClpInterface clp;
 
         /// <summary>
-        /// Gets or sets the parameters from the last call to set parameters.
-        /// </summary>
-        private string parameters;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ClpSolver"/> class.
         /// </summary>
         /// <param name="key">The solver key.</param>
@@ -93,7 +88,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"CLP solver {base.ToString()} parameters={this.parameters}";
+            return $"CLP solver {base.ToString()} Recipe={this.Recipe} LogLevel={this.LogLevel}";
         }
 
         /// <inheritdoc />
@@ -194,8 +189,6 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             base.SetParameters(solverParameters);
             Utility.SetPropertiesFromList(solverParameters.ClpParameters, this);
-
-            this.parameters = string.Join(";", solverParameters.GenericParameters) + ";" + string.Join(";", solverParameters.ClpParameters);
         }
 
         /// <inheritdoc />
@@ -292,6 +285,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             return isOptimal;
+        }
+
+        /// <inheritdoc />
+        public override void Write(string pathName)
+        {
+            this.clp.WriteMps(pathName);
         }
 
         /// <summary>

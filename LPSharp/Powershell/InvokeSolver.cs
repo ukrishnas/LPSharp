@@ -6,6 +6,8 @@
 
 namespace Microsoft.LPSharp.Powershell
 {
+    using System;
+    using System.IO;
     using System.Management.Automation;
     using Microsoft.LPSharp.LPDriver.Model;
 
@@ -29,10 +31,17 @@ namespace Microsoft.LPSharp.Powershell
         public string Key { get; set; }
 
         /// <summary>
-        /// Gets or sets the key to store the result in.
+        /// Gets or sets the output folder.
         /// </summary>
         [Parameter]
-        public string ResultKey { get; set; }
+        public string OutputFolder { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to write the model extracted from the solver
+        /// to an MPS file. The file has the same name as the model key with an MPS extension.
+        /// </summary>
+        [Parameter]
+        public SwitchParameter WriteModel { get; set; }
 
         /// <summary>
         /// The process record.
@@ -53,23 +62,50 @@ namespace Microsoft.LPSharp.Powershell
                 return;
             }
 
+            var outputFolder = Utility.CreateOutputFolder(this.OutputFolder);
+            var scenario = $"{solver.Key}_{model.Name}";
+
+            var result = this.RunAndCollect(solver, model, scenario, outputFolder);
+
+            if (result != null)
+            {
+                this.LPDriver.AddResult(scenario, result);
+                foreach (var kv in result)
+                {
+                    this.WriteHost("{0,-20} {1,25}", kv.Key, kv.Value);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Runs the solver and collects the results.
+        /// </summary>
+        /// <param name="solver">The solver.</param>
+        /// <param name="model">The model.</param>
+        /// <param name="scenario">The scenario key.</param>
+        /// <param name="folder">The output folder to place results.</param>
+        /// <returns>The solver execution result.</returns>
+        private ExecutionResult RunAndCollect(LPSolverAbstract solver, LPModel model, string scenario, string folder)
+        {
             if (!solver.Load(model))
             {
                 this.WriteHost($"Solver {solver.Key} could not load model {model.Name}");
-                return;
+                return null;
             }
 
             this.WriteHost($"Solver {solver.Key} solving model {model.Name}...");
             solver.Solve();
             this.WriteHost($"Solver {solver.Key} solved model {model.Name} result={solver.ResultStatus}");
 
-            var resultKey = this.ResultKey ?? $"{model.Name}_{solver.Key}";
-            this.LPDriver.AddResult(resultKey, solver.Metrics);
-
-            foreach (var kv in solver.Metrics)
+            if (this.WriteModel)
             {
-                this.WriteHost("{0,-20} {1,25}", kv.Key, kv.Value);
+                var pathName = scenario.EndsWith("mps", StringComparison.OrdinalIgnoreCase)
+                    ? Path.Combine(folder, scenario)
+                    : Path.Combine(folder, $"{scenario}.mps");
+                solver.Write(pathName);
             }
+
+            return solver.Metrics;
         }
     }
 }

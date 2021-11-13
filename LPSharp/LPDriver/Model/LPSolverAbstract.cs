@@ -80,9 +80,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public abstract bool Solve();
 
         /// <inheritdoc />
+        public abstract void Write(string pathName);
+
+        /// <inheritdoc />
         public override string ToString()
         {
-            return $"Key={this.Key}";
+            return $"Key={this.Key} TimeLimitInSeconds={this.TimeLimitInSeconds} EnableLogging={this.EnableLogging}";
         }
 
         /// <summary>

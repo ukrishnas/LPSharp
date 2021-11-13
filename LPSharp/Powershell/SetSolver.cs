@@ -137,7 +137,7 @@ namespace Microsoft.LPSharp.Powershell
                 }
 
                 solver.SetParameters(solverParameters);
-                this.WriteHost($"Set solver {solver2.Key} parameters from text");
+                this.WriteHost($"Set solver {solver2.Key} parameters from {this.ParametersText}");
             }
         }
     }

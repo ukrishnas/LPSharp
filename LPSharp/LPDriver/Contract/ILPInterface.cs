@@ -20,7 +20,7 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         public void Clear();
 
         /// <summary>
-        /// Loads a model.
+        /// Loads a model into the solver.
         /// </summary>
         /// <param name="model">The solver model.</param>
         /// <returns>True if the model was loaded successfully, false otherwise.</returns>
@@ -37,5 +37,11 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// </summary>
         /// <returns>True if the result status is optimal, false otherwise.</returns>
         bool Solve();
+
+        /// <summary>
+        /// Writes the solver model to file.
+        /// </summary>
+        /// <param name="pathName">The output file path.</param>
+        void Write(string pathName);
     }
 }

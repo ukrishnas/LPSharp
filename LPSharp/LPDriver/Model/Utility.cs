@@ -181,5 +181,32 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             return solverParameters;
         }
+
+        /// <summary>
+        /// Creates an output folder.
+        /// </summary>
+        /// <param name="folder">
+        /// The folder name. If empty or ".", use current directory.
+        /// </param>
+        /// <returns>
+        /// The full path name of the folder.
+        /// </returns>
+        public static string CreateOutputFolder(string folder)
+        {
+            if (string.IsNullOrEmpty(folder) || folder == ".")
+            {
+                return Directory.GetCurrentDirectory();
+            }
+
+            try
+            {
+                var directory = Directory.CreateDirectory(folder);
+                return directory.FullName;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
