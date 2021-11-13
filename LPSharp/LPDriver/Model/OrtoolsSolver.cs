@@ -9,6 +9,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using Google.OrTools.LinearSolver;
     using Microsoft.LPSharp.LPDriver.Contract;
 
@@ -166,7 +167,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     continue;
                 }
 
-                var constraint = this.linearSolver.MakeConstraint(lowerLimit[rowIndex], upperLimit[rowIndex]);
+                var constraint = this.linearSolver.MakeConstraint(lowerLimit[rowIndex], upperLimit[rowIndex], rowIndex);
 
                 row = model.A[rowIndex];
                 foreach (var colIndex in row.Indices)
@@ -279,6 +280,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override void Write(string pathName)
         {
+            var modelText = this.linearSolver.ExportModelAsMpsFormat(true, false);
+            File.WriteAllText(pathName, modelText);
         }
 
         /// <summary>
