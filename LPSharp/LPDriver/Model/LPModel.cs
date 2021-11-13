@@ -195,12 +195,40 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append($"Name={this.Name} Obj={this.Objective} A={this.A} RHS={this.B} ");
+            sb.Append($"Name={this.Name} Obj={this.Objective} A={this.A} Elements={this.Elements()} RHS={this.B} ");
             sb.Append($"RowTypes={this.RowTypes.Count} Lower={this.L} Upper={this.U} Ranges={this.R} ");
             sb.Append($"DefaultVarBound=({this.defaultVariableBound.Item1},{this.defaultVariableBound.Item2}) ");
             sb.Append($"DefaultConstraintBound=({this.defaultConstraintBound.Item1},{this.defaultConstraintBound.Item2}) ");
             sb.Append($"SelectedRhs={this.selectedRhsName}, SelectedBound={this.SelectedBoundName}, SelectedRange={this.SelectedRangeName}");
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Counts the number of elements in the A matrix.
+        /// </summary>
+        /// <param name="skipObjective">If true, skip the objective row.</param>
+        /// <returns>The number of elements in the A matrix.</returns>
+        public int Elements(bool skipObjective = true)
+        {
+            int count = 0;
+            foreach (var rowIndex in this.A.RowIndices)
+            {
+                if (skipObjective && this.Objective == rowIndex)
+                {
+                    continue;
+                }
+
+                var row = this.A[rowIndex];
+                foreach (var columnIndex in row.Indices)
+                {
+                    if (row[columnIndex] != 0)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
         }
 
         /// <summary>
@@ -452,6 +480,13 @@ namespace Microsoft.LPSharp.LPDriver.Model
         {
             // Check if model has an objective.
             if (string.IsNullOrEmpty(this.Objective))
+            {
+                return false;
+            }
+
+            // Check if number of rows in the A matrix is equal to number of row types in the
+            // row type vector.
+            if (this.RowTypes.Count != this.A.RowCount)
             {
                 return false;
             }

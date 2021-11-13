@@ -70,6 +70,15 @@ namespace Microsoft.LPSharp.Powershell
                 this.LPDriver.MpsReader.Errors.Count,
                 key);
 
+            if (this.LPDriver.MpsReader.Errors.Count > 0)
+            {
+                this.WriteError(new ErrorRecord(
+                    new PSInvalidOperationException(),
+                    $"Model {key} has read errors",
+                    ErrorCategory.InvalidData, model));
+                return;
+            }
+
             // Return the model key.
             this.WriteObject(model.Name);
         }

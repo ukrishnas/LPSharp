@@ -127,6 +127,11 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 }
             }
 
+            if (!model.IsValid())
+            {
+                this.errors.Add($"Model failed validation checks for construction and bounds");
+            }
+
             return model;
         }
 
@@ -342,8 +347,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 return;
             }
 
+            // When a row type is read, create a row in the A matrix along with the row in
+            // the row type vector. Otherwise, an empty row will not get constraints and
+            // cause solvers to behave differently while giving the same objective result.
             var name = fields[1];
             model.RowTypes[name] = type.Value;
+            model.A[name, null] = 0;
         }
 
         /// <summary>

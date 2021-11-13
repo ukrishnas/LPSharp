@@ -272,12 +272,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
             this.clp.DualColumnSolution(reducedCostVec);
             this.clp.Objective(objectiveVec);
 
-            Console.WriteLine("{0,10} {1,10} {2,10} {3,10}", "ColIndex", "ColSolution", "ReducedCost", "Objective");
+            Console.WriteLine("{0,10} {1,13} {2,13} {3,13}", "ColIndex", "ColSolution", "ReducedCost", "Objective");
             int maxColumns = Math.Min(10, columnSolutionVec.Count);
             for (int i = 0; i < maxColumns; i++)
             {
                 Console.WriteLine(
-                    "{0,10} {1,10:G7} {2,10:G7} {3,10:G7}",
+                    "{0,10} {1,13:G7} {2,13:G7} {3,13:G7}",
                     i,
                     columnSolutionVec[i],
                     reducedCostVec[i],

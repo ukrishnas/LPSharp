@@ -264,12 +264,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
 
             // Just print the first few columns of the objective to verify the methods.
             var columnSolutionVec = this.linearSolver.variables();
-            Console.WriteLine("{0,10} {1,10}", "ColIndex", "ColSolution");
+            Console.WriteLine("{0,10} {1,13}", "ColIndex", "ColSolution");
             int maxColumns = Math.Min(10, columnSolutionVec.Count);
             for (int i = 0; i < maxColumns; i++)
             {
                 Console.WriteLine(
-                    "{0,10} {1,10:G7}",
+                    "{0,10} {1,13:G7}",
                     i,
                     columnSolutionVec[i].SolutionValue());
             }
