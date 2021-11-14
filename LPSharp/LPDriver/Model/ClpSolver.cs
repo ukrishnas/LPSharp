@@ -92,6 +92,18 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
+        public override void SetParameters(SolverParameters solverParameters)
+        {
+            if (solverParameters == null)
+            {
+                return;
+            }
+
+            base.SetParameters(solverParameters);
+            Utility.SetPropertiesFromList(solverParameters.ClpParameters, this);
+        }
+
+        /// <inheritdoc />
         public override void Clear()
         {
             this.clp.Reset();
@@ -100,7 +112,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override bool Load(LPModel model)
         {
-            if (!model.IsValid())
+            if (model == null || !model.IsValid())
             {
                 return false;
             }
@@ -175,20 +187,9 @@ namespace Microsoft.LPSharp.LPDriver.Model
             stopwatch.Stop();
             this.metrics[LPMetric.LoadTimeMs] = stopwatch.ElapsedMilliseconds;
             this.metrics[LPMetric.ModelName] = model.Name;
+            this.metrics[LPMetric.SolverName] = this.Key;
 
             return true;
-        }
-
-        /// <inheritdoc />
-        public override void SetParameters(SolverParameters solverParameters)
-        {
-            if (solverParameters == null)
-            {
-                return;
-            }
-
-            base.SetParameters(solverParameters);
-            Utility.SetPropertiesFromList(solverParameters.ClpParameters, this);
         }
 
         /// <inheritdoc />
@@ -288,7 +289,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public override void Write(string pathName)
+        public override void WriteModel(string pathName)
         {
             this.clp.WriteMps(pathName);
         }

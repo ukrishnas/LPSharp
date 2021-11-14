@@ -14,23 +14,23 @@ namespace Microsoft.LPSharp.LPDriver.Contract
     public interface ILPInterface
     {
         /// <summary>
+        /// Sets solver parameters.
+        /// </summary>
+        /// <param name="solverParameters">The solver parameters.</param>
+        void SetParameters(SolverParameters solverParameters);
+
+        /// <summary>
         /// Clears the linear program and the stored state from the previous Solve() call. Parameters
         /// are not cleared.
         /// </summary>
-        public void Clear();
+        void Clear();
 
         /// <summary>
         /// Loads a model into the solver.
         /// </summary>
         /// <param name="model">The solver model.</param>
-        /// <returns>True if the model was loaded successfully, false otherwise.</returns>
+        /// <returns>True if successfully loaded, false otherwise.</returns>
         bool Load(LPModel model);
-
-        /// <summary>
-        /// Sets solver parameters.
-        /// </summary>
-        /// <param name="solverParameters">The solver parameters.</param>
-        void SetParameters(SolverParameters solverParameters);
 
         /// <summary>
         /// Solves the model.
@@ -42,6 +42,6 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// Writes the solver model to file.
         /// </summary>
         /// <param name="pathName">The output file path.</param>
-        void Write(string pathName);
+        void WriteModel(string pathName);
     }
 }

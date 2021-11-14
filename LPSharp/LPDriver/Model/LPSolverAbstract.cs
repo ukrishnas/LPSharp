@@ -60,6 +60,12 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public ExecutionResult Metrics => new(this.metrics);
 
         /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"Key={this.Key} TimeLimitInSeconds={this.TimeLimitInSeconds} EnableLogging={this.EnableLogging}";
+        }
+
+        /// <inheritdoc />
         public virtual void SetParameters(SolverParameters solverParameters)
         {
             if (solverParameters == null)
@@ -71,22 +77,16 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public abstract bool Load(LPModel model);
+        public abstract void Clear();
 
         /// <inheritdoc />
-        public abstract void Clear();
+        public abstract bool Load(LPModel model);
 
         /// <inheritdoc />
         public abstract bool Solve();
 
         /// <inheritdoc />
-        public abstract void Write(string pathName);
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"Key={this.Key} TimeLimitInSeconds={this.TimeLimitInSeconds} EnableLogging={this.EnableLogging}";
-        }
+        public abstract void WriteModel(string pathName);
 
         /// <summary>
         /// Removes a metric.

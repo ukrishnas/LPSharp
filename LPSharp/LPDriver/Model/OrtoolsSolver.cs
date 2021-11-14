@@ -106,6 +106,19 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
+        public override void SetParameters(SolverParameters solverParameters)
+        {
+            if (solverParameters?.GlopParameters == null)
+            {
+                return;
+            }
+
+            base.SetParameters(solverParameters);
+            Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
+            this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
+        }
+
+        /// <inheritdoc />
         public override void Clear()
         {
             // This clears the extracted model so that the next call to Solve() will be from scratch.
@@ -121,7 +134,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override bool Load(LPModel model)
         {
-            if (!model.IsValid())
+            if (model == null || !model.IsValid())
             {
                 return false;
             }
@@ -179,28 +192,14 @@ namespace Microsoft.LPSharp.LPDriver.Model
             stopwatch.Stop();
             this.metrics[LPMetric.LoadTimeMs] = stopwatch.ElapsedMilliseconds;
             this.metrics[LPMetric.ModelName] = model.Name;
+            this.metrics[LPMetric.SolverName] = this.Key;
 
             return true;
         }
 
         /// <inheritdoc />
-        public override void SetParameters(SolverParameters solverParameters)
-        {
-            if (solverParameters?.GlopParameters == null)
-            {
-                return;
-            }
-
-            base.SetParameters(solverParameters);
-            Utility.SetPropertiesFromList(solverParameters.GlopParameters.Parameters, this);
-            this.SolverSpecificParametersText = solverParameters.GlopParameters.SolverSpecificParameterText;
-        }
-
-        /// <inheritdoc />
         public override bool Solve()
         {
-            this.metrics[LPMetric.SolverName] = this.Key;
-
             // Set time limit in linear solver if configured. The linear solver set method takes
             // milliseconds.
             if (this.TimeLimitInSeconds != 0)
@@ -278,7 +277,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
         }
 
         /// <inheritdoc />
-        public override void Write(string pathName)
+        public override void WriteModel(string pathName)
         {
             var modelText = this.linearSolver.ExportModelAsMpsFormat(true, false);
             File.WriteAllText(pathName, modelText);

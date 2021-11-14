@@ -102,7 +102,7 @@ namespace Microsoft.LPSharp.Powershell
                 var pathName = scenario.EndsWith("mps", StringComparison.OrdinalIgnoreCase)
                     ? Path.Combine(folder, scenario)
                     : Path.Combine(folder, $"{scenario}.mps");
-                solver.Write(pathName);
+                solver.WriteModel(pathName);
             }
 
             return solver.Metrics;
