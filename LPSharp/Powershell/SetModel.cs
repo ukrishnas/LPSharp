@@ -105,7 +105,7 @@ namespace Microsoft.LPSharp.Powershell
         /// </summary>
         /// <param name="boundStr">The string representation of the tuple.</param>
         /// <param name="bound">The lower and upper bound tuple.</param>
-        /// <returns>True if parsed successfully, false othewise.</returns>
+        /// <returns>True if parsed successfully, false otherwise.</returns>
         private static bool TryParseBound(string boundStr, out Tuple<double, double> bound)
         {
             bound = null;
