@@ -34,6 +34,12 @@ namespace Microsoft.LPSharp.Powershell
         [Parameter]
         public int? Limit { get; set; }
 
+        /// <summary>
+        /// Gets or sets the tolerance for double precision comparison.
+        /// </summary>
+        [Parameter]
+        public double? Tolerance { get; set; }
+
         /// <inheritdoc />
         protected override void ProcessRecord()
         {
@@ -41,15 +47,22 @@ namespace Microsoft.LPSharp.Powershell
             if (first == null)
             {
                 this.WriteHost($"Model {this.First} not found");
+                return;
             }
 
             var second = this.LPDriver.GetModel(this.Second);
             if (second == null)
             {
                 this.WriteHost($"Model {this.Second} not found");
+                return;
             }
 
             var comparer = new LPModelComparer();
+            if (this.Tolerance.HasValue)
+            {
+                comparer.Tolerance = this.Tolerance.Value;
+            }
+
             var result = comparer.Compare(first, second);
             var differences = comparer.Differences;
             this.WriteHost("Models {0} and {1} are {2}", first.Name, second.Name, result == 0 ? "equal" : "not equal");
@@ -63,7 +76,6 @@ namespace Microsoft.LPSharp.Powershell
                 else
                 {
                     this.WriteObject(differences.Take(this.Limit.Value).ToList());
-
                 }
             }
         }

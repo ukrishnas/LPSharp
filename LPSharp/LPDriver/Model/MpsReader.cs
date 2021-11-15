@@ -173,7 +173,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     else if (section == MpsSection.Name)
                     {
                         // If name section, then read the name of the problem.
-                        model.Name = fields[1];
+                        if (fields.Count > 1)
+                        {
+                            model.Name = fields[1];
+                        }
                     }
 
                     continue;

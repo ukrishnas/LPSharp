@@ -72,10 +72,7 @@ namespace Microsoft.LPSharp.Powershell
 
             if (this.LPDriver.MpsReader.Errors.Count > 0)
             {
-                this.WriteError(new ErrorRecord(
-                    new PSInvalidOperationException(),
-                    $"Model {key} has read errors",
-                    ErrorCategory.InvalidData, model));
+                this.WriteHost($"Model {key} has errors");
                 return;
             }
 
