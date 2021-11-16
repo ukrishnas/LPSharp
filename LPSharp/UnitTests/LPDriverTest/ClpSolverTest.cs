@@ -6,6 +6,8 @@
 
 namespace Microsoft.LPSharp.LPDriverTest
 {
+    using System.Linq;
+    using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -43,6 +45,19 @@ namespace Microsoft.LPSharp.LPDriverTest
         {
             var solver = new ClpSolver("test");
             TestUtil.TestModels(solver, TestUtil.NetlibModels);
+        }
+
+        /// <summary>
+        /// Tests whether model is correctly input into the solver.
+        /// </summary>
+        [TestMethod]
+        public void ClpSolverModelRoundTripTest()
+        {
+            var solver = new ClpSolver("test");
+            TestUtil.TestModelRoundTrip(
+                solver,
+                TestUtil.NetlibModels.Select(x => x.Item1).ToArray(),
+                MpsFormat.Fixed);
         }
     }
 }

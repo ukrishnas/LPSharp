@@ -7,7 +7,9 @@
 namespace Microsoft.LPSharp.LPDriverTest
 {
     using System.Diagnostics;
+    using System.Linq;
     using Google.OrTools.LinearSolver;
+    using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -112,6 +114,23 @@ namespace Microsoft.LPSharp.LPDriverTest
                     "{0} dual value={1} activities={2}",
                     coeff.Name(), coeff.DualValue(), activities[coeff.Index()]));
             }
+        }
+
+        /// <summary>
+        /// Tests whether model is correctly input into the solver.
+        /// </summary>
+        [TestMethod]
+        public void GlopSolverModelRoundTripTest()
+        {
+            var solver = new GlopSolver("test");
+
+            // GLOP solver writes with lower precision than the input model.
+            // Hence, using a higher value for tolerance.
+            TestUtil.TestModelRoundTrip(
+                solver,
+                TestUtil.NetlibModels.Select(x => x.Item1).ToArray(),
+                MpsFormat.Free,
+                1e-2);
         }
     }
 }

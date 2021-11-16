@@ -108,6 +108,7 @@ namespace Microsoft.LPSharp.LPDriverTest
 
             var solverAbstract = solver as LPSolverAbstract;
             Assert.IsNotNull(solverAbstract, $"{solver} cast as abstract");
+            var solverKey = solverAbstract.Key;
 
             foreach (var test in testModels)
             {
@@ -127,13 +128,70 @@ namespace Microsoft.LPSharp.LPDriverTest
                 var model = reader.Read(filename);
                 model.Name = Path.GetFileNameWithoutExtension(filename);
 
-                Assert.IsTrue(solver.Load(model), $"{solver} {model.Name} load status");
-                Assert.IsTrue(solver.Solve(), "{solver} {model.Name} optimal result status");
+                Assert.IsTrue(solver.Load(model), $"{solverKey} {model.Name} load status");
+                Assert.IsTrue(solver.Solve(), $"{solverKey} {model.Name} optimal result status");
 
                 AssertAlmostEqual(
                     expectObjective,
                     (double)solverAbstract.Metrics[LPMetric.Objective],
-                    $"{solver} {model.Name} objective");
+                    $"{solverKey} {model.Name} objective");
+            }
+        }
+
+        /// <summary>
+        /// Tests whether the model that is loaded into the solver, and then written
+        /// out by the solver is the same as the original model.
+        /// </summary>
+        /// <param name="solver">The solver.</param>
+        /// <param name="testModels">The test models.</param>
+        /// <param name="format">The format of MPS file written by solver.</param>
+        /// <param name="tolerance">The tolerance for model comparison.</param>
+        /// <param name="testFolder">The test folder.</param>
+        public static void TestModelRoundTrip(
+            ILPInterface solver,
+            string[] testModels,
+            MpsFormat format = MpsFormat.Free,
+            double tolerance = LPConstant.DefaultTolerance,
+            string testFolder = "TestData")
+        {
+            var reader = new MpsReader();
+
+            var solverAbstract = solver as LPSolverAbstract;
+            Assert.IsNotNull(solverAbstract, $"{solver} cast as abstract");
+            var solverKey = solverAbstract.Key;
+
+            var roundTripDirName = Guid.NewGuid().ToString();
+            var roundTripDirectory = Directory.CreateDirectory(roundTripDirName);
+            Trace.WriteLine($"Round trip directory {roundTripDirName}");
+
+            var modelComparer = new LPModelComparer { Tolerance = tolerance, };
+
+            foreach (var testModel in testModels)
+            {
+                var modelFilePath = $"{testFolder}\\{testModel}";
+                var model = reader.Read(modelFilePath);
+                model.Name = Path.GetFileNameWithoutExtension(modelFilePath);
+
+                Assert.IsTrue(solver.Load(model), $"{solverKey} {model.Name} load status");
+
+                var roundTripModelFilePath = Path.Combine(roundTripDirectory.FullName, testModel);
+                solver.WriteModel(roundTripModelFilePath);
+                Assert.IsTrue(File.Exists(roundTripModelFilePath), $"Round trip model file not found {roundTripModelFilePath}");
+
+                var roundTripModel = reader.Read(roundTripModelFilePath, format);
+                var result = modelComparer.Compare(model, roundTripModel);
+
+                // To see differences.
+                if (result != 0)
+                {
+                    int maxDifferences = Math.Min(10, modelComparer.Differences.Count);
+                    for (int i = 0; i < maxDifferences; i++)
+                    {
+                        Trace.WriteLine(modelComparer.Differences[i]);
+                    }
+                }
+
+                Assert.AreEqual(0, result, $"{solverKey} {model.Name} model round trip result");
             }
         }
     }

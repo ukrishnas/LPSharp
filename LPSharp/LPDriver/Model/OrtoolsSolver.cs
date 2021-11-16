@@ -279,7 +279,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
         /// <inheritdoc />
         public override void WriteModel(string pathName)
         {
-            var modelText = this.linearSolver.ExportModelAsMpsFormat(true, false);
+            // Write in free format and do not obfuscate the names.
+            var modelText = this.linearSolver.ExportModelAsMpsFormat(false, false);
             File.WriteAllText(pathName, modelText);
         }
 
