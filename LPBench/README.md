@@ -23,28 +23,31 @@ __Results summary__. Each cell shows speedup when compared to the reference
 solver. ClpBest is the best of different Clp settings. We have not been able to
 try GLOP in different settings.
 
-|Benchmark|Reference|GLOP Primal|GLOP Dual|CLP Primal|CLP Dual|CLP Either|CLP Best|
-|--|--|--|--|--|--|--|--|
-|WANLPv2|MSF Primal|3|6|6|10|
+|Benchmark|Reference|GLOP Primal|GLOP Dual|CLP Primal|CLP Dual|CLP Either|
+|--|--|--|--|--|--|--|
+|WANLPv2|MSF Primal|2|7|11|15|
 |Netlib|GLOP Primal|1|0.7|1|1.8|2.3|
-|Plato|GLOP Primal|1||||1.2|1.7|
 
 MSF results are from Network Designer using Invoke-MSFSolve, because LPSharp
 does not support MSF.
 
-CLP results are using CLP nuget packages from this repository of the CoinWrap
-interface and C# language wrapper called from LPSharp. The solver can also be
-invoked using `coinwrap.exe`, a standalone executable of the Clp interface, and
-`Clp.exe`, a standalone executable of the Clp solver. The results are the same
-when used with the same settings.
+CLP results are using LPSharp and CLP nuget packages from this repository. The solver can
+also be invoked using `coinwrap.exe`, a standalone executable of the Clp
+interface, and `Clp.exe`, a standalone executable of the Clp solver. The results
+are the same when used with the same settings.
 
-GLOP results are using GLOP nuget packages from this repository and the C#
-language wrapper driven by LPSharp. The locally built library (version 9.1.90.1)
-matches the public OR-Tools in nuget.org (version 9.1.9490). This confirms that
-we are able to locally replicate the public build. `glop_solve.exe` is our C++
-based standalone executable linked with the C++ libraries. It is used to
-generate verbose logs or control the solver in ways not possible with the dotnet
-interface.
+GLOP results are using LPSharp and GLOP nuget packages from this repository. The
+locally built library (version 9.1.90.1) matches the public OR-Tools in
+nuget.org (version 9.1.9490). This confirms that we are able to locally
+replicate the public build. `glop_solve.exe` is our C++ based standalone
+executable linked with the C++ libraries and is another way to involve Glop
+solver. It may be used to debug LPSharp or control the solver in ways not
+possible with the dotnet interface.
+
+[Results_i7.csv](results_i7.csv) are the results on Intel Core i7 7500U 2.7Ghz 4
+logical processors 16GB. This is a laptop processor and there is a variability
+in the results due to processor clock speed changes, and possibly Windows
+scheduler.
 
 __LPSharp cheatsheet__
 
@@ -63,10 +66,9 @@ LPSharp> invoke-solver s250r10
 
 __CoinWrap cheatsheet__
 
-Example execution of Netlib and Plato models in different settings. The choice
-of starting basis is baked into the executable: dual uses crash and primal uses
-idiot in the code version of 10/27/2021, because they give the best results in
-WANLPv2.
+Example execution of Netlib and Plato models in different settings. The second
+argument is the recipe and choices are: barrier, dualcrash, duals, either,
+primals, primalidiot.
 
 ```
 $ coinwrap.exe netlib\80bau38.mps either
@@ -89,20 +91,21 @@ relative_cost_perturbation: 100
 relative_max_cost_perturbation: 1
 ```
 
-## WANLPv2 results
-
-Please see [wanlpv2_results.csv](wanlpv2_results.csv) for the optimal values and
-solve times. Measurements were done on:
-
-- Neil's laptop Intel Core i7 7500U 2.7Ghz 4 logical processors 16GB.
-- Zainab's desktop Xeon 3+Ghz 64GB.
+__Plot_lpbench cheatsheet__
 
 You can plot the results by executing:
 
 ```
 $ python plot_lpbench.py --help  # for usage
-$ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements ClpDualCrash_i7 ClpPrimalIdiot_i7 GlopDualPerturb_i7 GlopPrimal_i7
+
+$ python plot_lpbench.py results_i7.csv --model_pattern wanlp --baseline Msf --measurements ClpDualCrash ClpPrimalIdiot GlopDualPerturb GlopPrimal
+
+$ python plot_lpbench.py results_i7.csv --model_pattern netlib --measurements GlopPrimal GlopDual GlopDualPerturb ClpEither ClpDualCrash ClpPrimal
+
+$ python plot_lpbench.py results_i7.csv --model_pattern plato --measurements GlopPrimal ClpEither
 ```
+
+## WANLPv2 results
 
 - MSF times are for primal simplex. Its dual simplex exceeded solve time limits.
   MSF primal simplex is the reference for all speedup ratios even if the target
@@ -132,13 +135,6 @@ $ python plot_lpbench.py wanlpv2_results.csv --baseline Msf_i7 --measurements Cl
 
 ## Netlib results
 
-Please see [netlib_results.csv](netlib_results.csv) for the solve times. You can
-plot the results by executing:
-
-```
-$ python plot_lpbench.py netlib_results.csv --measurements GlopPrimal_i7 GlopDualPerturb_i7 GlopDualDefault_i7 ClpEither_i7 ClpDualCrash_i7 ClpPrimal_i7
-```
-
 These models execute in less than 30 seconds per model.
 
 If using the `Clp.exe` or `coinwrap.exe` executables, it will complain `Unknown
@@ -156,13 +152,6 @@ The `LPSharp` MPS reader can read this file without issue.
   GLOP dual simplex could not solve qap12.
 
 ## Plato results
-
-Please see [plato_results.csv](plato_results.csv) for the solve times. You can
-plot the results by executing:
-
-```
-$ python plot_lpbench.py plato_results.csv --measurements GlopPrimal_i7 ClpEither_i7 ClpBest_i7
-```
 
 The models in the ftp site are bz2 compressed. Please decompress them before
 executing them with LPSharp. Please read the files into LPSharp using free

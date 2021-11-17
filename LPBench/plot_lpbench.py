@@ -3,20 +3,27 @@ import csv
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import re
 import statistics
 
 
-def load_data(filename):
+def load_data(filename, **kwargs):
     """Loads results from a CSV file."""
+    regex = re.compile('.*')
+    if 'model_pattern' in kwargs:
+        regex = re.compile(kwargs['model_pattern'])
     data = {}
     with open(filename,'r') as csvfile:
         reader = csv.DictReader(csvfile, lineterminator='\n')
         for row in reader:
             if 'Model' not in row or row['Model'].startswith('#'):
                 continue
+            model = row['Model'].strip()
+            if regex.search(model) == None:
+                continue
             for key, value in row.items():
                 key = key.strip()
-                if key != 'Model':
+                if key != 'Model':                 
                     try:
                         value = float(value)
                     except (TypeError, ValueError):
@@ -37,7 +44,9 @@ def process_results(data, basekey, measurekey):
     speedups = np.zeros(n)
     for i in range(n):
         base = baselines[i]
-        measure = measurements[i]
+        measure = measurements[i] 
+        if base == math.inf or measure == math.inf:
+            continue
         ratio = base / measure
         if ratio < 1:
             ratio = -1/ratio
@@ -57,7 +66,14 @@ def compute_means(data, basekey, measurekeys):
 
         series1 = np.array(data[basekey])
         series2 = np.array(data[key])
-        ratios = series1 / series2
+        if len(series1) != len(series2):
+            raise UserWarning('Mismatched series length unexpected')
+        n = len(series1)
+        ratios = []
+        for i in range(n):
+            if series1[i] == math.inf or series2[i] == math.inf:
+                continue
+            ratios.append(series1[i]/series2[i])
         mean = statistics.harmonic_mean(ratios)
         y.append(mean)
     return x, y
@@ -84,6 +100,7 @@ if __name__ == '__main__':
     parser.add_argument('results_file', help='Results CSV file')
     parser.add_argument('--baseline', '-b', type=str, help='Baseline column name')
     parser.add_argument('--measurements', '-m', type=str, nargs='+', help='Measurement column names')
+    parser.add_argument('--model_pattern', '-mp', default='.*', help='Regular expression pattern to limit models')
 
     args = parser.parse_args()
     results_file = args.results_file
@@ -99,9 +116,9 @@ if __name__ == '__main__':
 
     # Load the data file. Check that the baseline and measurement column names
     # are present in the data.
-    data = load_data(results_file)
+    data = load_data(results_file, model_pattern=args.model_pattern)
     if len(data) == 0:
-        raise UserWarning('No data in {}'.format(results_file))
+        raise UserWarning('No data matching "{}" in {}'.format(args.model_pattern, results_file))
     if basekey not in data:
         raise UserWarning('Baseline column {} not found in results file {}'.format(basekey, results_file))
     for key in measurekeys:
