@@ -20,10 +20,5 @@ namespace Microsoft.LPSharp.LPDriver.Contract
         /// Google linear programming solver.
         /// </summary>
         GLOP,
-
-        /// <summary>
-        /// Microsoft Solver Foundation linear programming solver.
-        /// </summary>
-        MSFLP,
     }
 }

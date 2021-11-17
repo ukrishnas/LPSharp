@@ -7,19 +7,18 @@ are:
 
 - CLP: Computation Infrastructure for Operations Research (COIN-OR) LP solver.
 - GLOP: Google Operations Research Tools (OR-Tools) LP solver.
-- MSF: Microsoft Solver Foundation LP solver.
 
 The table below summarizes some information on the solvers.
 
-||CLP|GLOP|MSF|
-| -- | -- | -- | -- |
-| Parent package | Computation Infrastructure for Operational Research (COIN) | Google Operational Research Tools (OR-Tools) | Microsoft Solver Foundation (MSF) |
-| Creators | John Forrest (ex-IBM, still active) | Laurent Perron (Google, ex-IBM, still active) | |
-| First checkin | July 30 2002 | September 15, 2010 | Around 2006 |
-| Repositories with sizes | [Clp](https://github.com/coin-or/Clp) ([35MB](https://api.github.com/repos/coin-or/clp)), [CoinUtils](https://github.com/coin-or/CoinUtils) ([24MB](https://api.github.com/repos/coin-or/coinutils)), [BuildTools](https://github.com/coin-or-tools/BuildTools.git) ([2MB](https://api.github.com/repos/coin-or-tools/buildtools)) | [Or-tools](https://github.com/google/or-tools) ([1.1GB](https://api.github.com/repos/google/or-tools)) | [Private archive](https://microsoft.sharepoint.com/:u:/t/AzNet_WAN/EaP1nQ9PRwFOvMNDnozIAKsBsro8ubEwJFoW5SBWVK0R9Q?e=Eetqpg) (54MB) |
-| Project status | Active | Active | Inactive |
-| User guide | [User guide](https://coin-or.github.io/Clp/) | [User guide](https://developers.google.com/optimization/introduction/overview) | [Documents](https://microsoft.sharepoint.com/:f:/t/AzNet_WAN/EpklXccpFMhDvXQiSUuZkwsBtJbltaxKltKuO0MYzzZJqA?e=QKi3HS) |
-| License | Eclipse Public License 2.0 | Apache License 2.0 | Microsoft proprietary |
+||CLP|GLOP|
+| -- | -- | -- |
+| Parent package | Computation Infrastructure for Operational Research (COIN) | Google Operational Research Tools (OR-Tools) |
+| Creators | John Forrest (ex-IBM, still active) | Laurent Perron (Google, ex-IBM, still active) |
+| First checkin | July 30 2002 | September 15, 2010 |
+| Repositories with sizes | [Clp](https://github.com/coin-or/Clp) ([35MB](https://api.github.com/repos/coin-or/clp)), [CoinUtils](https://github.com/coin-or/CoinUtils) ([24MB](https://api.github.com/repos/coin-or/coinutils)), [BuildTools](https://github.com/coin-or-tools/BuildTools.git) ([2MB](https://api.github.com/repos/coin-or-tools/buildtools)) | [Or-tools](https://github.com/google/or-tools) ([1.1GB](https://api.github.com/repos/google/or-tools)) |
+| Project status | Active | Active |
+| User guide | [User guide](https://coin-or.github.io/Clp/) | [User guide](https://developers.google.com/optimization/introduction/overview) |
+| License | Eclipse Public License 2.0 | Apache License 2.0 |
 
 
 __LP solvers__: LP solvers are often part of larger optimization suites that
@@ -77,9 +76,8 @@ GNU
 and Visual Studio builds, and the latter perfectly fits our needs. GLOP provides
 [Bazel](https://bazel.build), [CMake](https://cmake.org), and make build
 systems. CMake is best suited for our needs. It is easy to use, Bazel 4.2.1 does
-not support C# builds and make is dated. MSF supports Visual Studio
-builds. Build files for other build systems have been excluded to keep the code
-base simple.
+not support C# builds and make is dated. Build files for other build systems
+have been excluded to keep the code base simple.
 
 __Dependencies__: Dependent libraries are downloaded and built as part of the
 build process. They are not imported as submodules. CLP has no external

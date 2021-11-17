@@ -40,12 +40,11 @@ namespace Microsoft.LPSharp.LPDriverTest
 
             Assert.IsNotNull(driver.CreateSolver("glop", SolverType.GLOP));
             Assert.IsNotNull(driver.CreateSolver("clp", SolverType.CLP));
-            Assert.IsNull(driver.CreateSolver("msf", SolverType.MSFLP));
 
             Assert.IsNull(driver.GetSolver(null));
             Assert.IsNotNull(driver.GetSolver("glop"));
             Assert.IsNotNull(driver.GetSolver("clp"));
-            Assert.IsNull(driver.GetSolver("msf"));
+            Assert.IsNull(driver.GetSolver("unknown"));
         }
 
         /// <summary>

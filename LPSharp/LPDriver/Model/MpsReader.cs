@@ -23,7 +23,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
     {
         /// <summary>
         /// The field length of the number fields is 12 characters per the specification.
-        /// MSF generates MPS files that use the maximum possible 14 characters.
+        /// But MPS files use the maximum possible 14 characters.
         /// </summary>
         private const int NumberFieldLength = 14;
 
