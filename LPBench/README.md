@@ -108,8 +108,6 @@ $ python plot_lpbench.py results_i7.csv --model_pattern plato --measurements Glo
 ## WANLPv2 results
 
 - MSF times are for primal simplex. Its dual simplex exceeded solve time limits.
-  MSF primal simplex is the reference for all speedup ratios even if the target
-  solver uses dual simplex.
 - Both CLP and GLOP solved all 29 models with default and modified settings.
 - CLP dual with default settings uses all slacks starting basis that converges
   more slowly for the sonal-maxmin[0-5].mps models. Using the crash starting
