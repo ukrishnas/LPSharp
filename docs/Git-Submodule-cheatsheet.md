@@ -8,7 +8,7 @@ repositories. These are tips for working with submodules.
 
 First, clone the project.
 ```
-$ git clone https://github.com/microsoft/LPSharp.git LPSharp
+$ git clone https://github.com/ukrishnas/LPSharp.git LPSharp
 Cloning into 'LPSharp'...
 remote: Enumerating objects: 26912, done.
 remote: Counting objects: 100% (26912/26912), done.
@@ -27,9 +27,9 @@ the parent project but the submodule repository is still separate.
 $ cd LPSharp
 $ git submodule update --init --recursive
 
-Submodule 'CLP/BuildTools' (https://github.com/microsoft/LPSharp.git) registered for path 'CLP/BuildTools'
-Submodule 'CLP/Clp' (https://github.com/microsoft/LPSharp.git) registered for path 'CLP/Clp'
-Submodule 'CLP/CoinUtils' (https://github.com/microsoft/LPSharp.git) registered for path 'CLP/CoinUtils'
+Submodule 'CLP/BuildTools' (https://github.com/ukrishnas/LPSharp.git) registered for path 'CLP/BuildTools'
+Submodule 'CLP/Clp' (https://github.com/ukrishnas/LPSharp.git) registered for path 'CLP/Clp'
+Submodule 'CLP/CoinUtils' (https://github.com/ukrishnas/LPSharp.git) registered for path 'CLP/CoinUtils'
 Cloning into 'LPSharp/CLP/BuildTools'...
 Cloning into 'LPSharp/CLP/Clp'...
 Cloning into 'LPSharp/CLP/CoinUtils'...
@@ -81,7 +81,7 @@ The combined steps are shown below.
 ```
 $ git submodule add https://github.com/coin-or-tools/BuildTools.git
 $ git remote remove origin
-$ git remote add origin https://github.com/microsoft/LPSharp.git
+$ git remote add origin https://github.com/ukrishnas/LPSharp.git
 $ git branch -m lpsharp_clp_buildtools_master
 $ <Perform any edits to submodule>
 $ git commit
@@ -94,7 +94,7 @@ the private repository.
 ```
 [submodule "CLP/BuildTools"]
 	path = CLP/BuildTools
-	url = https://github.com/microsoft/LPSharp.git
+	url = https://github.com/ukrishnas/LPSharp.git
 ```
 
 ## Update from public repository

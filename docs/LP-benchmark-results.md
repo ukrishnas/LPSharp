@@ -1,11 +1,6 @@
 This page documents the benchmark results of the LP solvers. The solvers have
 been tested against the following benchmarks.
 
-- __WANLP__ is a benchmark of 7 models from Microsoft Azure wide area network
-  traffic engineering scheduler. They solve optimization problems of approximate
-  max-min fairness, diverse path allocation, minimizing cost and maximum
-  utilization.
-
 - __Netlib__ has a collection small to medium sized MPS models that can be found
   [here](https://www.cuter.rl.ac.uk/Problems/netlib.shtml). We collected results
   with the largest models.
@@ -23,7 +18,6 @@ using geometric mean.
 
 |Benchmark|Reference|GLOP Primal|GLOP Dual|CLP Primal|CLP Dual|CLP Either|
 |--|--|--|--|--|--|--|
-|WANLP|MSF Primal|5|11|12|19|8|
 |Netlib|GLOP Primal|1|0.8|1.1|2.1|3.2|
 |Mittelmann|GLOP Primal|1||||1.9|
 
@@ -48,43 +42,19 @@ See [LPSharp Powershell cmdlets guide](LPSharp-Powershell-Cmdlets-Guide) for
 more information on invoking the solver and collecting results.
 
 __Visualization__. You can plot the results using
-[plot_lpbench.py](https://github.com/microsoft/LPSharp/blob/main/LPBench/plot_lpbench.py)
+[plot_lpbench.py](https://github.com/ukrishnas/LPSharp/blob/main/LPBench/plot_lpbench.py)
 that is part of the source tree.
 
 ```
 $ python plot_lpbench.py --help  # for usage
-$ python plot_lpbench.py results_i7.csv --model_pattern wanlp --baseline Msf --measurements GlopPrimal GlopDualPerturb ClpEither ClpPrimalIdiot ClpDualCrash
 $ python plot_lpbench.py results_i7.csv --model_pattern netlib --measurements GlopPrimal GlopDualPerturb ClpPrimalIdiot ClpDualCrash ClpEither
 $ python plot_lpbench.py results_i7.csv --model_pattern mittelmann --measurements GlopPrimal ClpEither
 ```
 
-[Results_i7.csv](https://github.com/microsoft/LPSharp/blob/main/LPBench/results_i7.csv)
+[Results_i7.csv](https://github.com/ukrishnas/LPSharp/blob/main/LPBench/results_i7.csv)
 are the results on Intel Core i7 7500U 2.7Ghz 4 logical processors 16GB. This is
 a laptop processor and there is a variability in the results due to processor
 clock speed changes, and possibly Windows scheduler.
-
-## WANLP results
-
-- MSF times are for primal simplex. Its dual simplex exceeded solve time limits.
-- CLP dual with default settings uses all slacks starting basis that converges
-  more slowly for the sonal-maxmin model. Using the crash starting basis method
-  is faster by 40%. CLP primal automatically selects from three starting basis
-  methods. Fixing it to Idiot starting basis gives a smaller speedup of 10%.
-- CLP message handler has two log level controls. One of them is a facility
-  based logger and it affects wall clock time. This has been turned off in
-  CoinWrap.
-- Although we forced the solvers to primal or dual simplex for this benchmark,
-  CLP and GLOP can select either simplex based the model. GLOP does this by
-  default, and CLP does this when the solve method is automatic.
-- GLOP dual simplex could not solve the max-min models with default settings.
-  Max-min models have high degeneracy - non-zero elements in the constraint
-  matrix are 1, and the cost vector coefficients are 1. So many columns are the
-  same. Pure cycling is possible in such models. Dual simplex needs cost
-  perturbation to jiggle the values a bit and get it out of the cycle. The
-  downside of is that it decreases sparsity in models like min-cost which do not
-  need it, and operations like a bit longer. We have tuned the cost perturbation
-  parameters. With these, GLOP dual is twice as fast as GLOP primal. The custom
-  settings can be done in LPSharp Powershell console or `glopsolve`.
 
 
 ## Netlib results
