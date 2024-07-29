@@ -1,8 +1,7 @@
-# Networking-WANLP
+# LPSharp
 
-LPSharp is a repository of [linear
-programming](https://en.wikipedia.org/wiki/Linear_programming) (LP) solvers and
-LPSharp, a C# interactive test bench for these solvers. The supported solvers
+LPSharp is a C# test bench and interface to [linear
+programming](https://en.wikipedia.org/wiki/Linear_programming) (LP) solvers. The supported solvers
 are:
 
 - CLP: Computation Infrastructure for Operations Research (COIN-OR) LP solver.
