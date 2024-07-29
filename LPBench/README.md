@@ -3,12 +3,7 @@
 This page documents the benchmark results of the LP solvers. The solvers have
 been tested against the following benchmarks.
 
-- __WANLPv2__ is a benchmark of 29 models, 26 are performance-oriented and 3 are for
-  checking completion with default zero tolerance settings. WANLPv2 benchmark
-  models are in
-  [sharepoint](https://microsoft.sharepoint.com/:f:/t/AzNet_WAN/Eta127_8eHhNsylPOEupNQwB1OwjjRGGPilJtk2cf0sT_Q?e=cYFuIm)
-  and explanation of the models is in Section 6 of [this
-  document](https://microsoft.sharepoint.com/:b:/t/AzNet_WAN/Ed82YFQIC5xBg5_2ya0Y_bgB5OTmeu9GGMhEyFH6D7AXFg?e=GkPifF).
+- __WANLPv2__ is a benchmark of 7 wide area network traffic engineering models.
 
 - __Netlib__ has a collection small to medium sized MPS models that can be found
   [here](https://www.cuter.rl.ac.uk/Problems/netlib.shtml). We collected results
@@ -28,8 +23,7 @@ try GLOP in different settings.
 |WANLPv2|MSF Primal|2|7|11|15|
 |Netlib|GLOP Primal|1|0.7|1|1.8|2.3|
 
-MSF results are from Network Designer using Invoke-MSFSolve, because LPSharp
-does not support MSF.
+MSF results are from Microsoft Solver Foundation on the same platform. LPSharp does not support MSF.
 
 CLP results are using LPSharp and CLP nuget packages from this repository. The solver can
 also be invoked using `coinwrap.exe`, a standalone executable of the Clp
