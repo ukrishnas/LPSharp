@@ -1,6 +1,6 @@
 # Networking-WANLP
 
-WANLP is a repository of [linear
+LPSharp is a repository of [linear
 programming](https://en.wikipedia.org/wiki/Linear_programming) (LP) solvers and
 LPSharp, a C# interactive test bench for these solvers. The supported solvers
 are:
