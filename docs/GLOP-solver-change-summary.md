@@ -1,5 +1,5 @@
 Owing to the large and monolithic nature of the
-[OR-Tools](https://github.com/google/ortools) public repository, the files in
+[OR-Tools](https://github.com/google/or-tools) public repository, the files in
 this folder are a copy and not a git submodule. Many code modules have been
 removed, and some have been changed. A helpful python script automates the copy
 and patch steps. GLOP solver code depends on
