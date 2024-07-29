@@ -1,5 +1,5 @@
 This step requires [dotnet](https://dotnet.microsoft.com/download) or Visual Studio. Please
-refer to the [dotnet cheat sheet](Dotnet-cheatsheet) for troubleshooting tips.
+refer to the [dotnet cheat sheet](Dotnet-cheatsheet.md) for troubleshooting tips.
 
 Build the LPSharp Powershell console.
 
