@@ -138,6 +138,7 @@
     <ClCompile Include="src\CoinPresolveImpliedFree.cpp" />
     <ClCompile Include="src\CoinPresolveIsolated.cpp" />
     <ClCompile Include="src\CoinPresolveMatrix.cpp" />
+    <ClCompile Include="src\CoinPresolveMonitor.cpp" />
     <ClCompile Include="src\CoinPresolvePsdebug.cpp" />
     <ClCompile Include="src\CoinPresolveSingleton.cpp" />
     <ClCompile Include="src\CoinPresolveSubst.cpp" />
