@@ -1,3 +1,4 @@
+# Table of contents
 
 1. [LPSharp background](LPSharp-background.md)
 2. COIN-OR LP (CLP) solver
