@@ -7,8 +7,7 @@
     <Version>@PROJECT_VERSION@</Version>
 
     <!-- Nuget Properties -->
-    <Description>Computation Infrastructure for Operations Research (COIN-OR)
-    Linear Programming (CLP) solver .NET interface</Description>
+    <Description>Computational Infrastructure for Operations Research Linear Programming (CLP) solver .NET interface</Description>
 
     <!-- Pack Option -->
     <Title>@COINWRAP_PROJECT@ v@PROJECT_VERSION@</Title>

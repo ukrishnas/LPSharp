@@ -8,15 +8,14 @@
       <MinClientVersion>4.1.0</MinClientVersion>
       <NeutralLanguage>en-US</NeutralLanguage>
       <Authors>Umesh Krishnaswamy</Authors>
-      <Company>Microsoft Corporation</Company>
 
        <!-- Pack Option -->
-       <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+       <PackageLicenseExpression>EPL-2.0</PackageLicenseExpression>
        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
        <PackageOutputPath>@COINWRAP_PACKAGES_DIR@</PackageOutputPath>
        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
        <RepositoryType>git</RepositoryType>
-       <RepositoryUrl>https://github.com/ukrishnas/Networking-WANLP</RepositoryUrl>
+       <RepositoryUrl>https://github.com/ukrishnas/LPSharp</RepositoryUrl>
         <!--Disable CS1591 "Missing XML comment for publicly visible type or member" (Swig doesn't generate documentation)-->
         <NoWarn>1591</NoWarn>
   </PropertyGroup>

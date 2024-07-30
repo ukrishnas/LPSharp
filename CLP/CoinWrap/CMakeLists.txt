@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.15)
-
 # Set policy that UseSWIG generates standard target names.
 if(POLICY CMP0078)
   cmake_policy(SET CMP0078 NEW)
@@ -17,22 +15,16 @@ if(POLICY CMP0122)
   cmake_policy(SET CMP0122 OLD)
 endif()
 
-# Include folder for additional cmake functions. 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+# Define project after settings. Inherit version from the parent project.
+project(coinwrap VERSION ${PROJECT_VERSION})
 
-# Define project after setting policies.
-include(version)
-set_version(VERSION)
-project(coinwrap VERSION ${VERSION})
-
-# Build the Clp interface. This is a user-friendly interface over Clp functions.
+# Build the Clp interface. The language wrappers are defined for this interface.
 add_subdirectory(cpp)
 
 # Define the native library.
 add_library(coinwrap_cpp SHARED "")
 set_target_properties(coinwrap_cpp PROPERTIES
   PREFIX ""
-  POSITION_INDEPENDENT_CODE ON
 )
 
 include(swig)
@@ -41,10 +33,10 @@ include(UseSWIG)
 # Generate C++ and C# wrapper code and import the generated C++ wrapper with the
 # Clp libraries into a new coinwrap_cpp.dll. At the end of this step, this DLL
 # should be present in the build tree. We enable whole program optimization with
-# /LTCG at link time since the C++ code is compiled with it.
+# at link time since the C++ code is compiled with it.
 add_subdirectory(csharp)
 target_link_libraries(coinwrap_cpp coinwrap_csharp)
-target_link_options(coinwrap_cpp PUBLIC "/LTCG")
+target_link_options(coinwrap_cpp PUBLIC ${COMMON_LINK_OPTIONS})
 
 # Build the dotnet nuget packages.
 include(dotnet)

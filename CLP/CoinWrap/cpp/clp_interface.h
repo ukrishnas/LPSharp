@@ -1,10 +1,6 @@
 /*
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * This code is licensed under the terms of the Eclipse Public License (EPL).
- * 
- * Authors
- * 
- * Umesh Krishnaswamy
+ * Copyright (c) 2024 Umesh Krishnaswamy
+ * This code is licensed under the terms of the MIT License.
  */
 
 /**
@@ -25,21 +21,20 @@
  * best suited for adding entire column or row vectors. CoinModel has more
  * flexibility, like adding an element at a time, for the cost of being five
  * times slower than CoinBuild but four times faster than ClpModel. This
- * interface uses CoinModel. Add methods require row and column indices, and
- * CoinModelHash is used to convert names to indices.
+ * interface uses CoinBuild.
  */
 
 #ifndef COINWRAP_CLP_INTERFACE_H_
 #define COINWRAP_CLP_INTERFACE_H_
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "ClpSimplex.hpp"
 #include "ClpSolve.hpp"
 #include "CoinMessageHandler.hpp"
-#include "CoinModel.hpp"
-#include "CoinModelUseful.hpp"
+#include "CoinBuild.hpp"
 
 namespace coinwrap {
 
@@ -149,10 +144,10 @@ enum ClpStatus {
     Optimal = 0,
 
     // Primal is infeasible.
-    PrimalFeasible = 1,
+    PrimalInfeasible = 1,
 
     // Dual is infeasible.
-    DualFeasible = 2,
+    DualInfeasible = 2,
 
     // Stopped due to maximum iteration or time limit reached.
     StoppedDueToLimits = 3,
@@ -262,8 +257,12 @@ class ClpInterface {
     // false otherwise.
     bool ReadMps(const char *filename);
 
-    // Writes the solver model to an MPS file.
-    void WriteMps(const char *filename) { clp_->writeMps(filename); }
+    // Writes the solver model to an MPS file. File compression is determined by
+    // the extension. Use .gz file name extension for gzip compression. Set
+    // number format to 0 for default, 1 for extended, and 2 for hexadecimal. If
+    // the model has long string names, or the number format is extended, the
+    // MPS format is automatically changed from fixed to free.
+    void WriteMps(const char *filename, int number_format = 0);
 
     // Sets the primal column pivot algorithm. Returns true on success, false if
     // the pivot algorithm is not supported or applicable.
@@ -414,33 +413,30 @@ class ClpInterface {
         vec.assign(start, start + size);
     }
 
-    // Starts a new model and clears the old model build object. This should be
-    // the first call when building a model. This does not affect the state of
-    // the solver.
+    // Starts a new model and clears the old model. This should be the first
+    // call when building a model. This does not affect the state of the solver.
     void StartModel();
 
     // Creates a variable with specified name, and upper and lower bounds.
-    // It returns the column index assigned to the variable, or -1 if the name
-    // is already in use.
-    int AddVariable(const char *column_name, double lower_bound, double upper_bound);
+    // It returns the column index assigned to the variable. The column index is
+    // used to refer to the variable.
+    int AddVariable(std::string column_name, double lower_bound, double upper_bound);
 
     // Creates a constraint with specified name, and upper and lower bounds. It
-    // returns the row index assigned to the constraint or -1 if the name is
-    // already in use.
-    int AddConstraint(const char *row_name, double lower_bound, double upper_bound);
+    // returns the row index assigned to the constraint. The row index is used
+    // to set refer to the constraint.
+    int AddConstraint(std::string row_name, double lower_bound, double upper_bound);
 
-    // Sets a coefficient for an element in the constraint matrix using indices.
-    void SetCoefficient(int row_index, int column_index, double value);
+    // Adds coefficients of the next constraint. The indices are column indices
+    // of variables and the elements are the coefficients. Returns true if add
+    // was successful, and false if row index is invalid.
+    bool AddCoefficients(int row_index, std::vector<int> &indices, std::vector<double> &elements);
+
+    // Sets the objective coefficient for a variable. The column index is the
+    // index of the variable and element is the coefficient. Returns true if set
+    // was successful, and false if the column index is invalid.
+    bool SetObjective(int column_index, double element);
     
-    // Sets a coefficient for an element in the constraint matrix using names.
-    bool SetCoefficient(const char *row_name, const char *column_name, double value);
-    
-    // Sets the coefficient for a column in the objective using column index.
-    void SetObjective(int column_index, double value);
-
-    // Sets the coefficient for a column in the objective using column name.
-    bool SetObjective(const char *column_name, double value);
-
     // Loads the model build object into the solver. This should be the final
     // call after constructing the model.
     void LoadModel();
@@ -467,12 +463,19 @@ class ClpInterface {
     // The solve time.
     double solve_timems_;
 
-    // The model build object.
-    CoinModel coin_model_;
+    // The build objects for columns and rows. Variables are built in the
+    // column build object. Constraints are built in the row build object. Build
+    // objects can be loaded very efficiently into the solver.
+    CoinBuild column_build_object_;
+    CoinBuild row_build_object_;
 
-    // The hash table mapping row and column names to indices.
-    CoinModelHash row_hash_;
-    CoinModelHash column_hash_;
+    // The dense vectors maintain variable and constraint information until they
+    // are ready to be added in the build object or model.
+    std::vector<double> row_lower_bounds_;
+    std::vector<double> row_upper_bounds_;
+    std::vector<std::string> row_names_;
+    std::vector<double> column_objectives_;
+    std::vector<std::string> column_names_;
 };
 
 } // namespace coinwrap

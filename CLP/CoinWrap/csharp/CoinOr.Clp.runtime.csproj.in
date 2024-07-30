@@ -7,8 +7,7 @@
     <Version>@PROJECT_VERSION@</Version>
 
     <!-- Nuget Properties -->
-    <Description>Computation Infrastructure for Operations Research (COIN-OR)
-    Linear Programming (CLP) solver .NET interface</Description>
+    <Description>Computational Infrastructure for Operations Research Linear Programming (CLP) solver .NET native wrappers</Description>
     <IncludeBuildOutput>false</IncludeBuildOutput>
 
     <!-- Pack Option -->
@@ -17,9 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Include the native library if it is a shared library. Do not include if
-    it is built static. -->
-    <Content Include="$<TARGET_FILE:coinwrap_cpp>$<$<STREQUAL:$<TARGET_PROPERTY:@PROJECT_NAME@,TYPE>,SHARED_LIBRARY>:;$<TARGET_SONAME_FILE:@PROJECT_NAME@>>">
+    <!-- Include the native library. -->
+    <Content Include="$<TARGET_FILE:coinwrap_cpp>">
       <PackagePath>runtimes/@RUNTIME_IDENTIFIER@/native/%(Filename)%(Extension)</PackagePath>
       <Pack>true</Pack>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

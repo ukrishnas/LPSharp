@@ -1,10 +1,6 @@
 /*
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * This code is licensed under the terms of the Eclipse Public License (EPL).
- * 
- * Authors
- * 
- * Umesh Krishnaswamy
+ * Copyright (c) 2024 Umesh Krishnaswamy
+ * This code is licensed under the terms of the MIT License.
  */
 
 #include "clp_interface.h"
@@ -12,6 +8,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 
 #include "ClpDualRowSteepest.hpp"
 #include "ClpPrimalColumnSteepest.hpp"
@@ -19,8 +16,8 @@
 #include "ClpPEPrimalColumnSteepest.hpp"
 #include "ClpSimplex.hpp"
 #include "ClpSolve.hpp"
-#include "CoinModel.hpp"
-#include "CoinModelUseful.hpp"
+#include "CoinBuild.hpp"
+#include "CoinPackedMatrix.hpp"
 #include "CoinTime.hpp"
 
 namespace coinwrap {
@@ -43,17 +40,15 @@ ClpInterface::ClpInterface() :
     message_handler_(new CoinMessageHandler),
     dual_pivot_algorithm_(PivotAlgorithm::Automatic),
     primal_pivot_algorithm_(PivotAlgorithm::Automatic),
-    positive_edge_psi_(0.5) {
+    positive_edge_psi_(0.5),
+    row_build_object_(),
+    column_build_object_(1) {
     
     // Initialize the message handler to no logging.
     message_handler_->setLogLevel(0);
     message_handler_->setPrefix(false);
     clp_->passInMessageHandler(message_handler_.get());
     clp_->setLogLevel(0);
-
-    coin_model_ = CoinModel();
-    row_hash_ = CoinModelHash();
-    column_hash_ = CoinModelHash();
 }
 
 ClpInterface::~ClpInterface() {}
@@ -84,6 +79,17 @@ bool ClpInterface::ReadMps(const char *filename) {
     // Always keep names and do not ignore errors.
     int status = clp_->readMps(filename, true, false);
     return status == 0;
+}
+
+void ClpInterface::WriteMps(const char *filename, int number_format) {
+    // The second parameter controls accuracy. Zero is default, 1 is extended
+    // accuracy, and 2 is IEEE hexadecimal. MPS format is fixed by default, but
+    // the format changes to free if using extended accuracy or the model has a
+    // row or column name that is greater than 8 characters.
+    if (number_format > 2 || number_format < 0) {
+        number_format = 0;
+    }
+    clp_->writeMps(filename, number_format);
 }
 
 bool ClpInterface::SetDualPivotAlgorithm(PivotAlgorithm pivot_algorithm) {
@@ -388,77 +394,82 @@ void ClpInterface::SolveUsingBarrierMethod() {
 }
 
 void ClpInterface::StartModel() {
-    // Clear the model build object and the associated hash tables.
-    coin_model_ = CoinModel();
-    row_hash_ = CoinModelHash();
-    column_hash_ = CoinModelHash();
+    // Load an empty model into the solver.
+    clp_->loadProblem(
+        CoinPackedMatrix(),
+        nullptr, nullptr, nullptr,
+        nullptr, nullptr, nullptr);
+    clp_->dropNames();
+
+    // The previous build objects should get destroyed automatically.
+    row_build_object_ = CoinBuild(0);
+    column_build_object_ = CoinBuild(1);
+
+    // Clear the dense vectors.
+    row_lower_bounds_.clear();
+    row_upper_bounds_.clear();
+    row_names_.clear();
+    column_objectives_.clear();
+    column_names_.clear();
 }
 
-int ClpInterface::AddVariable(const char *column_name, double lower_bound, double upper_bound) {
-    int column_index = column_hash_.hash(column_name);
-    if (column_index != -1) {
-        return -1;
-    }
-
-    column_index = column_hash_.numberItems();
-    column_hash_.addHash(column_index, column_name);
-    assert(column_index == column_hash_.hash(column_name));
-
-    coin_model_.setColumnName(column_index, column_name);
-    coin_model_.setColumnBounds(column_index, lower_bound, upper_bound);
+int ClpInterface::AddVariable(std::string column_name, double lower_bound, double upper_bound) {
+    int column_index = column_build_object_.numberColumns();
+    assert(column_index == column_objectives_.size());
+    assert(column_index == column_names_.size());
+    column_build_object_.addColumn(0, nullptr, nullptr, lower_bound, upper_bound, 0.0);
+    column_objectives_.push_back(0.0);
+    column_names_.push_back(column_name);
     return column_index;
 }
 
-int ClpInterface::AddConstraint(const char *row_name, double lower_bound, double upper_bound) {
-    int row_index = row_hash_.hash(row_name);
-    if (row_index != -1) {
-        return -1;
-    }
-
-    row_index = row_hash_.numberItems();
-    row_hash_.addHash(row_index, row_name);
-    assert(row_index == row_hash_.hash(row_name));
-
-    coin_model_.setRowName(row_index, row_name);
-    coin_model_.setRowBounds(row_index, lower_bound, upper_bound);
+int ClpInterface::AddConstraint(std::string row_name, double lower_bound, double upper_bound) {
+    int row_index = row_lower_bounds_.size();
+    assert(row_index == row_upper_bounds_.size());
+    assert(row_index == row_names_.size());
+    row_lower_bounds_.push_back(lower_bound);
+    row_upper_bounds_.push_back(upper_bound);
+    row_names_.push_back(row_name);
     return row_index;
 }
 
-void ClpInterface::SetCoefficient(int row_index, int column_index, double value) {
-    // Note that no error checking is performaed. If the column index is not
-    // present, a new column index is added along with zero columns until this
-    // index.
-    coin_model_.setElement(row_index, column_index, value);
-}
-
-bool ClpInterface::SetCoefficient(const char *row_name, const char *column_name, double value) {
-    int row_index = row_hash_.hash(row_name);
-    int column_index = column_hash_.hash(column_name);
-    if (row_index == -1 || column_index == -1) {
+bool ClpInterface::AddCoefficients(int row_index, std::vector<int> &indices, std::vector<double> &elements) {
+    if (indices.size() != elements.size()) {
         return false;
     }
-    coin_model_.setElement(row_index, column_index, value);
+    if (row_index < 0 || row_index >= row_lower_bounds_.size()) {
+        return false;
+    }
+    // The row index should be the next row in the build object. We do not fill
+    // empty rows or cannot go backwards.
+    if (row_index != row_build_object_.numberRows()) {
+        return false;
+    }
+
+    int count = indices.size();
+    double lower_bound = row_lower_bounds_[row_index];
+    double upper_bound = row_upper_bounds_[row_index];
+    row_build_object_.addRow(count, indices.data(), elements.data(), lower_bound, upper_bound);
     return true;
 }
 
-void ClpInterface::SetObjective(int column_index, double value) {
-    // Note that no error checking is performaed. If the column index is not
-    // present, a new column index is added along with zero columns until this
-    // index.
-    coin_model_.setColumnObjective(column_index, value);
-}
-
-bool ClpInterface::SetObjective(const char *column_name, double value) {
-    int column_index = column_hash_.hash(column_name);
-    if (column_index == -1) {
+bool ClpInterface::SetObjective(int column_index, double element) {
+    if (column_index >= column_objectives_.size())
+    {
         return false;
     }
-    coin_model_.setColumnObjective(column_index, value);
+    column_objectives_[column_index] = element;
     return true;
 }
 
 void ClpInterface::LoadModel() {
-    clp_->loadProblem(coin_model_, false);
+    clp_->addColumns(column_build_object_, false);
+    clp_->addRows(row_build_object_, false);
+    for (int index = 0; index < column_objectives_.size(); index++) {
+        clp_->setObjectiveCoefficient(index, column_objectives_[index]);
+    }
+    clp_->copyRowNames(row_names_, 0, (int)row_names_.size());
+    clp_->copyColumnNames(column_names_, 0, (int)column_names_.size());
 }
 
 } // namespace coinwrap

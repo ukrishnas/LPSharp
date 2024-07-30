@@ -1,10 +1,6 @@
 /*
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * This code is licensed under the terms of the Eclipse Public License (EPL).
- * 
- * Authors
- * 
- * Umesh Krishnaswamy
+ * Copyright (c) 2024 Umesh Krishnaswamy
+ * This code is licensed under the terms of the MIT License.
  */
 
 #ifdef NDEBUG
@@ -27,18 +23,23 @@ void CreateAndSolveTestModel1() {
     clp.StartModel();
     int r1 = clp.AddConstraint("r1", 2.0, plusinf);
     int r2 = clp.AddConstraint("r2", 1.0, 1.0);
+    std::cout << "Added constraints" << std::endl;
 
     int c1 = clp.AddVariable("c1", 0.0, 2.0);
     int c2 = clp.AddVariable("c2", 0.0, plusinf);
     int c3 = clp.AddVariable("c3", 0.0, 4.0);
+    std::cout << "Added variables" << std::endl;
 
-    clp.SetCoefficient(r1, c1, 1.0);
-    clp.SetCoefficient(r1, c2, 0);
-    clp.SetCoefficient(r1, c3, 1.0);
+    std::vector<int> indices{c1, c2, c3};
+    std::vector<double> coefficients1{1.0, 0, 1.0};
+    std::cout << "Calling add coefficients for row " << r1 << std::endl;
+    bool success = clp.AddCoefficients(r1, indices, coefficients1);
+    assert(success);
 
-    clp.SetCoefficient(r2, c1, 1.0);
-    clp.SetCoefficient(r2, c2, -5.0);
-    clp.SetCoefficient(r2, c3, 1.0);
+    std::vector<double> coefficients2{1.0, -5.0, 1.0};
+    std::cout << "Calling add coefficients for row " << r2 << std::endl;
+    success = clp.AddCoefficients(r2, indices, coefficients2);
+    assert(success);
 
     clp.SetObjective(c1, 1.0);
     clp.SetObjective(c2, 0);
@@ -52,7 +53,6 @@ void CreateAndSolveTestModel1() {
     clp.SolveUsingDualSimplex();
     double result = clp.ObjectiveValue();
     std::cout << "Solved module using dual simplex, objective = " << result << std::endl;
-
     assert(fabs(result - 2) < 1e-7);
 }
 
@@ -87,14 +87,19 @@ void CreateAndSolveTestModel2() {
         8.0, 4.0, 5.0, 5.0, -5.0,
         1.0, -1.0, -1.0,
     };
-    int nElements = 13;
-    for (int i = 0; i < number_rows; i++) {
+    int nElements = sizeof(matrixElements)/sizeof(double);
+    for (int row_index = 0; row_index < number_rows; row_index++) {
+        std::vector<int> indices;
+        std::vector<double> elements;
         for (int j = 0; j < number_cols; j++) {
-            int idx = i * number_cols + j;
+            int idx = row_index * number_cols + j;
             if (idx < nElements) {
-                clp.SetCoefficient(rows[i], cols[j], matrixElements[idx]);
+                indices.push_back(j);
+                elements.push_back(matrixElements[idx]);
             }
         }
+        bool success = clp.AddCoefficients(row_index, indices, elements);
+        assert(success);
     }
     std::cout << "Set matrix coefficients" << std::endl;
 

@@ -10,10 +10,12 @@
 %module coinwrap_clp
 
 %include "stdint.i"
+%include "std_string.i"
 %include "std_vector.i"
 
 namespace std {
-    %template (DoubleVector) vector<double>;
+  %template (IntVector) vector<int>;
+  %template (DoubleVector) vector<double>;
 };
 
 %{
