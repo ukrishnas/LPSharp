@@ -1,6 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GlopParameters.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
+// <copyright file="GlopParameters.cs">
+// Copyright (c) Umesh Krishnaswamy.
+// Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 

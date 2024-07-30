@@ -1,6 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SparseMatrix.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
+// <copyright file="SparseMatrix.cs">
+// Copyright (c) Umesh Krishnaswamy.
+// Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -86,6 +87,18 @@ namespace Microsoft.LPSharp.LPDriver.Model
         public IEnumerable<Tindex> ColumnIndices => this.columnIndices;
 
         /// <summary>
+        /// Gets the number of column indices. This count is the number of indices across all rows.
+        /// If a matrix is ((1, 0), (0, 1)), column count is one because each row has only one
+        /// element, but column index count is two because there are two indices.
+        /// </summary>
+        public int ColumnIndexCount => this.columnIndices.Count;
+
+        /// <summary>
+        /// Gets the rectangular shape of the matrix as a tuple of row and column index count.
+        /// </summary>
+        public Tuple<int, int> RectangularShape => new(this.RowCount, this.ColumnIndexCount);
+
+        /// <summary>
         /// Gets or sets an element of the vector.
         /// </summary>
         /// <param name="rowIndex">The row index.</param>
@@ -153,9 +166,29 @@ namespace Microsoft.LPSharp.LPDriver.Model
             }
 
             var success = this[rowIndex].Remove(colIndex);
-            if (success && this[rowIndex].Count == 0)
+            if (success)
             {
-                base.Remove(rowIndex);
+                // Remove row if it is empty.
+                if (this[rowIndex].Count == 0)
+                {
+                    base.Remove(rowIndex);
+                }
+
+                // Remove column index it is not used.
+                bool inUse = false;
+                foreach (var row in this.Elements)
+                {
+                    inUse |= row.Has(colIndex);
+                    if (inUse)
+                    {
+                        break;
+                    }
+                }
+
+                if (!inUse)
+                {
+                    this.columnIndices.Remove(colIndex);
+                }
             }
 
             return true;

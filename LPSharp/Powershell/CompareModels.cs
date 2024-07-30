@@ -1,6 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CompareModels.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
+// <copyright file="CompareModels.cs">
+// Copyright(c) 2024 Umesh Krishnaswamy.
+// Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -46,14 +47,14 @@ namespace Microsoft.LPSharp.Powershell
             var first = this.LPDriver.GetModel(this.First);
             if (first == null)
             {
-                this.WriteHost($"Model {this.First} not found");
+                this.WriteHost($"Model {this.First} not found. Please enter model keys, not path names.");
                 return;
             }
 
             var second = this.LPDriver.GetModel(this.Second);
             if (second == null)
             {
-                this.WriteHost($"Model {this.Second} not found");
+                this.WriteHost($"Model {this.Second} not found. Please enter model keys, not path names.");
                 return;
             }
 

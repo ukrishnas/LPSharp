@@ -1,6 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SparseMatrixTest.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
+// <copyright file="SparseMatrixTest.cs">
+// Copyright (c) Umesh Krishnaswamy.
+// Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -52,6 +53,45 @@ namespace Microsoft.LPSharp.LPDriverTest
                 test.Item1?.Invoke();
                 Assert.AreEqual(test.Item2, matrix.Count, $"Matrix count in test {i}");
                 Assert.AreEqual(test.Item3, matrix.Shape, $"Matrix shape in test {i}");
+            }
+        }
+
+        /// <summary>
+        /// Tests the column index count and rectangular shape property.
+        /// </summary>
+        [TestMethod]
+        public void SparseMatrixRectangularShapeTest()
+        {
+            var matrix = new SparseMatrix<int, double>();
+            int i = 0;
+
+            // Test tuple is pre-test action and expected rectangular shape, and regular shape.
+            foreach (var test in new Tuple<Action, Tuple<int, int>, Tuple<int, int>>[]
+            {
+                new Tuple<Action, Tuple<int, int>, Tuple<int, int>>(null, new(0, 0), new(0, 0)),
+
+                new Tuple<Action, Tuple<int, int>, Tuple<int, int>>(
+                    () =>
+                    {
+                        matrix[0, 0] = 0.1;
+                        matrix[1, 1] = 0.1;
+                    }, new(2, 2), new(2, 1)),
+
+                new Tuple<Action, Tuple<int, int>, Tuple<int, int>>(
+                    () =>
+                    {
+                        matrix[0, 10] = 0.1;
+                        matrix[2, 30] = 0.1;
+                    }, new(3, 4), new(3, 2)),
+
+                new Tuple<Action, Tuple<int, int>, Tuple<int, int>>(
+                    () => matrix.Remove(1, 1), new(2, 3), new(2, 2)),
+            })
+            {
+                i++;
+                test.Item1?.Invoke();
+                Assert.AreEqual(test.Item2, matrix.RectangularShape, $"Rectangular shape test {i}");
+                Assert.AreEqual(test.Item3, matrix.Shape, $"Matrix shape test {i}");
             }
         }
 

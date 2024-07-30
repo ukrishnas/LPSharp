@@ -2,8 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
   "settings": {
     "documentationRules": {
-      "companyName": "Microsoft Corporation",
-      "copyrightText": "Copyright (c) Microsoft Corporation. All rights reserved."
+      "copyrightText": "Copyright (c) 2024 Umesh Krishnaswamy.\nLicensed under the MIT License."
     }
   }
 }

@@ -1,6 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="OrtoolsSolver.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
+// <copyright file="OrtoolsSolver.cs">
+// Copyright (c) Umesh Krishnaswamy.
+// Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -10,10 +11,10 @@ namespace Microsoft.LPSharp.LPDriver.Model
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using Google.OrTools.LinearSolver;
+    using Google.OrTools.Glop.LinearSolver;
     using Microsoft.LPSharp.LPDriver.Contract;
 
-    using MPResultStatus = Google.OrTools.LinearSolver.Solver.ResultStatus;
+    using MPResultStatus = Google.OrTools.Glop.LinearSolver.Solver.ResultStatus;
 
     /// <summary>
     /// Represents a generic Google OR-Tools linear solver.
@@ -217,6 +218,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 this.linearSolver.SuppressOutput();
             }
 
+            // Use a stop watch to calculate solve time since the solver wall time is the time since
+            // construction, which is not useful since the solver is instantiated in a different cmdlet.
             var stopwatch = Stopwatch.StartNew();
 
             MPResultStatus resultStatus;

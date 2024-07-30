@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoinOr.Clp" Version="1.17.1904.150" />
-    <PackageReference Include="Google.OrTools" Version="9.1.90.1" />
+    <PackageReference Include="CoinOr.Clp" Version="1.17.1905.54" />
+    <PackageReference Include="Google.OrTools.Glop" Version="9.1.9490.59" />
   </ItemGroup>
 
   <Import Project="..\settings\build-settings.xml" />

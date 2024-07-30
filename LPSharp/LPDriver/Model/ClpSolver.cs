@@ -1,6 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ClpSolver.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
+// <copyright file="ClpSolver.cs">
+// Copyright (c) Umesh Krishnaswamy.
+// Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -129,66 +130,77 @@ namespace Microsoft.LPSharp.LPDriver.Model
                 out SparseVector<string, double> upperBound);
 
             // Create solver variables for each column in the model.
-            var rows = new Dictionary<string, int>();
             var columns = new Dictionary<string, int>();
             foreach (var colName in model.A.ColumnIndices)
             {
+                if (columns.ContainsKey(colName))
+                {
+                    throw new LPSharpException($"Duplicate column {colName} in model");
+                }
+
                 columns[colName] = this.clp.AddVariable(
                     colName,
                     lowerBound[colName],
                     upperBound[colName]);
-                if (columns[colName] == -1)
-                {
-                    throw new LPSharpException($"Variable {colName} could not be created");
-                }
             }
+
+            long split1Ms = stopwatch.ElapsedMilliseconds;
+            this.metrics["VariablesPerMs"] = columns.Count / Math.Max(1, split1Ms);
 
             // Get the lower and upper constraint bounds from the model.
             model.GetConstraintBounds(
                 out SparseVector<string, double> lowerLimit,
                 out SparseVector<string, double> upperLimit);
 
-            // Create the constraints.
+            // Create the constraints in row order.
             foreach (var rowName in model.A.Indices)
             {
                 var row = model.A[rowName];
+                var indices = new IntVector();
+                var elements = new DoubleVector();
 
                 if (rowName == model.Objective)
                 {
                     foreach (var colName in row.Indices)
                     {
-                        if (!this.clp.SetObjective(colName, row[colName]))
+                        if (!this.clp.SetObjective(columns[colName], row[colName]))
                         {
-                            throw new LPSharpException($"Objective column {colName} could not be set");
+                            throw new LPSharpException(
+                                "Set objective coefficient for variable {colName} index={columns[colName]} failed");
                         }
                     }
                 }
                 else
                 {
-                    rows[rowName] = this.clp.AddConstraint(rowName, lowerLimit[rowName], upperLimit[rowName]);
-                    if (rows[rowName] == -1)
-                    {
-                        throw new LPSharpException($"Constraint {rowName} could not be created");
-                    }
+                    var rowIndex = this.clp.AddConstraint(rowName, lowerLimit[rowName], upperLimit[rowName]);
+                    indices.Clear();
+                    elements.Clear();
 
                     foreach (var colName in row.Indices)
                     {
-                        if (!this.clp.SetCoefficient(rowName, colName, row[colName]))
-                        {
-                            throw new LPSharpException($"Coefficient row {rowName} column {colName} could not be set");
-                        }
+                        indices.Add(columns[colName]);
+                        elements.Add(row[colName]);
+                    }
+
+                    if (!this.clp.AddCoefficients(rowIndex, indices, elements))
+                    {
+                        throw new LPSharpException($"Add coefficients for constraint {rowName} index {rowIndex} failed");
                     }
                 }
             }
 
+            long split2Ms = stopwatch.ElapsedMilliseconds - split1Ms;
+            this.metrics["ConstraintsPerMs"] = model.A.RowCount / Math.Max(1, split2Ms);
+
             // Load the model into the solver.
             this.clp.LoadModel();
-
             stopwatch.Stop();
+
             this.metrics[LPMetric.LoadTimeMs] = stopwatch.ElapsedMilliseconds;
             this.metrics[LPMetric.ModelName] = model.Name;
             this.metrics[LPMetric.SolverName] = this.Key;
 
+            Console.WriteLine("Loaded model in {0} ms", stopwatch.ElapsedMilliseconds);
             return true;
         }
 
@@ -225,7 +237,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
                     this.clp.SolveUsingEitherSimplex();
                     break;
 
-                case Model.ClpRecipe.PrimalSimplex:
+                case ClpRecipe.PrimalSimplex:
                     this.clp.SolveUsingPrimalSimplex();
                     break;
 
@@ -304,8 +316,8 @@ namespace Microsoft.LPSharp.LPDriver.Model
             return status switch
             {
                 ClpStatus.Unknown => LPResultStatus.Unknown,
-                ClpStatus.DualFeasible => LPResultStatus.Feasible,
-                ClpStatus.PrimalFeasible => LPResultStatus.Feasible,
+                ClpStatus.DualInfeasible => LPResultStatus.Infeasible,
+                ClpStatus.PrimalInfeasible => LPResultStatus.Infeasible,
                 ClpStatus.Optimal => LPResultStatus.Optimal,
                 ClpStatus.StoppedDueToErrors => LPResultStatus.Stopped,
                 ClpStatus.StoppedDueToLimits => LPResultStatus.Stopped,

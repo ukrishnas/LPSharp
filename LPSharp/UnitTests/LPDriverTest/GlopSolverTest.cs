@@ -1,6 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GlopSolverTest.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
+// <copyright file="GlopSolverTest.cs">
+// Copyright (c) Umesh Krishnaswamy.
+// Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -8,7 +9,7 @@ namespace Microsoft.LPSharp.LPDriverTest
 {
     using System.Diagnostics;
     using System.Linq;
-    using Google.OrTools.LinearSolver;
+    using Google.OrTools.Glop.LinearSolver;
     using Microsoft.LPSharp.LPDriver.Contract;
     using Microsoft.LPSharp.LPDriver.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

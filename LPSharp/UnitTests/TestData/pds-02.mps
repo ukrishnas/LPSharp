@@ -1,27 +1,4 @@
-***************************
-* SET UP THE INITIAL DATA *
-***************************
-
 NAME          PDS-02
-
-*   Problem:
-*   ********
-
-*   An LP from the "Kennington" subset.
-
-*   See
-
-*    W. J. Carolan, J. E. Hill, J. L. Kennington, S. Niemi, S. J. Wichmann
-*    "An Empirical Evaluation of the KORBX Algorithms for Military
-*     Airlift Applications", Operations Research 38(2) 1990:240-248.
-
-*   Source:
-*   The NETLIB collection of test problems.
-
-*   SIF input: (already in MPS format)
-
-*   classification LLR2-AN-7535-2953
-
 ROWS
  E  R00001
  E  R00002
