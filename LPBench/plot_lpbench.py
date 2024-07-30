@@ -58,14 +58,16 @@ def process_results(data, basekey, measurekey):
     return x, xlabels, speedups, label
 
 
-def compute_means(data, basekey, measurekeys):
-    """Returns data for a plot showing harmonic means of measurements vs baseline."""
+def compute_means(data, basekey, measurekeys, **kwargs):
+    """Returns data for a plot showing means of measurements vs baseline.""" 
+    mean_type = kwargs['mean_type'] if 'mean_type' in kwargs else 'geometric'
     x, y = [], []
     for key in measurekeys:
         x.append(key)
 
         series1 = np.array(data[basekey])
         series2 = np.array(data[key])
+        print('Key={} count={} mean={}'.format(key, len(series2), statistics.mean(series2)))
         if len(series1) != len(series2):
             raise UserWarning('Mismatched series length unexpected')
         n = len(series1)
@@ -74,7 +76,12 @@ def compute_means(data, basekey, measurekeys):
             if series1[i] == math.inf or series2[i] == math.inf:
                 continue
             ratios.append(series1[i]/series2[i])
-        mean = statistics.harmonic_mean(ratios)
+        if mean_type == 'arithmetic':
+            mean = statistics.mean(ratios)
+        elif mean_type == 'harmonic':
+            mean = statistics.harmonic_mean(ratios)
+        else:
+            mean = statistics.geometric_mean(ratios)
         y.append(mean)
     return x, y
 
@@ -101,11 +108,14 @@ if __name__ == '__main__':
     parser.add_argument('--baseline', '-b', type=str, help='Baseline column name')
     parser.add_argument('--measurements', '-m', type=str, nargs='+', help='Measurement column names')
     parser.add_argument('--model_pattern', '-mp', default='.*', help='Regular expression pattern to limit models')
+    parser.add_argument('--mean_type', default='geometric', help='Type of mean to use when averaging')
+    parser.add_argument('--summary_only', action='store_true', default=False, help='Only display summary results')
 
     args = parser.parse_args()
     results_file = args.results_file
     basekey = args.baseline
     measurekeys = args.measurements
+    show_detail = not args.summary_only
 
     # If no baseline is given, then make the first measurement index the baseline.
     if basekey == None and measurekeys != None and len(measurekeys) > 0:
@@ -131,36 +141,40 @@ if __name__ == '__main__':
     plt.rcParams['savefig.pad_inches'] = 0.05
     plt.rcParams['savefig.dpi'] = 300
 
-    fig, axes = plt.subplots(nrows=2, ncols=1)
+    nrows = 2 if show_detail else 1
+    fig, axes = plt.subplots(nrows=nrows, ncols=1)
     width = 0.8
 
-    ax = axes[0]
-    markers = ['s', 'o', '^', 'v']
-    i = 0
-    for key in measurekeys:
-        x, xlabels, y, label = process_results(data, basekey, key)
-        marker = markers[i % len(markers)]
-        i += 1
-        ax.plot(x, y, marker=marker, ms=4, markevery=1, ls='-', label=label)
-    ax.set_xticks(x)
-    ax.set_xticklabels(xlabels, rotation=75)
-    ax.axhline(1, color='tab:gray')
-    ax.axhline(-1, color='tab:gray')
-    ax.add_patch(plt.Rectangle((-1, -1), len(x)+1, 2, edgecolor='tab:gray', fill=False, hatch='///'))
-    ax.set_title('Ratio of metrics')
-    ax.annotate('Speedup', xy=(0,2.5), va='top')
-    ax.annotate('Slowdown', xy=(0,-3), va='bottom')
-    ax.legend()
+    rowindex = 0
+    if show_detail:
+        ax = axes[rowindex]
+        rowindex += 1
+        markers = ['s', 'o', '^', 'v']
+        i = 0
+        for key in measurekeys:
+            x, xlabels, y, label = process_results(data, basekey, key)
+            marker = markers[i % len(markers)]
+            i += 1
+            ax.plot(x, y, marker=marker, ms=4, markevery=1, ls='-', label=label)
+        ax.set_xticks(x)
+        ax.set_xticklabels(xlabels, rotation=75)
+        ax.axhline(1, color='tab:gray')
+        ax.axhline(-1, color='tab:gray')
+        ax.add_patch(plt.Rectangle((-1, -1), len(x)+1, 2, edgecolor='tab:gray', fill=False, hatch='///'))
+        ax.set_title('Ratio of metrics')
+        ax.annotate('Speedup', xy=(0,2.5), va='top')
+        ax.annotate('Slowdown', xy=(0,-3), va='bottom')
+        ax.legend()
 
-    ax = axes[1]
-    x, y = compute_means(data, basekey, measurekeys)
-    title = 'Harmonic mean of ratios, baseline {}'.format(basekey)
+    ax = axes[rowindex] if nrows > 1 else axes
+    x, y = compute_means(data, basekey, measurekeys, mean_type=args.mean_type)
+    title = '{} Mean of ratios, baseline {}'.format(args.mean_type.capitalize(), basekey)
     rects = ax.bar(x, y, width, fill=True, color='tab:cyan')
     autolabel(rects, np.around(y,1), 1, 'black')
     ax.axhline(1, color='tab:gray')
     ax.set_title(title)
 
     fig.set_tight_layout(True)
-    fig.set_size_inches(10.0, 8.0)
+    fig.set_size_inches(10.0, 4.0 * nrows)
     # plt.savefig('lpbench.pdf', format='pdf', bbox_inches='tight')
     plt.show()

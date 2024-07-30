@@ -1,6 +1,8 @@
 NETLIB models using CLP from LPSharp with EitherSimplex.
+========================================================
 
-Read MPS file C:\Users\krish\Work\lpbench\netlib\80bau38.mps as model Name=80bau38 Obj=HOLLY A=(2263, 8061) Elements=21002 RHS=(1, 346) RowTypes=2263 Lower=(1, 3555) Upper=(1, 3555) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 45 ms, read_errors=0, model_key=80bau38
+Read MPS file C:\Users\krish\Work\lpbench\netlib\80bau38.mps as model Name=80bau38 Obj=HOLLY A=(2263, 8061) Elements=21002 RHS=(1, 346) RowTypes=2263 Lower=(1, 3555) Upper=(1, 3555) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 79 ms, read_errors=0, model_key=80bau38
+Loaded model in 27 ms
 Solver clpeither solving model 80bau38...
 436 rows dropped after presolve pass 1
 467 rows dropped after presolve pass 2
@@ -8,7 +10,7 @@ Solver clpeither solving model 80bau38...
 475 rows dropped after presolve pass 4
 476 rows dropped after presolve pass 5
 Presolve 1786 (-476) rows, 8578 (-1221) columns and 18768 (-2234) elements
-Presolve took 0.03 seconds (total 0.03)
+Presolve took 0.06 seconds (total 0.06)
 Matrix can not be converted into +- 1
 Bounds were tightened 5598 times
 Initial range of elements is 0.00022 to 104.74
@@ -19,18 +21,17 @@ Absolute values of scaled rhs range from 3.6304351e-05 to 6365.1264, minimum gap
 Absolute values of scaled objective range from 0.0020673781 to 1794.5539
 Absolute values of scaled bounds range from 1.1085887e-05 to 438503.99, minimum gap 4.4156266e-05
 0  Obj 493096.67 Primal inf 87199.361 (651) Dual inf 233482.19 (1058)
-0  Obj 493096.67 Primal inf 87199.361 (651) Dual inf 233482.19 (1058)
  maybe forcing re-factorization - sum  37310.056   51  pivots
  forcing re-factorization
 Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal checking bounds with 1e+10
 Optimal - objective value 987224.19
-Dual took 0.10 seconds (total 0.14)
+Dual took 0.20 seconds (total 0.27)
 After Postsolve, objective 987224.19, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective 987224.1924 - 3272 iterations time 0.142, Presolve 0.03
-Log level = 3, recipe = Either, solve time = 137 ms
-Maximum seconds = 1792.312, maximum iterations = 2147483647
+Optimal objective 987224.1924 - 3272 iterations time 0.272, Presolve 0.06
+Log level = 3, recipe = Either, solve time = 269 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0      531.1245  1.221245E-15             0
@@ -46,17 +47,20 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model 80bau38 result=Optimal
 Model                                  80bau38
 Solver                               clpeither
-SolveTimeMs                                137
+SolveTimeMs                                268
 Objective                    987224.1924090901
+ConstraintsPerMs                           150
 Iterations                                3272
-LoadTimeMs                                  33
+LoadTimeMs                                  27
 ResultStatus                           Optimal
-Read MPS file C:\Users\krish\Work\lpbench\netlib\cre-d.mps as model Name=cre-d Obj=COST A=(8927, 69980) Elements=242646 RHS=(1, 321) RowTypes=8927 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 331 ms, read_errors=0, model_key=cre-d
+VariablesPerMs                            1224
+Read MPS file C:\Users\krish\Work\lpbench\netlib\cre-d.mps as model Name=cre-d Obj=COST A=(8927, 69980) Elements=242646 RHS=(1, 321) RowTypes=8927 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 445 ms, read_errors=0, model_key=cre-d
+Loaded model in 178 ms
 Solver clpeither solving model cre-d...
 4944 rows dropped after presolve pass 1
 4944 rows dropped after presolve pass 2
 Presolve 3982 (-4944) rows, 25087 (-44893) columns and 82739 (-159907) elements
-Presolve took 0.08 seconds (total 0.08)
+Presolve took 0.12 seconds (total 0.12)
 Matrix can not be converted into +- 1
 Bounds were tightened 26192 times
 Initial range of elements is 0.5 to 71
@@ -73,11 +77,11 @@ Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal checking bounds with 1e+10
 Optimal - objective value 24454970
-Dual took 0.55 seconds (total 0.63)
+Dual took 0.61 seconds (total 0.73)
 After Postsolve, objective 24454970, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective 24454969.76 - 6110 iterations time 0.642, Presolve 0.09
-Log level = 3, recipe = Either, solve time = 641 ms
-Maximum seconds = 1793.107, maximum iterations = 2147483647
+Optimal objective 24454969.76 - 6110 iterations time 0.742, Presolve 0.14
+Log level = 3, recipe = Either, solve time = 745 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0             0    0.04406326         18920
@@ -93,12 +97,15 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model cre-d result=Optimal
 Model                                    cre-d
 Solver                               clpeither
-SolveTimeMs                                640
+SolveTimeMs                                744
 Objective                   24454969.764549237
+ConstraintsPerMs                           102
 Iterations                                6110
-LoadTimeMs                                 288
+LoadTimeMs                                 178
 ResultStatus                           Optimal
-Read MPS file C:\Users\krish\Work\lpbench\netlib\dfl001.mps as model Name=dfl001 Obj=NIL A=(6072, 6241) Elements=35632 RHS=(1, 1663) RowTypes=6072 Lower=(1, 13) Upper=(1, 13) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 98 ms, read_errors=0, model_key=dfl001
+VariablesPerMs                            1093
+Read MPS file C:\Users\krish\Work\lpbench\netlib\dfl001.mps as model Name=dfl001 Obj=NIL A=(6072, 6241) Elements=35632 RHS=(1, 1663) RowTypes=6072 Lower=(1, 13) Upper=(1, 13) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 127 ms, read_errors=0, model_key=dfl001
+Loaded model in 61 ms
 Solver clpeither solving model dfl001...
 1987 rows dropped after presolve pass 1
 2135 rows dropped after presolve pass 2
@@ -106,7 +113,7 @@ Solver clpeither solving model dfl001...
 2185 rows dropped after presolve pass 4
 2196 rows dropped after presolve pass 5
 Presolve 3875 (-2196) rows, 9188 (-3042) columns and 30763 (-4869) elements
-Presolve took 0.06 seconds (total 0.06)
+Presolve took 0.14 seconds (total 0.14)
 Matrix can not be converted into +- 1
 Bounds were tightened 7465 times
 Initial range of elements is 0.083333333 to 2
@@ -118,23 +125,24 @@ Absolute values of scaled objective range from 180.10475 to 40026203
 Absolute values of scaled bounds range from 0.82530362 to 1770.0032, minimum gap 1.0087044
 0  Obj 17994.31 Primal inf 7741.5991 (1358) Dual inf 677.44559 (2)
 0  Obj 17994.31 Primal inf 7741.5991 (1358) Dual inf 677.44559 (2)
-5472  Obj 10682315 Primal inf 29676.959 (1214)
-7752  Obj 11193848 Primal inf 16267.284 (1226)
-9728  Obj 11227382 Primal inf 40745.881 (1401)
-11704  Obj 11246619 Primal inf 5949.6321 (1125)
-13680  Obj 11256236 Primal inf 10481.831 (1306)
-15656  Obj 11261257 Primal inf 2049.0297 (909)
-17480  Obj 11264087 Primal inf 2558.2946 (984)
-19304  Obj 11265928 Primal inf 1024.0911 (686)
+5320  Obj 10641539 Primal inf 27682.691 (1194)
+7448  Obj 11181975 Primal inf 12651.68 (1236)
+9272  Obj 11222439 Primal inf 19507.674 (1288)
+11096  Obj 11241869 Primal inf 12764.861 (1258)
+12920  Obj 11253597 Primal inf 1538.0488 (870)
+14744  Obj 11259476 Primal inf 4931.4339 (1153)
+16568  Obj 11262633 Primal inf 16455.247 (1191)
+18240  Obj 11265061 Primal inf 4193.8455 (802)
+19912  Obj 11266314 Primal inf 423.85118 (500)
 Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal checking bounds with 1e+10
 Optimal - objective value 11266396
-Dual took 6.33 seconds (total 6.39)
+Dual took 6.81 seconds (total 6.94)
 After Postsolve, objective 11266396, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective 11266396.05 - 20374 iterations time 6.392, Presolve 0.06
-Log level = 3, recipe = Either, solve time = 6393 ms
-Maximum seconds = 1793.93, maximum iterations = 2147483647
+Optimal objective 11266396.05 - 20374 iterations time 6.952, Presolve 0.14
+Log level = 3, recipe = Either, solve time = 6946 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0     0.1742193  1.421085E-12       4267.32
@@ -150,36 +158,39 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model dfl001 result=Optimal
 Model                                   dfl001
 Solver                               clpeither
-SolveTimeMs                               6393
+SolveTimeMs                               6945
 Objective                    11266396.04667138
+ConstraintsPerMs                           151
 Iterations                               20374
-LoadTimeMs                                  62
+LoadTimeMs                                  61
 ResultStatus                           Optimal
-Read MPS file C:\Users\krish\Work\lpbench\netlib\ken-18.mps as model Name=ken-18 Obj=COST A=(105128, 154548) Elements=358171 RHS=(1, 23479) RowTypes=105128 Lower=(1, 154699) Upper=(1, 154699) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 2378 ms, read_errors=0, model_key=ken-18
+VariablesPerMs                             719
+Read MPS file C:\Users\krish\Work\lpbench\netlib\ken-18.mps as model Name=ken-18 Obj=COST A=(105128, 154548) Elements=358171 RHS=(1, 23479) RowTypes=105128 Lower=(1, 154699) Upper=(1, 154699) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 1851 ms, read_errors=0, model_key=ken-18
+Loaded model in 574 ms
 Solver clpeither solving model ken-18...
 65254 rows dropped after presolve pass 1
 65264 rows dropped after presolve pass 2
 65264 rows dropped after presolve pass 3
 Presolve 39863 (-65264) rows, 89347 (-65352) columns and 207206 (-150965) elements
-Presolve took 0.38 seconds (total 0.38)
+Presolve took 0.44 seconds (total 0.44)
 Bounds were tightened 26332 times
 Absolute values of scaled rhs range from 1 to 396675, minimum gap 420003
 Absolute values of scaled objective range from 0.54 to 87457.301
 Absolute values of scaled bounds range from 0.89999928 to 420003, minimum gap 3
 0  Obj -6.3200254e+09 Primal inf 740525.98 (19089) Dual inf 7.2561715e+08 (87861)
 0  Obj -6.3200254e+09 Primal inf 740525.98 (19089) Dual inf 7.2561715e+08 (87861)
-20352  Obj -5.5096572e+10 Primal inf 833555.79 (17760)
-35192  Obj -5.2755709e+10 Primal inf 342431.39 (10112)
-44944  Obj -5.223035e+10 Primal inf 24671.197 (3603)
+18656  Obj -5.5420306e+10 Primal inf 902173.48 (18995)
+33072  Obj -5.2957714e+10 Primal inf 413682.69 (11151)
+43672  Obj -5.2249797e+10 Primal inf 56345.696 (4491)
 Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal checking bounds with 1e+10
 Optimal - objective value -5.2217025e+10
-Dual took 2.49 seconds (total 2.88)
+Dual took 2.71 seconds (total 3.15)
 After Postsolve, objective -5.2217025e+10, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective -5.221702529e+10 - 48043 iterations time 2.912, Presolve 0.42
-Log level = 3, recipe = Either, solve time = 2909 ms
-Maximum seconds = 1803.762, maximum iterations = 2147483647
+Optimal objective -5.221702529e+10 - 48043 iterations time 3.202, Presolve 0.50
+Log level = 3, recipe = Either, solve time = 3206 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0            36             0      -4427.41
@@ -195,17 +206,20 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model ken-18 result=Optimal
 Model                                   ken-18
 Solver                               clpeither
-SolveTimeMs                               2909
+SolveTimeMs                               3205
 Objective                  -52217025287.396805
+ConstraintsPerMs                           324
 Iterations                               48043
-LoadTimeMs                                 821
+LoadTimeMs                                 574
 ResultStatus                           Optimal
-Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-30.mps as model Name=osa-30 Obj=COST A=(4351, 100022) Elements=600138 RHS=(1, 4313) RowTypes=4351 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 836 ms, read_errors=0, model_key=osa-30
+VariablesPerMs                             769
+Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-30.mps as model Name=osa-30 Obj=COST A=(4351, 100022) Elements=600138 RHS=(1, 4313) RowTypes=4351 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 835 ms, read_errors=0, model_key=osa-30
+Loaded model in 271 ms
 Solver clpeither solving model osa-30...
 71 rows dropped after presolve pass 1
 71 rows dropped after presolve pass 2
 Presolve 4279 (-71) rows, 96119 (-3905) columns and 262872 (-337266) elements
-Presolve took 0.15 seconds (total 0.15)
+Presolve took 0.18 seconds (total 0.18)
 Matrix can not be converted into +- 1
 Bounds were tightened 96119 times
 Initial range of elements is 0.1572 to 13.1903
@@ -222,11 +236,11 @@ Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal with tolerance of 1e-06
 Optimal - objective value 2142139.9
-Dual took 0.32 seconds (total 0.47)
+Dual took 0.42 seconds (total 0.61)
 After Postsolve, objective 2142139.9, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective 2142139.873 - 2253 iterations time 0.482, Presolve 0.17
-Log level = 3, recipe = Either, solve time = 485 ms
-Maximum seconds = 1808.361, maximum iterations = 2147483647
+Optimal objective 2142139.873 - 2253 iterations time 0.642, Presolve 0.22
+Log level = 3, recipe = Either, solve time = 641 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0             0      3688.447      3688.447
@@ -242,17 +256,20 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model osa-30 result=Optimal
 Model                                   osa-30
 Solver                               clpeither
-SolveTimeMs                                484
+SolveTimeMs                                640
 Objective                   2142139.8732097917
+ConstraintsPerMs                            29
 Iterations                                2253
-LoadTimeMs                                 795
+LoadTimeMs                                 271
 ResultStatus                           Optimal
-Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-60.mps as model Name=osa-60 Obj=COST A=(10281, 232965) Elements=1397793 RHS=(1, 10243) RowTypes=10281 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 2057 ms, read_errors=0, model_key=osa-60
+VariablesPerMs                            1205
+Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-60.mps as model Name=osa-60 Obj=COST A=(10281, 232965) Elements=1397793 RHS=(1, 10243) RowTypes=10281 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 2140 ms, read_errors=0, model_key=osa-60
+Loaded model in 611 ms
 Solver clpeither solving model osa-60...
 71 rows dropped after presolve pass 1
 71 rows dropped after presolve pass 2
 Presolve 10209 (-71) rows, 224125 (-8841) columns and 584253 (-813540) elements
-Presolve took 0.35 seconds (total 0.35)
+Presolve took 0.39 seconds (total 0.39)
 Matrix can not be converted into +- 1
 Bounds were tightened 224125 times
 Initial range of elements is 0.3502 to 13.2064
@@ -265,16 +282,16 @@ Absolute values of scaled bounds range from 1.0229862 to 6.4627748, minimum gap 
 Perturbing problem by 0.001% of 1159.621 - largest nonzero change 0.024787344 ( 0.0030563912%) - largest zero change 0
 0  Obj 0 Primal inf 8683.6428 (11)
 0  Obj 0 Primal inf 8683.6428 (11)
-3312  Obj 3723510.3 Primal inf 16586.794 (1157)
+2484  Obj 3649057.8 Primal inf 2440.9322 (1388)
 Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal with tolerance of 1e-06
 Optimal - objective value 4044072.5
-Dual took 1.23 seconds (total 1.59)
+Dual took 1.48 seconds (total 1.87)
 After Postsolve, objective 4044072.5, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective 4044072.503 - 5048 iterations time 1.622, Presolve 0.38
-Log level = 3, recipe = Either, solve time = 1620 ms
-Maximum seconds = 1813.04, maximum iterations = 2147483647
+Optimal objective 4044072.503 - 5048 iterations time 1.942, Presolve 0.46
+Log level = 3, recipe = Either, solve time = 1941 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0             0       4003.85       4003.85
@@ -290,12 +307,15 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model osa-60 result=Optimal
 Model                                   osa-60
 Solver                               clpeither
-SolveTimeMs                               1620
+SolveTimeMs                               1941
 Objective                   4044072.5031574722
+ConstraintsPerMs                            26
 Iterations                                5048
-LoadTimeMs                                1998
+LoadTimeMs                                 611
 ResultStatus                           Optimal
-Read MPS file C:\Users\krish\Work\lpbench\netlib\pds-20.mps as model Name=pds-20 Obj=C A=(33875, 73953) Elements=230200 RHS=(1, 2469) RowTypes=33875 Lower=(1, 34888) Upper=(1, 34888) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 573 ms, read_errors=0, model_key=pds-20
+VariablesPerMs                            1974
+Read MPS file C:\Users\krish\Work\lpbench\netlib\pds-20.mps as model Name=pds-20 Obj=C A=(33875, 73953) Elements=230200 RHS=(1, 2469) RowTypes=33875 Lower=(1, 34888) Upper=(1, 34888) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 513 ms, read_errors=0, model_key=pds-20
+Loaded model in 276 ms
 Solver clpeither solving model pds-20...
 21682 rows dropped after presolve pass 1
 22429 rows dropped after presolve pass 2
@@ -303,7 +323,7 @@ Solver clpeither solving model pds-20...
 23517 rows dropped after presolve pass 4
 23595 rows dropped after presolve pass 5
 Presolve 10279 (-23595) rows, 81977 (-23751) columns and 187893 (-42307) elements
-Presolve took 0.44 seconds (total 0.44)
+Presolve took 0.55 seconds (total 0.55)
 Bounds were tightened 106307 times
 Absolute values of scaled rhs range from 32 to 3600, minimum gap 1e+100
 Absolute values of scaled objective range from 36 to 99999
@@ -316,11 +336,11 @@ Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal checking bounds with 1e+10
 Optimal - objective value 2.3821659e+10
-Dual took 1.34 seconds (total 1.78)
+Dual took 1.33 seconds (total 1.88)
 After Postsolve, objective 2.3821659e+10, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective 2.382165864e+10 - 14358 iterations time 1.812, Presolve 0.48
-Log level = 3, recipe = Either, solve time = 1814 ms
-Maximum seconds = 1815.776, maximum iterations = 2147483647
+Optimal objective 2.382165864e+10 - 14358 iterations time 1.942, Presolve 0.61
+Log level = 3, recipe = Either, solve time = 1945 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0           351        -99354             0
@@ -336,18 +356,21 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model pds-20 result=Optimal
 Model                                   pds-20
 Solver                               clpeither
-SolveTimeMs                               1813
+SolveTimeMs                               1944
 Objective                          23821658640
+ConstraintsPerMs                           214
 Iterations                               14358
-LoadTimeMs                                 436
+LoadTimeMs                                 276
 ResultStatus                           Optimal
+VariablesPerMs                            1243
 Read MPS file C:\Users\krish\Work\lpbench\netlib\qap12.mps as model Name=qap12 Obj=NOBJ A=(3193, 8712) Elements=38304 RHS=(1, 24) RowTypes=3193 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 101 ms, read_errors=0, model_key=qap12
+Loaded model in 59 ms
 Solver clpeither solving model qap12...
 0 rows dropped after presolve pass 1
 Presolve 2817 (-375) rows, 8856 (0) columns and 33804 (-4500) elements
-Presolve took 0.06 seconds (total 0.06)
-42 infeas 0.38849788, obj 520.45131 - mu 0.00013709193, its 105, 4801 interior
-70 infeas 0.0072947121, obj 524.20109 - mu 5.6388228e-07, its 105, 7656 interior
+Presolve took 0.07 seconds (total 0.07)
+43 infeas 0.81980268, obj 512.52999 - mu 4.5692739e-05, its 105, 5340 interior
+75 infeas 0.0032761022, obj 524.25396 - mu 1.8794197e-07, its 105, 7710 interior
 largest infeasibility is 3.92149e-07
 largest infeasibility is 2.8196e-07
 largest infeasibility is 2.8196e-07
@@ -359,17 +382,15 @@ Not bothering to scale as good enough
 Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
 Absolute values of scaled objective range from 2 to 80
 0  Obj 524.32484 Dual inf 7145800 (4852)
-7233  Obj 523.69177 Dual inf 380952.92 (1575)
 End of values pass after 7539 iterations
+7539  Obj 523.55551 Dual inf 19254.644 (1985)
 Perturbing problem by 0.001% of 0.1 - largest nonzero change 0 ( 0%) - largest zero change 2.9898227e-05
-8194  Obj 523.10837 Dual inf 1836.9182 (1055)
-8849  Obj 522.9517 Dual inf 10885.49 (1743)
-9635  Obj 522.8997 Dual inf 379.85801 (644)
-10399  Obj 522.89181 Dual inf 330.11843 (652)
+8456  Obj 523.02714 Dual inf 25456.976 (2099)
+9504  Obj 522.90267 Dual inf 1560.6981 (1084)
+10595  Obj 522.8917
 Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
 Absolute values of scaled objective range from 2 to 80
 Looking optimal with tolerance of 1e-06
-11250  Obj 522.89428 Dual inf 9.0824672 (322)
 Looking optimal with tolerance of 1e-06
 Optimal - objective value 522.89428
 Initial range of elements is 1 to 1
@@ -385,15 +406,15 @@ Optimal - objective value 522.89435
 Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
 Absolute values of scaled objective range from 2 to 100
 Optimal - objective value 522.89435
-Idiot Crash took 7.20 seconds (total 7.26)
+Idiot Crash took 5.58 seconds (total 5.66)
 Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
 Absolute values of scaled objective range from 2 to 100
 Optimal - objective value 522.89435
-Primal took 0.03 seconds (total 7.29)
+Primal took 0.06 seconds (total 5.71)
 After Postsolve, objective 522.89435, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective 522.8943506 - 0 iterations time 7.292, Presolve 0.07, Idiot 7.20
-Log level = 3, recipe = Either, solve time = 7291 ms
-Maximum seconds = 1817.763, maximum iterations = 2147483647
+Optimal objective 522.8943506 - 0 iterations time 5.732, Presolve 0.08, Idiot 5.58
+Log level = 3, recipe = Either, solve time = 5726 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0     0.0643367  4.400036E-12             0
@@ -409,17 +430,21 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model qap12 result=Optimal
 Model                                    qap12
 Solver                               clpeither
-SolveTimeMs                               7291
+SolveTimeMs                               5726
 Objective                     522.894350559063
+ConstraintsPerMs                           122
 Iterations                                   0
-LoadTimeMs                                  56
+LoadTimeMs                                  59
 ResultStatus                           Optimal
-Read MPS file C:\Users\krish\Work\lpbench\netlib\stocfor3.mps as model Name=stocfor3 Obj=HARV A=(16676, 9129) Elements=64875 RHS=(1, 8) RowTypes=16676 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 158 ms, read_errors=0, model_key=stocfor3
+VariablesPerMs                             305
+Read MPS file C:\Users\krish\Work\lpbench\netlib\stocfor3.mps as model Name=stocfor3 Obj=HARV A=(16676, 9129) Elements=64875 RHS=(1, 8) RowTypes=16676 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 175 ms, read_errors=0, model_key=stocfor3
+Loaded model in 109 ms
 Solver clpeither solving model stocfor3...
+Matrix will be packed to eliminate 3752 small elements
 7183 rows dropped after presolve pass 1
 7183 rows dropped after presolve pass 2
 Presolve 9492 (-7183) rows, 9250 (-6445) columns and 43680 (-21195) elements
-Presolve took 0.06 seconds (total 0.06)
+Presolve took 0.08 seconds (total 0.08)
 Matrix can not be converted into +- 1
 Bounds were tightened 14439 times
 Initial range of elements is 0.049896286 to 336.6
@@ -436,11 +461,11 @@ Looking optimal checking bounds with 1e+10
 Going back to original objective
 Looking optimal checking bounds with 1e+10
 Optimal - objective value -39976.784
-Dual took 0.51 seconds (total 0.56)
+Dual took 0.53 seconds (total 0.62)
 After Postsolve, objective -39976.784, infeasibilities - dual 0 (0), primal 0 (0)
-Optimal objective -39976.78394 - 7169 iterations time 0.572, Presolve 0.06
-Log level = 3, recipe = Either, solve time = 568 ms
-Maximum seconds = 1825.352, maximum iterations = 2147483647
+Optimal objective -39976.78394 - 7169 iterations time 0.622, Presolve 0.09
+Log level = 3, recipe = Either, solve time = 633 ms
+Maximum seconds = -1, maximum iterations = 2147483647
 Primal tolerance = 1E-07, dual tolerance = 1E-07
   ColIndex   ColSolution   ReducedCost     Objective
          0             0      92.30615             0
@@ -456,8 +481,257 @@ Primal tolerance = 1E-07, dual tolerance = 1E-07
 Solver clpeither solved model stocfor3 result=Optimal
 Model                                 stocfor3
 Solver                               clpeither
-SolveTimeMs                                567
+SolveTimeMs                                632
 Objective                   -39976.78394364941
+ConstraintsPerMs                           387
 Iterations                                7169
-LoadTimeMs                                  82
+LoadTimeMs                                 109
 ResultStatus                           Optimal
+VariablesPerMs                             270
+
+2nd execution with no logging
+=============================
+
+Read MPS file C:\Users\krish\Work\lpbench\netlib\80bau38.mps as model Name=80bau38 Obj=HOLLY A=(2263, 8061) Elements=21002 RHS=(1, 346) RowTypes=2263 Lower=(1, 3555) Upper=(1, 3555) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 237 ms, read_errors=0, model_key=80bau38
+Loaded model in 20 ms
+Solver clpnolog solving model 80bau38...
+Log level = 0, recipe = Either, solve time = 115 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0      531.1245  1.221245E-15             0
+         1      286.8013  7.327472E-15             0
+         2      544.7416   5.77316E-15             0
+         3      895.5393 -1.776357E-15             0
+         4      1810.744  -5.77316E-15             0
+         5       1641.95 -6.883383E-15             0
+         6      1075.996  4.884981E-15             0
+         7      358.6983  8.881784E-16             0
+         8      345.8736  2.109424E-15             0
+         9      768.4426 -7.771561E-15             0
+Solver clpnolog solved model 80bau38 result=Optimal
+Model                                  80bau38
+Solver                                clpnolog
+SolveTimeMs                                115
+Objective                    987224.1924090901
+ConstraintsPerMs                           251
+Iterations                                3272
+LoadTimeMs                                  20
+ResultStatus                           Optimal
+VariablesPerMs                            1088
+Read MPS file C:\Users\krish\Work\lpbench\netlib\cre-d.mps as model Name=cre-d Obj=COST A=(8927, 69980) Elements=242646 RHS=(1, 321) RowTypes=8927 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 285 ms, read_errors=0, model_key=cre-d
+Loaded model in 126 ms
+Solver clpnolog solving model cre-d...
+Log level = 0, recipe = Either, solve time = 631 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0    0.04406326         18920
+         1      5.253521             0         82721
+         2             0       5283.86         36345
+         3             0      953.9876         69242
+         4             0      1113.627         41717
+         5             1  3.637979E-12         54340
+         6             0      98807.57        237583
+         7             0      43928.65        104387
+         8             0      95015.18        198869
+         9             0      52219.37        119814
+Solver clpnolog solved model cre-d result=Optimal
+Model                                    cre-d
+Solver                                clpnolog
+SolveTimeMs                                630
+Objective                   24454969.764549237
+ConstraintsPerMs                           123
+Iterations                                6110
+LoadTimeMs                                 126
+ResultStatus                           Optimal
+VariablesPerMs                            3180
+Read MPS file C:\Users\krish\Work\lpbench\netlib\dfl001.mps as model Name=dfl001 Obj=NIL A=(6072, 6241) Elements=35632 RHS=(1, 1663) RowTypes=6072 Lower=(1, 13) Upper=(1, 13) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 76 ms, read_errors=0, model_key=dfl001
+Loaded model in 45 ms
+Solver clpnolog solving model dfl001...
+Log level = 0, recipe = Either, solve time = 6779 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0     0.1742193  1.421085E-12       4267.32
+         1             0      2043.116             0
+         2             0       9971022  1.000224E+07
+         3             0 -7.958079E-12       2620.11
+         4             0      32391.72             0
+         5             0      1637.946        9202.8
+         6     0.6087671             0             0
+         7             0      35231.68             0
+         8             0       9974847  1.001131E+07
+         9            -0 -3.410605E-13             0
+Solver clpnolog solved model dfl001 result=Optimal
+Model                                   dfl001
+Solver                                clpnolog
+SolveTimeMs                               6779
+Objective                    11266396.04667138
+ConstraintsPerMs                           184
+Iterations                               20374
+LoadTimeMs                                  45
+ResultStatus                           Optimal
+VariablesPerMs                            1528
+Read MPS file C:\Users\krish\Work\lpbench\netlib\ken-18.mps as model Name=ken-18 Obj=COST A=(105128, 154548) Elements=358171 RHS=(1, 23479) RowTypes=105128 Lower=(1, 154699) Upper=(1, 154699) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 1435 ms, read_errors=0, model_key=ken-18
+Loaded model in 443 ms
+Solver clpnolog solving model ken-18...
+Log level = 0, recipe = Either, solve time = 2732 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0            36             0      -4427.41
+         1            36             0        -10000
+         2            36             0      -5665.55
+         3            36             0        -10000
+         4            36             0        -10000
+         5            60             0      -1607.01
+         6            60 -1.818989E-12        -10000
+         7            60             0      -1914.51
+         8            72      -5653.83      -9313.38
+         9            72             0      -4173.14
+Solver clpnolog solved model ken-18 result=Optimal
+Model                                   ken-18
+Solver                                clpnolog
+SolveTimeMs                               2732
+Objective                  -52217025287.396805
+ConstraintsPerMs                           374
+Iterations                               48043
+LoadTimeMs                                 443
+ResultStatus                           Optimal
+VariablesPerMs                            1322
+Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-30.mps as model Name=osa-30 Obj=COST A=(4351, 100022) Elements=600138 RHS=(1, 4313) RowTypes=4351 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 873 ms, read_errors=0, model_key=osa-30
+Loaded model in 228 ms
+Solver clpnolog solving model osa-30...
+Log level = 0, recipe = Either, solve time = 405 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0      3688.447      3688.447
+         1             0      4289.712      4305.592
+         2             0      2143.232      2693.723
+         3             0       2496.61      3058.381
+         4             0      4330.917      4330.917
+         5             0      3987.488      3987.488
+         6             0      4236.683      4236.683
+         7             0      2259.046      3367.036
+         8             0      2765.977      3888.309
+         9             0      3411.083      3411.083
+Solver clpnolog solved model osa-30 result=Optimal
+Model                                   osa-30
+Solver                                clpnolog
+SolveTimeMs                                404
+Objective                   2142139.8732097917
+ConstraintsPerMs                            29
+Iterations                                2253
+LoadTimeMs                                 228
+ResultStatus                           Optimal
+VariablesPerMs                            2083
+Read MPS file C:\Users\krish\Work\lpbench\netlib\osa-60.mps as model Name=osa-60 Obj=COST A=(10281, 232965) Elements=1397793 RHS=(1, 10243) RowTypes=10281 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 1764 ms, read_errors=0, model_key=osa-60
+Loaded model in 602 ms
+Solver clpnolog solving model osa-60...
+Log level = 0, recipe = Either, solve time = 1543 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0       4003.85       4003.85
+         1             0       4506.61       4506.61
+         2             0      5272.888      5292.408
+         3             0      4013.577      4013.577
+         4             0      4678.635      4695.955
+         5             0       2700.95       2700.95
+         6             0      4059.814      4059.814
+         7             0      1782.762      4072.325
+         8             0      2907.109      2907.109
+         9             0      3294.975      3307.172
+Solver clpnolog solved model osa-60 result=Optimal
+Model                                   osa-60
+Solver                                clpnolog
+SolveTimeMs                               1542
+Objective                   4044072.5031574722
+ConstraintsPerMs                            24
+Iterations                                5048
+LoadTimeMs                                 602
+ResultStatus                           Optimal
+VariablesPerMs                            2377
+Read MPS file C:\Users\krish\Work\lpbench\netlib\pds-20.mps as model Name=pds-20 Obj=C A=(33875, 73953) Elements=230200 RHS=(1, 2469) RowTypes=33875 Lower=(1, 34888) Upper=(1, 34888) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 483 ms, read_errors=0, model_key=pds-20
+Loaded model in 234 ms
+Solver clpnolog solving model pds-20...
+Log level = 0, recipe = Either, solve time = 1528 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0           351        -99354             0
+         1            96        -99354             0
+         2           513        -99354             0
+         3           359             0             0
+         4           202             0             0
+         5           114        -99354             0
+         6            39          -107             0
+         7            57        -99354             0
+         8            90             0             0
+         9           121             0             0
+Solver clpnolog solved model pds-20 result=Optimal
+Model                                   pds-20
+Solver                                clpnolog
+SolveTimeMs                               1528
+Objective                          23821658640
+ConstraintsPerMs                           250
+Iterations                               14358
+LoadTimeMs                                 234
+ResultStatus                           Optimal
+VariablesPerMs                            1554
+Read MPS file C:\Users\krish\Work\lpbench\netlib\qap12.mps as model Name=qap12 Obj=NOBJ A=(3193, 8712) Elements=38304 RHS=(1, 24) RowTypes=3193 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 60 ms, read_errors=0, model_key=qap12
+Loaded model in 25 ms
+Solver clpnolog solving model qap12...
+Log level = 0, recipe = Either, solve time = 5155 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0     0.0643367  4.400036E-12             0
+         1     0.1085318 -5.059064E-12             0
+         2     0.1003117  5.329071E-14             0
+         3    0.06985884  2.946976E-12             0
+         4    0.08384128   -2.4869E-14             0
+         5    0.06660568 -1.447731E-12             0
+         6    0.06660568  4.188649E-12             0
+         7    0.08384128  6.664891E-12             0
+         8     0.0772404  2.842171E-14             0
+         9    0.09944411  2.806644E-13             0
+Solver clpnolog solved model qap12 result=Optimal
+Model                                    qap12
+Solver                                clpnolog
+SolveTimeMs                               5154
+Objective                     522.894350559063
+ConstraintsPerMs                           266
+Iterations                                   0
+LoadTimeMs                                  25
+ResultStatus                           Optimal
+VariablesPerMs                             885
+Read MPS file C:\Users\krish\Work\lpbench\netlib\stocfor3.mps as model Name=stocfor3 Obj=HARV A=(16676, 9129) Elements=64875 RHS=(1, 8) RowTypes=16676 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 124 ms, read_errors=0, model_key=stocfor3
+Loaded model in 50 ms
+Solver clpnolog solving model stocfor3...
+Log level = 0, recipe = Either, solve time = 503 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0      92.30615             0
+         1             0      65.00991             0
+         2             0      29.07478             0
+         3             0      10.12717             0
+         4             0      2.613464             0
+         5      18.77264 -7.105427E-14             0
+         6         0.241  5.684342E-14             0
+         7         0.125 -4.263256E-14             0
+         8         1.404 -4.263256E-14             0
+         9         2.004             0             0
+Solver clpnolog solved model stocfor3 result=Optimal
+Model                                 stocfor3
+Solver                                clpnolog
+SolveTimeMs                                503
+Objective                   -39976.78394364941
+ConstraintsPerMs                           406
+Iterations                                7169
+LoadTimeMs                                  50
+ResultStatus                           Optimal
+VariablesPerMs                            3923

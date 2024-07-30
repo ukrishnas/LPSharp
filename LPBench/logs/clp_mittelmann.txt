@@ -1,0 +1,2708 @@
+Mittelmann models using either simplex.
+==================================
+<SolverParameters>
+  <GenericParameters>
+    <Param Name="TimeLimitInSeconds" Value="0" />
+    <Param Name="EnableLogging" Value="true" />
+  </GenericParameters>
+  <GlopParameters>
+    <Parameters>
+      <Param Name="LPAlgorithm" Value="Primal" />
+      <Param Name="SolveWithParameters" Value="true" />
+    </Parameters>
+    <SolverSpecificParameterText>
+log_iteration_period: 500
+    </SolverSpecificParameterText>
+  </GlopParameters>
+  <ClpParameters>
+    <Param Name="Recipe" Value="Either" />
+    <Param Name="LogLevel" Value="3" />
+  </ClpParameters>
+</SolverParameters>
+
+LPSharp> read-mps $dir\mittelmann\cont1.mps -format free
+Read MPS file c:\users\krish\work\lpbench\mittelmann\cont1.mps as model Name=cont1 Obj=R160793 A=(160793, 5) Elements=399990 RHS=(1, 118803) RowTypes=160793 Lower=(1, 40398) Upper=(1, 40398) Ranges=(1, 40397) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 1333 ms, read_errors=0, model_key=cont1
+LPSharp> invoke-solver -key clp cont1
+Loaded model in 461 ms
+Solver clp solving model cont1...
+41193 rows dropped after presolve pass 1
+Presolve 119599 (-41193) rows, 40398 (0) columns and 358001 (-41989) elements
+Presolve took 0.14 seconds (total 0.14)
+Matrix can not be converted into +- 1
+Initial range of elements is 0.005 to 4
+Range of elements is 0.070710678 to 14.142136
+Range of elements is 0.41524019 to 2.4082448
+Final range of elements is 0.20762009 to 1
+Absolute values of scaled rhs range from 9.4015077e-05 to 0.51726461, minimum gap 1e+100
+Absolute values of scaled objective range from 0.032019395 to 0.032019395
+Perturbing problem by 0.001% of 0.32694582 - largest nonzero change 9.9993378e-05 ( 0.021266375%) - largest zero change 0
+773  Obj 0.016564866 Primal inf 3.648842 (38849) Dual inf 1.0407735e+12 (785)
+Primal error 2.769385e+95, dual error 2.1693618e+95
+2965  Obj 0.016564866 Primal inf 3.582163 (37430) Dual inf 5.2364066e+11 (765)
+5328  Obj 0.016564866 Primal inf 3.4678301 (35067) Dual inf 2.7561489e+11 (729)
+6824  Obj 0.016564866 Primal inf 3.3928998 (33571) Dual inf 2.0856798e+11 (705)
+7716  Obj 0.016564866 Primal inf 3.3480026 (32679) Dual inf 1.8091457e+11 (693)
+8613  Obj 0.016564866 Primal inf 3.3008569 (31782) Dual inf 1.5873633e+11 (677)
+9093  Obj 0.016564866 Primal inf 3.2757687 (31302) Dual inf 1.4910522e+11 (669)
+9510  Obj 0.016564866 Primal inf 3.2528299 (30885) Dual inf 1.4100197e+11 (661)
+9885  Obj 0.016564866 Primal inf 3.234146 (30510) Dual inf 1.3482865e+11 (657)
+10319  Obj 0.016564866 Primal inf 3.2099813 (30076) Dual inf 1.2773128e+11 (649)
+10720  Obj 0.016564866 Primal inf 3.1905762 (29675) Dual inf 1.220937e+11 (649)
+11180  Obj 0.016564866 Primal inf 3.1638858 (29215) Dual inf 1.1573049e+11 (637)
+11597  Obj 0.016564866 Primal inf 3.142863 (28798) Dual inf 1.1056263e+11 (633)
+12084  Obj 0.016564866 Primal inf 3.1151479 (28311) Dual inf 1.0497952e+11 (625)
+12539  Obj 0.016564866 Primal inf 3.0897812 (27856) Dual inf 1.0002335e+11 (616)
+12985  Obj 0.016564866 Primal inf 3.0666627 (27410) Dual inf 9.5721076e+10 (613)
+13488  Obj 0.016564866 Primal inf 3.0364447 (26907) Dual inf 9.0973924e+10 (601)
+13933  Obj 0.016564866 Primal inf 3.0125833 (26462) Dual inf 8.715359e+10 (597)
+14375  Obj 0.016564866 Primal inf 2.9878983 (26020) Dual inf 8.3656823e+10 (589)
+14859  Obj 0.016564866 Primal inf 2.9593293 (25536) Dual inf 7.9919693e+10 (581)
+15309  Obj 0.016564866 Primal inf 2.9351425 (25086) Dual inf 7.6765863e+10 (577)
+15803  Obj 0.016564866 Primal inf 2.9045801 (24592) Dual inf 7.3429222e+10 (565)
+16265  Obj 0.016564866 Primal inf 2.8783353 (24130) Dual inf 7.0520151e+10 (560)
+16711  Obj 0.016564866 Primal inf 2.85391 (23684) Dual inf 6.7916516e+10 (556)
+17207  Obj 0.016564866 Primal inf 2.8231 (23188) Dual inf 6.5102589e+10 (545)
+17624  Obj 0.016564866 Primal inf 2.7984152 (22771) Dual inf 6.2859527e+10 (539)
+18086  Obj 0.016564866 Primal inf 2.7712985 (22309) Dual inf 6.0549891e+10 (533)
+18572  Obj 0.016564866 Primal inf 2.7409863 (21823) Dual inf 5.8176782e+10 (524)
+19003  Obj 0.016564866 Primal inf 2.715341 (21392) Dual inf 5.6198101e+10 (517)
+19438  Obj 0.016564866 Primal inf 2.6884571 (20957) Dual inf 5.4306706e+10 (509)
+19853  Obj 0.016564866 Primal inf 2.6629434 (20542) Dual inf 5.2554262e+10 (504)
+20290  Obj 0.016564866 Primal inf 2.6362337 (20105) Dual inf 5.0795468e+10 (497)
+20792  Obj 0.016564866 Primal inf 2.6048213 (19603) Dual inf 4.8886357e+10 (489)
+21306  Obj 0.016564866 Primal inf 2.5722895 (19089) Dual inf 4.699588e+10 (481)
+21789  Obj 0.016564866 Primal inf 2.5412847 (18606) Dual inf 4.5295551e+10 (473)
+22252  Obj 0.016564866 Primal inf 2.5123748 (18143) Dual inf 4.3754881e+10 (465)
+22777  Obj 0.016564866 Primal inf 2.4788235 (17618) Dual inf 4.2086104e+10 (457)
+23290  Obj 0.016564866 Primal inf 2.4444968 (17105) Dual inf 4.0506294e+10 (449)
+23781  Obj 0.016564866 Primal inf 2.4122863 (16614) Dual inf 3.9062326e+10 (441)
+24298  Obj 0.016564866 Primal inf 2.3780059 (16097) Dual inf 3.760408e+10 (433)
+24778  Obj 0.016564866 Primal inf 2.3461885 (15617) Dual inf 3.6307095e+10 (425)
+25315  Obj 0.016564866 Primal inf 2.3094257 (15080) Dual inf 3.490229e+10 (414)
+25834  Obj 0.016564866 Primal inf 2.2740808 (14561) Dual inf 3.360707e+10 (406)
+26379  Obj 0.016564866 Primal inf 2.2366604 (14016) Dual inf 3.2300758e+10 (397)
+26920  Obj 0.016564866 Primal inf 2.1986868 (13475) Dual inf 3.1049939e+10 (388)
+27506  Obj 0.016564866 Primal inf 2.1567725 (12889) Dual inf 2.9744265e+10 (377)
+28059  Obj 0.016564866 Primal inf 2.1171111 (12336) Dual inf 2.8563708e+10 (369)
+28610  Obj 0.016564866 Primal inf 2.0769859 (11785) Dual inf 2.7429277e+10 (359)
+29188  Obj 0.016564866 Primal inf 2.0340076 (11207) Dual inf 2.6266895e+10 (349)
+29801  Obj 0.016564866 Primal inf 1.9873536 (10594) Dual inf 2.5085178e+10 (337)
+30483  Obj 0.016564866 Primal inf 1.934609 (9912) Dual inf 2.3813563e+10 (325)
+31193  Obj 0.016564866 Primal inf 1.8785714 (9202) Dual inf 2.2540683e+10 (313)
+31950  Obj 0.016564866 Primal inf 1.8165807 (8445) Dual inf 2.1227574e+10 (300)
+32723  Obj 0.016564866 Primal inf 1.7509448 (7672) Dual inf 1.9927988e+10 (285)
+33496  Obj 0.016564866 Primal inf 1.6826623 (6899) Dual inf 1.8665127e+10 (269)
+34269  Obj 0.016564866 Primal inf 1.6108753 (6126) Dual inf 1.7421736e+10 (253)
+35042  Obj 0.016564866 Primal inf 1.5353275 (5353) Dual inf 1.6201491e+10 (234)
+35815  Obj 0.016564866 Primal inf 1.4545906 (4580) Dual inf 1.4984379e+10 (216)
+36588  Obj 0.016564866 Primal inf 1.3674307 (3807) Dual inf 1.3757461e+10 (197)
+37361  Obj 0.016564866 Primal inf 1.2717103 (3034) Dual inf 1.2503994e+10 (175)
+38134  Obj 0.016564866 Primal inf 1.16298 (2261) Dual inf 1.1179456e+10 (151)
+38907  Obj 0.016564866 Primal inf 1.0327548 (1488) Dual inf 9.7102043e+09 (123)
+39680  Obj 0.016564866 Primal inf 0.85763219 (715) Dual inf 7.8911306e+09 (84)
+40453  Obj 0.014957452 Dual inf 0.050553738 (131)
+40898  Obj 0.014872507 Dual inf 0.12634408 (231)
+41223  Obj 0.014835143 Dual inf 5.9190612 (238)
+41277  Obj 0.014745884 Dual inf 18.311218 (233)
+41589  Obj 0.011203786 Dual inf 0.21739977 (187)
+41748  Obj 0.0087835571
+Absolute values of scaled rhs range from 9.4015077e-05 to 0.51726461, minimum gap 1e+100
+Absolute values of scaled objective range from 0.032019395 to 0.032019395
+Looking optimal with tolerance of 1e-06
+41772  Obj 0.00878285 Dual inf 0.00014135955 (30)
+41914  Obj 0.0087825452
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 0.0087825452
+Primal took 364.32 seconds (total 364.46)
+After Postsolve, objective 0.0087825452, infeasibilities - dual 0.00048106556 (88), primal 0 (0)
+Presolved model was optimal, full model needs cleaning up
+Initial range of elements is 0.005 to 4
+Range of elements is 0.070710678 to 14.142136
+Range of elements is 0.41524018 to 2.4082448
+Final range of elements is 0.20762009 to 1
+Absolute values of scaled rhs range from 9.4015077e-05 to 0.5172646, minimum gap 1e+100
+Absolute values of scaled objective range from 0.032019396 to 0.032019396
+0  Obj 0.0087825452
+Optimal - objective value 0.0087825452
+Cleanup took 67.68 seconds (total 432.16)
+Optimal objective 0.008782545232 - 41914 iterations time 432.162, Presolve 0.16
+Unscaled problem has dual infeasibilities
+Log level = 3, recipe = Either, solve time = 432157 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-06, dual tolerance = 1E-06
+  ColIndex   ColSolution   ReducedCost     Objective
+         0      1.242039             0             0
+         1      1.242039             0             0
+         2      1.242039             0             0
+         3      1.242039             0             0
+         4      1.242039             0             0
+         5      1.242039             0             0
+         6      1.242039             0             0
+         7      1.242039             0             0
+         8      1.242039             0             0
+         9      1.242039             0             0
+Solver clp solved model cont1 result=Optimal
+Model                                    cont1
+Solver                                     clp
+SolveTimeMs                             432157
+Objective                  0.00878254523204512
+ConstraintsPerMs                           398
+Iterations                               41914
+LoadTimeMs                                 461
+ResultStatus                           Optimal
+VariablesPerMs                            1188
+
+LPSharp> read-mps C:\users\krish\work\lpbench\plato\datt256_lp.mps -Format free
+Read MPS file C:\users\krish\work\lpbench\plato\datt256_lp.mps as model Name=datt256_lp Obj=obj A=(11078, 262144) Elements=1503732 RHS=(1, 513) RowTypes=11078 Lower=(1, 262144) Upper=(1, 262144) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 3845 ms, read_errors=0, model_key=datt256_lp
+datt256_lp
+LPSharp> invoke-solver -key clpeither datt256_lp
+Loaded model in 875 ms
+Solver clpeither solving model datt256_lp...
+1212 rows dropped after presolve pass 1
+1212 rows dropped after presolve pass 2
+Presolve 9865 (-1212) rows, 196147 (-65997) columns and 1125420 (-378312) elements
+Presolve took 0.57 seconds (total 0.57)
+** Objective offset is -1
+5 infeas 0.65361366, obj 256.00341 - mu 0.1, its 52, 146390 interior
+11 infeas 1.5247027, obj 255.9974 - mu 0.03333, its 52, 158658 interior
+16 infeas 0.89560285, obj 255.99959 - mu 0.011108889, its 52, 158570 interior
+22 infeas 0.46999562, obj 255.99984 - mu 0.0037025927, its 52, 157325 interior
+28 infeas 0.24737043, obj 255.99993 - mu 0.0012340741, its 52, 155826 interior
+33 infeas 0.16730824, obj 255.9999 - mu 0.00041131691, its 52, 154987 interior
+37 infeas 0.092106391, obj 255.98271 - mu 0.00013709193, its 52, 153812 interior
+39 infeas 0.085382048, obj 255.99995 - mu 0.00013709193, its 52, 153787 interior
+42 infeas 0.045644103, obj 255.99998 - mu 0.00013709193, its 52, 152911 interior
+44 infeas 0.045476451, obj 255.99997 - mu 4.5692739e-05, its 52, 152913 interior
+46 infeas 0.033217543, obj 255.99998 - mu 4.5692739e-05, its 52, 152593 interior
+48 infeas 0.022735497, obj 255.99999 - mu 4.5692739e-05, its 52, 152247 interior
+53 infeas 0.013041204, obj 255.99999 - mu 1.522939e-05, its 52, 151858 interior
+58 infeas 0.0079299167, obj 256 - mu 5.0759557e-06, its 52, 151593 interior
+62 infeas 0.0053745183, obj 256 - mu 1.691816e-06, its 52, 151428 interior
+66 infeas 0.0023258431, obj 256 - mu 1.691816e-06, its 52, 151187 interior
+70 infeas 0.001575976, obj 256 - mu 5.6388228e-07, its 105, 151105 interior
+75 infeas 0.0007647723, obj 256 - mu 1.8794197e-07, its 52, 151008 interior
+77 infeas 0.00032562854, obj 256 - mu 1.8794197e-07, its 52, 150942 interior
+82 infeas 0.00016821604, obj 256 - mu 6.2641057e-08, its 52, 150910 interior
+87 infeas 9.0257039e-07, obj 256 - mu 2.0878264e-08, its 52, 150894 interior
+88 infeas 2.2226743e-07, obj 256 - mu 2.0878264e-08, its 52, 150894 interior
+90 infeas 1.4792522e-07, obj 256 - mu 2.0878264e-08, its 52, 150894 interior
+93 infeas 1.5571592e-07, obj 256 - mu 6.9587255e-09, its 52, 150894 interior
+97 infeas 7.2711861e-07, obj 256 - mu 2.3193432e-09, its 52, 150894 interior
+101 infeas 1.6514334e-08, obj 256 - mu 2.3193432e-09, its 52, 150894 interior
+106 infeas 6.301522e-09, obj 256 - mu 7.7303709e-10, its 52, 150894 interior
+largest infeasibility is 5.67289e-10
+largest infeasibility is 6.7664e-12
+largest infeasibility is 6.7664e-12
+sum of infeasibilities 6.3015e-09 - average 6.38774e-13, 45253 fixed columns
+2022 rows dropped after presolve pass 1
+Presolve 7843 (-2022) rows, 150893 (-45254) columns and 902205 (-223215) elements
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 2
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+0  Obj 256 Dual inf 15088400 (150883)
+3338  Obj 256 Dual inf 16406258 (147166)
+Primal error 9.9159396e-14, dual error 0.2578125
+5789  Obj 256 Dual inf 15360504 (144890)
+Primal error 9.9159396e-14, dual error 0.021362305
+7563  Obj 256 Dual inf 15133204 (142617)
+9491  Obj 256 Dual inf 14980904 (141094)
+11275  Obj 256 Dual inf 14830804 (139593)
+12879  Obj 256 Dual inf 14229670 (137310)
+14036  Obj 256 Dual inf 14153770 (136551)
+15148  Obj 256 Dual inf 13954093 (135036)
+16328  Obj 256 Dual inf 13878593 (134281)
+17202  Obj 256 Dual inf 13802993 (133525)
+18126  Obj 256 Dual inf 13276500 (132765)
+18885  Obj 256 Dual inf 13200300 (132003)
+19658  Obj 256 Dual inf 13047400 (130474)
+20400  Obj 256 Dual inf 13047400 (130474)
+21080  Obj 256 Dual inf 12971300 (129713)
+21698  Obj 256 Dual inf 12895400 (128954)
+21902  Obj 256 Dual inf 12895400 (128954)
+22340  Obj 256 Dual inf 12819500 (128195)
+22682  Obj 256 Dual inf 12819500 (128195)
+23342  Obj 256 Dual inf 12743400 (127434)
+23865  Obj 256 Dual inf 12667400 (126674)
+24708  Obj 256 Dual inf 12591400 (125914)
+25349  Obj 256 Dual inf 12515100 (125151)
+25982  Obj 256 Dual inf 12438900 (124389)
+26661  Obj 256 Dual inf 12363000 (123630)
+27141  Obj 256 Dual inf 12363000 (123630)
+27643  Obj 256 Dual inf 12286900 (122869)
+28214  Obj 256 Dual inf 12210900 (122109)
+28892  Obj 256 Dual inf 12135200 (121352)
+29154  Obj 256 Dual inf 12135200 (121352)
+29253  Obj 256 Dual inf 12135200 (121352)
+29404  Obj 256 Dual inf 12135200 (121352)
+29825  Obj 256 Dual inf 12059900 (120599)
+30411  Obj 256 Dual inf 11983600 (119836)
+30717  Obj 256 Dual inf 11983600 (119836)
+31020  Obj 256 Dual inf 11983600 (119836)
+31335  Obj 256 Dual inf 11907400 (119074)
+31717  Obj 256 Dual inf 11907400 (119074)
+32229  Obj 256 Dual inf 11831500 (118315)
+32829  Obj 256 Dual inf 11755400 (117554)
+33467  Obj 256 Dual inf 11679500 (116795)
+33836  Obj 256 Dual inf 11679500 (116795)
+34304  Obj 256 Dual inf 11603400 (116034)
+34864  Obj 256 Dual inf 11527200 (115272)
+35399  Obj 256 Dual inf 11527200 (115272)
+35700  Obj 256 Dual inf 11451200 (114512)
+36038  Obj 256 Dual inf 11451200 (114512)
+36538  Obj 256 Dual inf 11375000 (113750)
+37041  Obj 256 Dual inf 11375000 (113750)
+37305  Obj 256 Dual inf 11299200 (112992)
+37632  Obj 256 Dual inf 11299200 (112992)
+37984  Obj 256 Dual inf 11223200 (112232)
+38307  Obj 256 Dual inf 11223200 (112232)
+38740  Obj 256 Dual inf 11147300 (111473)
+39081  Obj 256 Dual inf 11147300 (111473)
+39401  Obj 256 Dual inf 11147300 (111473)
+39757  Obj 256 Dual inf 11071100 (110711)
+40250  Obj 256 Dual inf 10995500 (109955)
+40402  Obj 256 Dual inf 10995500 (109955)
+40640  Obj 256 Dual inf 10995500 (109955)
+40891  Obj 256 Dual inf 10995500 (109955)
+41025  Obj 256 Dual inf 10919900 (109199)
+41329  Obj 256 Dual inf 10919900 (109199)
+41627  Obj 256 Dual inf 10919900 (109199)
+41965  Obj 256 Dual inf 10844000 (108440)
+42266  Obj 256 Dual inf 10844000 (108440)
+42557  Obj 256 Dual inf 10768300 (107683)
+42896  Obj 256 Dual inf 10768300 (107683)
+43204  Obj 256 Dual inf 10768300 (107683)
+43423  Obj 256 Dual inf 10692300 (106923)
+43726  Obj 256 Dual inf 10692300 (106923)
+44038  Obj 256 Dual inf 10616300 (106163)
+44319  Obj 256 Dual inf 10616300 (106163)
+44657  Obj 256 Dual inf 10616300 (106163)
+44947  Obj 256 Dual inf 10539900 (105399)
+45219  Obj 256 Dual inf 10539900 (105399)
+45476  Obj 256 Dual inf 10539900 (105399)
+45801  Obj 256 Dual inf 10463500 (104635)
+46169  Obj 256 Dual inf 10463500 (104635)
+46527  Obj 256 Dual inf 10388100 (103881)
+46826  Obj 256 Dual inf 10388100 (103881)
+47168  Obj 256 Dual inf 10312100 (103121)
+47498  Obj 256 Dual inf 10312100 (103121)
+47883  Obj 256 Primal inf 4.2023018e-05 (1) Dual inf 1.0523305e+19 (123452)
+48101  Obj 256 Dual inf 10236100 (102361)
+48398  Obj 256 Dual inf 10236100 (102361)
+48611  Obj 256 Dual inf 10160200 (101602)
+48952  Obj 256 Dual inf 10160200 (101602)
+49262  Obj 256 Dual inf 10160200 (101602)
+49674  Obj 256 Dual inf 10084100 (100841)
+49949  Obj 256 Dual inf 10084100 (100841)
+50290  Obj 256 Dual inf 10008600 (100086)
+50550  Obj 256 Dual inf 10008600 (100086)
+50804  Obj 256 Dual inf 10008600 (100086)
+51099  Obj 256 Dual inf 9932499.9 (99325)
+51390  Obj 256 Dual inf 9932499.9 (99325)
+51727  Obj 256 Dual inf 9856499.9 (98565)
+52038  Obj 256 Dual inf 9856499.9 (98565)
+52407  Obj 256 Dual inf 9780699.9 (97807)
+52697  Obj 256 Dual inf 9780699.9 (97807)
+52975  Obj 256 Dual inf 9780699.9 (97807)
+53214  Obj 256 Dual inf 9705199.9 (97052)
+53493  Obj 256 Dual inf 9705199.9 (97052)
+53798  Obj 256 Dual inf 9705199.9 (97052)
+54183  Obj 256 Dual inf 9629099.9 (96291)
+54492  Obj 256 Dual inf 9629099.9 (96291)
+54887  Obj 256 Dual inf 9553599.9 (95536)
+55293  Obj 256 Dual inf 9553599.9 (95536)
+55612  Obj 256 Dual inf 9477399.9 (94774)
+55940  Obj 256 Dual inf 9477399.9 (94774)
+56229  Obj 256 Dual inf 9401499.9 (94015)
+56533  Obj 256 Dual inf 9401499.9 (94015)
+56897  Obj 256 Dual inf 9325899.9 (93259)
+57223  Obj 256 Dual inf 9325899.9 (93259)
+57572  Obj 256 Dual inf 9325899.9 (93259)
+57878  Obj 256 Dual inf 9250099.9 (92501)
+58285  Obj 256 Dual inf 9250099.9 (92501)
+58580  Obj 256 Dual inf 9173699.9 (91737)
+58922  Obj 256 Primal inf 3.9426794e-08 (1) Dual inf 3.2403721e+16 (117750)
+59273  Obj 256 Dual inf 9097799.9 (90978)
+59640  Obj 256 Dual inf 9097799.9 (90978)
+60039  Obj 256 Dual inf 9021499.9 (90215)
+60354  Obj 256 Dual inf 9021499.9 (90215)
+60696  Obj 256 Dual inf 8945199.9 (89452)
+61032  Obj 256 Dual inf 8945199.9 (89452)
+61377  Obj 256 Dual inf 8945199.9 (89452)
+61683  Obj 256 Dual inf 8869099.9 (88691)
+61963  Obj 256 Dual inf 8869099.9 (88691)
+62123  Obj 256 Dual inf 8869099.9 (88691)
+62268  Obj 256 Primal inf 5.5607281e-05 (2) Dual inf 3.8154802e+17 (116276)
+62517  Obj 256 Dual inf 8793099.9 (87931)
+62722  Obj 256 Dual inf 8793099.9 (87931)
+62906  Obj 256 Dual inf 8793099.9 (87931)
+63082  Obj 256 Dual inf 8716999.9 (87170)
+63375  Obj 256 Dual inf 8716999.9 (87170)
+63578  Obj 256 Dual inf 8716999.9 (87170)
+63823  Obj 256 Dual inf 8641099.9 (86411)
+64120  Obj 256 Dual inf 8641099.9 (86411)
+64419  Obj 256 Dual inf 8641099.9 (86411)
+64737  Obj 256 Dual inf 8564899.9 (85649)
+64943  Obj 256 Dual inf 8564899.9 (85649)
+65174  Obj 256 Dual inf 8564899.9 (85649)
+65339  Obj 256 Dual inf 8488999.9 (84890)
+65585  Obj 256 Dual inf 8488999.9 (84890)
+65843  Obj 256 Dual inf 8488999.9 (84890)
+66089  Obj 256 Dual inf 8413399.9 (84134)
+66304  Obj 256 Dual inf 8413399.9 (84134)
+66605  Obj 256 Dual inf 8413399.9 (84134)
+66948  Obj 256 Dual inf 8337599.9 (83376)
+67232  Obj 256 Dual inf 8337599.9 (83376)
+67495  Obj 256 Dual inf 8337599.9 (83376)
+67857  Obj 256 Dual inf 8261599.9 (82616)
+68106  Obj 256 Dual inf 8261599.9 (82616)
+68450  Obj 256 Dual inf 8186299.9 (81863)
+68683  Obj 256 Dual inf 8186299.9 (81863)
+68905  Obj 256 Dual inf 8186299.9 (81863)
+69213  Obj 256 Dual inf 8110599.9 (81106)
+69463  Obj 256 Dual inf 8110599.9 (81106)
+69864  Obj 256 Dual inf 8034199.9 (80342)
+70201  Obj 256 Dual inf 8034199.9 (80342)
+70400  Obj 256 Dual inf 8034199.9 (80342)
+70537  Obj 256 Dual inf 8034199.9 (80342)
+70802  Obj 256 Dual inf 7957699.9 (79577)
+71006  Obj 256 Dual inf 7957699.9 (79577)
+71209  Obj 256 Dual inf 7957699.9 (79577)
+71311  Obj 256 Dual inf 7957699.9 (79577)
+71473  Obj 256 Dual inf 7881199.9 (78812)
+71597  Obj 256 Dual inf 7881199.9 (78812)
+71810  Obj 256 Dual inf 7881199.9 (78812)
+71982  Obj 256 Dual inf 7881199.9 (78812)
+72196  Obj 256 Dual inf 7804799.9 (78048)
+72357  Obj 256 Dual inf 7804799.9 (78048)
+72562  Obj 256 Dual inf 7804799.9 (78048)
+72757  Obj 256 Dual inf 7804799.9 (78048)
+72946  Obj 256 Dual inf 7728499.9 (77285)
+73133  Obj 256 Dual inf 7728499.9 (77285)
+73273  Obj 256 Dual inf 7728499.9 (77285)
+73395  Obj 256 Dual inf 7728499.9 (77285)
+73550  Obj 256 Dual inf 7728499.9 (77285)
+73753  Obj 256 Dual inf 7652399.9 (76524)
+73957  Obj 256 Dual inf 7652399.9 (76524)
+74120  Obj 256 Dual inf 7652399.9 (76524)
+74248  Obj 256 Dual inf 7652399.9 (76524)
+74379  Obj 256 Dual inf 7576299.9 (75763)
+74601  Obj 256 Dual inf 7576299.9 (75763)
+74710  Obj 256 Dual inf 7576299.9 (75763)
+74897  Obj 256 Dual inf 7576299.9 (75763)
+75035  Obj 256 Dual inf 7576299.9 (75763)
+75254  Obj 256 Dual inf 7499999.9 (75000)
+75397  Obj 256 Dual inf 7499999.9 (75000)
+75515  Obj 256 Dual inf 7499999.9 (75000)
+75718  Obj 256 Dual inf 7499999.9 (75000)
+76063  Obj 256 Dual inf 7423699.9 (74237)
+76264  Obj 256 Dual inf 7423699.9 (74237)
+76432  Obj 256 Dual inf 7423699.9 (74237)
+76610  Obj 256 Dual inf 7423699.9 (74237)
+76790  Obj 256 Dual inf 7347499.9 (73475)
+76956  Obj 256 Dual inf 7347499.9 (73475)
+77142  Obj 256 Dual inf 7347499.9 (73475)
+77259  Obj 256 Dual inf 7347499.9 (73475)
+77376  Obj 256 Dual inf 7347499.9 (73475)
+77502  Obj 256 Dual inf 7271699.9 (72717)
+77625  Obj 256 Dual inf 7271699.9 (72717)
+77751  Obj 256 Dual inf 7271699.9 (72717)
+77906  Obj 256 Dual inf 7271699.9 (72717)
+78050  Obj 256 Dual inf 7271699.9 (72717)
+78222  Obj 256 Dual inf 7195399.9 (71954)
+78408  Obj 256 Dual inf 7195399.9 (71954)
+78543  Obj 256 Dual inf 7195399.9 (71954)
+78685  Obj 256 Dual inf 7195399.9 (71954)
+78841  Obj 256 Dual inf 7195399.9 (71954)
+78975  Obj 256 Dual inf 7119599.9 (71196)
+79201  Obj 256 Dual inf 7119599.9 (71196)
+79379  Obj 256 Dual inf 7119599.9 (71196)
+79575  Obj 256 Dual inf 7119599.9 (71196)
+79768  Obj 256 Dual inf 7043199.9 (70432)
+79986  Obj 256 Dual inf 7043199.9 (70432)
+80145  Obj 256 Dual inf 7043199.9 (70432)
+80297  Obj 256 Dual inf 7043199.9 (70432)
+80459  Obj 256 Dual inf 7043199.9 (70432)
+80667  Obj 256 Dual inf 6966699.9 (69667)
+80810  Obj 256 Dual inf 6966699.9 (69667)
+81000  Obj 256 Dual inf 6966699.9 (69667)
+81053  Obj 256 Dual inf 6966699.9 (69667)
+81206  Obj 256 Dual inf 6966699.9 (69667)
+81360  Obj 256 Dual inf 6890999.9 (68910)
+81493  Obj 256 Dual inf 6890999.9 (68910)
+81633  Obj 256 Dual inf 6890999.9 (68910)
+81752  Obj 256 Dual inf 6890999.9 (68910)
+81920  Obj 256 Dual inf 6890999.9 (68910)
+82150  Obj 256 Dual inf 6815099.9 (68151)
+82304  Obj 256 Dual inf 6815099.9 (68151)
+82452  Obj 256 Dual inf 6815099.9 (68151)
+82606  Obj 256 Dual inf 6815099.9 (68151)
+82791  Obj 256 Dual inf 6739699.9 (67397)
+83003  Obj 256 Dual inf 6739699.9 (67397)
+83164  Obj 256 Dual inf 6739699.9 (67397)
+83277  Obj 256 Dual inf 6739699.9 (67397)
+83441  Obj 256 Dual inf 6739699.9 (67397)
+83671  Obj 256 Dual inf 6663599.9 (66636)
+83880  Obj 256 Dual inf 6663599.9 (66636)
+84081  Obj 256 Dual inf 6663599.9 (66636)
+84274  Obj 256 Dual inf 6587699.9 (65877)
+84472  Obj 256 Dual inf 6587699.9 (65877)
+84635  Obj 256 Dual inf 6587699.9 (65877)
+84766  Obj 256 Dual inf 6587699.9 (65877)
+84942  Obj 256 Dual inf 6587699.9 (65877)
+85157  Obj 256 Dual inf 6511799.9 (65118)
+85361  Obj 256 Dual inf 6511799.9 (65118)
+85529  Obj 256 Dual inf 6511799.9 (65118)
+85717  Obj 256 Dual inf 6511799.9 (65118)
+85908  Obj 256 Dual inf 6435799.9 (64358)
+86113  Obj 256 Primal inf 4.8000878e-06 (1) Dual inf 3.4964078e+16 (104699)
+86282  Obj 256 Dual inf 6435799.9 (64358)
+86450  Obj 256 Dual inf 6435799.9 (64358)
+86617  Obj 256 Dual inf 6359899.9 (63599)
+86835  Obj 256 Dual inf 6359899.9 (63599)
+86980  Obj 256 Dual inf 6359899.9 (63599)
+87136  Obj 256 Dual inf 6359899.9 (63599)
+87263  Obj 256 Dual inf 6359899.9 (63599)
+87453  Obj 256 Dual inf 6284299.9 (62843)
+87616  Obj 256 Dual inf 6284299.9 (62843)
+87755  Obj 256 Dual inf 6284299.9 (62843)
+87887  Obj 256 Dual inf 6284299.9 (62843)
+87986  Obj 256 Dual inf 6284299.9 (62843)
+88080  Obj 256 Dual inf 6208399.9 (62084)
+88247  Obj 256 Dual inf 6208399.9 (62084)
+88387  Obj 256 Dual inf 6208399.9 (62084)
+88504  Obj 256 Dual inf 6208399.9 (62084)
+88614  Obj 256 Dual inf 6208399.9 (62084)
+88760  Obj 256 Dual inf 6208399.9 (62084)
+88873  Obj 256 Dual inf 6132599.9 (61326)
+89002  Obj 256 Dual inf 6132599.9 (61326)
+89123  Obj 256 Dual inf 6132599.9 (61326)
+89245  Obj 256 Dual inf 6132599.9 (61326)
+89423  Obj 256 Dual inf 6132599.9 (61326)
+89574  Obj 256 Dual inf 6056699.9 (60567)
+89738  Obj 256 Dual inf 6056699.9 (60567)
+89931  Obj 256 Dual inf 6056699.9 (60567)
+90060  Obj 256 Dual inf 6056699.9 (60567)
+90236  Obj 256 Dual inf 6056699.9 (60567)
+90447  Obj 256 Dual inf 5981099.9 (59811)
+90560  Obj 256 Dual inf 5981099.9 (59811)
+90707  Obj 256 Dual inf 5981099.9 (59811)
+90879  Obj 256 Dual inf 5981099.9 (59811)
+90981  Obj 256 Dual inf 5981099.9 (59811)
+91187  Obj 256 Dual inf 5905099.9 (59051)
+91354  Obj 256 Dual inf 5905099.9 (59051)
+91513  Obj 256 Dual inf 5905099.9 (59051)
+91634  Obj 256 Dual inf 5905099.9 (59051)
+91760  Obj 256 Dual inf 5905099.9 (59051)
+91909  Obj 256 Dual inf 5829399.9 (58294)
+92064  Obj 256 Dual inf 5829399.9 (58294)
+92174  Obj 256 Dual inf 5829399.9 (58294)
+92332  Obj 256 Dual inf 5829399.9 (58294)
+92511  Obj 256 Dual inf 5829399.9 (58294)
+92705  Obj 256 Dual inf 5753399.9 (57534)
+92891  Obj 256 Dual inf 5753399.9 (57534)
+93070  Obj 256 Dual inf 5753399.9 (57534)
+93184  Obj 256 Dual inf 5753399.9 (57534)
+93329  Obj 256 Dual inf 5753399.9 (57534)
+93556  Obj 256 Dual inf 5677399.9 (56774)
+93738  Obj 256 Dual inf 5677399.9 (56774)
+93895  Obj 256 Dual inf 5677399.9 (56774)
+94101  Obj 256 Dual inf 5677399.9 (56774)
+94341  Obj 256 Dual inf 5601499.9 (56015)
+94555  Obj 256 Dual inf 5601499.9 (56015)
+94728  Obj 256 Dual inf 5601499.9 (56015)
+94913  Obj 256 Dual inf 5526299.9 (55263)
+95030  Obj 256 Dual inf 5526299.9 (55263)
+95249  Obj 256 Dual inf 5526299.9 (55263)
+95387  Obj 256 Dual inf 5526299.9 (55263)
+95566  Obj 256 Dual inf 5526299.9 (55263)
+95798  Obj 256 Dual inf 5450899.9 (54509)
+95984  Obj 256 Dual inf 5450899.9 (54509)
+96188  Obj 256 Dual inf 5450899.9 (54509)
+96366  Obj 256 Dual inf 5450899.9 (54509)
+96558  Obj 256 Dual inf 5375599.9 (53756)
+96747  Obj 256 Dual inf 5375599.9 (53756)
+96886  Obj 256 Dual inf 5375599.9 (53756)
+97020  Obj 256 Dual inf 5375599.9 (53756)
+97220  Obj 256 Dual inf 5299899.9 (52999)
+97399  Obj 256 Dual inf 5299899.9 (52999)
+97539  Obj 256 Dual inf 5299899.9 (52999)
+97624  Obj 256 Dual inf 5299899.9 (52999)
+97738  Obj 256 Dual inf 5299899.9 (52999)
+97889  Obj 256 Dual inf 5299899.9 (52999)
+98023  Obj 256 Dual inf 5224199.9 (52242)
+98164  Obj 256 Dual inf 5224199.9 (52242)
+98384  Obj 256 Dual inf 5224199.9 (52242)
+98553  Obj 256 Dual inf 5224199.9 (52242)
+98725  Obj 256 Dual inf 5149199.9 (51492)
+98909  Obj 256 Dual inf 5149199.9 (51492)
+99040  Obj 256 Dual inf 5149199.9 (51492)
+99201  Obj 256 Dual inf 5149199.9 (51492)
+99286  Obj 256 Dual inf 5149199.9 (51492)
+99396  Obj 256 Dual inf 5149199.9 (51492)
+99614  Obj 256 Dual inf 5073999.9 (50740)
+99768  Obj 256 Dual inf 5073999.9 (50740)
+99914  Obj 256 Dual inf 5073999.9 (50740)
+100088  Obj 256 Dual inf 5073999.9 (50740)
+100199  Obj 256 Dual inf 4998500 (49985)
+100419  Obj 256 Dual inf 4998500 (49985)
+100575  Obj 256 Dual inf 4998500 (49985)
+100752  Obj 256 Dual inf 4998500 (49985)
+100927  Obj 256 Dual inf 4923700 (49237)
+101140  Obj 256 Dual inf 4923700 (49237)
+101253  Obj 256 Dual inf 4923700 (49237)
+101451  Obj 256 Dual inf 4923700 (49237)
+101660  Obj 256 Dual inf 4849900 (48499)
+101822  Obj 256 Dual inf 4849900 (48499)
+101996  Obj 256 Dual inf 4849900 (48499)
+102108  Obj 256 Dual inf 4849900 (48499)
+102297  Obj 256 Dual inf 4849900 (48499)
+102431  Obj 256 Dual inf 4774300 (47743)
+102644  Obj 256 Dual inf 4774300 (47743)
+102831  Obj 256 Dual inf 4774300 (47743)
+102973  Obj 256 Dual inf 4774300 (47743)
+103174  Obj 256 Dual inf 4698600 (46986)
+103361  Obj 256 Dual inf 4698600 (46986)
+103542  Obj 256 Dual inf 4698600 (46986)
+103715  Obj 256 Dual inf 4698600 (46986)
+103925  Obj 256 Dual inf 4623300 (46233)
+104096  Obj 256 Dual inf 4623300 (46233)
+104249  Obj 256 Dual inf 4623300 (46233)
+104421  Obj 256 Dual inf 4623300 (46233)
+104631  Obj 256 Dual inf 4623300 (46233)
+104842  Obj 256 Dual inf 4547700 (45477)
+105040  Obj 256 Dual inf 4547700 (45477)
+105199  Obj 256 Dual inf 4547700 (45477)
+105380  Obj 256 Dual inf 4547700 (45477)
+105593  Obj 256 Dual inf 4472000 (44720)
+105798  Obj 256 Dual inf 4472000 (44720)
+105943  Obj 256 Dual inf 4472000 (44720)
+106098  Obj 256 Dual inf 4472000 (44720)
+106246  Obj 256 Dual inf 4396200 (43962)
+106441  Obj 256 Dual inf 4396200 (43962)
+106530  Obj 256 Dual inf 4396200 (43962)
+106743  Obj 256 Dual inf 4396200 (43962)
+106833  Obj 256 Dual inf 4396200 (43962)
+107004  Obj 256 Dual inf 4320700 (43207)
+107101  Obj 256 Dual inf 4320700 (43207)
+107243  Obj 256 Dual inf 4320700 (43207)
+107380  Obj 256 Dual inf 4320700 (43207)
+107441  Obj 256 Dual inf 4320700 (43207)
+107589  Obj 256 Dual inf 4320700 (43207)
+107696  Obj 256 Dual inf 4245400 (42454)
+107878  Obj 256 Dual inf 4245400 (42454)
+108060  Obj 256 Dual inf 4245400 (42454)
+108261  Obj 256 Dual inf 4245400 (42454)
+108469  Obj 256 Dual inf 4170000 (41700)
+108565  Obj 256 Dual inf 4170000 (41700)
+108747  Obj 256 Dual inf 4170000 (41700)
+108957  Obj 256 Dual inf 4170000 (41700)
+109113  Obj 256 Dual inf 4170000 (41700)
+109281  Obj 256 Dual inf 4094400 (40944)
+109491  Obj 256 Dual inf 4094400 (40944)
+109706  Obj 256 Dual inf 4094400 (40944)
+109852  Obj 256 Dual inf 4094400 (40944)
+110042  Obj 256 Dual inf 4018700 (40187)
+110258  Obj 256 Dual inf 4018700 (40187)
+110446  Obj 256 Dual inf 4018700 (40187)
+110637  Obj 256 Dual inf 4018700 (40187)
+110806  Obj 256 Dual inf 3943200 (39432)
+110993  Obj 256 Dual inf 3943200 (39432)
+111212  Obj 256 Dual inf 3943200 (39432)
+111403  Obj 256 Dual inf 3943200 (39432)
+111596  Obj 256 Dual inf 3867900 (38679)
+111743  Obj 256 Dual inf 3867900 (38679)
+111929  Obj 256 Dual inf 3867900 (38679)
+112088  Obj 256 Dual inf 3867900 (38679)
+112261  Obj 256 Primal inf 4.314492e-05 (1) Dual inf 8.2023075e+16 (91098)
+112443  Obj 256 Dual inf 3792300 (37923)
+112669  Obj 256 Dual inf 3792300 (37923)
+112803  Obj 256 Dual inf 3792300 (37923)
+112943  Obj 256 Dual inf 3792300 (37923)
+113065  Obj 256 Dual inf 3717000 (37170)
+113273  Obj 256 Dual inf 3717000 (37170)
+113441  Obj 256 Dual inf 3717000 (37170)
+113580  Obj 256 Dual inf 3717000 (37170)
+113766  Obj 256 Dual inf 3641100 (36411)
+113934  Obj 256 Dual inf 3641100 (36411)
+114153  Obj 256 Dual inf 3641100 (36411)
+114296  Obj 256 Dual inf 3641100 (36411)
+114457  Obj 256 Dual inf 3641100 (36411)
+114602  Obj 256 Dual inf 3565500 (35655)
+114791  Obj 256 Dual inf 3565500 (35655)
+114954  Obj 256 Dual inf 3565500 (35655)
+115105  Obj 256 Dual inf 3565500 (35655)
+115320  Obj 256 Dual inf 3489600 (34896)
+115506  Obj 256 Dual inf 3489600 (34896)
+115693  Obj 256 Dual inf 3489600 (34896)
+115872  Obj 256 Dual inf 3489600 (34896)
+116054  Obj 256 Dual inf 3414100 (34141)
+116241  Obj 256 Dual inf 3414100 (34141)
+116363  Obj 256 Dual inf 3414100 (34141)
+116507  Obj 256 Dual inf 3414100 (34141)
+116669  Obj 256 Dual inf 3414100 (34141)
+116888  Obj 256 Dual inf 3339100 (33391)
+117009  Obj 256 Dual inf 3339100 (33391)
+117214  Obj 256 Dual inf 3339100 (33391)
+117366  Obj 256 Dual inf 3339100 (33391)
+117576  Obj 256 Dual inf 3263400 (32634)
+117762  Obj 256 Dual inf 3263400 (32634)
+117928  Obj 256 Dual inf 3263400 (32634)
+118122  Obj 256 Dual inf 3263400 (32634)
+118331  Obj 256 Dual inf 3188600 (31886)
+118502  Obj 256 Dual inf 3188600 (31886)
+118685  Obj 256 Dual inf 3188600 (31886)
+118912  Obj 256 Dual inf 3188600 (31886)
+119146  Obj 256 Dual inf 3112800 (31128)
+119234  Obj 256 Dual inf 3112800 (31128)
+119405  Obj 256 Dual inf 3112800 (31128)
+119630  Obj 256 Dual inf 3112800 (31128)
+119855  Obj 256 Dual inf 3037300 (30373)
+119956  Obj 256 Dual inf 3037300 (30373)
+120170  Obj 256 Dual inf 3037300 (30373)
+120335  Obj 256 Dual inf 3037300 (30373)
+120459  Obj 256 Dual inf 3037300 (30373)
+120679  Obj 256 Dual inf 2961800 (29618)
+120817  Obj 256 Dual inf 2961800 (29618)
+121042  Obj 256 Dual inf 2961800 (29618)
+121203  Obj 256 Dual inf 2961800 (29618)
+121379  Obj 256 Dual inf 2887400 (28874)
+121587  Obj 256 Dual inf 2887400 (28874)
+121750  Obj 256 Dual inf 2887400 (28874)
+121875  Obj 256 Dual inf 2887400 (28874)
+122103  Obj 256 Dual inf 2812700 (28127)
+122278  Obj 256 Dual inf 2812700 (28127)
+122450  Obj 256 Dual inf 2812700 (28127)
+122627  Obj 256 Dual inf 2812700 (28127)
+122768  Obj 256 Dual inf 2737800 (27378)
+122892  Obj 256 Dual inf 2737800 (27378)
+123080  Obj 256 Dual inf 2737800 (27378)
+123228  Obj 256 Dual inf 2737800 (27378)
+123375  Obj 256 Dual inf 2737800 (27378)
+123587  Obj 256 Dual inf 2662600 (26626)
+123727  Obj 256 Dual inf 2662600 (26626)
+123891  Obj 256 Dual inf 2662600 (26626)
+124012  Obj 256 Dual inf 2662600 (26626)
+124243  Obj 256 Dual inf 2662600 (26626)
+124405  Obj 256 Dual inf 2586900 (25869)
+124514  Obj 256 Dual inf 2586900 (25869)
+124722  Obj 256 Dual inf 2586900 (25869)
+124960  Obj 256 Primal inf 0.00046221091 (4) Dual inf 1.2806044e+17 (84680)
+125163  Obj 256 Dual inf 2510500 (25105)
+125328  Obj 256 Dual inf 2510500 (25105)
+125553  Obj 256 Dual inf 2510500 (25105)
+125779  Obj 256 Dual inf 2510500 (25105)
+125988  Obj 256 Dual inf 2434100 (24341)
+126152  Obj 256 Dual inf 2434100 (24341)
+126356  Obj 256 Dual inf 2434100 (24341)
+126561  Obj 256 Dual inf 2357800 (23578)
+126701  Obj 256 Dual inf 2357800 (23578)
+126833  Obj 256 Dual inf 2357800 (23578)
+127055  Obj 256 Dual inf 2357800 (23578)
+127271  Obj 256 Dual inf 2357800 (23578)
+127401  Obj 256 Dual inf 2281700 (22817)
+127556  Obj 256 Dual inf 2281700 (22817)
+127732  Obj 256 Dual inf 2281700 (22817)
+127893  Obj 256 Dual inf 2281700 (22817)
+128031  Obj 256 Dual inf 2281700 (22817)
+128105  Obj 256 Dual inf 2205800 (22058)
+128298  Obj 256 Dual inf 2205800 (22058)
+128455  Obj 256 Dual inf 2205800 (22058)
+128691  Obj 256 Dual inf 2205800 (22058)
+128870  Obj 256 Dual inf 2129400 (21294)
+129011  Obj 256 Dual inf 2129400 (21294)
+129176  Obj 256 Dual inf 2129400 (21294)
+129408  Obj 256 Dual inf 2129400 (21294)
+129624  Obj 256 Dual inf 2053600 (20536)
+129748  Obj 256 Dual inf 2053600 (20536)
+129947  Obj 256 Dual inf 2053600 (20536)
+130146  Obj 256 Dual inf 2053600 (20536)
+130356  Obj 256 Dual inf 2053600 (20536)
+130560  Obj 256 Dual inf 1977200 (19772)
+130742  Obj 256 Dual inf 1977200 (19772)
+130958  Obj 256 Dual inf 1977200 (19772)
+131130  Obj 256 Dual inf 1901300 (19013)
+131281  Obj 256 Dual inf 1901300 (19013)
+131392  Obj 256 Dual inf 1901300 (19013)
+131529  Obj 256 Dual inf 1901300 (19013)
+131746  Obj 256 Dual inf 1901300 (19013)
+131939  Obj 256 Dual inf 1825200 (18252)
+132127  Obj 256 Dual inf 1825200 (18252)
+132342  Obj 256 Dual inf 1825200 (18252)
+132566  Obj 256 Dual inf 1825200 (18252)
+132707  Obj 256 Dual inf 1748900 (17489)
+132823  Obj 256 Dual inf 1748900 (17489)
+133047  Obj 256 Dual inf 1748900 (17489)
+133174  Obj 256 Dual inf 1748900 (17489)
+133311  Obj 256 Dual inf 1748900 (17489)
+133528  Obj 256 Dual inf 1672700 (16727)
+133730  Obj 256 Dual inf 1672700 (16727)
+133954  Obj 256 Dual inf 1672700 (16727)
+134064  Obj 256 Dual inf 1672700 (16727)
+134192  Obj 256 Dual inf 1596500 (15965)
+134306  Obj 256 Dual inf 1596500 (15965)
+134447  Obj 256 Dual inf 1596500 (15965)
+134617  Obj 256 Dual inf 1596500 (15965)
+134796  Obj 256 Dual inf 1596500 (15965)
+134939  Obj 256 Dual inf 1520300 (15205)
+135132  Obj 256 Dual inf 1520300 (15203)
+135348  Obj 256 Dual inf 1520300 (15203)
+135560  Obj 256 Dual inf 1520300 (15203)
+135704  Obj 256 Dual inf 1444400 (14444)
+135869  Obj 256 Dual inf 1444400 (14444)
+136080  Obj 256 Dual inf 1444400 (14444)
+136256  Obj 256 Dual inf 1444400 (14444)
+136458  Obj 256 Dual inf 1368100 (13681)
+136605  Obj 256 Dual inf 1368100 (13681)
+136768  Obj 256 Dual inf 1368100 (13681)
+136988  Obj 256 Dual inf 1368100 (13681)
+137187  Obj 256 Dual inf 1368100 (13681)
+137367  Obj 256 Dual inf 1291900 (12919)
+137570  Obj 256 Dual inf 1291900 (12919)
+137629  Obj 256 Dual inf 1291900 (12919)
+137791  Obj 256 Dual inf 1291900 (12919)
+137990  Obj 256 Primal inf 0.00038999299 (3) Dual inf 7.8763393e+17 (78601)
+138080  Obj 256 Dual inf 1215900 (12159)
+138264  Obj 256 Dual inf 1215900 (12159)
+138490  Obj 256 Dual inf 1215900 (12159)
+138702  Obj 256 Dual inf 1215900 (12159)
+138883  Obj 256 Dual inf 1140000 (11400)
+139008  Obj 256 Dual inf 1140000 (11400)
+139142  Obj 256 Dual inf 1140000 (11400)
+139360  Obj 256 Dual inf 1140000 (11400)
+139513  Obj 256 Dual inf 1063900 (10639)
+139716  Obj 256 Dual inf 1063900 (10639)
+139849  Obj 256 Dual inf 1063900 (10639)
+140079  Obj 256 Dual inf 1063900 (10639)
+140292  Obj 256 Dual inf 988599.99 (9886)
+140447  Obj 256 Dual inf 988599.99 (9886)
+140631  Obj 256 Dual inf 988599.99 (9886)
+140761  Obj 256 Dual inf 988599.99 (9886)
+140899  Obj 256 Dual inf 988599.99 (9886)
+141074  Obj 256 Dual inf 912699.99 (9127)
+141278  Obj 256 Dual inf 912699.99 (9127)
+141453  Obj 256 Dual inf 912699.99 (9127)
+141672  Obj 256 Dual inf 912699.99 (9127)
+141823  Obj 256 Dual inf 836499.99 (8365)
+141987  Obj 256 Dual inf 836499.99 (8365)
+142198  Obj 256 Dual inf 836499.99 (8365)
+142361  Obj 256 Dual inf 836499.99 (8365)
+142548  Obj 256 Dual inf 760699.99 (7607)
+142721  Obj 256 Dual inf 760699.99 (7607)
+142927  Obj 256 Dual inf 760699.99 (7607)
+143160  Obj 256 Dual inf 760699.99 (7607)
+143300  Obj 256 Dual inf 684899.99 (6849)
+143415  Obj 256 Dual inf 684899.99 (6849)
+143589  Obj 256 Dual inf 684899.99 (6849)
+143760  Obj 256 Dual inf 684899.99 (6849)
+143982  Obj 256 Dual inf 684899.99 (6849)
+144125  Obj 256 Dual inf 608899.99 (6089)
+144254  Obj 256 Dual inf 608899.99 (6089)
+144444  Obj 256 Dual inf 608899.99 (6089)
+144691  Obj 256 Dual inf 608899.99 (6089)
+144899  Obj 256 Dual inf 532999.99 (5330)
+145080  Obj 256 Dual inf 532999.99 (5330)
+145252  Obj 256 Dual inf 532999.99 (5330)
+145473  Obj 256 Dual inf 532999.99 (5330)
+145587  Obj 256 Dual inf 457000 (4570)
+145762  Obj 256 Dual inf 457000 (4570)
+145949  Obj 256 Dual inf 457000 (4570)
+146174  Obj 256 Dual inf 457000 (4570)
+146368  Obj 256 Dual inf 380700 (3807)
+146495  Obj 256 Dual inf 380700 (3807)
+146684  Obj 256 Dual inf 380700 (3807)
+146893  Obj 256 Dual inf 380700 (3807)
+147049  Obj 256 Dual inf 380700 (3807)
+147181  Obj 256 Dual inf 304700 (3047)
+147358  Obj 256 Dual inf 304700 (3047)
+147480  Obj 256 Dual inf 304700 (3047)
+147709  Obj 256 Dual inf 304700 (3047)
+147924  Obj 256 Dual inf 228500 (2285)
+148091  Obj 256 Dual inf 228500 (2285)
+148280  Obj 256 Dual inf 228500 (2285)
+148518  Obj 256 Dual inf 228500 (2285)
+148688  Obj 256 Dual inf 152300 (1523)
+148864  Obj 256 Dual inf 152300 (1523)
+148993  Obj 256 Dual inf 152300 (1523)
+149181  Obj 256 Dual inf 152300 (1523)
+149322  Obj 256 Dual inf 152300 (1523)
+149472  Obj 256 Dual inf 75899.999 (759)
+149629  Obj 256 Dual inf 75899.999 (759)
+149789  Obj 256 Dual inf 75899.999 (759)
+150012  Obj 256 Dual inf 75899.999 (759)
+150198  Obj 256
+150374  Obj 256
+150515  Obj 256
+150682  Obj 256
+150857  Obj 256
+End of values pass after 150891 iterations
+150891  Obj 256
+151069  Obj 256
+151219  Obj 256
+End of values pass after 151261 iterations
+151261  Obj 256
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 256
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 2
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+0  Obj 256
+Optimal - objective value 256
+After Postsolve, objective 256, infeasibilities - dual 0 (0), primal 0 (0)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+0  Obj 256 Dual inf 13401.52 (13616)
+Perturbing problem by 0.001% of 1 - largest nonzero change 2.8589363e-05 ( 0.0028589363%) - largest zero change 2.9975335e-05
+8  Obj 256
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 256
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+0  Obj 256
+Optimal - objective value 256
+Idiot Crash took 691.53 seconds (total 692.10)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+0  Obj 256
+Optimal - objective value 256
+Primal took 1.01 seconds (total 693.11)
+After Postsolve, objective 256, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 256 - 0 iterations time 693.152, Presolve 0.62, Idiot 691.53
+Log level = 3, recipe = Either, solve time = 693157 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-06, dual tolerance = 1E-06
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0  1.247125E-11             1
+         1             0  9.773626E-12             1
+         2             0  9.773626E-12             1
+         3     0.2273183             0             1
+         4             0  1.491041E-11             1
+         5             0  1.529121E-11             1
+         6             0  1.648714E-11             1
+         7             0  1.113787E-11             1
+         8             0  1.333367E-11             1
+         9             0  1.868294E-11             1
+Solver clpeither solved model datt256_lp result=Optimal
+Model                               datt256_lp
+Solver                               clpeither
+SolveTimeMs                             693157
+Objective                    256.0000000000011
+ConstraintsPerMs                            22
+Iterations                                   0
+LoadTimeMs                                 875
+ResultStatus                           Optimal
+VariablesPerMs                             936
+
+LPSharp> read-mps C:\users\krish\work\lpbench\mittelmann\ex10.mps -format free
+Read MPS file c:\users\krish\work\lpbench\mittelmann\ex10.mps as model Name=ex10 Obj=COST A=(69609, 17680) Elements=1162000 RHS=(1, 69608) RowTypes=69609 Lower=(1, 17680) Upper=(1, 17680) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 3386 ms, read_errors=0, model_key=ex10
+LPSharp> invoke-solver -key clp ex10
+Loaded model in 560 ms
+Solver clp solving model ex10...
+6592 rows dropped after presolve pass 1
+6592 rows dropped after presolve pass 2
+Presolve 63016 (-6592) rows, 15936 (-1744) columns and 1032400 (-129600) elements
+Presolve took 0.26 seconds (total 0.26)
+3 infeas 5.9658657, obj 100.01249 - mu 0.1, its 82, 15538 interior
+8 infeas 1.4810718, obj 100.00224 - mu 0.03333, its 52, 15870 interior
+13 infeas 1.6489445, obj 99.455293 - mu 0.011108889, its 52, 15842 interior
+17 infeas 0.44725677, obj 100.00186 - mu 0.011108889, its 72, 15844 interior
+20 infeas 0.29359069, obj 99.99975 - mu 0.0037025927, its 52, 15843 interior
+23 infeas 0.23743601, obj 99.999789 - mu 0.0037025927, its 105, 15827 interior
+26 infeas 0.14148597, obj 100.00019 - mu 0.0012340741, its 82, 15828 interior
+28 infeas 0.13030662, obj 100.00002 - mu 0.0012340741, its 105, 15824 interior
+30 infeas 0.11296195, obj 100.00012 - mu 0.0012340741, its 105, 15811 interior
+33 infeas 0.078880814, obj 99.999881 - mu 0.00041131691, its 105, 15812 interior
+35 infeas 0.063886949, obj 99.999951 - mu 0.00041131691, its 105, 15806 interior
+38 infeas 0.043971668, obj 100.00001 - mu 0.00013709193, its 105, 15807 interior
+40 infeas 0.038283805, obj 99.999995 - mu 0.00013709193, its 105, 15805 interior
+42 infeas 0.029912457, obj 100.00004 - mu 0.00013709193, its 105, 15799 interior
+45 infeas 0.02418482, obj 99.999952 - mu 4.5692739e-05, its 105, 15802 interior
+47 infeas 0.019366811, obj 100.00001 - mu 4.5692739e-05, its 105, 15790 interior
+49 infeas 0.014452684, obj 99.999257 - mu 1.522939e-05, its 105, 15792 interior
+51 infeas 0.013440101, obj 99.99998 - mu 1.522939e-05, its 105, 15794 interior
+53 infeas 0.010862867, obj 100.00001 - mu 1.522939e-05, its 105, 15794 interior
+55 infeas 0.0082850566, obj 99.999751 - mu 5.0759557e-06, its 105, 15795 interior
+57 infeas 0.0079213579, obj 99.999994 - mu 5.0759557e-06, its 105, 15793 interior
+59 infeas 0.0066518602, obj 100.00002 - mu 5.0759557e-06, its 105, 15791 interior
+61 infeas 0.0049974129, obj 99.999917 - mu 1.691816e-06, its 105, 15790 interior
+63 infeas 0.0042703794, obj 99.999996 - mu 1.691816e-06, its 105, 15788 interior
+65 infeas 0.0034047897, obj 99.999994 - mu 1.691816e-06, its 105, 15761 interior
+67 infeas 0.0023985768, obj 99.999972 - mu 5.6388228e-07, its 105, 15751 interior
+69 infeas 0.0023966455, obj 99.999998 - mu 5.6388228e-07, its 105, 15755 interior
+71 infeas 0.0022692314, obj 99.999995 - mu 5.6388228e-07, its 105, 15723 interior
+73 infeas 0.0014048721, obj 99.999991 - mu 1.8794197e-07, its 105, 15721 interior
+75 infeas 0.0014095184, obj 100 - mu 1.8794197e-07, its 105, 15719 interior
+77 infeas 0.0012357145, obj 100 - mu 1.8794197e-07, its 105, 15676 interior
+78 infeas 0.0011668698, obj 99.999999 - mu 1.8794197e-07, its 105, 15666 interior
+80 infeas 0.00075723198, obj 100 - mu 6.2641057e-08, its 105, 15666 interior
+82 infeas 0.00072552847, obj 99.999999 - mu 6.2641057e-08, its 105, 15586 interior
+84 infeas 0.00056795991, obj 100 - mu 6.2641057e-08, its 105, 15477 interior
+86 infeas 0.00032687663, obj 100 - mu 2.0878264e-08, its 105, 15453 interior
+87 infeas 0.00031890122, obj 100 - mu 2.0878264e-08, its 105, 15417 interior
+88 infeas 0.00028098785, obj 100 - mu 2.0878264e-08, its 105, 15407 interior
+90 infeas 0.00027803613, obj 100 - mu 2.0878264e-08, its 105, 15363 interior
+92 infeas 0.00016255915, obj 100 - mu 6.9587255e-09, its 105, 15353 interior
+94 infeas 0.00015783242, obj 100 - mu 6.9587255e-09, its 105, 15203 interior
+96 infeas 0.00010879807, obj 100 - mu 6.9587255e-09, its 105, 15124 interior
+97 infeas 4.8513063e-05, obj 100 - mu 2.3193432e-09, its 105, 15124 interior
+largest infeasibility is 3.74891e-06
+largest infeasibility is 1.81095e-06
+largest infeasibility is 1.81095e-06
+sum of infeasibilities 6.78018e-05 - average 1.07595e-09, 812 fixed columns
+3204 rows dropped after presolve pass 1
+3204 rows dropped after presolve pass 2
+Presolve 59812 (-3204) rows, 15080 (-856) columns and 966262 (-66138) elements
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Primal error 1.110223e-15, dual error 890
+11000 total structurals rejected in initial factorization
+Primal error 1.110223e-15, dual error 890
+0  Obj 99.556811 Primal inf 27.624087 (844) Dual inf 2.062228e+22 (14726)
+Primal error 1.7763568e-15, dual error 135.69989
+Primal error 3.7414516e-14, dual error 33
+Primal error 2.3314684e-14, dual error 43.754257
+2964  Obj 99.690764 Primal inf 4.5224638 (543) Dual inf 6.7300767e+20 (13238)
+Primal error 2.1638247e-13, dual error 19.796835
+Primal error 2.7311486e-14, dual error 47.102142
+Primal error 4.4630966e-14, dual error 24.207627
+Primal error 8.4154905e-14, dual error 37.793602
+4535  Obj 99.87243 Primal inf 3.6822404 (508) Dual inf 5.7741185e+20 (11992)
+Primal error 8.3932861e-14, dual error 114.98236
+Primal error 1.0436096e-14, dual error 40.285511
+Primal error 6.4392935e-14, dual error 30.556519
+Primal error 3.6526338e-14, dual error 43.432045
+5582  Obj 99.880805 Primal inf 3.2678293 (475) Dual inf 6.9389104e+20 (11427)
+Primal error 4.3742787e-14, dual error 40.09613
+Primal error 3.2640557e-14, dual error 37.598282
+Primal error 8.5487173e-14, dual error 22.694676
+6412  Obj 99.934017 Primal inf 2.9745822 (463) Dual inf 7.2803147e+20 (11350)
+Primal error 1.1723955e-13, dual error 38.187515
+Primal error 3.5527137e-14, dual error 10.081787
+Primal error 4.7961635e-14, dual error 15
+7073  Obj 99.926115 Primal inf 2.7331908 (444) Dual inf 4.7273478e+20 (10164)
+Primal error 4.2077453e-14, dual error 25.016468
+Primal error 1.9695356e-13, dual error 17.999878
+Primal error 5.5910832e-13, dual error 14.048309
+7880  Obj 99.979988 Primal inf 2.4746864 (420) Dual inf 3.2988535e+20 (10667)
+Primal error 2.180478e-13, dual error 12.674755
+Primal error 1.7240653e-12, dual error 9.0409698
+8430  Obj 99.985698 Primal inf 2.3745879 (415) Dual inf 2.1233241e+20 (10538)
+Primal error 2.4358293e-13, dual error 9.749382
+Primal error 1.3500312e-13, dual error 26.074912
+8872  Obj 99.986131 Primal inf 2.3181206 (413) Dual inf 2.5434605e+20 (10171)
+Primal error 4.7628568e-13, dual error 0.19045258
+Primal error 4.5929927e-13, dual error 22.130379
+Primal error 8.8817842e-14, dual error 11.690735
+9431  Obj 99.986492 Primal inf 2.2634509 (408) Dual inf 2.6706201e+20 (9899)
+Primal error 4.0722981e-13, dual error 20.938541
+Primal error 2.3980817e-13, dual error 12.334808
+10018  Obj 99.986602 Primal inf 2.0481163 (406) Dual inf 3.1426886e+20 (9713)
+Primal error 5.8808514e-13, dual error 14.221779
+Primal error 2.6667557e-13, dual error 40.901947
+10543  Obj 99.986534 Primal inf 1.9847233 (394) Dual inf 3.2071223e+20 (9416)
+Primal error 6.934453e-13, dual error 10.937824
+Primal error 4.241052e-13, dual error 14.196661
+10973  Obj 99.986534 Primal inf 1.912098 (391) Dual inf 2.5478745e+20 (9486)
+Primal error 2.0072832e-13, dual error 0.096212387
+11375  Obj 99.990071 Primal inf 1.673725 (381) Dual inf 2.0411548e+16 (9329)
+11713  Obj 99.996281 Primal inf 1.519013 (377) Dual inf 2.6284477e+16 (8852)
+12080  Obj 99.995607 Primal inf 1.3385516 (301) Dual inf 8.4087966e+15 (8625)
+12443  Obj 99.995734 Primal inf 1.2023462 (214) Dual inf 4.4222632e+15 (8504)
+12813  Obj 99.995738 Primal inf 1.0621057 (162) Dual inf 3.027045e+15 (8308)
+13168  Obj 100 Primal inf 0.94989925 (128) Dual inf 5.1578301e+15 (8166)
+13533  Obj 100 Primal inf 0.80535383 (103) Dual inf 1.4997376e+15 (7986)
+13882  Obj 100 Primal inf 0.70648829 (80) Dual inf 1.559434e+15 (7856)
+14231  Obj 100 Primal inf 0.59436009 (65) Dual inf 1.1127885e+15 (7493)
+14560  Obj 100 Primal inf 0.45854437 (47) Dual inf 7.1118486e+14 (7694)
+End of values pass after 14950 iterations
+14950  Obj 100 Primal inf 0.30462976 (29) Dual inf 3.0247066e+14 (7590)
+End of values pass after 14951 iterations
+Perturbing problem by 0.001% of 1 - largest nonzero change 2.8213552e-05 ( 0.0028213552%) - largest zero change 2.9947475e-05
+15207  Obj 100 Primal inf 0.14842956 (44) Dual inf 8.4571092e+14 (7607)
+15424  Obj 100 Primal inf 0.094227788 (33) Dual inf 8045925.9 (7481)
+15698  Obj 100 Primal inf 0.038119448 (26) Dual inf 8968715.5 (7191)
+16021  Obj 100
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Looking optimal with tolerance of 1e-06
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 100
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Optimal - objective value 100
+After Postsolve, objective 100, infeasibilities - dual 0 (0), primal 0 (0)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+0  Obj 100
+Optimal - objective value 100
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Optimal - objective value 100
+Idiot Crash took 74.87 seconds (total 75.13)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Optimal - objective value 100
+Primal took 0.12 seconds (total 75.25)
+After Postsolve, objective 100, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 100 - 0 iterations time 75.282, Presolve 0.28, Idiot 74.87
+Log level = 3, recipe = Either, solve time = 75280 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0  3.774758E-15             1
+         1             0   2.88658E-15             1
+         2             0 -4.440892E-16             1
+         3             0 -1.110223E-15             1
+         4             0  3.996803E-15             1
+         5             0             0             1
+         6             0  2.664535E-15             1
+         7             0  4.218847E-14             1
+         8             0 -1.332268E-15             1
+         9             0 -1.110223E-15             1
+Solver clp solved model ex10 result=Optimal
+Model                                     ex10
+Solver                                     clp
+SolveTimeMs                              75280
+Objective                    99.99999999999953
+ConstraintsPerMs                           135
+Iterations                                   0
+LoadTimeMs                                 560
+ResultStatus                           Optimal
+VariablesPerMs                            1178
+
+LPSharp> read-mps C:\users\krish\work\lpbench\mittelmann\fome13.mps -format free
+Read MPS file C:\users\krish\work\lpbench\mittelmann\fome13.mps as model Name=fome13 Obj=NIL A=(48569, 49928) Elements=285056 RHS=(1, 13304) RowTypes=48569 Lower=(1, 104) Upper=(1, 104) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 610 ms, read_errors=0, model_key=fome13
+LPSharp> invoke-solver -key clp fome13
+Loaded model in 258 ms
+Solver clp solving model fome13...
+15896 rows dropped after presolve pass 1
+17080 rows dropped after presolve pass 2
+17328 rows dropped after presolve pass 3
+17480 rows dropped after presolve pass 4
+17568 rows dropped after presolve pass 5
+Presolve 31000 (-17568) rows, 73504 (-24336) columns and 246104 (-38952) elements
+Presolve took 0.53 seconds (total 0.53)
+Matrix can not be converted into +- 1
+Bounds were tightened 59720 times
+Initial range of elements is 0.083333333 to 2
+Range of elements is 0.28867513 to 3.4641016
+Range of elements is 0.47528991 to 2.103979
+Final range of elements is 0.26864248 to 1
+Absolute values of scaled rhs range from 0.84089642 to 210.09625, minimum gap 109.05077
+Absolute values of scaled objective range from 180.10475 to 40026203
+Absolute values of scaled bounds range from 0.82530362 to 1770.0032, minimum gap 1.0087044
+Perturbing problem by 0.001% of 18010475 - largest nonzero change 13.270357 ( 7.0871636%) - largest zero change 13.270357
+0  Obj 157429.84 Primal inf 61932.793 (10864) Dual inf 5300.6462 (16)
+0  Obj 157429.84 Primal inf 61932.793 (10864) Dual inf 5300.6462 (16)
+12920  Obj 54432278 Primal inf 29781.305 (10173)
+19380  Obj 69025136 Primal inf 104034.14 (9268)
+24700  Obj 75950557 Primal inf 226095.05 (9169)
+28500  Obj 79670834 Primal inf 109064.89 (9366)
+31540  Obj 82179841 Primal inf 203972.43 (9400)
+33820  Obj 83431144 Primal inf 192960.16 (9298)
+36100  Obj 84500967 Primal inf 177094.96 (9517)
+38000  Obj 85372941 Primal inf 140553.17 (9349)
+39900  Obj 85802424 Primal inf 247417.79 (9548)
+41800  Obj 86505911 Primal inf 333960.53 (9912)
+43700  Obj 87025101 Primal inf 626070.76 (9718)
+45600  Obj 87573775 Primal inf 780857.74 (10076)
+47500  Obj 88274986 Primal inf 440582.58 (9754)
+49400  Obj 88969811 Primal inf 126113.08 (9586)
+50920  Obj 89203455 Primal inf 425021.77 (10042)
+52440  Obj 89440756 Primal inf 166770.11 (9913)
+53960  Obj 89716739 Primal inf 338421.25 (9829)
+55480  Obj 89974348 Primal inf 298725.74 (9981)
+57000  Obj 90223516 Primal inf 233861.97 (9993)
+58520  Obj 90510108 Primal inf 164031.18 (9997)
+60040  Obj 90583601 Primal inf 172934.58 (9777)
+61560  Obj 90735940 Primal inf 152438.72 (9831)
+63080  Obj 90829792 Primal inf 146905.34 (9837)
+64600  Obj 90915856 Primal inf 95029.241 (9622)
+66120  Obj 90992922 Primal inf 547854.4 (10141)
+67640  Obj 91039134 Primal inf 169383.48 (10069)
+69160  Obj 91112757 Primal inf 124492.02 (9515)
+70680  Obj 91190397 Primal inf 209972.51 (9550)
+72200  Obj 91217957 Primal inf 81330.361 (9682)
+73720  Obj 91245997 Primal inf 124564.33 (9673)
+74860  Obj 91263672 Primal inf 144471.64 (10126)
+76380  Obj 91297127 Primal inf 105874.2 (9850)
+77900  Obj 91321891 Primal inf 71999.838 (9366)
+79040  Obj 91339056 Primal inf 89398.319 (9499)
+80560  Obj 91355897 Primal inf 133227.68 (9259)
+81700  Obj 91372526 Primal inf 161137.93 (9769)
+82840  Obj 91385483 Primal inf 127602.91 (9391)
+83980  Obj 91395057 Primal inf 102986.13 (9767)
+85120  Obj 91405979 Primal inf 138682.74 (9091)
+86260  Obj 91419006 Primal inf 59502.549 (8553)
+87400  Obj 91430041 Primal inf 72280.241 (8761)
+88540  Obj 91440052 Primal inf 109449.26 (9232)
+89680  Obj 91450169 Primal inf 44366.374 (8492)
+90820  Obj 91458136 Primal inf 77814.831 (8621)
+91960  Obj 91466517 Primal inf 100577.36 (9432)
+93100  Obj 91474845 Primal inf 85180.285 (9205)
+94200  Obj 91482472 Primal inf 65686.622 (8819)
+95278  Obj 91488177 Primal inf 59524.519 (8900)
+96418  Obj 91494401 Primal inf 53888.346 (8518)
+97558  Obj 91499912 Primal inf 67721.681 (8973)
+98694  Obj 91505344 Primal inf 125539.4 (9568)
+99834  Obj 91509444 Primal inf 74773.248 (8798)
+100974  Obj 91513863 Primal inf 29157.017 (8235)
+102114  Obj 91518925 Primal inf 34670.858 (8172)
+103254  Obj 91524138 Primal inf 80993.387 (7782)
+104394  Obj 91528481 Primal inf 50775.382 (8373)
+105534  Obj 91531196 Primal inf 34429.367 (8082)
+106641  Obj 91533740 Primal inf 44743.805 (8274)
+107781  Obj 91536346 Primal inf 25195.022 (7826)
+108921  Obj 91539836 Primal inf 30487.778 (7726)
+110061  Obj 91543589 Primal inf 23238.944 (7632)
+111201  Obj 91550570 Primal inf 41714.58 (6622)
+112341  Obj 91554048 Primal inf 21022.452 (6141)
+113481  Obj 91557990 Primal inf 24941.584 (7079)
+114621  Obj 91562158 Primal inf 29219.157 (7194)
+115761  Obj 91565351 Primal inf 25277.867 (6839)
+116901  Obj 91567847 Primal inf 19365.655 (7023)
+118041  Obj 91569822 Primal inf 22170.633 (6497)
+119181  Obj 91572033 Primal inf 20046.948 (6767)
+120321  Obj 91573843 Primal inf 8436.1264 (5849)
+121461  Obj 91575358 Primal inf 25339.456 (6413)
+122601  Obj 91576932 Primal inf 29559.493 (7053)
+123708  Obj 91577986 Primal inf 19032.235 (6326)
+124848  Obj 91579417 Primal inf 18589.405 (5686)
+125988  Obj 91580701 Primal inf 22057.653 (6151)
+126949  Obj 91581910 Primal inf 17020.41 (5644)
+128089  Obj 91583074 Primal inf 15396.411 (5164)
+129227  Obj 91584387 Primal inf 19345.741 (4554)
+130302  Obj 91585288 Primal inf 20675.165 (4586)
+131243  Obj 91585884 Primal inf 19327.251 (4260)
+131833  Obj 91586481 Primal inf 13540.384 (4294)
+132712  Obj 91587244 Primal inf 1803.4789 (2965)
+133585  Obj 91587919 Primal inf 14022.703 (3347)
+134499  Obj 91588207 Primal inf 1903.1119 (2335)
+135259  Obj 91588349 Primal inf 129.58808 (708)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+136148  Obj 90131934 Dual inf 1278815.4 (2692)
+136908  Obj 90131610 Dual inf 153100.96 (1882)
+138048  Obj 90131190 Dual inf 185714.14 (979)
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 90131168
+Dual took 72.05 seconds (total 72.58)
+After Postsolve, objective 90131168, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 90131168.37 - 138369 iterations time 72.622, Presolve 0.57
+Log level = 3, recipe = Either, solve time = 72625 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0     0.1742193 -9.094947E-13       4267.32
+         1             0      2043.116             0
+         2             0  1.000237E+07  1.000224E+07
+         3             0 -7.275958E-12       2620.11
+         4             0      32391.72             0
+         5             0      1266.564        9202.8
+         6     0.3587829  4.547474E-13             0
+         7             0      32519.77             0
+         8             0       9971224  1.001131E+07
+         9            -0  3.410605E-13             0
+Solver clp solved model fome13 result=Optimal
+Model                                   fome13
+Solver                                     clp
+SolveTimeMs                              72624
+Objective                     90131168.3733704
+ConstraintsPerMs                           285
+Iterations                              138369
+LoadTimeMs                                 258
+ResultStatus                           Optimal
+VariablesPerMs                            1778
+
+LPSharp> read-mps C:\users\krish\work\lpbench\mittelmann\neos-3025225_lp.mps -Format free
+Read MPS file C:\users\krish\work\lpbench\mittelmann\neos-3025225_lp.mps as model Name=neos-3025225_lp Obj=R91573 A=(91573, 69845) Elements=9357951 RHS=(1, 21770) RowTypes=91573 Lower=(1, 69845) Upper=(1, 69845) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 13099 ms, read_errors=0, model_key=neos-3025225_lp
+LPSharp> invoke-solver -key clp neos-3025225_lp
+Loaded model in 2319 ms
+Solver clp solving model neos-3025225_lp...
+0 rows dropped after presolve pass 1
+Presolve 91572 (0) rows, 69846 (0) columns and 9357951 (0) elements
+Presolve took 0.80 seconds (total 0.80)
+Matrix can not be converted into +- 1
+Initial range of elements is 0.015151515 to 24.121212
+Range of elements is 0.025674808 to 38.948684
+Range of elements is 0.084385488 to 11.850379
+Final range of elements is 0.084385488 to 11.850379
+Absolute values of scaled rhs range from 0.28867513 to 325, minimum gap 1e+100
+Absolute values of scaled objective range from 2.331833 to 2.331833
+Absolute values of scaled bounds range from 0.084385488 to 3.2867037, minimum gap 0.084385488
+Perturbing problem by 0.001% of 0.62665813 - largest nonzero change 9.9999907e-05 ( 0.11828849%) - largest zero change 0
+682  Obj 1.0911673 Primal inf 156.41621 (150) Dual inf 4.7103595e+15 (35999)
+Primal error 5.4001248e-13, dual error 0.026600154
+1211  Obj 1.0911673 Primal inf 126.78127 (190) Dual inf 5.7058686e+16 (36534)
+1719  Obj 1.0911673 Primal inf 109.56379 (282) Dual inf 9.4599099e+15 (33298)
+2115  Obj 1.0911673 Primal inf 98.421197 (312) Dual inf 1.594343e+15 (35159)
+Primal error 3.126388e-13, dual error 0.41889649
+2484  Obj 1.0911673 Primal inf 86.502554 (363) Dual inf 7.9395394e+17 (35715)
+2873  Obj 1.0911673 Primal inf 75.692862 (366) Dual inf 9.155785e+15 (34668)
+3160  Obj 1.0911673 Primal inf 69.093179 (402) Dual inf 1.6021064e+16 (33141)
+3542  Obj 1.0911673 Primal inf 61.733103 (426) Dual inf 1.0232837e+16 (33009)
+Primal error 5.1159077e-13, dual error 0.028347052
+3871  Obj 1.0911673 Primal inf 55.337057 (437) Dual inf 4.8774257e+16 (35257)
+4202  Obj 1.006129 Primal inf 48.294555 (417) Dual inf 4.1009954e+15 (32349)
+4508  Obj 0.95479789 Primal inf 44.323217 (410) Dual inf 7.6077527e+15 (35137)
+4775  Obj 0.95479789 Primal inf 41.368923 (418) Dual inf 7.7960204e+15 (32423)
+4963  Obj 0.95479789 Primal inf 39.479402 (414) Dual inf 3.7820871e+15 (31393)
+Primal error 7.9580786e-13, dual error 0.03545352
+5168  Obj 0.92610742 Primal inf 36.614798 (405) Dual inf 6.4793727e+16 (32610)
+5404  Obj 0.84913561 Primal inf 34.186395 (384) Dual inf 1.9026482e+16 (34427)
+Primal error 1.7053026e-13, dual error 0.057952404
+5599  Obj 0.80501285 Primal inf 32.115178 (375) Dual inf 2.2950617e+17 (32229)
+Primal error 5.6843419e-14, dual error 0.017915007
+5813  Obj 0.76375154 Primal inf 30.188202 (391) Dual inf 3.0289654e+16 (36033)
+6134  Obj 0.71860414 Primal inf 27.035982 (385) Dual inf 2.752138e+15 (34726)
+6406  Obj 0.68417668 Primal inf 25.01229 (367) Dual inf 5.2824283e+15 (34314)
+Primal error 3.4106051e-13, dual error 0.02603843
+6683  Obj 0.67619886 Primal inf 23.782769 (355) Dual inf 1.1734988e+17 (32529)
+Primal error 1.1937118e-12, dual error 0.011338821
+6909  Obj 0.67417172 Primal inf 22.597893 (363) Dual inf 2.011646e+16 (32896)
+Primal error 3.972378e-13, dual error 0.052659803
+7060  Obj 0.65235334 Primal inf 21.850163 (363) Dual inf 4.6884957e+16 (40240)
+7334  Obj 0.62572478 Primal inf 20.409492 (350) Dual inf 2.8302422e+15 (34665)
+Primal error 5.1159077e-13, dual error 0.020103235
+7550  Obj 0.62572478 Primal inf 19.183527 (370) Dual inf 2.0795857e+16 (35239)
+7898  Obj 0.57015311 Primal inf 17.02983 (341) Dual inf 3.4238174e+15 (36760)
+8050  Obj 0.55450135 Primal inf 16.323366 (317) Dual inf 2.5150502e+16 (35758)
+8203  Obj 0.54501169 Primal inf 15.901134 (309) Dual inf 1.051737e+15 (30050)
+8448  Obj 0.53243957 Primal inf 15.178908 (296) Dual inf 1.4852615e+15 (29863)
+8569  Obj 0.53243957 Primal inf 14.632556 (296) Dual inf 9.3494724e+15 (36171)
+8797  Obj 0.53164858 Primal inf 13.951141 (288) Dual inf 1.6753511e+16 (38935)
+9002  Obj 0.53157831 Primal inf 13.240617 (297) Dual inf 1.8632176e+15 (33976)
+Primal error 7.9580786e-13, dual error 0.015600022
+9276  Obj 0.53157831 Primal inf 12.487452 (278) Dual inf 2.5169444e+16 (35678)
+Primal error 5.6843419e-13, dual error 0.020411827
+9531  Obj 0.53157831 Primal inf 11.839711 (283) Dual inf 1.5287398e+16 (33135)
+Primal error 3.9790393e-13, dual error 0.081624384
+9769  Obj 0.53157831 Primal inf 10.826083 (301) Dual inf 1.2211772e+17 (37292)
+9933  Obj 0.53157831 Primal inf 10.284257 (283) Dual inf 1.7984892e+15 (31916)
+Primal error 2.2737368e-13, dual error 0.011225789
+10268  Obj 0.53157831 Primal inf 9.4377991 (257) Dual inf 7.7137762e+15 (33441)
+10624  Obj 0.51780571 Primal inf 8.4228065 (244) Dual inf 6.6780627e+14 (26363)
+Primal error 1.1368684e-13, dual error 0.705926
+10786  Obj 0.51780571 Primal inf 8.111991 (246) Dual inf 4.3885693e+17 (38349)
+11059  Obj 0.51780571 Primal inf 7.6170619 (234) Dual inf 4.4862561e+15 (33763)
+Primal error 1.7053026e-13, dual error 0.030688567
+11345  Obj 0.51780571 Primal inf 6.9869475 (226) Dual inf 2.04721e+16 (30714)
+11503  Obj 0.51300224 Primal inf 6.8008783 (213) Dual inf 1.7582759e+15 (32367)
+Primal error 4.5474735e-13, dual error 0.022077978
+11798  Obj 0.50223687 Primal inf 6.3726109 (201) Dual inf 1.3164108e+16 (37718)
+12024  Obj 0.49008154 Primal inf 6.1170141 (188) Dual inf 3.6287049e+15 (34757)
+12380  Obj 0.48430954 Primal inf 5.4846695 (176) Dual inf 2.5297086e+15 (29387)
+12608  Obj 0.47301624 Primal inf 5.2349403 (167) Dual inf 1.0154912e+16 (36178)
+12800  Obj 0.46726089 Primal inf 5.0041505 (172) Dual inf 1.4510145e+16 (30740)
+12953  Obj 0.46726089 Primal inf 4.8581935 (165) Dual inf 1.9312446e+15 (33769)
+13089  Obj 0.46726089 Primal inf 4.7238115 (153) Dual inf 2.2276415e+15 (29499)
+13372  Obj 0.45416804 Primal inf 4.415268 (141) Dual inf 2.1834e+15 (33902)
+13650  Obj 0.44983151 Primal inf 3.822533 (163) Dual inf 1.6807829e+15 (32758)
+13941  Obj 0.43791618 Primal inf 3.5463454 (151) Dual inf 1.2134576e+15 (33267)
+Primal error 1.1368684e-13, dual error 0.099887333
+14144  Obj 0.43273874 Primal inf 3.4251402 (144) Dual inf 1.6635257e+17 (35552)
+14360  Obj 0.42958883 Primal inf 3.3241062 (136) Dual inf 6.7580468e+15 (35580)
+14552  Obj 0.42958883 Primal inf 3.2079623 (136) Dual inf 1.0323169e+15 (35834)
+14861  Obj 0.42929873 Primal inf 3.0489357 (132) Dual inf 7.9028055e+14 (38032)
+15109  Obj 0.42929873 Primal inf 2.9111602 (128) Dual inf 7.9573635e+15 (37554)
+15321  Obj 0.42914161 Primal inf 2.7516992 (124) Dual inf 4.8449037e+14 (29070)
+15573  Obj 0.42914161 Primal inf 2.6355614 (117) Dual inf 5.032051e+15 (37877)
+15848  Obj 0.42461575 Primal inf 2.4943176 (113) Dual inf 3.8910005e+15 (33174)
+16116  Obj 0.42272148 Primal inf 2.3967242 (111) Dual inf 4.1993809e+15 (28510)
+Primal error 8.0380147e-14, dual error 0.015940265
+16288  Obj 0.42272148 Primal inf 2.3352508 (110) Dual inf 1.1340303e+16 (37148)
+16602  Obj 0.42272148 Primal inf 2.1838855 (97) Dual inf 1.3282664e+15 (36860)
+16803  Obj 0.42237302 Primal inf 2.0463337 (97) Dual inf 8.4866407e+15 (33518)
+17031  Obj 0.4182185 Primal inf 1.9145072 (95) Dual inf 4.1374328e+15 (33959)
+17255  Obj 0.41771168 Primal inf 1.8178061 (93) Dual inf 2.414498e+15 (35484)
+17462  Obj 0.41863541 Primal inf 1.7378811 (90) Dual inf 2.1791627e+14 (31025)
+17622  Obj 0.41413145 Primal inf 1.6606449 (98) Dual inf 2.9475703e+15 (36936)
+17738  Obj 0.41080587 Primal inf 1.6281314 (86) Dual inf 2.3305939e+15 (34054)
+17906  Obj 0.40735187 Primal inf 1.5698648 (90) Dual inf 1.0408251e+15 (32043)
+18154  Obj 0.40416015 Primal inf 1.4927079 (85) Dual inf 6.0143729e+15 (35409)
+18328  Obj 0.40178298 Primal inf 1.4409863 (82) Dual inf 7.104578e+14 (31737)
+18494  Obj 0.40178298 Primal inf 1.3896273 (82) Dual inf 1.7656985e+15 (31097)
+Primal error 3.9790393e-13, dual error 0.035314091
+18729  Obj 0.40022426 Primal inf 1.3070827 (75) Dual inf 2.6410538e+16 (34639)
+19021  Obj 0.39862736 Primal inf 1.2121824 (70) Dual inf 4.9851332e+14 (32592)
+19321  Obj 0.39784496 Primal inf 1.0768951 (64) Dual inf 4.0301382e+15 (29510)
+19493  Obj 0.39614997 Primal inf 1.0351924 (62) Dual inf 8.473231e+14 (32658)
+19710  Obj 0.39391671 Primal inf 0.98327224 (65) Dual inf 5.1406897e+15 (34971)
+19884  Obj 0.39264006 Primal inf 0.95210816 (68) Dual inf 3.8910944e+14 (29802)
+20105  Obj 0.39100617 Primal inf 0.89392509 (60) Dual inf 2.0608742e+14 (30894)
+20311  Obj 0.39005795 Primal inf 0.84479223 (57) Dual inf 3.0638804e+14 (31033)
+20631  Obj 0.38879002 Primal inf 0.77898465 (60) Dual inf 1.3282542e+15 (36004)
+20881  Obj 0.3882467 Primal inf 0.72423625 (60) Dual inf 1.573044e+16 (35380)
+21053  Obj 0.38715425 Primal inf 0.69750541 (54) Dual inf 5.254618e+15 (33459)
+21295  Obj 0.38703938 Primal inf 0.65997028 (50) Dual inf 3.4164264e+14 (29235)
+21603  Obj 0.38717218 Primal inf 0.61089323 (48) Dual inf 4.0383322e+15 (35965)
+21753  Obj 0.38731603 Primal inf 0.59630864 (50) Dual inf 5.2735169e+14 (36900)
+Primal error 1.080025e-12, dual error 0.012295925
+22004  Obj 0.38758075 Primal inf 0.53700661 (49) Dual inf 3.225665e+15 (36677)
+22159  Obj 0.38758075 Primal inf 0.51369206 (45) Dual inf 1.5655666e+15 (34502)
+Primal error 1.7053026e-12, dual error 0.010866298
+22436  Obj 0.38758075 Primal inf 0.45519405 (42) Dual inf 3.2331902e+15 (28429)
+22650  Obj 0.38758075 Primal inf 0.42315736 (39) Dual inf 3.6566656e+14 (38353)
+22858  Obj 0.38758075 Primal inf 0.39081752 (34) Dual inf 2.8139684e+15 (40066)
+23095  Obj 0.38758075 Primal inf 0.34969914 (36) Dual inf 7.6639168e+14 (30409)
+23338  Obj 0.3853944 Primal inf 0.31667046 (34) Dual inf 5.3298431e+14 (35025)
+23541  Obj 0.38458994 Primal inf 0.29431598 (29) Dual inf 4.7264828e+15 (32777)
+23761  Obj 0.38458329 Primal inf 0.26589159 (25) Dual inf 8.4769732e+14 (34663)
+23977  Obj 0.38100501 Primal inf 0.23294754 (25) Dual inf 1.1803812e+15 (31150)
+24244  Obj 0.37709457 Primal inf 0.19258676 (26) Dual inf 3.7910577e+14 (35041)
+24461  Obj 0.37525986 Primal inf 0.16013338 (18) Dual inf 2.79213e+14 (34085)
+24691  Obj 0.37525986 Primal inf 0.1347981 (18) Dual inf 1.8790594e+15 (35482)
+24871  Obj 0.37525986 Primal inf 0.11864597 (12) Dual inf 8.6173054e+14 (35530)
+24986  Obj 0.37525986 Primal inf 0.10759292 (14) Dual inf 2.3708442e+14 (24853)
+25220  Obj 0.37525986 Primal inf 0.083409797 (9) Dual inf 8.6887139e+14 (37549)
+25410  Obj 0.37298065 Primal inf 0.064750016 (8) Dual inf 4.64764e+14 (34409)
+25639  Obj 0.37172846 Primal inf 0.040250361 (5) Dual inf 2.4231121e+15 (37519)
+25763  Obj 0.37172846 Primal inf 0.023854553 (8) Dual inf 2.9869256e+15 (37057)
+25994  Obj 0.37172846 Primal inf 0.003918459 (1) Dual inf 6.1820644e+14 (34339)
+26048  Obj 0.37172846 Dual inf 354.80519 (199)
+26420  Obj 0.35395924 Dual inf 3234.2253 (33560)
+26900  Obj 0.32835051 Dual inf 398.6817 (148)
+27189  Obj 0.31696078 Dual inf 102646.06 (36449)
+27495  Obj 0.30633382 Dual inf 35824.46 (31994)
+27845  Obj 0.29054058 Dual inf 60603.24 (33826)
+28122  Obj 0.28050201 Dual inf 32102.111 (33541)
+28419  Obj 0.27086189 Dual inf 99686.56 (32529)
+28695  Obj 0.26490006 Dual inf 44814.361 (31137)
+29057  Obj 0.25278817 Dual inf 22237.649 (33499)
+29296  Obj 0.24519524 Dual inf 37425.178 (37157)
+29758  Obj 0.22997509 Dual inf 16549.602 (35559)
+30023  Obj 0.22206101 Dual inf 170316.51 (33751)
+30436  Obj 0.21142692 Dual inf 10515.31 (34947)
+30966  Obj 0.19743051 Dual inf 61927.942 (32859)
+31403  Obj 0.18934999 Dual inf 362.02127 (1813)
+31836  Obj 0.18098855 Dual inf 6627.7374 (2215)
+32274  Obj 0.1712063 Dual inf 18150.398 (36158)
+32631  Obj 0.16578372 Dual inf 1971.6539 (299)
+33074  Obj 0.15824387 Dual inf 2400.8316 (36902)
+33332  Obj 0.15457236 Dual inf 546.41416 (627)
+33669  Obj 0.14961936 Dual inf 862.93839 (34720)
+34164  Obj 0.14242412 Dual inf 315.72025 (446)
+34517  Obj 0.13891013 Dual inf 12938.971 (35396)
+34905  Obj 0.13443239 Dual inf 37.405951 (102)
+35391  Obj 0.12888554 Dual inf 500.1241 (937)
+35620  Obj 0.12683769 Dual inf 710.52437 (344)
+36083  Obj 0.12270461 Dual inf 735.28611 (449)
+36492  Obj 0.11946717 Dual inf 138.9571 (335)
+36909  Obj 0.11592607 Dual inf 3256.9983 (348)
+37316  Obj 0.11302756 Dual inf 223.10373 (33276)
+37671  Obj 0.11056871 Dual inf 44.084592 (34)
+38043  Obj 0.10815452 Dual inf 234493.5 (34536)
+38360  Obj 0.10612471 Dual inf 3970.5623 (33980)
+38754  Obj 0.10363529 Dual inf 35902.702 (33250)
+39162  Obj 0.10128947 Dual inf 67.785198 (141)
+39623  Obj 0.098312364 Dual inf 19259.338 (34954)
+40028  Obj 0.095569469 Dual inf 2958.72 (34201)
+40432  Obj 0.092933711 Dual inf 65275.435 (33526)
+40651  Obj 0.091692746 Dual inf 588.72508 (775)
+41001  Obj 0.089988497 Dual inf 11239.435 (35966)
+41415  Obj 0.088020858 Dual inf 41.508966 (114)
+41906  Obj 0.085373753 Dual inf 23.853146 (169)
+42428  Obj 0.082736191 Dual inf 14226.15 (34553)
+43048  Obj 0.080040696 Dual inf 6334.5333 (36567)
+43613  Obj 0.077450653 Dual inf 742.75379 (37543)
+44184  Obj 0.074852084 Dual inf 80.826493 (272)
+44682  Obj 0.072559119 Dual inf 7171.4693 (31923)
+45274  Obj 0.070091478 Dual inf 4810.0186 (33080)
+45739  Obj 0.068562582 Dual inf 501.66463 (887)
+46421  Obj 0.066058643 Dual inf 1334.8945 (35545)
+46735  Obj 0.065086312 Dual inf 536.31491 (32686)
+47254  Obj 0.063622429 Dual inf 156.11077 (369)
+47753  Obj 0.062110281 Dual inf 899.04693 (33604)
+48169  Obj 0.061093916 Dual inf 14032.904 (33981)
+48588  Obj 0.06009458 Dual inf 6.8668676 (97)
+49088  Obj 0.059009765 Dual inf 8283.6604 (30453)
+49643  Obj 0.057758133 Dual inf 7629.1207 (34949)
+50148  Obj 0.056666207 Dual inf 146.92419 (62)
+50670  Obj 0.055506407 Dual inf 5.9875726 (45)
+51218  Obj 0.054494557 Dual inf 50.802779 (243)
+51602  Obj 0.053985889 Dual inf 232.01602 (386)
+51911  Obj 0.053624061 Dual inf 2188.2872 (33374)
+52431  Obj 0.052661207 Dual inf 28.566638 (106)
+52857  Obj 0.051781727
+Absolute values of scaled rhs range from 0.28867513 to 325, minimum gap 1e+100
+Absolute values of scaled objective range from 2.331833 to 2.331833
+Absolute values of scaled bounds range from 0.084385488 to 3.2867037, minimum gap 0.084385488
+Looking optimal with tolerance of 1e-06
+53468  Obj 0.052574052 Primal inf 0.013004309 (9) Dual inf 4.304007e+12 (33255)
+53576  Obj 0.052574052
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 0.052574052
+Primal took 901.62 seconds (total 902.42)
+Optimal objective 0.05257405203 - 53576 iterations time 902.422
+Log level = 3, recipe = Either, solve time = 902431 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-06, dual tolerance = 1E-06
+  ColIndex   ColSolution   ReducedCost     Objective
+         0    0.05257405             0             1
+         1     0.4337359             0             0
+         2             0             0             0
+         3    0.01633694             0             0
+         4    0.01684411             0             0
+         5             0             0             0
+         6             0             0             0
+         7             0             0             0
+         8   0.007382739             0             0
+         9             0             0             0
+Solver clp solved model neos-3025225_lp result=Optimal
+Model                          neos-3025225_lp
+Solver                                     clp
+SolveTimeMs                             902430
+Objective                  0.05257405202865642
+ConstraintsPerMs                            44
+Iterations                               53576
+LoadTimeMs                                2319
+ResultStatus                           Optimal
+VariablesPerMs                            1042
+
+LPSharp> read-mps C:\users\krish\work\lpbench\plato\qap15.mps
+Read MPS file C:\users\krish\work\lpbench\plato\qap15.mps as model Name=qap15 Obj=NOBJ A=(6331, 22050) Elements=94950 RHS=(1, 30) RowTypes=6331 Lower=(0, 0) Upper=(0, 0) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 155 ms, read_errors=0, model_key=qap15
+qap15
+LPSharp> invoke-solver -key clpeither qap15
+Loaded model in 50 ms
+Solver clpeither solving model qap15...
+0 rows dropped after presolve pass 1
+Presolve 6330 (0) rows, 22275 (0) columns and 94950 (0) elements
+Presolve took 0.24 seconds (total 0.24)
+26 infeas 6.6459303, obj 1000.5489 - mu 0.0012340741, its 105, 9767 interior
+43 infeas 1.4340679, obj 1028.2101 - mu 4.5692739e-05, its 105, 13076 interior
+61 infeas 0.053947563, obj 1040.8756 - mu 1.691816e-06, its 105, 17405 interior
+largest infeasibility is 3.41383e-07
+largest infeasibility is 3.05154e-07
+largest infeasibility is 3.05154e-07
+sum of infeasibilities 8.42951e-05 - average 1.33168e-08, 4598 fixed columns
+0 rows dropped after presolve pass 1
+Presolve 6330 (0) rows, 17677 (-4598) columns and 76558 (-18392) elements
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 120
+0  Obj 1041.3962 Dual inf 22994800 (12761)
+7847  Obj 1041.3501 Primal inf 5.4683874e-05 (3) Dual inf 1.0296193e+17 (11616)
+Primal error 5.9254296e-13, dual error 0.04296875
+10031  Obj 1041.3064 Primal inf 2.6095575e-06 (1) Dual inf 7.1757233e+15 (10342)
+Primal error 2.5824221e-13, dual error 0.10546875
+11315  Obj 1041.2828 Dual inf 12902925 (8036)
+Primal error 8.8833108e-13, dual error 0.21484375
+12017  Obj 1041.276 Dual inf 25654727 (8855)
+12925  Obj 1041.25 Primal inf 6.639485e-06 (1) Dual inf 2.1240029e+14 (7054)
+13565  Obj 1041.2383 Dual inf 9576818.2 (6675)
+14084  Obj 1041.2235 Dual inf 6962087.1 (6060)
+14797  Obj 1041.2053 Primal inf 1.3636943e-05 (1) Dual inf 5.2706408e+13 (6572)
+15318  Obj 1041.1917 Primal inf 1.9458955e-07 (1) Dual inf 3.223673e+14 (5207)
+15824  Obj 1041.17 Primal inf 5.8223862e-06 (2) Dual inf 7.2895757e+15 (7197)
+16214  Obj 1041.1556 Primal inf 1.0446353e-05 (2) Dual inf 2.4017384e+14 (5666)
+16678  Obj 1041.1424 Primal inf 1.0465368e-05 (2) Dual inf 4.6695597e+13 (3972)
+17148  Obj 1041.1216 Primal inf 1.0474791e-05 (2) Dual inf 3.1653432e+13 (3724)
+17438  Obj 1041.1077 Primal inf 1.0471674e-05 (2) Dual inf 3.034698e+13 (3713)
+End of values pass after 17676 iterations
+17844  Obj 1041.0593 Primal inf 3.1340795e-07 (1) Dual inf 1.3500001e+12 (3727)
+End of values pass after 17872 iterations
+Perturbing problem by 0.001% of 0.1 - largest nonzero change 2.9934712e-05 ( 0.0029934712%) - largest zero change 2.9992462e-05
+18073  Obj 1041.0444 Dual inf 22235.516 (4354)
+18274  Obj 1041.0389 Dual inf 15281.092 (4164)
+18475  Obj 1041.0255 Dual inf 4513.319 (3283)
+18676  Obj 1041.0146 Dual inf 10828.709 (3968)
+18877  Obj 1041.0051 Dual inf 2914.7052 (2878)
+19078  Obj 1040.9997 Dual inf 4540.777 (3239)
+19279  Obj 1040.9948 Dual inf 2815.1216 (2839)
+19480  Obj 1040.9915 Dual inf 1022.3943 (2368)
+19681  Obj 1040.9888 Dual inf 41071.486 (4949)
+19882  Obj 1040.9874 Dual inf 702.46233 (2244)
+20083  Obj 1040.9867 Dual inf 87.670739 (1682)
+20284  Obj 1040.9865 Dual inf 11.061763 (1656)
+20686  Obj 1040.9863 Dual inf 12.29031 (1629)
+20876  Obj 1040.9863
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 120
+Looking optimal with tolerance of 1e-06
+Primal error 4.9658888e-13, dual error 0.010253906
+Primal error 1.8990746e-12, dual error 0.84179688
+Primal error 1.8990746e-12, dual error 0.84179688
+21035  Obj 1040.994
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 1040.994
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 120
+Optimal - objective value 1040.994
+After Postsolve, objective 1040.994, infeasibilities - dual 0 (0), primal 0 (0)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 120
+0  Obj 1040.994 Dual inf 0.097304706 (1)
+Perturbing problem by 0.001% of 0.1 - largest nonzero change 2.9850285e-05 ( 0.0029850285%) - largest zero change 2.9971506e-05
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 120
+Looking optimal with tolerance of 1e-06
+29  Obj 1040.994
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 1040.994
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 120
+Optimal - objective value 1040.994
+Idiot Crash took 30.64 seconds (total 30.88)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 2 to 120
+Optimal - objective value 1040.994
+Primal took 0.23 seconds (total 31.11)
+Optimal objective 1040.994041 - 0 iterations time 31.112, Idiot 30.64
+Log level = 3, recipe = Either, solve time = 31109 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-06, dual tolerance = 1E-06
+  ColIndex   ColSolution   ReducedCost     Objective
+         0     0.1412439  1.953993E-14             0
+         1    0.06284906  7.105427E-14             0
+         2    0.04501303  4.263256E-14             0
+         3    0.07085108 -3.552714E-14             0
+         4     0.1344391  1.154632E-14             0
+         5    0.05080555  2.131628E-14             0
+         6             0 -1.065814E-14             0
+         7             0 -7.105427E-15             0
+         8             0 -7.105427E-15             0
+         9    0.04769037  4.973799E-14             0
+Solver clpeither solved model qap15 result=Optimal
+Model                                    qap15
+Solver                               clpeither
+SolveTimeMs                              31108
+Objective                   1040.9940409584817
+ConstraintsPerMs                           186
+Iterations                                   0
+LoadTimeMs                                  50
+ResultStatus                           Optimal
+VariablesPerMs                            2475
+
+LPSharp> read-mps C:\users\krish\work\lpbench\plato\rmine15_lp.mps -Format free
+Read MPS file C:\users\krish\work\lpbench\plato\rmine15_lp.mps as model Name=rmine15_lp Obj=obj A=(358396, 42438) Elements=879732 RHS=(1, 30) RowTypes=358396 Lower=(1, 42438) Upper=(1, 42438) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 3120 ms, read_errors=0, model_key=rmine15_lp
+rmine15_lp
+LPSharp> invoke-solver -key clpeither rmine15_lp
+Loaded model in 992 ms
+Solver clpeither solving model rmine15_lp...
+0 rows dropped after presolve pass 1
+Presolve 358395 (0) rows, 42438 (0) columns and 879732 (0) elements
+Presolve took 0.29 seconds (total 0.29)
+Matrix can not be converted into +- 1
+Bounds were tightened 0 times
+Initial range of elements is 1 to 99.99754
+Range of elements is 0.1018251 to 9.820761
+Range of elements is 0.11300471 to 8.8491888
+Final range of elements is 0.1018251 to 9.820761
+Absolute values of scaled rhs range from 112.50277 to 112.58804, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00020623598 to 22.450358
+Absolute values of scaled bounds range from 0.1018251 to 0.1018251, minimum gap 0.1018251
+0  Obj 0 Dual inf 90333.168 (28687)
+0  Obj 0 Dual inf 90333.168 (28687)
+2211  Obj -8170.6305 Primal inf 72131.726 (71715)
+4221  Obj -7917.9513 Primal inf 71137.398 (70247)
+6231  Obj -7662.61 Primal inf 69903.114 (68573)
+8040  Obj -7464.0496 Primal inf 69585.064 (66901)
+9447  Obj -7303.5213 Primal inf 69179.686 (65672)
+10653  Obj -7184.0806 Primal inf 70246.488 (65268)
+12060  Obj -7039.7086 Primal inf 68047.908 (63959)
+13467  Obj -6896.3087 Primal inf 69993.315 (62841)
+14673  Obj -6761.2975 Primal inf 67443.321 (61297)
+15477  Obj -6684.1731 Primal inf 71233.008 (60764)
+16281  Obj -6613.8277 Primal inf 63372.113 (59593)
+17286  Obj -6524.6795 Primal inf 77271.949 (58561)
+18291  Obj -6426.0547 Primal inf 63545.781 (56880)
+19095  Obj -6353.96 Primal inf 72459.323 (55842)
+19899  Obj -6293.3305 Primal inf 61134.881 (54982)
+20703  Obj -6225.7519 Primal inf 62414.601 (53872)
+21306  Obj -6179.3154 Primal inf 62604.315 (53595)
+21909  Obj -6124.6126 Primal inf 71694.421 (52062)
+22512  Obj -6074.8568 Primal inf 59359.257 (50860)
+23115  Obj -6024.3617 Primal inf 59490.274 (49841)
+23919  Obj -5961.1903 Primal inf 59710.238 (48955)
+24522  Obj -5914.2074 Primal inf 56565.779 (47887)
+25125  Obj -5877.06 Primal inf 66099.84 (47093)
+25527  Obj -5853.7046 Primal inf 60397.387 (45791)
+25929  Obj -5831.3735 Primal inf 56475.337 (44783)
+26331  Obj -5815.9597 Primal inf 53974.978 (44534)
+26934  Obj -5779.3991 Primal inf 59963.286 (44342)
+27336  Obj -5759.8287 Primal inf 55418.618 (44393)
+27939  Obj -5732.8107 Primal inf 59135.981 (43675)
+28542  Obj -5701.5513 Primal inf 55645.178 (42801)
+29145  Obj -5677.7761 Primal inf 53206.394 (41694)
+29346  Obj -5669.3046 Primal inf 51493.245 (41520)
+29547  Obj -5661.893 Primal inf 53586.089 (40904)
+29748  Obj -5651.6976 Primal inf 54106.944 (40644)
+29949  Obj -5642.4105 Primal inf 54776.8 (41085)
+30351  Obj -5620.8329 Primal inf 66461.13 (40335)
+30753  Obj -5603.2614 Primal inf 55501.102 (40491)
+31155  Obj -5586.372 Primal inf 52545.1 (39617)
+31758  Obj -5558.2168 Primal inf 50798.928 (38013)
+32160  Obj -5539.2051 Primal inf 51627.054 (37914)
+32763  Obj -5502.3254 Primal inf 46934.598 (37605)
+33165  Obj -5483.6047 Primal inf 46968.851 (36160)
+33567  Obj -5458.8269 Primal inf 47310.611 (35595)
+33969  Obj -5432.1948 Primal inf 49428.306 (33988)
+34371  Obj -5406.8505 Primal inf 49564.176 (33733)
+34773  Obj -5384.9807 Primal inf 55583.025 (33218)
+35376  Obj -5357.286 Primal inf 50851.397 (31222)
+35778  Obj -5340.2043 Primal inf 83275.656 (30569)
+35979  Obj -5333.2834 Primal inf 127061.67 (29167)
+36381  Obj -5318.0471 Primal inf 69864.389 (27916)
+36783  Obj -5304.5729 Primal inf 58929.704 (27746)
+37185  Obj -5289.84 Primal inf 45714.223 (27502)
+37587  Obj -5276.5788 Primal inf 45792.981 (25968)
+37989  Obj -5261.1829 Primal inf 38836.118 (24270)
+38391  Obj -5248.5451 Primal inf 42169.047 (22982)
+38793  Obj -5234.7449 Primal inf 60220.843 (22796)
+39195  Obj -5227.6589 Primal inf 55953.735 (24301)
+39396  Obj -5223.8558 Primal inf 55781.256 (24105)
+39597  Obj -5217.7626 Primal inf 68897.169 (22102)
+39798  Obj -5210.9734 Primal inf 56479.203 (23901)
+40200  Obj -5200.6092 Primal inf 49091.665 (20780)
+40401  Obj -5195.7918 Primal inf 50418.99 (20298)
+40602  Obj -5191.0134 Primal inf 52136.291 (21226)
+41004  Obj -5182.4561 Primal inf 54084.5 (21049)
+41406  Obj -5173.9531 Primal inf 44849.075 (24184)
+41607  Obj -5169.4492 Primal inf 60872.116 (24193)
+41808  Obj -5165.4628 Primal inf 47321.055 (20161)
+42009  Obj -5161.8881 Primal inf 57668.428 (19963)
+42210  Obj -5158.2363 Primal inf 60731.276 (21212)
+42411  Obj -5155.4689 Primal inf 120636.67 (21287)
+42612  Obj -5153.719 Primal inf 43747.874 (22743)
+42813  Obj -5150.2802 Primal inf 57982.058 (23333)
+43014  Obj -5146.07 Primal inf 54985.347 (22163)
+43215  Obj -5143.7877 Primal inf 39404.447 (18911)
+43416  Obj -5141.8696 Primal inf 144804.9 (30760)
+43617  Obj -5139.4845 Primal inf 157527.76 (33764)
+43818  Obj -5137.3824 Primal inf 76777.565 (26596)
+44019  Obj -5132.3599 Primal inf 35386.186 (22603)
+44220  Obj -5126.984 Primal inf 95009.14 (19641)
+44421  Obj -5124.377 Primal inf 322935.12 (21117)
+44622  Obj -5122.8699 Primal inf 212776.79 (21410)
+44823  Obj -5121.6488 Primal inf 593525.84 (20703)
+45024  Obj -5120.0306 Primal inf 138570.4 (17126)
+45225  Obj -5118.8657 Primal inf 190473.03 (21271)
+45426  Obj -5116.6917 Primal inf 75553.335 (19002)
+45627  Obj -5114.7242 Primal inf 79365.542 (17366)
+45828  Obj -5113.5248 Primal inf 57879.139 (17587)
+46029  Obj -5112.355 Primal inf 97114.944 (24065)
+46230  Obj -5111.1506 Primal inf 132565.03 (24650)
+46431  Obj -5109.9683 Primal inf 98030.371 (27451)
+46632  Obj -5108.8076 Primal inf 104184.66 (21837)
+46833  Obj -5108.0586 Primal inf 203607.45 (31508)
+47034  Obj -5107.0963 Primal inf 312020.49 (30920)
+47235  Obj -5105.9978 Primal inf 119171.01 (35615)
+47436  Obj -5104.3936 Primal inf 173251.99 (28785)
+47637  Obj -5102.5625 Primal inf 86324.398 (28604)
+47838  Obj -5101.0972 Primal inf 415571.68 (29751)
+48039  Obj -5100.0466 Primal inf 155006.97 (31708)
+48240  Obj -5099.0902 Primal inf 237111.87 (35431)
+48441  Obj -5097.9168 Primal inf 235137.76 (40276)
+48642  Obj -5097.2146 Primal inf 5363092.7 (37235)
+48843  Obj -5096.6736 Primal inf 169097.89 (43430)
+49044  Obj -5096.0194 Primal inf 77214.236 (36344)
+49245  Obj -5094.9968 Primal inf 620028.17 (44330)
+49446  Obj -5094.2618 Primal inf 70066.777 (35776)
+49647  Obj -5093.667 Primal inf 206526.3 (27534)
+49848  Obj -5092.9562 Primal inf 60590.458 (37130)
+50049  Obj -5092.2325 Primal inf 67357.895 (29195)
+50250  Obj -5089.1244 Primal inf 182262.01 (25753)
+50451  Obj -5088.0008 Primal inf 566038.33 (29938)
+50652  Obj -5086.6343 Primal inf 384133.05 (21022)
+50853  Obj -5085.5552 Primal inf 119511.21 (23395)
+51054  Obj -5084.5634 Primal inf 156156.41 (32059)
+51255  Obj -5083.5873 Primal inf 488898.59 (38988)
+51456  Obj -5082.39 Primal inf 787280.34 (35204)
+51657  Obj -5081.6882 Primal inf 216930.08 (28885)
+51858  Obj -5081.0703 Primal inf 110558.24 (20365)
+52059  Obj -5080.3182 Primal inf 1534684.1 (14742)
+52260  Obj -5079.4328 Primal inf 439031.11 (14248)
+52461  Obj -5078.6554 Primal inf 1028190.7 (26639)
+52662  Obj -5077.9722 Primal inf 1211696.3 (20055)
+52863  Obj -5077.2073 Primal inf 680428.27 (30065)
+53064  Obj -5076.2226 Primal inf 124886.15 (29202)
+53265  Obj -5075.7083 Primal inf 109331.05 (32974)
+53466  Obj -5075.2453 Primal inf 106874.92 (21338)
+53667  Obj -5074.7262 Primal inf 134478.86 (22795)
+53868  Obj -5074.2713 Primal inf 316665.01 (32967)
+54069  Obj -5073.7426 Primal inf 428212.82 (44184)
+54270  Obj -5073.2203 Primal inf 976221.51 (28228)
+54471  Obj -5072.7118 Primal inf 321740.69 (37884)
+54672  Obj -5072.2641 Primal inf 385709.22 (32597)
+54873  Obj -5071.2378 Primal inf 2046021.7 (28905)
+55074  Obj -5070.6311 Primal inf 338521.05 (19246)
+55275  Obj -5070.1393 Primal inf 133534.21 (26981)
+55476  Obj -5069.4875 Primal inf 173804.04 (28568)
+55677  Obj -5068.416 Primal inf 442653.51 (34155)
+55878  Obj -5067.8325 Primal inf 489928.41 (32611)
+56079  Obj -5067.2185 Primal inf 719606.48 (31692)
+56280  Obj -5066.5276 Primal inf 2102891.6 (28887)
+56481  Obj -5065.7893 Primal inf 433167.91 (37559)
+56682  Obj -5065.3334 Primal inf 228685.74 (34872)
+56883  Obj -5064.7277 Primal inf 1052088.8 (27642)
+57084  Obj -5064.082 Primal inf 799460.48 (28873)
+57285  Obj -5063.6722 Primal inf 226706.28 (37198)
+57486  Obj -5062.9579 Primal inf 296345.51 (26868)
+57687  Obj -5062.3889 Primal inf 429496.83 (36516)
+57888  Obj -5061.9123 Primal inf 219480.9 (49051)
+58089  Obj -5061.3309 Primal inf 60828.312 (42880)
+58290  Obj -5060.8797 Primal inf 497035.35 (48406)
+58491  Obj -5060.2964 Primal inf 733016.61 (39869)
+58692  Obj -5059.5878 Primal inf 6479282.6 (39596)
+58893  Obj -5059.0386 Primal inf 107794.82 (32683)
+59094  Obj -5058.4493 Primal inf 438523.65 (38560)
+59295  Obj -5058.0682 Primal inf 92699.442 (44915)
+59496  Obj -5057.7743 Primal inf 1856036.6 (46546)
+59697  Obj -5057.477 Primal inf 41960.796 (26577)
+59898  Obj -5057.0866 Primal inf 417715.37 (35385)
+60099  Obj -5056.6683 Primal inf 245618.88 (30357)
+60300  Obj -5056.2985 Primal inf 195919.92 (36546)
+60501  Obj -5055.7701 Primal inf 322204.04 (28452)
+60702  Obj -5055.3235 Primal inf 3547834.9 (32856)
+60903  Obj -5054.57 Primal inf 7326423.9 (47190)
+61104  Obj -5053.7528 Primal inf 1223898.7 (56798)
+61305  Obj -5053.3963 Primal inf 109912.35 (25855)
+61506  Obj -5053.0939 Primal inf 605692.57 (24970)
+61707  Obj -5052.8276 Primal inf 98113.751 (28596)
+61908  Obj -5052.492 Primal inf 397512.23 (27104)
+62109  Obj -5052.1814 Primal inf 237202.29 (21056)
+62310  Obj -5051.7946 Primal inf 70427.323 (29654)
+62511  Obj -5051.4115 Primal inf 301180.69 (53464)
+62712  Obj -5051.1152 Primal inf 317699.99 (21210)
+62913  Obj -5050.8499 Primal inf 105947.24 (20753)
+63114  Obj -5050.584 Primal inf 308196.03 (31360)
+63315  Obj -5050.2726 Primal inf 130688.29 (20259)
+63516  Obj -5049.9741 Primal inf 185243.03 (25394)
+63717  Obj -5049.7184 Primal inf 177255.68 (28924)
+63918  Obj -5049.4597 Primal inf 687756.56 (23731)
+64119  Obj -5049.1434 Primal inf 359498.36 (30912)
+64320  Obj -5048.7919 Primal inf 273957.97 (35526)
+64521  Obj -5048.5581 Primal inf 127438.01 (37880)
+64722  Obj -5048.3328 Primal inf 115062.73 (40998)
+64923  Obj -5048.1123 Primal inf 1659437.9 (25937)
+65124  Obj -5047.9117 Primal inf 105160.27 (26031)
+65325  Obj -5047.6721 Primal inf 421572.33 (18769)
+65526  Obj -5047.416 Primal inf 124199.64 (31035)
+65727  Obj -5047.0507 Primal inf 32825.729 (9866)
+65928  Obj -5046.7906 Primal inf 80984.252 (18333)
+66129  Obj -5046.5324 Primal inf 62325.181 (10485)
+66330  Obj -5046.3443 Primal inf 13821.633 (12766)
+66531  Obj -5046.1506 Primal inf 129357.17 (37556)
+66732  Obj -5045.916 Primal inf 141686.71 (12921)
+66933  Obj -5045.7389 Primal inf 358361.57 (15406)
+67134  Obj -5045.5206 Primal inf 233109.1 (25692)
+67335  Obj -5045.3704 Primal inf 1859709.1 (17730)
+67536  Obj -5045.2208 Primal inf 68230.388 (27041)
+67737  Obj -5044.999 Primal inf 149570.96 (32132)
+67938  Obj -5044.8086 Primal inf 298695.98 (37486)
+68139  Obj -5044.6725 Primal inf 95909.204 (28499)
+68340  Obj -5044.5125 Primal inf 484288.08 (36906)
+68541  Obj -5044.2907 Primal inf 27624.594 (24197)
+68742  Obj -5044.1303 Primal inf 324989.49 (25418)
+68943  Obj -5044.0027 Primal inf 38434.08 (39971)
+69144  Obj -5043.8873 Primal inf 35643.937 (23983)
+69345  Obj -5043.7411 Primal inf 112228.39 (22641)
+69546  Obj -5043.609 Primal inf 5309.6089 (12084)
+69747  Obj -5043.4617 Primal inf 92001.046 (29952)
+69948  Obj -5043.3621 Primal inf 6836.5595 (13086)
+70149  Obj -5043.2287 Primal inf 6894.6454 (12963)
+70350  Obj -5043.1201 Primal inf 4300.507 (4883)
+70551  Obj -5043.0371 Primal inf 4715.0341 (5199)
+70752  Obj -5042.8907 Primal inf 4637.7833 (7546)
+70953  Obj -5042.8165 Primal inf 3536.8842 (10400)
+71154  Obj -5042.7788 Primal inf 23132.521 (18181)
+71355  Obj -5042.7443 Primal inf 3565.504 (4138)
+71556  Obj -5042.6861 Primal inf 1343.441 (1412)
+71757  Obj -5042.6508 Primal inf 1725.1613 (1952)
+71958  Obj -5042.6038 Primal inf 538.25087 (3659)
+72159  Obj -5042.5188 Primal inf 2307.5581 (2666)
+72360  Obj -5042.4866 Primal inf 963.75395 (5602)
+72561  Obj -5042.4831 Primal inf 4.6323506 (97)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+Looking optimal checking bounds with 1e+10
+Optimal - objective value -5042.483
+Dual took 388.67 seconds (total 388.96)
+Optimal objective -5042.482963 - 72573 iterations time 388.962
+Log level = 3, recipe = Either, solve time = 388961 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-06, dual tolerance = 1E-06
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0             0      -0.22155
+         1             0             0     -0.199394
+         2             0             0     -0.179455
+         3     0.3307371             0      -0.16151
+         4     0.4782194             0     -0.145359
+         5      0.656591             0     -0.130823
+         6     0.8103794             0      -0.11774
+         7     0.9310672             0     -0.105967
+         8             1   -0.04350822     -0.095369
+         9             1     -0.858329     -0.858329
+Solver clpeither solved model rmine15_lp result=Optimal
+Model                               rmine15_lp
+Solver                               clpeither
+SolveTimeMs                             388960
+Objective                   -5042.482962975549
+ConstraintsPerMs                           436
+Iterations                               72573
+LoadTimeMs                                 992
+ResultStatus                           Optimal
+VariablesPerMs                             404
+
+LPSharp> read-mps C:\users\krish\work\lpbench\plato\s250r10.mps -Format free
+Read MPS file C:\users\krish\work\lpbench\plato\s250r10.mps as model Name=s250r10 Obj=obj A=(10963, 253497) Elements=1318607 RHS=(1, 271) RowTypes=10963 Lower=(1, 273142) Upper=(1, 273142) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 3908 ms, read_errors=0, model_key=s250r10
+s250r10
+LPSharp> invoke-solver -key clpeither s250r10
+Loaded model in 1087 ms
+Solver clpeither solving model s250r10...
+2977 rows dropped after presolve pass 1
+3062 rows dropped after presolve pass 2
+3117 rows dropped after presolve pass 3
+3159 rows dropped after presolve pass 4
+3190 rows dropped after presolve pass 5
+Presolve 7772 (-3190) rows, 270095 (-3047) columns and 1209107 (-109500) elements
+Presolve took 0.91 seconds (total 0.91)
+Matrix can not be converted into +- 1
+Bounds were tightened 512 times
+Initial range of elements is 1 to 43200
+Range of elements is 0.0084313915 to 118.60438
+Range of elements is 0.13735697 to 7.2803006
+Final range of elements is 0.16799688 to 5.9524915
+Absolute values of scaled rhs range from 0.20547157 to 103.97339, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00022546732 to 0.20261384
+Absolute values of scaled bounds range from 0.08701749 to 9.8709939, minimum gap 0.08701749
+Perturbing problem by 0.001% of 0.20261384 - largest nonzero change 0.00012254648 ( 39.070112%) - largest zero change 0.00010015631
+0  Obj -0.035875 Primal inf 160.33008 (13) Dual inf 1331.3258 (246765)
+0  Obj -0.035875 Primal inf 160.33008 (13) Dual inf 1331.3258 (246765)
+1407  Obj -0.55208394 Primal inf 3959.7293 (1114)
+1807  Obj -0.46011736 Primal inf 2170.0446 (1026)
+2183  Obj -0.42979367 Primal inf 5617.3256 (986)
+2530  Obj -0.42943323 Primal inf 7708.689 (952)
+2881  Obj -0.42917273 Primal inf 6370.9613 (939)
+3058  Obj -0.4290126 Primal inf 7524.376 (938)
+3233  Obj -0.4288866 Primal inf 6574.8726 (878)
+3416  Obj -0.4287372 Primal inf 5315.6726 (900)
+3598  Obj -0.42858498 Primal inf 8514.1708 (913)
+3783  Obj -0.42842106 Primal inf 7104.9681 (939)
+3969  Obj -0.42828169 Primal inf 9866.8889 (924)
+4147  Obj -0.42814393 Primal inf 11117.704 (939)
+4325  Obj -0.42801011 Primal inf 7795.343 (922)
+4501  Obj -0.4278455 Primal inf 3479.7104 (942)
+4678  Obj -0.42770845 Primal inf 13148.52 (971)
+4848  Obj -0.42759659 Primal inf 8376.7996 (931)
+5031  Obj -0.42747303 Primal inf 10665.67 (951)
+5212  Obj -0.42731147 Primal inf 12066.627 (931)
+5405  Obj -0.4228279 Primal inf 12610.276 (917)
+5796  Obj -0.39508432 Primal inf 9786.9417 (838)
+5972  Obj -0.39497774 Primal inf 9138.7121 (837)
+6144  Obj -0.39488058 Primal inf 6063.4384 (826)
+6325  Obj -0.39479167 Primal inf 4778.9298 (832)
+6504  Obj -0.39469372 Primal inf 8924.7243 (827)
+6697  Obj -0.39461554 Primal inf 17919.817 (801)
+6891  Obj -0.39451408 Primal inf 6422.4549 (834)
+7075  Obj -0.39443635 Primal inf 5896.6569 (787)
+7263  Obj -0.39435179 Primal inf 46578.855 (801)
+7451  Obj -0.39425406 Primal inf 9302.5888 (807)
+7641  Obj -0.39415386 Primal inf 53653.737 (770)
+7829  Obj -0.39403893 Primal inf 8437.2387 (802)
+8014  Obj -0.39394837 Primal inf 18876.359 (826)
+8201  Obj -0.39381772 Primal inf 13268.633 (805)
+8390  Obj -0.39368918 Primal inf 13066.037 (800)
+8587  Obj -0.39356114 Primal inf 9716.1097 (843)
+8788  Obj -0.39339328 Primal inf 23522.28 (854)
+8989  Obj -0.39325052 Primal inf 19180.899 (860)
+9190  Obj -0.39314597 Primal inf 18667.017 (897)
+9373  Obj -0.39302835 Primal inf 15731.377 (874)
+9573  Obj -0.39291443 Primal inf 11565.836 (815)
+9770  Obj -0.39278529 Primal inf 42639.487 (868)
+9967  Obj -0.3926633 Primal inf 13736.519 (922)
+10151  Obj -0.39252485 Primal inf 12300.113 (925)
+10337  Obj -0.39237621 Primal inf 30405.537 (971)
+10530  Obj -0.39218754 Primal inf 12443.725 (964)
+10730  Obj -0.39203455 Primal inf 10261.378 (916)
+10931  Obj -0.39189309 Primal inf 21511.116 (935)
+11128  Obj -0.39172691 Primal inf 27091.854 (932)
+11329  Obj -0.39157662 Primal inf 5113.8819 (919)
+11523  Obj -0.39142695 Primal inf 18053.739 (934)
+11721  Obj -0.39130174 Primal inf 9992.1952 (909)
+11922  Obj -0.39116886 Primal inf 9951.3291 (880)
+12123  Obj -0.39098174 Primal inf 6270.1386 (942)
+12324  Obj -0.39083966 Primal inf 16152.711 (925)
+12525  Obj -0.39069307 Primal inf 2713.3537 (919)
+12726  Obj -0.38844176 Primal inf 16420.175 (943)
+12927  Obj -0.38825498 Primal inf 32284.618 (915)
+13128  Obj -0.38805217 Primal inf 4591.9569 (951)
+13329  Obj -0.3878968 Primal inf 10426.375 (948)
+13530  Obj -0.3867424 Primal inf 17686.139 (990)
+13731  Obj -0.38659284 Primal inf 29407.149 (952)
+13930  Obj -0.38644303 Primal inf 21593.396 (934)
+14131  Obj -0.38627001 Primal inf 11051.149 (931)
+14332  Obj -0.38448362 Primal inf 12933.177 (942)
+14533  Obj -0.38433763 Primal inf 21088.509 (932)
+14734  Obj -0.38419429 Primal inf 13523.701 (909)
+14935  Obj -0.38400408 Primal inf 16219.697 (922)
+15337  Obj -0.38355169 Primal inf 29782.47 (1017)
+15530  Obj -0.38334407 Primal inf 14343.396 (974)
+15731  Obj -0.38313449 Primal inf 20142.518 (1004)
+15928  Obj -0.3829493 Primal inf 3405.4874 (952)
+16129  Obj -0.38276602 Primal inf 3577.3364 (941)
+16330  Obj -0.38261531 Primal inf 7105.6272 (939)
+16531  Obj -0.38243491 Primal inf 20212.175 (948)
+16732  Obj -0.38226691 Primal inf 36358.369 (988)
+16933  Obj -0.38204528 Primal inf 17495.535 (975)
+17134  Obj -0.38185379 Primal inf 30786.181 (964)
+17335  Obj -0.38165112 Primal inf 4406.3667 (914)
+17737  Obj -0.38105164 Primal inf 4588.7371 (970)
+17938  Obj -0.38077325 Primal inf 17155.528 (929)
+18340  Obj -0.38008051 Primal inf 5707.6305 (1013)
+18742  Obj -0.37944884 Primal inf 5600.1657 (1126)
+19144  Obj -0.37861538 Primal inf 20619.825 (1059)
+19546  Obj -0.37760157 Primal inf 10299.241 (1093)
+19948  Obj -0.37692122 Primal inf 4313.2337 (1027)
+20149  Obj -0.3767773 Primal inf 10406.984 (1032)
+20350  Obj -0.37647508 Primal inf 31747.71 (1105)
+20752  Obj -0.37573915 Primal inf 7111.6051 (1047)
+21154  Obj -0.37493992 Primal inf 14997.9 (1086)
+21556  Obj -0.37408642 Primal inf 20529.399 (1103)
+21958  Obj -0.37318703 Primal inf 8475.1288 (1022)
+22561  Obj -0.37189298 Primal inf 28547.89 (970)
+22963  Obj -0.37085034 Primal inf 9922.4623 (1008)
+23566  Obj -0.36930879 Primal inf 11619.147 (1053)
+24169  Obj -0.36767436 Primal inf 14409.514 (990)
+24772  Obj -0.36608287 Primal inf 11946.405 (1074)
+25375  Obj -0.36465044 Primal inf 10718.276 (1067)
+26179  Obj -0.36226409 Primal inf 45521.803 (1092)
+26983  Obj -0.35887553 Primal inf 16904.856 (1132)
+27787  Obj -0.35563678 Primal inf 33403.678 (1096)
+28189  Obj -0.35412293 Primal inf 3221.076 (1108)
+28591  Obj -0.35283328 Primal inf 8719.7517 (1116)
+29194  Obj -0.35102968 Primal inf 9900.3395 (1069)
+29998  Obj -0.34790653 Primal inf 4998.0058 (1041)
+30400  Obj -0.3470515 Primal inf 5475.3448 (956)
+30601  Obj -0.34690932 Primal inf 83500.656 (936)
+31003  Obj -0.34628877 Primal inf 10697.936 (958)
+31405  Obj -0.34570155 Primal inf 38234.427 (952)
+32008  Obj -0.34448644 Primal inf 3851.2659 (1008)
+32209  Obj -0.34427709 Primal inf 10148.13 (996)
+32611  Obj -0.34368869 Primal inf 9944.4361 (1042)
+33013  Obj -0.34289802 Primal inf 9731.1398 (980)
+34018  Obj -0.33825751 Primal inf 5250.2368 (1026)
+34420  Obj -0.33749501 Primal inf 16921.197 (1032)
+35425  Obj -0.33293459 Primal inf 4875.4316 (1110)
+36028  Obj -0.32980669 Primal inf 83706.266 (1117)
+37435  Obj -0.3215111 Primal inf 38357.069 (1092)
+38440  Obj -0.31443403 Primal inf 12234.059 (1018)
+39043  Obj -0.31228818 Primal inf 40568.212 (1033)
+40048  Obj -0.30651505 Primal inf 48870.718 (1012)
+41053  Obj -0.30152592 Primal inf 4497.1546 (962)
+41455  Obj -0.29827967 Primal inf 10547.292 (921)
+42259  Obj -0.29611806 Primal inf 9301.7215 (1069)
+43063  Obj -0.29089722 Primal inf 4440.9337 (970)
+44068  Obj -0.2870132 Primal inf 6666.4422 (1012)
+44872  Obj -0.28344251 Primal inf 14210.308 (930)
+45676  Obj -0.27831124 Primal inf 4481.1564 (954)
+46882  Obj -0.26948751 Primal inf 22180.479 (957)
+47887  Obj -0.26298288 Primal inf 46777.289 (955)
+48289  Obj -0.26212084 Primal inf 11939.895 (908)
+48691  Obj -0.26130063 Primal inf 4610.9096 (842)
+49294  Obj -0.25918509 Primal inf 6885.3278 (845)
+49897  Obj -0.25831214 Primal inf 5553.8884 (840)
+50299  Obj -0.25768181 Primal inf 4442.3227 (861)
+50701  Obj -0.25703737 Primal inf 3943.2416 (888)
+51304  Obj -0.25400516 Primal inf 13966.196 (838)
+51907  Obj -0.25265843 Primal inf 7805.5635 (852)
+52309  Obj -0.25176548 Primal inf 56464.451 (872)
+52711  Obj -0.2513095 Primal inf 3187.9797 (839)
+52912  Obj -0.25111363 Primal inf 10170.099 (761)
+53113  Obj -0.25100159 Primal inf 6400.269 (823)
+53515  Obj -0.25042961 Primal inf 15835.175 (772)
+53917  Obj -0.24930974 Primal inf 2319.5722 (732)
+54319  Obj -0.24473285 Primal inf 11528.957 (728)
+54520  Obj -0.24459947 Primal inf 5673.7346 (769)
+54721  Obj -0.24443873 Primal inf 7284.2168 (727)
+54922  Obj -0.24430827 Primal inf 2645.7914 (722)
+55123  Obj -0.24419473 Primal inf 2794.9112 (688)
+55324  Obj -0.24402962 Primal inf 4398.7539 (709)
+55525  Obj -0.2439336 Primal inf 2675.4805 (682)
+55726  Obj -0.24383376 Primal inf 1978.8696 (635)
+56128  Obj -0.24350532 Primal inf 3344.5542 (703)
+56530  Obj -0.24320878 Primal inf 2114.2117 (683)
+56731  Obj -0.243078 Primal inf 3765.9277 (639)
+56932  Obj -0.24292569 Primal inf 1802.8413 (661)
+57334  Obj -0.24259606 Primal inf 3305.8004 (607)
+57736  Obj -0.24223491 Primal inf 3987.1172 (676)
+58138  Obj -0.24185854 Primal inf 2841.1248 (656)
+58339  Obj -0.24178426 Primal inf 4622.2931 (595)
+58540  Obj -0.2416279 Primal inf 1694.8303 (608)
+58741  Obj -0.24149712 Primal inf 2694.1201 (572)
+58942  Obj -0.24129757 Primal inf 2381.0593 (538)
+59143  Obj -0.24105554 Primal inf 1577.8366 (494)
+59344  Obj -0.24096396 Primal inf 1636.3473 (520)
+59545  Obj -0.24082671 Primal inf 23085.439 (537)
+59947  Obj -0.24039609 Primal inf 1911.9313 (547)
+60349  Obj -0.2400459 Primal inf 4674.7554 (532)
+60550  Obj -0.23993484 Primal inf 3236.0227 (615)
+60751  Obj -0.23980144 Primal inf 4655.9128 (608)
+60952  Obj -0.23957681 Primal inf 3483.9434 (553)
+61153  Obj -0.23945444 Primal inf 2875.7978 (549)
+61354  Obj -0.2392901 Primal inf 2388.9841 (555)
+61756  Obj -0.23899057 Primal inf 3245.3711 (555)
+62158  Obj -0.23867947 Primal inf 1935.3387 (577)
+62962  Obj -0.23669207 Primal inf 2255.258 (588)
+63565  Obj -0.23542109 Primal inf 5160.8458 (742)
+64369  Obj -0.23199823 Primal inf 4762.4342 (713)
+64972  Obj -0.2303239 Primal inf 7736.6751 (714)
+65575  Obj -0.22677078 Primal inf 8579.3476 (660)
+66178  Obj -0.22531546 Primal inf 1342.6232 (524)
+66379  Obj -0.22521285 Primal inf 1632.9564 (495)
+66580  Obj -0.22495908 Primal inf 3230.1512 (513)
+66982  Obj -0.22429352 Primal inf 755.89185 (480)
+67183  Obj -0.22339034 Primal inf 1083.7244 (457)
+67384  Obj -0.2232701 Primal inf 748.18192 (427)
+67585  Obj -0.22304366 Primal inf 724.79094 (437)
+67786  Obj -0.22171923 Primal inf 1010.3634 (439)
+68188  Obj -0.22138642 Primal inf 1249.3051 (466)
+68389  Obj -0.22106187 Primal inf 1134.5275 (469)
+68791  Obj -0.21993966 Primal inf 572.95744 (469)
+69193  Obj -0.21370546 Primal inf 425.86015 (435)
+69595  Obj -0.21293213 Primal inf 1416.6465 (595)
+69796  Obj -0.21276151 Primal inf 1377.0717 (600)
+69997  Obj -0.2125915 Primal inf 1213.3002 (568)
+70198  Obj -0.2123409 Primal inf 2553.6632 (546)
+70600  Obj -0.21193173 Primal inf 1442.5212 (524)
+71203  Obj -0.19696314 Primal inf 5404.0231 (583)
+71806  Obj -0.18006358 Primal inf 1707.3467 (646)
+72208  Obj -0.17946017 Primal inf 2209.2012 (634)
+72610  Obj -0.17906975 Primal inf 1814.7122 (686)
+73012  Obj -0.17780592 Primal inf 1340.4134 (672)
+73414  Obj -0.1771835 Primal inf 7192.5815 (599)
+73615  Obj -0.177 Primal inf 1049.1941 (571)
+74017  Obj -0.17620379 Primal inf 1659.6499 (638)
+74218  Obj -0.17608973 Primal inf 1539.0671 (583)
+74419  Obj -0.17592225 Primal inf 853.29983 (457)
+74821  Obj -0.17493676 Primal inf 846.51705 (538)
+75223  Obj -0.17334627 Primal inf 2708.6226 (444)
+75424  Obj -0.17319616 Primal inf 2555.3449 (446)
+75625  Obj -0.17304173 Primal inf 1071.192 (428)
+76027  Obj -0.17246077 Primal inf 1071.3656 (264)
+76429  Obj -0.17198118 Primal inf 685.20862 (440)
+76630  Obj -0.17184998 Primal inf 558.35303 (433)
+77032  Obj -0.17141155 Primal inf 1097.7818 (420)
+77233  Obj -0.17127387 Primal inf 1002.0542 (460)
+77434  Obj -0.17118399 Primal inf 945.35203 (417)
+77836  Obj -0.17061647 Primal inf 2722.2851 (474)
+78238  Obj -0.1696668 Primal inf 1572.818 (450)
+78640  Obj -0.16903504 Primal inf 1377.9399 (359)
+78841  Obj -0.16890762 Primal inf 647.09332 (287)
+79042  Obj -0.16882942 Primal inf 2866.2005 (330)
+79243  Obj -0.16872413 Primal inf 466.5329 (335)
+79444  Obj -0.16863503 Primal inf 292.3562 (358)
+79645  Obj -0.16852104 Primal inf 2392.6632 (392)
+79846  Obj -0.16842795 Primal inf 545.80474 (394)
+80047  Obj -0.16831495 Primal inf 564.82246 (362)
+80248  Obj -0.16820493 Primal inf 821.831 (417)
+80449  Obj -0.16814798 Primal inf 1494.0868 (344)
+80650  Obj -0.16806203 Primal inf 1522.3696 (356)
+80851  Obj -0.16803184 Primal inf 377.22337 (344)
+81052  Obj -0.16782726 Primal inf 126.38555 (193)
+81253  Obj -0.16778207 Primal inf 191.64505 (260)
+81454  Obj -0.16772811 Primal inf 105.12411 (220)
+81655  Obj -0.16761367 Primal inf 289.20911 (263)
+81856  Obj -0.16756061 Primal inf 425.40707 (134)
+82057  Obj -0.16750215 Primal inf 191.55713 (160)
+82258  Obj -0.16750372 Primal inf 139.32904 (167)
+82459  Obj -0.16748241 Primal inf 88.516987 (170)
+82660  Obj -0.16746812 Primal inf 129.28471 (215)
+82861  Obj -0.16746549 Primal inf 23.905337 (135)
+83062  Obj -0.16745897 Primal inf 3.1695104 (38)
+83263  Obj -0.16744437 Primal inf 208.68897 (193)
+83464  Obj -0.16743708 Primal inf 0.023915537 (5)
+Looking optimal checking bounds with 1e+10
+Going back to original objective
+83747  Obj -0.17263579 Dual inf 0.23303544 (3280)
+Looking optimal with tolerance of 1e-06
+Optimal - objective value -0.17267622
+Dual took 223.76 seconds (total 224.67)
+After Postsolve, objective -0.17267622, infeasibilities - dual 2.6981318e-05 (25), primal 0 (0)
+Presolved model was optimal, full model needs cleaning up
+Initial range of elements is 1 to 43200
+Range of elements is 0.0084313915 to 118.60438
+Range of elements is 0.13735697 to 7.2803006
+Final range of elements is 0.16799688 to 5.9524915
+Absolute values of scaled rhs range from 0.20547157 to 81000, minimum gap 1e+100
+Absolute values of scaled objective range from 0.00022546732 to 100
+Absolute values of scaled bounds range from 1e-05 to 14.508242, minimum gap 1e-05
+0  Obj -0.17267622
+Optimal - objective value -0.17267622
+Cleanup took 0.14 seconds (total 224.87)
+Optimal objective -0.1726762184 - 84170 iterations time 224.872, Presolve 0.97
+Unscaled problem has dual infeasibilities
+Log level = 3, recipe = Either, solve time = 224876 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-06, dual tolerance = 1E-06
+  ColIndex   ColSolution   ReducedCost     Objective
+         0       0.51706             0        -0.001
+         1             0             0        -0.001
+         2             1  2.897343E-18        -0.001
+         3             1        -0.001        -0.001
+         4             0             0        -0.001
+         5             0             0        -0.001
+         6             0             0        -0.001
+         7             0             0        -0.001
+         8             1             0        -0.001
+         9             1        -0.001        -0.001
+Solver clpeither solved model s250r10 result=Optimal
+Model                                  s250r10
+Solver                               clpeither
+SolveTimeMs                             224875
+Objective                  -0.1726762184390529
+ConstraintsPerMs                            18
+Iterations                               84170
+LoadTimeMs                                1087
+ResultStatus                           Optimal
+VariablesPerMs                             703
+
+LPSharp> read-mps C:\users\krish\work\lpbench\mittelmann\square41.mps -format free
+Read MPS file C:\users\krish\work\lpbench\mittelmann\square41.mps as model Name=square41 Obj=target A=(40161, 62197) Elements=13566426 RHS=(1, 1717) RowTypes=40161 Lower=(1, 62197) Upper=(1, 62197) Ranges=(0, 0) DefaultVarBound=(0,∞) DefaultConstraintBound=(-∞,∞) SelectedRhs=, SelectedBound=, SelectedRange= in 27230 ms, read_errors=0, model_key=square41
+LPSharp> invoke-solver -key clp square41
+Loaded model in 4969 ms
+Solver clp solving model square41...
+38406 rows dropped after presolve pass 1
+38406 rows dropped after presolve pass 2
+Presolve 1754 (-38406) rows, 23828 (-38406) columns and 4336554 (-9229872) elements
+Presolve took 10.49 seconds (total 10.49)
+4 infeas 26.437618, obj 6.5325516 - mu 0.1, its 105, 536 interior
+7 infeas 5.0230686, obj 6.8255339 - mu 0.03333, its 105, 2156 interior
+10 infeas 8.1024471, obj 7.6360481 - mu 0.03333, its 105, 1093 interior
+13 infeas 2.8920653, obj 8.0931851 - mu 0.011108889, its 105, 2471 interior
+16 infeas 3.4948037, obj 8.2657612 - mu 0.011108889, its 105, 1484 interior
+20 infeas 2.4769375, obj 8.5154336 - mu 0.0037025927, its 105, 1948 interior
+24 infeas 2.6368266, obj 8.8083923 - mu 0.0037025927, its 105, 1350 interior
+28 infeas 1.3892305, obj 8.8763929 - mu 0.0012340741, its 105, 1560 interior
+32 infeas 0.8317389, obj 8.981141 - mu 0.00041131691, its 105, 2214 interior
+37 infeas 0.47509808, obj 9.0658594 - mu 0.00013709193, its 105, 2633 interior
+39 infeas 0.60364606, obj 9.0831835 - mu 0.00013709193, its 105, 1742 interior
+42 infeas 0.32735309, obj 9.1404926 - mu 0.00013709193, its 105, 1489 interior
+44 infeas 0.28067916, obj 9.1468043 - mu 4.5692739e-05, its 105, 2026 interior
+48 infeas 0.19754536, obj 9.1935644 - mu 4.5692739e-05, its 105, 1614 interior
+55 infeas 0.12979269, obj 9.2315086 - mu 5.0759557e-06, its 105, 1474 interior
+63 infeas 0.080858186, obj 9.2604759 - mu 1.691816e-06, its 105, 1243 interior
+71 infeas 0.0476077, obj 9.2804335 - mu 5.6388228e-07, its 105, 1140 interior
+79 infeas 0.029972104, obj 9.2906949 - mu 6.2641057e-08, its 105, 1139 interior
+87 infeas 0.018952493, obj 9.2971223 - mu 2.0878264e-08, its 105, 1112 interior
+92 infeas 0.014240289, obj 9.2999298 - mu 6.9587255e-09, its 105, 1110 interior
+99 infeas 0.0096587656, obj 9.3026116 - mu 2.3193432e-09, its 105, 1092 interior
+Exiting due to number of major iterations
+largest infeasibility is 0.000212144
+largest infeasibility is 0.000196308
+largest infeasibility is 0.000196308
+sum of infeasibilities 0.00939797 - average 5.35802e-06, 22738 fixed columns
+651 rows dropped after presolve pass 1
+651 rows dropped after presolve pass 2
+Presolve 1103 (-651) rows, 1055 (-22773) columns and 65966 (-4270588) elements
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+0  Obj 9.3027996 Primal inf 0.019658898 (1062) Dual inf 5.6216e+16 (1055)
+End of values pass after 1055 iterations
+Perturbing problem by 0.001% of 1.0000001 - largest nonzero change 0 ( 0%) - largest zero change 2.9911424e-05
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 9.0889538
+Initial range of elements is 1 to 1
+Not bothering to scale as good enough
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Optimal - objective value 9.0889538
+After Postsolve, objective 9.0889538, infeasibilities - dual 0 (0), primal 0 (0)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+2 total structurals rejected in initial factorization
+0  Obj 9.0889538 Dual inf 31563.153 (6338)
+End of values pass after 1 iterations
+Perturbing problem by 0.001% of 1 - largest nonzero change 0 ( 0%) - largest zero change 2.9689261e-05
+221  Obj 9.088491 Primal inf 1.7233991e-06 (1) Dual inf 7.580334e+13 (8684)
+331  Obj 9.0882457 Primal inf 3.3801237e-05 (59) Dual inf 8.2776146e+14 (10259)
+441  Obj 9.084431 Primal inf 5.8906973e-06 (25) Dual inf 3.8470683e+14 (9915)
+551  Obj 9.0844912 Primal inf 1.1013326e-05 (12) Dual inf 6.4605537e+14 (9612)
+661  Obj 9.0842439 Primal inf 1.3414773e-05 (29) Dual inf 1.006767e+15 (9983)
+771  Obj 9.084124 Primal inf 1.916773e-05 (33) Dual inf 1.2762981e+15 (9003)
+881  Obj 9.0839675 Primal inf 2.8077418e-06 (10) Dual inf 1.5006943e+14 (10271)
+991  Obj 9.083705 Primal inf 4.9039495e-07 (3) Dual inf 4.0568349e+13 (9860)
+1101  Obj 9.0835906 Primal inf 8.9543824e-06 (21) Dual inf 3.6172807e+14 (10593)
+1211  Obj 9.0834973 Primal inf 2.0489921e-06 (6) Dual inf 1.7909543e+14 (10044)
+1321  Obj 9.0815334 Primal inf 6.2625082e-06 (13) Dual inf 2.3174038e+14 (10321)
+1431  Obj 9.078714 Primal inf 1.6482286e-05 (39) Dual inf 1.4456455e+15 (10549)
+1541  Obj 9.076561 Primal inf 6.6025748e-07 (6) Dual inf 9.9466267e+13 (8986)
+1651  Obj 9.0726747 Primal inf 1.5903892e-05 (44) Dual inf 5.532975e+14 (9385)
+1761  Obj 9.0726512 Primal inf 1.2088704e-06 (9) Dual inf 8.6241105e+13 (9247)
+1871  Obj 9.0726478 Primal inf 2.8773749e-06 (16) Dual inf 3.1095368e+14 (8765)
+1981  Obj 9.0725392 Primal inf 2.4180882e-05 (45) Dual inf 1.2795042e+15 (9123)
+2091  Obj 9.0725304 Primal inf 4.2830187e-06 (14) Dual inf 5.6462851e+14 (9805)
+2201  Obj 9.0724471 Primal inf 6.1195787e-07 (5) Dual inf 1.3874036e+14 (9323)
+2311  Obj 9.0723587 Primal inf 5.111249e-07 (2) Dual inf 5.7555266e+13 (9544)
+2421  Obj 9.0722635 Primal inf 6.9081962e-06 (24) Dual inf 2.8244539e+14 (9651)
+2531  Obj 9.0722343 Dual inf 105898.05 (8590)
+2641  Obj 9.0721636 Primal inf 8.2833256e-07 (6) Dual inf 8.1264686e+13 (9956)
+2751  Obj 9.0721431 Dual inf 88221.628 (8145)
+2861  Obj 9.0720469 Primal inf 6.1430125e-08 (1) Dual inf 2.3164217e+13 (9853)
+2971  Obj 9.0719636 Dual inf 74892.167 (8606)
+3081  Obj 9.066275 Primal inf 1.3345528e-06 (8) Dual inf 1.8367005e+14 (11032)
+3191  Obj 9.0660353 Dual inf 205584.79 (9382)
+3301  Obj 9.0658839 Primal inf 1.1519208e-07 (4) Dual inf 5.7303846e+13 (10372)
+3411  Obj 9.0655906 Primal inf 1.0672144e-07 (2) Dual inf 8.060562e+13 (10689)
+3521  Obj 9.0655038 Primal inf 1.3564496e-06 (10) Dual inf 1.5903062e+14 (11247)
+3631  Obj 9.0653277 Primal inf 1.8505663e-07 (5) Dual inf 7.4526988e+13 (10775)
+3741  Obj 9.0620715 Dual inf 219359.19 (10082)
+3851  Obj 9.0564185 Primal inf 2.4671444e-08 (2) Dual inf 2.5202441e+13 (9920)
+3961  Obj 9.0563247 Dual inf 167268.49 (9095)
+4071  Obj 9.0562189 Primal inf 3.1663681e-07 (4) Dual inf 5.4264663e+13 (10362)
+4181  Obj 9.0560867 Dual inf 202092.57 (9105)
+4291  Obj 9.0559769 Dual inf 129213.52 (9303)
+4401  Obj 9.0558328 Dual inf 74424.638 (8870)
+4511  Obj 9.0557248 Dual inf 251830.29 (8895)
+4621  Obj 9.0556105 Primal inf 1.2554644e-08 (1) Dual inf 2.1804361e+13 (9962)
+4731  Obj 9.0551139 Dual inf 296109.51 (10094)
+4841  Obj 9.0548768 Dual inf 328082.92 (9980)
+4951  Obj 9.0546729 Dual inf 696424.94 (10618)
+5061  Obj 9.0544716 Dual inf 571882.01 (10342)
+5171  Obj 9.054162 Dual inf 346095.26 (10737)
+5281  Obj 9.0540565 Dual inf 330801.52 (10762)
+5391  Obj 9.0537865 Dual inf 447561.15 (10554)
+5501  Obj 9.0440539 Dual inf 175091.11 (10195)
+5611  Obj 9.0437062 Dual inf 410448.59 (9764)
+5721  Obj 9.0407736 Dual inf 661763.23 (10309)
+5831  Obj 9.040543 Dual inf 664727.83 (10149)
+5941  Obj 9.0402641 Dual inf 650767.82 (10174)
+6051  Obj 9.036641 Dual inf 224117.45 (10011)
+6161  Obj 9.0361572 Dual inf 272948.56 (10593)
+6271  Obj 9.0359769 Dual inf 196173.03 (9655)
+6381  Obj 9.0358791 Dual inf 178759.33 (9276)
+6491  Obj 9.0357361 Dual inf 171806.15 (10121)
+6601  Obj 9.0355229 Dual inf 304675.5 (9829)
+6711  Obj 9.0354 Dual inf 210138.97 (9883)
+6821  Obj 9.0352097 Dual inf 119392.03 (9608)
+6931  Obj 9.0351157 Dual inf 225157.45 (9843)
+7041  Obj 9.035048 Dual inf 200337.53 (9856)
+7151  Obj 9.0345043 Dual inf 323731.78 (9097)
+7261  Obj 9.0343577 Dual inf 107082.34 (9749)
+7371  Obj 9.0339351 Dual inf 145028.78 (9375)
+7481  Obj 9.033761 Dual inf 172834.96 (9993)
+7591  Obj 9.0228126 Dual inf 332416.19 (10717)
+7701  Obj 9.0195124 Dual inf 533003.31 (10088)
+7811  Obj 9.0192998 Dual inf 486546.64 (10248)
+7921  Obj 9.0190066 Dual inf 638919.28 (10387)
+8031  Obj 9.0188911 Dual inf 461838.8 (10264)
+8141  Obj 9.0172013 Dual inf 447765.15 (9965)
+8251  Obj 9.0167393 Dual inf 493328.87 (10064)
+8361  Obj 9.0162089 Dual inf 333963.42 (10051)
+8471  Obj 9.0158598 Dual inf 400660.46 (10386)
+8581  Obj 9.0155081 Dual inf 255313.54 (9956)
+8685  Obj 9.0132392 Dual inf 96804.066 (9421)
+8795  Obj 9.0131306 Dual inf 182841.8 (9449)
+8905  Obj 9.0130048 Dual inf 215089.11 (9717)
+9015  Obj 9.0129167 Dual inf 102674.45 (9212)
+9125  Obj 9.0127778 Dual inf 131676.54 (9621)
+9235  Obj 9.0103532 Dual inf 202865.91 (10303)
+9334  Obj 9.0098463 Dual inf 128758.58 (9583)
+9444  Obj 9.0097778 Dual inf 418483.52 (10330)
+9554  Obj 9.0080028 Dual inf 223604.36 (10103)
+9664  Obj 9.0057447 Dual inf 334625.67 (9653)
+9774  Obj 9.0055882 Dual inf 236147.72 (9631)
+9884  Obj 8.9946881 Dual inf 125336.7 (9020)
+9994  Obj 8.9941309 Dual inf 95588.543 (9524)
+10104  Obj 8.9939354 Dual inf 76931.966 (8762)
+10214  Obj 8.9938082 Dual inf 64936.434 (8243)
+10324  Obj 8.99374 Dual inf 147039.78 (9673)
+10434  Obj 8.9934997 Dual inf 98210.422 (9246)
+10544  Obj 8.9908825 Dual inf 390039.77 (10298)
+10654  Obj 8.9838403 Dual inf 408340.41 (10235)
+10764  Obj 8.9823635 Dual inf 150810.85 (9443)
+10874  Obj 8.981396 Dual inf 418048.92 (10511)
+10984  Obj 8.9807781 Dual inf 348171.99 (10573)
+11094  Obj 8.9797027 Dual inf 140228.73 (9301)
+11204  Obj 8.9794025 Dual inf 308718.5 (9531)
+11314  Obj 8.9791985 Dual inf 300034.21 (9669)
+11424  Obj 8.9789781 Dual inf 126004.88 (9287)
+11534  Obj 8.9787248 Dual inf 278573.49 (10460)
+11644  Obj 8.9785571 Dual inf 126370.07 (9097)
+11754  Obj 8.9783465 Dual inf 274553.05 (9895)
+11864  Obj 8.9780918 Dual inf 227863.65 (9622)
+11974  Obj 8.9779462 Dual inf 172026.68 (9217)
+12084  Obj 8.9778111 Dual inf 542810.54 (10057)
+12194  Obj 8.9775864 Dual inf 272333.13 (9959)
+12304  Obj 8.9774852 Dual inf 72533.525 (8907)
+12414  Obj 8.9773275 Dual inf 374246 (10241)
+12524  Obj 8.976398 Dual inf 375472.33 (10147)
+12634  Obj 8.976056 Dual inf 424842.18 (10411)
+12744  Obj 8.9688237 Dual inf 568742.53 (9919)
+12854  Obj 8.9685326 Dual inf 309716.74 (9841)
+12964  Obj 8.9683023 Dual inf 287801.75 (10261)
+13074  Obj 8.964281 Dual inf 322887.84 (9864)
+13184  Obj 8.9640834 Dual inf 285156.11 (9867)
+13294  Obj 8.9637747 Dual inf 305632.56 (9968)
+13404  Obj 8.9628784 Dual inf 651304.07 (10238)
+13514  Obj 8.9585026 Dual inf 433142.18 (10412)
+13624  Obj 8.9581687 Dual inf 486615.16 (10542)
+13734  Obj 8.957911 Dual inf 430420.85 (10508)
+13844  Obj 8.9575617 Dual inf 775825.68 (10463)
+13954  Obj 8.957277 Dual inf 475580.57 (10542)
+14064  Obj 8.9569803 Dual inf 699410.15 (10713)
+14174  Obj 8.9566401 Dual inf 365384.91 (10307)
+14284  Obj 8.9563486 Dual inf 524044.77 (10187)
+14394  Obj 8.9558241 Dual inf 284587.99 (10270)
+14504  Obj 8.955366 Dual inf 668674.13 (10640)
+14614  Obj 8.9549186 Dual inf 689222.82 (10718)
+14724  Obj 8.9543122 Dual inf 461874.62 (9809)
+14834  Obj 8.9518709 Dual inf 160384.27 (9562)
+14920  Obj 8.9491322 Dual inf 1646198.3 (9865)
+15030  Obj 8.94566 Dual inf 737014.4 (9740)
+15140  Obj 8.945435 Dual inf 797546.43 (9703)
+15250  Obj 8.9452617 Dual inf 1290726.2 (11250)
+15360  Obj 8.9406555 Dual inf 111036.06 (9732)
+15470  Obj 8.9366823 Dual inf 544242.62 (10613)
+15580  Obj 8.9362189 Dual inf 253556.49 (9718)
+15690  Obj 8.9329526 Dual inf 209616.61 (10716)
+15800  Obj 8.9269476 Dual inf 630383.6 (10564)
+15910  Obj 8.9263953 Dual inf 508101.18 (10960)
+16020  Obj 8.9215422 Dual inf 118506.28 (9287)
+16130  Obj 8.9214154 Dual inf 167441.62 (9511)
+16240  Obj 8.9212886 Dual inf 146291.66 (9902)
+16350  Obj 8.9211143 Dual inf 146364.81 (9524)
+16460  Obj 8.9194406 Dual inf 235880.77 (9269)
+16570  Obj 8.9193211 Dual inf 102017.27 (9219)
+16680  Obj 8.919201 Dual inf 126475.82 (9255)
+16790  Obj 8.9190773 Dual inf 117368.02 (9091)
+16900  Obj 8.9189822 Dual inf 80214.18 (8929)
+17010  Obj 8.9188582 Dual inf 126391.39 (9352)
+17120  Obj 8.9175348 Dual inf 259296.5 (10159)
+17230  Obj 8.9174268 Dual inf 88610.762 (8935)
+17340  Obj 8.9172879 Dual inf 92741.034 (9161)
+17450  Obj 8.9171657 Dual inf 215371.92 (9222)
+17560  Obj 8.9170426 Dual inf 226807.4 (9768)
+17670  Obj 8.9169168 Dual inf 97135.72 (9178)
+17780  Obj 8.9168181 Dual inf 83262.132 (9099)
+17890  Obj 8.916725 Dual inf 195768.21 (9988)
+18000  Obj 8.9121679 Dual inf 408189.48 (10115)
+18110  Obj 8.9119896 Dual inf 229119.84 (9749)
+18220  Obj 8.9117706 Dual inf 233282.72 (9786)
+18330  Obj 8.911554 Dual inf 313262.05 (9614)
+18440  Obj 8.9113498 Dual inf 376765.29 (9936)
+18550  Obj 8.9111561 Dual inf 239340.55 (9847)
+18660  Obj 8.9110698 Dual inf 327030.63 (10058)
+18770  Obj 8.9109698 Dual inf 428638.43 (9825)
+18880  Obj 8.9107606 Dual inf 302113.21 (10070)
+18990  Obj 8.9106627 Dual inf 369212.73 (9949)
+19100  Obj 8.9103857 Dual inf 223413.91 (9882)
+19210  Obj 8.9102847 Dual inf 365870.26 (9879)
+19320  Obj 8.9101409 Dual inf 296256.15 (9549)
+19430  Obj 8.909982 Dual inf 289275.89 (10016)
+19540  Obj 8.9098277 Dual inf 271488.64 (10254)
+19650  Obj 8.9079613 Dual inf 294735.56 (9182)
+19760  Obj 8.9077712 Dual inf 105796.27 (9087)
+19870  Obj 8.9009723 Dual inf 2671872.6 (10817)
+19980  Obj 8.8956693 Dual inf 733361.38 (10582)
+20090  Obj 8.8955467 Dual inf 627761.27 (10588)
+20200  Obj 8.8854102 Dual inf 317955.3 (9806)
+20310  Obj 8.8852912 Dual inf 265547.73 (9423)
+20420  Obj 8.885121 Dual inf 257352.65 (9204)
+20530  Obj 8.8850282 Dual inf 295677.72 (9668)
+20640  Obj 8.8837286 Dual inf 74494.807 (8255)
+20750  Obj 8.8800191 Dual inf 38433.461 (7835)
+20860  Obj 8.8799667 Dual inf 379827.56 (9458)
+20970  Obj 8.8798796 Dual inf 65115.2 (8471)
+21080  Obj 8.8771827 Dual inf 339384.46 (10508)
+21190  Obj 8.8771231 Dual inf 370067.92 (10674)
+21300  Obj 8.8740433 Dual inf 131221.26 (9487)
+21410  Obj 8.8739764 Dual inf 101533.01 (9474)
+21520  Obj 8.8739148 Dual inf 101069.63 (9085)
+21630  Obj 8.8738736 Dual inf 119930.88 (9422)
+21740  Obj 8.8738031 Dual inf 104520.04 (8927)
+21850  Obj 8.8737165 Dual inf 107700.91 (9135)
+21960  Obj 8.8736492 Dual inf 40779.078 (8244)
+22070  Obj 8.8731273 Dual inf 187549.51 (9349)
+22180  Obj 8.8724835 Dual inf 204123.44 (9999)
+22290  Obj 8.8723364 Dual inf 152016.65 (9635)
+22400  Obj 8.8722537 Dual inf 136354.84 (9853)
+22510  Obj 8.8721455 Dual inf 422814.45 (9879)
+22620  Obj 8.8720064 Dual inf 234266.13 (9905)
+22730  Obj 8.8719205 Dual inf 152215.67 (9480)
+22840  Obj 8.8718615 Dual inf 156128.87 (9412)
+22950  Obj 8.8717954 Dual inf 328681.48 (9889)
+23060  Obj 8.8717299 Dual inf 143083.09 (9780)
+23170  Obj 8.868788 Dual inf 113843.8 (9489)
+23280  Obj 8.8687262 Dual inf 91230.894 (8683)
+23390  Obj 8.868637 Dual inf 53088.988 (7849)
+23500  Obj 8.8685585 Dual inf 31055.753 (7662)
+23610  Obj 8.8676743 Dual inf 112624.6 (9115)
+23720  Obj 8.8676216 Dual inf 117940.6 (8728)
+23830  Obj 8.8673902 Dual inf 79224.781 (8640)
+23940  Obj 8.8666435 Dual inf 17940.36 (6700)
+24050  Obj 8.8666173 Dual inf 21966.624 (6389)
+24160  Obj 8.8665541 Dual inf 21589.683 (6616)
+24270  Obj 8.8665008 Dual inf 38912.865 (7688)
+24380  Obj 8.8664574 Dual inf 52818.316 (7937)
+24490  Obj 8.8664024 Dual inf 75334.234 (8316)
+24600  Obj 8.8648822 Dual inf 101829.84 (9056)
+24710  Obj 8.8647802 Dual inf 71079.118 (8863)
+24820  Obj 8.8646405 Dual inf 61955.912 (8491)
+24930  Obj 8.8645579 Dual inf 49622.852 (8129)
+25040  Obj 8.8644779 Dual inf 205114.83 (9240)
+25150  Obj 8.8643754 Dual inf 56575.812 (8259)
+25260  Obj 8.8642877 Dual inf 75141.461 (8569)
+25370  Obj 8.8641726 Dual inf 47025.381 (7796)
+25480  Obj 8.863809 Dual inf 156090.36 (9160)
+25590  Obj 8.8637635 Dual inf 124548.28 (9151)
+25700  Obj 8.8636789 Dual inf 171123.9 (8905)
+25810  Obj 8.8625268 Dual inf 69340.592 (8814)
+25920  Obj 8.8599354 Dual inf 631188.43 (10365)
+26030  Obj 8.8593847 Dual inf 822244.46 (10328)
+26096  Obj 8.8593415 Dual inf 80917.101 (9294)
+26206  Obj 8.8589552 Dual inf 107980.63 (9532)
+26316  Obj 8.858797 Dual inf 178576.77 (9803)
+26426  Obj 8.8586933 Dual inf 282315.77 (9926)
+26536  Obj 8.8586082 Dual inf 97553.799 (9540)
+26646  Obj 8.8584944 Dual inf 142504.46 (9366)
+26756  Obj 8.8584431 Dual inf 97914.693 (9409)
+26866  Obj 8.8583151 Dual inf 220872.95 (10113)
+26976  Obj 8.8582242 Dual inf 94600.64 (9662)
+27086  Obj 8.8581509 Dual inf 63226.797 (8851)
+27196  Obj 8.8580745 Dual inf 128348.58 (9341)
+27306  Obj 8.8578886 Dual inf 112229.94 (9048)
+27416  Obj 8.857044 Dual inf 179528.08 (9960)
+27526  Obj 8.8569172 Dual inf 225711.81 (10514)
+27636  Obj 8.8567581 Dual inf 296161.55 (9636)
+27746  Obj 8.8565777 Dual inf 202376.27 (9848)
+27856  Obj 8.8563636 Dual inf 461911.76 (10176)
+27966  Obj 8.8551616 Dual inf 63944.909 (8603)
+28076  Obj 8.8550493 Dual inf 159376.57 (9298)
+28186  Obj 8.8508475 Dual inf 485716.13 (10446)
+28296  Obj 8.8505905 Dual inf 291726.29 (10417)
+28406  Obj 8.8504191 Dual inf 352220.48 (9708)
+28516  Obj 8.8502049 Dual inf 138036.03 (9729)
+28626  Obj 8.8500774 Dual inf 160222.56 (9101)
+28736  Obj 8.8499467 Dual inf 485782.37 (10590)
+28846  Obj 8.8498103 Dual inf 147444.8 (9417)
+28956  Obj 8.8496239 Dual inf 435594.87 (11098)
+29066  Obj 8.8494959 Dual inf 258434 (9759)
+29176  Obj 8.8493283 Dual inf 204125.4 (10083)
+29286  Obj 8.8491749 Dual inf 320193.82 (10558)
+29396  Obj 8.8489802 Dual inf 307254.05 (10791)
+29506  Obj 8.8488012 Dual inf 370797.37 (9726)
+29616  Obj 8.848586 Dual inf 298798.5 (9827)
+29726  Obj 8.8484197 Dual inf 176085.95 (10129)
+29836  Obj 8.8482193 Dual inf 107141.16 (10584)
+29946  Obj 8.8481246 Dual inf 270587.16 (10532)
+30056  Obj 8.8479976 Dual inf 373568.44 (10603)
+30166  Obj 8.8478699 Dual inf 284886.67 (10174)
+30276  Obj 8.8477423 Dual inf 349890.78 (9906)
+30386  Obj 8.8476783 Dual inf 238016.19 (10252)
+30496  Obj 8.8476194 Dual inf 132695.22 (9793)
+30606  Obj 8.8475414 Dual inf 237533.95 (10402)
+30716  Obj 8.8474753 Dual inf 252940.7 (10165)
+30826  Obj 8.8473924 Dual inf 282249.9 (10289)
+30936  Obj 8.8473063 Dual inf 308609.12 (10160)
+31046  Obj 8.8472009 Dual inf 226017.63 (10255)
+31156  Obj 8.8471651 Dual inf 274229.75 (10009)
+31266  Obj 8.8470638 Dual inf 177818.32 (9900)
+31376  Obj 8.8465841 Dual inf 61070.072 (9527)
+31486  Obj 8.8465374 Dual inf 184651.61 (10160)
+31596  Obj 8.8464642 Dual inf 195535.28 (10207)
+31706  Obj 8.8464081 Dual inf 151965.73 (9668)
+31816  Obj 8.8462491 Dual inf 50899.164 (8218)
+31926  Obj 8.8462156 Dual inf 66414.233 (8128)
+32036  Obj 8.8461718 Dual inf 45237.624 (8018)
+32146  Obj 8.8461253 Dual inf 55993.251 (8009)
+32256  Obj 8.8460889 Dual inf 71167.875 (8812)
+32366  Obj 8.8460674 Dual inf 34985.47 (8042)
+32476  Obj 8.8460519 Dual inf 36341.555 (7692)
+32586  Obj 8.8460223 Dual inf 55266.22 (8631)
+32696  Obj 8.8459839 Dual inf 27284.403 (7400)
+32806  Obj 8.8459523 Dual inf 23018.34 (7096)
+32916  Obj 8.8459249 Dual inf 91312.381 (8115)
+33026  Obj 8.8458854 Dual inf 49537.237 (8021)
+33136  Obj 8.8458689 Dual inf 105052.29 (9232)
+33246  Obj 8.8458438 Dual inf 41818.694 (8320)
+33356  Obj 8.845825 Dual inf 16200.038 (6327)
+33466  Obj 8.8458035 Dual inf 10579.046 (5110)
+33576  Obj 8.845792 Dual inf 46599.194 (7816)
+33686  Obj 8.845755 Dual inf 21791.356 (6721)
+33796  Obj 8.8457349 Dual inf 44398.804 (8190)
+33906  Obj 8.8456765 Dual inf 36688.075 (7701)
+34016  Obj 8.8456094 Dual inf 95216.699 (8921)
+34126  Obj 8.8455626 Dual inf 162336.06 (9417)
+34236  Obj 8.8455091 Dual inf 89577.29 (9152)
+34346  Obj 8.8454027 Dual inf 63101.375 (7627)
+34456  Obj 8.8453097 Dual inf 182648.13 (9434)
+34566  Obj 8.8452116 Dual inf 78053.485 (8519)
+34676  Obj 8.8450882 Dual inf 77733.731 (8544)
+34786  Obj 8.8449539 Dual inf 279434.81 (9486)
+34896  Obj 8.8449195 Dual inf 117102.6 (8824)
+35006  Obj 8.8442009 Dual inf 23099.752 (7004)
+35116  Obj 8.8427501 Dual inf 43556.85 (8820)
+35226  Obj 8.8417473 Dual inf 114704.63 (9023)
+35336  Obj 8.8416821 Dual inf 67080.367 (8804)
+35446  Obj 8.8416224 Dual inf 118786.41 (9400)
+35556  Obj 8.8415428 Dual inf 25724.886 (7265)
+35666  Obj 8.8414899 Dual inf 22952.17 (7227)
+35776  Obj 8.8414439 Dual inf 73994.651 (9184)
+35886  Obj 8.841309 Dual inf 83163.261 (8946)
+35996  Obj 8.8412607 Dual inf 57827.239 (8472)
+36106  Obj 8.8411962 Dual inf 39821.818 (7888)
+36216  Obj 8.8411572 Dual inf 77249.948 (8294)
+36326  Obj 8.8410776 Dual inf 178380.59 (9499)
+36436  Obj 8.8410466 Dual inf 130851.55 (9444)
+36546  Obj 8.8409036 Dual inf 719013.08 (10323)
+36656  Obj 8.8405613 Dual inf 127428.93 (9772)
+36766  Obj 8.8404972 Dual inf 53921.757 (8100)
+36876  Obj 8.8403383 Dual inf 78075.954 (8854)
+36986  Obj 8.8402662 Dual inf 160077.81 (10212)
+37096  Obj 8.8402327 Dual inf 101022.16 (8891)
+37206  Obj 8.8401821 Dual inf 107754.47 (8566)
+37316  Obj 8.839766 Dual inf 55147.108 (8023)
+37426  Obj 8.8392741 Dual inf 102733.72 (10049)
+37536  Obj 8.8392562 Dual inf 107744.96 (9597)
+37646  Obj 8.8387359 Dual inf 54506.105 (9001)
+37756  Obj 8.838517 Dual inf 13087.956 (5822)
+37866  Obj 8.8384908 Dual inf 17720.818 (6489)
+37976  Obj 8.8384568 Dual inf 121064.77 (9026)
+38086  Obj 8.8384199 Dual inf 36338.562 (7123)
+38196  Obj 8.8383969 Dual inf 48824.4 (8160)
+38306  Obj 8.8383603 Dual inf 49183.529 (7482)
+38416  Obj 8.8383208 Dual inf 30931.614 (7614)
+38526  Obj 8.8382803 Dual inf 66487.051 (8455)
+38636  Obj 8.838266 Dual inf 29845.693 (7132)
+38746  Obj 8.838196 Dual inf 33714.714 (7067)
+38856  Obj 8.8381863 Dual inf 38468.16 (7458)
+38966  Obj 8.8381428 Dual inf 56569.092 (7919)
+39076  Obj 8.8381031 Dual inf 113040.51 (9830)
+39186  Obj 8.8377969 Dual inf 49825.764 (7996)
+39296  Obj 8.837743 Dual inf 43229.307 (8070)
+39406  Obj 8.8377098 Dual inf 33793.559 (7399)
+39516  Obj 8.8376784 Dual inf 36605.363 (7491)
+39626  Obj 8.8376487 Dual inf 19710.279 (6427)
+39736  Obj 8.8376266 Dual inf 2733.0538 (3170)
+39846  Obj 8.8373895 Dual inf 15399.815 (5875)
+39956  Obj 8.8369634 Dual inf 140492.16 (9778)
+40066  Obj 8.8369395 Dual inf 239945.27 (10122)
+40176  Obj 8.8369347 Dual inf 216065.06 (9991)
+40286  Obj 8.8369278 Dual inf 244817.08 (9985)
+40396  Obj 8.836911 Dual inf 143643.65 (9842)
+40506  Obj 8.836895 Dual inf 133993.03 (10021)
+40616  Obj 8.8368853 Dual inf 115701.95 (10025)
+40726  Obj 8.8368748 Dual inf 120476.95 (10161)
+40836  Obj 8.8368559 Dual inf 142599.93 (10150)
+40946  Obj 8.8368452 Dual inf 112521.24 (9902)
+41056  Obj 8.8368318 Dual inf 100093.18 (9509)
+41166  Obj 8.8368246 Dual inf 57276.098 (8395)
+41276  Obj 8.8368168 Dual inf 36177.621 (8124)
+41386  Obj 8.8367983 Dual inf 48450.371 (7870)
+41496  Obj 8.8367873 Dual inf 77094.843 (8772)
+41606  Obj 8.836484 Dual inf 38547.334 (7146)
+41716  Obj 8.8364667 Dual inf 16047.604 (6250)
+41826  Obj 8.8364462 Dual inf 8953.5502 (4828)
+41936  Obj 8.8364397 Dual inf 17190.082 (6160)
+42046  Obj 8.8364281 Dual inf 15062.99 (5860)
+42156  Obj 8.8364128 Dual inf 5086.8259 (4025)
+42266  Obj 8.8363989 Dual inf 13848.965 (6385)
+42376  Obj 8.836394 Dual inf 12154.928 (5681)
+42486  Obj 8.8363761 Dual inf 32055.289 (7153)
+42596  Obj 8.8362646 Dual inf 27762.119 (7071)
+42706  Obj 8.8361709 Dual inf 24623.467 (7033)
+42816  Obj 8.8361588 Dual inf 6920.5279 (4543)
+42926  Obj 8.8361546 Dual inf 14317.408 (6043)
+43036  Obj 8.836145 Dual inf 2783.2705 (3189)
+43146  Obj 8.836136 Dual inf 13081.009 (5995)
+43256  Obj 8.8361186 Dual inf 20817.941 (6670)
+43366  Obj 8.8360876 Dual inf 7328.5978 (4780)
+43476  Obj 8.8360791 Dual inf 7860.3535 (5130)
+43586  Obj 8.8360724 Dual inf 7407.6774 (4711)
+43696  Obj 8.8360653 Dual inf 59964.034 (8326)
+43806  Obj 8.8360564 Dual inf 7420.3622 (4575)
+43916  Obj 8.8360503 Dual inf 3886.8621 (3789)
+44026  Obj 8.836047 Dual inf 3052.1122 (3461)
+44136  Obj 8.8360044 Dual inf 3224.3708 (3323)
+44246  Obj 8.8359991 Dual inf 972.75909 (1862)
+44356  Obj 8.8358009 Dual inf 1858.5866 (2615)
+44466  Obj 8.8357985 Dual inf 224.51749 (823)
+44576  Obj 8.8357915 Dual inf 1269.6941 (2120)
+44686  Obj 8.8357845 Dual inf 668.68888 (1527)
+44796  Obj 8.8357807 Dual inf 490.93888 (1292)
+44906  Obj 8.8357776 Dual inf 283.76027 (994)
+45016  Obj 8.8357736 Dual inf 187.67218 (753)
+45126  Obj 8.8357711 Dual inf 158.30631 (701)
+45236  Obj 8.8357689 Dual inf 274.97091 (924)
+45346  Obj 8.8357664 Dual inf 105.27172 (585)
+45456  Obj 8.8357658 Dual inf 547.68913 (1370)
+45566  Obj 8.8357641 Dual inf 192.09412 (711)
+45676  Obj 8.8357628 Dual inf 27.475048 (275)
+45786  Obj 8.835762 Dual inf 27.729245 (259)
+45896  Obj 8.8357607 Dual inf 159.7583 (664)
+46006  Obj 8.8357534 Dual inf 39.948024 (297)
+46116  Obj 8.8357528 Dual inf 116.64437 (539)
+46226  Obj 8.8357512 Dual inf 0.72095437 (39)
+46284  Obj 8.835751
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Looking optimal with tolerance of 1e-06
+Optimal - objective value 8.8396125
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Optimal - objective value 8.8396125
+Idiot Crash took 539.56 seconds (total 550.05)
+Absolute values of scaled rhs range from 1 to 1, minimum gap 1e+100
+Absolute values of scaled objective range from 1 to 1
+Absolute values of scaled bounds range from 1 to 1, minimum gap 1
+Optimal - objective value 8.8396125
+Primal took 0.11 seconds (total 550.17)
+After Postsolve, objective 8.8396125, infeasibilities - dual 0 (0), primal 0 (0)
+Optimal objective 8.839612487 - 0 iterations time 550.422, Presolve 10.74, Idiot 539.56
+Log level = 3, recipe = Either, solve time = 550424 ms
+Maximum seconds = -1, maximum iterations = 2147483647
+Primal tolerance = 1E-07, dual tolerance = 1E-07
+  ColIndex   ColSolution   ReducedCost     Objective
+         0             0             0             1
+         1             0             0             1
+         2             0 -2.220446E-16             1
+         3             0  2.220446E-16             1
+         4 -1.622982E-13 -4.440892E-16             1
+         5             0    0.06081443             1
+         6             0      0.109058             1
+         7  2.232131E-13  2.220446E-16             1
+         8  1.441156E-13  -1.44329E-15             1
+         9             0 -1.998401E-15             1
+Solver clp solved model square41 result=Optimal
+Model                                 square41
+Solver                                     clp
+SolveTimeMs                             550424
+Objective                    8.839612486545446
+ConstraintsPerMs                             8
+Iterations                                   0
+LoadTimeMs                                4969
+ResultStatus                           Optimal
+VariablesPerMs                             808
