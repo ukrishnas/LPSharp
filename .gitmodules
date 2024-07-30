@@ -1,9 +1,9 @@
 [submodule "CLP/BuildTools"]
 	path = CLP/BuildTools
-	url = https://github.com/ukrishnas/Networking-WANLP.git
+	url = https://github.com/ukrishnas/LPSharp.git
 [submodule "CLP/CoinUtils"]
 	path = CLP/CoinUtils
-	url = https://github.com/ukrishnas/Networking-WANLP.git
+	url = https://github.com/ukrishnas/LPSharp.git
 [submodule "CLP/Clp"]
 	path = CLP/Clp
-	url = https://github.com/ukrishnas/Networking-WANLP.git
+	url = https://github.com/ukrishnas/LPSharp.git

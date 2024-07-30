@@ -12,7 +12,7 @@ below to get you started.
 
 ## Cloning the repository
 
-This project uses [submodules](docs/Git-Submodule-cheatsheet) for some code. This means that some
+This project uses [submodules](docs/Git-Submodule-cheatsheet.md) for some code. This means that some
 subdirectories in this project are separate git repositories. First, clone the project, and then
 update submodules.
 
