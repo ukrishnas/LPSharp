@@ -3,8 +3,8 @@ set_property(SOURCE sorted_interval_list.i PROPERTY SWIG_MODULE_NAME operations_
 set_property(SOURCE sorted_interval_list.i PROPERTY COMPILE_DEFINITIONS
   ${OR_TOOLS_COMPILE_DEFINITIONS} ABSL_MUST_USE_RESULT)
 set_property(SOURCE sorted_interval_list.i PROPERTY COMPILE_OPTIONS
-  -namespace ${DOTNET_PROJECT}.Util
-  -dllimport google-ortools-native)
+  -namespace ${DOTNET_NAMESPACE}.Util
+  -dllimport google-ortools-glop-native)
 swig_add_library(dotnet_util
   TYPE OBJECT
   LANGUAGE csharp

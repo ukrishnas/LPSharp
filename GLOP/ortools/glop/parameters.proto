@@ -22,7 +22,7 @@ syntax = "proto2";
 
 package operations_research.glop;
 
-// next id = 66
+// next id = 67
 message GlopParameters {
 
   // Supported algorithms for scaling:
@@ -466,4 +466,7 @@ message GlopParameters {
   // SetStartingVariableValuesForNextSolve().
   optional bool push_to_vertex = 65 [default = true];
 
+  // Controls the period for logging iteration information. The value is the
+  // number of iterations to skip between successive messages.
+  optional int32 log_iteration_period = 66 [default = 0];
 }

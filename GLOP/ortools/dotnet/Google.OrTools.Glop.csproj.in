@@ -2,12 +2,12 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
-    <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <AssemblyName>@DOTNET_PROJECT@</AssemblyName>
     <Version>@PROJECT_VERSION@</Version>
 
     <!-- Nuget Properties -->
-    <Description>.NET wrapper for the Operations Research Tools project</Description>
+    <Description>Google Operations Research Tools Linear Programming (GLOP) solver .NET interface</Description>
 
     <!-- Pack Option -->
     <Title>@DOTNET_PROJECT@ v@PROJECT_VERSION@</Title>
@@ -49,29 +49,16 @@
   <!-- Validate at least one runtime package has been generated -->
   <Target Name="ValidateRuntimePack" BeforeTargets="GenerateNuspec">
     <ItemGroup>
-      <RuntimeLinux Include="@DOTNET_PACKAGES_DIR@/@DOTNET_PROJECT@.runtime.linux-x64.*.nupkg"/>
-      <RuntimeOsx Include="@DOTNET_PACKAGES_DIR@/@DOTNET_PROJECT@.runtime.osx-x64.*.nupkg"/>
       <RuntimeWin Include="@DOTNET_PACKAGES_DIR@/@DOTNET_PROJECT@.runtime.win-x64.*.nupkg"/>
     </ItemGroup>
     <Message Importance="high" Text="-------  $(OS)  "/>
-    <Message Importance="high" Text="Package @DOTNET_PROJECT@.runtime.linux-x64: found" Condition="Exists('@(RuntimeLinux)')"/>
-    <Message Importance="high" Text="Package @DOTNET_PROJECT@.runtime.osx-x64: found" Condition="Exists('@(RuntimeOsx)')"/>
     <Message Importance="high" Text="Package @DOTNET_PROJECT@.runtime.win-x64: found" Condition="Exists('@(RuntimeWin)')"/>
     <Message Importance="high" Text="Package @DOTNET_PROJECT@.runtime.win-x64: not found" Condition="!Exists('@(RuntimeWin)')"/>
-    <Error Text="You must locally 'dotnet pack' at least one @DOTNET_PROJECT@.runtime.{rid} Project." Condition="!Exists('@(RuntimeLinux)') AND !Exists('@(RuntimeOsx)') AND !Exists('@(RuntimeWin)')"/>
+    <Error Text="You must locally 'dotnet pack' at least one @DOTNET_PROJECT@.runtime.{rid} Project." Condition="!Exists('@(RuntimeWin)')"/>
   </Target>
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.18.0"/>
-  </ItemGroup>
-
-  <!-- Copy other content. The README has useful information to the package user. -->
-  <ItemGroup>
-    <Content Include="@PROJECT_SOURCE_DIR@/README.md">
-      <PackagePath>content</PackagePath>
-      <Pack>true</Pack>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <!-- Need to add required runtime dependencies so Meta-Project will pull runtime Nuget(s) -->
@@ -80,12 +67,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <RuntimeLinux Include="@DOTNET_PACKAGES_DIR@/@DOTNET_PROJECT@.runtime.linux-x64.*.nupkg"/>
-    <RuntimeOsx Include="@DOTNET_PACKAGES_DIR@/@DOTNET_PROJECT@.runtime.osx-x64.*.nupkg"/>
     <RuntimeWin Include="@DOTNET_PACKAGES_DIR@/@DOTNET_PROJECT@.runtime.win-x64.*.nupkg"/>
-    <PackageReference Include="@DOTNET_PROJECT@.runtime.linux-x64" Version="@PROJECT_VERSION@" Condition="Exists('@(RuntimeLinux)')"/>
-    <PackageReference Include="@DOTNET_PROJECT@.runtime.osx-x64"   Version="@PROJECT_VERSION@" Condition="Exists('@(RuntimeOsx)')"  />
-    <PackageReference Include="@DOTNET_PROJECT@.runtime.win-x64"   Version="@PROJECT_VERSION@" Condition="Exists('@(RuntimeWin)')"  />
+    <PackageReference Include="@DOTNET_PROJECT@.runtime.win-x64" Version="@PROJECT_VERSION@" Condition="Exists('@(RuntimeWin)')"  />
   </ItemGroup>
 </Project>
 

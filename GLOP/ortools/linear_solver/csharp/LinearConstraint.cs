@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Google.OrTools.LinearSolver
+namespace Google.OrTools.Glop.LinearSolver
 {
     using System;
     using System.Collections.Generic;
@@ -165,4 +165,4 @@ namespace Google.OrTools.LinearSolver
             return outVal;
         }
     }
-} // namespace Google.OrTools.LinearSolver
+}

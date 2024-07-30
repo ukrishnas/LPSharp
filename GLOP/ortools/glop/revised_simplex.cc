@@ -156,6 +156,7 @@ Status RevisedSimplex::Solve(const LinearProgram& lp, TimeLimit* time_limit) {
   optimization_time_ = 0.0;
   push_time_ = 0.0;
   total_time_ = 0.0;
+  last_iteration_logged_ = 0;
 
   // In case we abort because of an error, we cannot assume that the current
   // solution state will be in sync with all our internal data structure. In
@@ -3419,6 +3420,11 @@ void RevisedSimplex::PropagateParameters() {
 void RevisedSimplex::DisplayIterationInfo() {
   const bool log = parameters_.log_search_progress() || VLOG_IS_ON(1);
   if (!log) return;
+  const int log_period = parameters_.log_iteration_period();
+  if (log_period > 1) {
+    if (num_iterations_ < last_iteration_logged_ + log_period) return;
+    last_iteration_logged_ = num_iterations_;
+  }
 
   switch (phase_) {
     case Phase::FEASIBILITY: {

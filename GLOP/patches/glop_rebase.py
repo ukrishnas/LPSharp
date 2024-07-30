@@ -3,11 +3,11 @@ Custom rebase script for merging private GLOP changes with public code.
 
 For usage, run:
 
-$ python wanlp_rebase.py -h
+$ python glop_rebase.py -h
 
 Typical execution:
 
-$ python wanlp_rebase.py <public-tree> <old-private-tree> <new-private-tree>
+$ python glop_rebase.py <public-tree> <old-private-tree> <new-private-tree>
 --apply_patches
 
 <public-tree> is the path to the new public tree, <old-private tree> is the path
@@ -29,7 +29,7 @@ import subprocess
 _outputfolder = os.getcwd()
 _logger = logging.getLogger(__name__)
 _logger.setLevel(logging.DEBUG)
-_logfile = 'wanlp_rebase.log'
+_logfile = 'glop_rebase.log'
 
 def setup_logging(loglevel):
     """Set up logger."""
@@ -170,7 +170,7 @@ def apply_private_patches(dirname):
 
     os.chdir(dirname)
 
-    globpath = os.path.join('.', 'patches', 'wanlp*.patch')
+    globpath = os.path.join('.', 'patches', 'glop*.patch')
     patch_files = glob.glob(globpath)
     if patch_files == None or len(patch_files) == 0:
         _logger.warning('No patches found matching {}'.format(globpath))

@@ -1,0 +1,39 @@
+diff a/ortools/linear_solver/csharp/linear_solver.i b/ortools/linear_solver/csharp/linear_solver.i
+index 0d3ad75e..217f2fce 100644
+--- a/ortools/linear_solver/csharp/linear_solver.i
++++ b/ortools/linear_solver/csharp/linear_solver.i
+@@ -39,6 +39,7 @@
+ #include "ortools/linear_solver/linear_solver.h"
+ #include "ortools/linear_solver/linear_solver.pb.h"
+ #include "ortools/linear_solver/model_exporter.h"
++#include "ortools/lp_data/mps_reader.h"
+ %}
+ 
+ 
+@@ -166,6 +167,7 @@ CONVERT_VECTOR(operations_research::MPVariable, MPVariable)
+ // Extend code.
+ %unignore operations_research::MPSolver::ExportModelAsLpFormat(bool);
+ %unignore operations_research::MPSolver::ExportModelAsMpsFormat(bool, bool);
++%unignore operations_research::MPSolver::ImportModelFromMpsFormat(const std::string& file_name);
+ %unignore operations_research::MPSolver::SetHint(
+     const std::vector<operations_research::MPVariable*>&,
+     const std::vector<double>&);
+@@ -187,6 +189,18 @@ CONVERT_VECTOR(operations_research::MPVariable, MPVariable)
+     return ExportModelAsMpsFormat(model, options).value_or("");
+   }
+ 
++  bool ImportModelFromMpsFormat(const std::string& file_name) {
++    operations_research::glop::MPSReader reader;
++    operations_research::MPModelProto input_model;
++    absl::Status read_status = reader.ParseFile(file_name, &input_model);
++    if (!read_status.ok()) {
++      return false;
++    }
++    std::string error_message;
++    const auto load_status = $self->LoadModelFromProto(input_model, &error_message);
++    return MPSolverResponseStatus_IsValid(load_status);
++  }
++
+   void SetHint(const std::vector<operations_research::MPVariable*>& variables,
+                const std::vector<double>& values) {
+     if (variables.size() != values.size()) {

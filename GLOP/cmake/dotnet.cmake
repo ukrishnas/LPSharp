@@ -52,19 +52,21 @@ endforeach()
 add_custom_target(Dotnet${PROJECT_NAME}_proto DEPENDS ${PROTO_DOTNETS} ortools::ortools)
 
 # Create the native library
-add_library(google-ortools-native SHARED "")
-set_target_properties(google-ortools-native PROPERTIES
+add_library(google-ortools-glop-native SHARED "")
+set_target_properties(google-ortools-glop-native PROPERTIES
   PREFIX ""
   POSITION_INDEPENDENT_CODE ON)
 
 # CMake will remove all '-D' prefix (i.e. -DUSE_FOO become USE_FOO)
-#get_target_property(FLAGS ortools::ortools COMPILE_DEFINITIONS)
+# get_target_property(FLAGS ortools::ortools COMPILE_DEFINITIONS)
 set(FLAGS -DABSL_MUST_USE_RESULT)
 list(APPEND CMAKE_SWIG_FLAGS ${FLAGS} "-I${PROJECT_SOURCE_DIR}")
 
-# Needed by dotnet/CMakeLists.txt
-set(DOTNET_PACKAGE Google.OrTools)
+# Needed by dotnet/CMakeLists.txt. The dotnet package name is used here and in
+# csproj files. The namespace variable is used by SWIG.
+set(DOTNET_PACKAGE Google.OrTools.Glop)
 set(DOTNET_PACKAGES_DIR "${PROJECT_BINARY_DIR}/dotnet/packages")
+set(DOTNET_NAMESPACE Google.OrTools.Glop)
 if(WIN32)
   set(RUNTIME_IDENTIFIER win-x64)
 else()
@@ -76,7 +78,7 @@ set(DOTNET_PROJECT ${DOTNET_PACKAGE})
 # Swig wrap all libraries
 foreach(SUBPROJECT IN ITEMS linear_solver util)
   add_subdirectory(ortools/${SUBPROJECT}/csharp)
-  target_link_libraries(google-ortools-native PRIVATE dotnet_${SUBPROJECT})
+  target_link_libraries(google-ortools-glop-native PRIVATE dotnet_${SUBPROJECT})
 endforeach()
 
 configure_file(ortools/dotnet/Directory.Build.props.in dotnet/Directory.Build.props)
@@ -147,7 +149,7 @@ add_custom_target(dotnet_native_package
     dotnet/${DOTNET_NATIVE_PROJECT}/obj
   WORKING_DIRECTORY dotnet
 )
-add_dependencies(dotnet_native_package google-ortools-native)
+add_dependencies(dotnet_native_package google-ortools-glop-native)
 
 ####################
 ##  .Net Package  ##

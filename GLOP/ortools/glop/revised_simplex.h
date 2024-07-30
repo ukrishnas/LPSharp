@@ -803,6 +803,9 @@ class RevisedSimplex {
   // This is used by Polish().
   DenseRow integrality_scale_;
 
+  // The iteration number of the last iteration displayed.
+  uint64_t last_iteration_logged_;
+
   DISALLOW_COPY_AND_ASSIGN(RevisedSimplex);
 };
 

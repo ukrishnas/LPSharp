@@ -1,0 +1,59 @@
+diff a/ortools/glop/parameters.proto b/ortools/glop/parameters.proto
+index 9a9e5942..dba6b0b9 100644
+--- a/ortools/glop/parameters.proto
++++ b/ortools/glop/parameters.proto
+@@ -22,7 +22,7 @@ syntax = "proto2";
+ 
+ package operations_research.glop;
+ 
+-// next id = 66
++// next id = 67
+ message GlopParameters {
+ 
+   // Supported algorithms for scaling:
+@@ -466,4 +466,7 @@ message GlopParameters {
+   // SetStartingVariableValuesForNextSolve().
+   optional bool push_to_vertex = 65 [default = true];
+ 
++  // Controls the period for logging iteration information. The value is the
++  // number of iterations to skip between successive messages.
++  optional int32 log_iteration_period = 66 [default = 0];
+ }
+diff a/ortools/glop/revised_simplex.cc b/ortools/glop/revised_simplex.cc
+index 6a4a09f0..2a561028 100644
+--- a/ortools/glop/revised_simplex.cc
++++ b/ortools/glop/revised_simplex.cc
+@@ -156,6 +156,7 @@ Status RevisedSimplex::Solve(const LinearProgram& lp, TimeLimit* time_limit) {
+   optimization_time_ = 0.0;
+   push_time_ = 0.0;
+   total_time_ = 0.0;
++  last_iteration_logged_ = 0;
+ 
+   // In case we abort because of an error, we cannot assume that the current
+   // solution state will be in sync with all our internal data structure. In
+@@ -3419,6 +3420,11 @@ void RevisedSimplex::PropagateParameters() {
+ void RevisedSimplex::DisplayIterationInfo() {
+   const bool log = parameters_.log_search_progress() || VLOG_IS_ON(1);
+   if (!log) return;
++  const int log_period = parameters_.log_iteration_period();
++  if (log_period > 1) {
++    if (num_iterations_ < last_iteration_logged_ + log_period) return;
++    last_iteration_logged_ = num_iterations_;
++  }
+ 
+   switch (phase_) {
+     case Phase::FEASIBILITY: {
+diff a/ortools/glop/revised_simplex.h b/ortools/glop/revised_simplex.h
+index 9348eea0..941e03f7 100644
+--- a/ortools/glop/revised_simplex.h
++++ b/ortools/glop/revised_simplex.h
+@@ -803,6 +803,9 @@ class RevisedSimplex {
+   // This is used by Polish().
+   DenseRow integrality_scale_;
+ 
++  // The iteration number of the last iteration displayed.
++  uint64_t last_iteration_logged_;
++
+   DISALLOW_COPY_AND_ASSIGN(RevisedSimplex);
+ };
+ 

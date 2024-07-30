@@ -1,0 +1,9 @@
+diff a/Version.txt b/Version.txt
+index 9511250..94a247d 100644
+--- a/Version.txt
++++ b/Version.txt
+@@ -1,3 +1,3 @@
+ OR_TOOLS_MAJOR=9
+ OR_TOOLS_MINOR=1
+-#PRE_RELEASE=YES
++OR_TOOLS_PATCH=9490
