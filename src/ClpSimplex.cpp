@@ -4814,10 +4814,15 @@ void ClpSimplex::deleteRim(int getRidOfFactorizationData)
   if (!rowObjective_ && problemStatus_ == 0 && objective_->type() == 1 && numberRows && numberColumns) {
     // Redo objective value
     double objectiveValue = 0.0;
-    const double *cost = objective();
-    for (int i = 0; i < numberColumns; i++) {
-      double value = columnActivity_[i];
-      objectiveValue += value * cost[i];
+    if (algorithm_!=1 || (moreSpecialOptions_&268435456) == 0) {
+      const double *cost = objective();
+      for (int i = 0; i < numberColumns; i++) {
+	double value = columnActivity_[i];
+	objectiveValue += value * cost[i];
+      }
+    } else {
+      // piecewise linear
+      objectiveValue = nonLinearCost_->feasibleCost();
     }
     //if (fabs(objectiveValue_ -objectiveValue*optimizationDirection())>1.0e-5)
     //printf("old obj %g new %g\n",objectiveValue_, objectiveValue*optimizationDirection());
@@ -9563,6 +9568,15 @@ ClpSimplex::checkScaling()
 	}
 	if (largestRhs > 1.0e9) {
 	  rhsScale_ = 1.0e8/largestRhs;
+	  // but can't make bounds too close
+	  double smallestGap = 1.0e100;
+	  for (int i=0;i<numberColumns_+numberRows_;i++) {
+	    if (lower_[i] > -1.0e80 && upper_[i] < 1.0e80) {
+	      if (lower_[i] != upper_[i]) 
+		smallestGap = CoinMin(smallestGap,upper_[i]-lower_[i]);
+	    }
+	  }
+	  rhsScale_ = CoinMax(rhsScale_,1.1*primalTolerance_/smallestGap);
 #if CLP_SCALING_PRINT 
 	  printf("scaling rhs %g\n",rhsScale_);
 #endif
@@ -9746,6 +9760,7 @@ int ClpSimplex::createPiecewiseLinearCosts(const int *starts,
   }
   nonLinearCost_ = new ClpNonLinearCost(this, starts, lower, gradient);
   specialOptions_ |= 2; // say keep
+  moreSpecialOptions_ |= 268435456;
   return returnCode;
 }
 /* For advanced use.  When doing iterative solves things can get
