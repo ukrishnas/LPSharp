@@ -21,9 +21,6 @@ using geometric mean.
 |Netlib|GLOP Primal|1|0.8|1.1|2.1|3.2|
 |Mittelmann|GLOP Primal|1||||1.9|
 
-Microsoft Solver Foundation (MSF) results are from Network Designer using
-Invoke-MSFSolve, because LPSharp does not support MSF.
-
 CLP results are using LPSharp Powershell console and CLP nuget packages from
 this repository. The solver can also be invoked using `coinwrap.exe`, a
 standalone executable of the Clp interface, and `Clp.exe`, a standalone
