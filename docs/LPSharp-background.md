@@ -17,6 +17,18 @@ The table below summarizes some information on the solvers.
 | User guide | [User guide](https://coin-or.github.io/Clp/) | [User guide](https://developers.google.com/optimization/introduction/overview) |
 | License | Eclipse Public License 2.0 | Apache License 2.0 |
 
+__Motivation__: We started this repository to make use of open source LP solvers
+in our wide area network traffic engineering solver. From a development
+standpoint, we need to make solvers written in C++ work with C# code since most
+of our code is written in C#. LP relaxation is often a means to mixed integer
+programming or other optimizations, but traffic engineering optimization
+problems, like approximate max-min fairness, diverse path allocation, and
+minimizing maximum utilization are pure LP problems. We wanted to de-clutter the
+code bases to make them easy to understand and maintain. There is a lot of
+benefit if we can extract the full potential of solver for our models. Simply
+running the solvers with default values is not enough. This requires us to gain
+a deeper understanding of the LP code. These were the reasons, we started this
+repository.
 
 __LP solvers__: LP solvers are often part of larger optimization suites that
 consist of [boolean
@@ -55,7 +67,7 @@ repository store binary files and tools in order to support multiple platforms.
 There is a lot of excess fat in this repository. A large number of files had to
 be stripped away from the public repository, and rebasing these changes can be
 more work than applying a patch over the files we kept. Git operations, like
-submodule update, clone, and  pull, become slow and require more network
+submodule update, clone, and pull, become slow and require more network
 bandwidth. In such cases, we have resorted to keeping a copy of the code,
 patches of our changes, and an interactive python copy and rebase script. This
 approach can be reversed once the public repository becomes modular.
