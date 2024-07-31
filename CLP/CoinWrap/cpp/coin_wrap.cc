@@ -18,7 +18,7 @@ void usage(const char * program_name) {
 \n\
 positional arguments: \n\
 filename   MPS file name \n\
-method     solve method, one of dual, primal, either, barrier";
+recipe     solver recipe, one of barrier, dualcrash, duals, either, primalidiot, primals";
 
     std::cout << "usage: " << program_name << usage_str << std::endl;
     exit(1);

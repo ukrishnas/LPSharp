@@ -39,8 +39,7 @@ source tree.
   of the OR-Tools code base as a copy (until the public repository decreases in
   size). Only the LP solver related code has been retained.
 - LPBench has benchmark results and logs of the solvers built from this
-  repository using wide area network traffic engineering LP models, Netlib, and
-  the collection maintained by Hans D. Mittelmann.
+  repository using Netlib and the collection maintained by Hans D. Mittelmann.
 - LPSharp is the C# based Powershell console that provides script-able cmdlets
   to read MPS files, instantiate multiple solvers, read solver-specific
   parameters, load models into the solver using solver APIs to create variables,

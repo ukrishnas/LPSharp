@@ -5,35 +5,31 @@ Start the LPSharp Powershell console using the executable.
 LPSharp\PowershellConsole\bin\Release\net6.0\LPSharp.exe
 ```
 
+You will see the Powershell prompt. It is preloaded with LPSharp cmdlets.
+
+```
+LPSharp> 
+```
+
 Read a model with `read-mps`. The model can be accessed using a key which is the
 filename without extension or the name given using `-key`. Use the `-format
 free` option to read files in MPS free format. The default fixed format is
 faster.
 ```
-LPSharp> read-mps 80bau38.mps
-```
-
-Create a solver with the `set-solver -create`. The argument is the solver type
-(supported values are `GLOP` and `CLP`). The solver can be accessed using the
-key defined by `-key`. The `-default` option means this will be the solver used
-in future `invoke-solver` commands if no key is given.
-```
-LPSharp> set-solver -create CLP -key clp
-LPSharp> set-solver -create GLOP -key glop -default
+read-mps 80bau38.mps
 ```
 
 LPSharp uses a data model shown below for solver parameters. Parameters under
 SolverParameters are for all solvers. Each solver has its section of parameters.
 
+Contents of parameters.xml.
 ```
-Contents of parameters.xml:
-
 <?xml version="1.0"?>
 <SolverParameters>
   <!-- These parameters are common for all solvers. -->
   <GenericParameters>
     <Param Name="TimeLimitInSeconds" Value="90" />
-    <Param Name="EnableOutput" Value="true" />
+    <Param Name="EnableLogging" Value="true" />
   </GenericParameters>
 
   <!-- GLOP solver parameters. MP solver common properties like presolve,
@@ -54,43 +50,58 @@ Contents of parameters.xml:
 
   <!-- CLP solver parameters. -->
   <ClpParameters>
-    <Param Name="SolveType" Value="Dual" />
+    <Param Name="Recipe" Value="Either" />
     <Param Name="LogLevel" Value="3" />
   </ClpParameters>
 
 </SolverParameters>
 ```
 
-Set solver parameters while creating the solver using the previously read solver parameters.
+Create a solver with the `set-solver -create`. The argument is the solver type
+(supported values are `GLOP` and `CLP`). The solver can be accessed using the
+key defined by `-key`. 
 ```
-LPSharp> read-parameters parameters.xml
-LPSharp> set-solver -create GLOP -key glop -DefaultParameters
-```
-
-Set solver parameters while creating the solver by passing the parameters file.
-```
-LPSharp> set-solver -create GLOP -key glop -ParametersFile parameters.xml
+set-solver -create CLP -key clp
 ```
 
-Set solver parameters while creating the solver by passing parameters as key-value pairs.
+Create a solver and initialize with solver parameters from file and semicolon
+separated key-value pairs. `ParametersFile` is performed first, and
+`ParametersText` is performed second. So it can be used to override parameters
+read from file.
 ```
-LPSharp> set-solver -create GLOP -key glop -ParametersText "EnableLogging=true"
+set-solver -create GLOP -key glop -ParametersFile parameters.xml -ParametersText "EnableLogging=false"
+```
+
+If the `-create` option is not used, the operations are performed on previously
+created solver. The `-default` option means the solver is the default choice in
+future `invoke-solver` commands if no key is given. The `-DefaultParameters`
+initializes with the solver with previously parameters read by `read-parameters`.
+```
+set-solver -key glop -default
+read-parameters parameters.xml
+set-solver -key glop -DefaultParameters
 ```
 
 View created solvers.
 ```
-LPSharp> get-solvers
+get-solvers
+```
 
+Output.
+```
 Key  Value
 ---  -----
-glop GLOP_LINEAR_PROGRAMMING solver Key=glop TimeLimitInSeconds=0 EnableLogging=False SolveWithParameters=True LPAlgor.
-clp  CLP solver Key=clp TimeLimitInSeconds=0 EnableLogging=True Recipe=PrimalIdiot LogLevel=3
+glop GLOP_LINEAR_PROGRAMMING solver Key=glop TimeLimitInSeconds=90 EnableLogging=True SolveWithParameters=True LPAlgorithm=Primal SolverSpecificParameters=.
+clp  CLP solver Key=clp TimeLimitInSeconds=90 EnableLogging=True Recipe=Either LogLevel=3
 ```
 
 View loaded models.
 ```
-LPSharp> get-models
+get-models
+```
 
+Output.
+```
 Key    Value
 ---    -----
 25fv47 Name=25fv47 Obj=R0000 A=(822, 727) Elements=10400 RHS=(1, 287) RowTypes=822 Lower=(0, 0) Upper=(0, 0)
@@ -100,16 +111,30 @@ Key    Value
 Load the model into the solver and solve it. The first argument is the model
 key. You can select a non-default solver using `-key`. 
 ```
-LPSharp> invoke-solver s250r10
-Loading model s250r10
-Solving model s250r10...
-Solved model s250r10 result=optimal
-Model                                  s250r10
-Solver                                    glop
-SolveTimeMs                              12957
-Objective                 -0.17267704190548064
-Iterations                               11387
-LoadTimeMs                                1192
+invoke-solver -key glop 80bau38
+```
+
+Output.
+```
+Solver glop solving model 80bau38...
+  ColIndex   ColSolution
+         0      531.1245
+         1      286.8013
+         2      544.7416
+         3      895.5393
+         4      1810.744
+         5       1641.95
+         6      1075.996
+         7      358.6983
+         8      345.8736
+         9      768.4426
+Solver glop solved model 80bau38 result=Optimal
+Model                                  80bau38
+Solver                                   glop
+SolveTimeMs                                258
+Objective                    987224.1924090903
+Iterations                                4593
+LoadTimeMs                                  48
 ResultStatus                           OPTIMAL
 ```
 
@@ -118,8 +143,11 @@ solver keys. You can see more details by saving the output of `get-results` into
 a variable. Each execution result is a dictionary of string keys and object
 values.
 ```
-LPSharp> get-results
+get-results
+```
 
+Output.
+```
 Key             Value
 ---             -----
 rmine15_lp_glop {[Model, rmine15_lp], [Solver, glop], [SolveTimeMs, 846300], [Objective, -5042.482962975563].}
