@@ -57,7 +57,7 @@ choices are: barrier, dualcrash, duals, either, primals, primalidiot (all in
 lower case).
 
 ```
-$ coinwrap.exe netlib\80bau38.mps either
-$ coinwrap.exe netlib\80bau38.mps duals
-$ coinwrap.exe netlib\80bau38.mps primals
+coinwrap.exe netlib\80bau38.mps either
+coinwrap.exe netlib\80bau38.mps duals
+coinwrap.exe netlib\80bau38.mps primals
 ```

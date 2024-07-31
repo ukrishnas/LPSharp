@@ -8,7 +8,11 @@ repositories. These are tips for working with submodules.
 
 First, clone the project.
 ```
-$ git clone https://github.com/ukrishnas/LPSharp.git LPSharp
+git clone https://github.com/ukrishnas/LPSharp.git LPSharp
+```
+
+Output.
+```
 Cloning into 'LPSharp'...
 remote: Enumerating objects: 26912, done.
 remote: Counting objects: 100% (26912/26912), done.
@@ -24,9 +28,12 @@ be upstreamed to the public repository. Hence we have changed the URL in
 `.gitmodules` to a private URL. In our example, it happens to be the same URL as
 the parent project but the submodule repository is still separate.
 ```
-$ cd LPSharp
-$ git submodule update --init --recursive
+cd LPSharp
+git submodule update --init --recursive
+```
 
+Output
+```
 Submodule 'CLP/BuildTools' (https://github.com/ukrishnas/LPSharp.git) registered for path 'CLP/BuildTools'
 Submodule 'CLP/Clp' (https://github.com/ukrishnas/LPSharp.git) registered for path 'CLP/Clp'
 Submodule 'CLP/CoinUtils' (https://github.com/ukrishnas/LPSharp.git) registered for path 'CLP/CoinUtils'
@@ -45,13 +52,14 @@ HEAD means there is no local branch, and is fine if you are going to simply
 build with the submodule.
 
 ```
-$ cd CLP/clp
-$ git status
+cd CLP/clp
+git status
+```
+
+Output.
+```
 HEAD detached at 99781af2
 nothing to commit, working tree clean
-
-$ git log -1
-commit b1b47cac36718f864987343a0de55ce86473a5eb (HEAD, origin/lpsharp_clp_clp_master)
 ```
 
 ## Checkout branch
@@ -62,7 +70,11 @@ The naming convention of the origin master branch for each submodule is
 off the submodule-specific master branch in the remote.
 
 ```
-$ git checkout -b clp_dev -t origin/lpsharp_clp_clp_master
+git checkout -b clp_dev -t origin/lpsharp_clp_clp_master
+```
+
+Output.
+```
 Switched to a new branch 'clp_dev'
 Branch 'clp_dev' set up to track remote branch 'lpsharp_clp_clp_master' from 'origin'.
 ```
@@ -79,13 +91,17 @@ branch for a submodule is `lpsharp_<folder>_<folder>_master`, all in lowercase.
 The combined steps are shown below.
 
 ```
-$ git submodule add https://github.com/coin-or-tools/BuildTools.git
-$ git remote remove origin
-$ git remote add origin https://github.com/ukrishnas/LPSharp.git
-$ git branch -m lpsharp_clp_buildtools_master
-$ <Perform any edits to submodule>
-$ git commit
-$ git push --set-upstream origin lpsharp_clp_buildtools_master
+git submodule add https://github.com/coin-or-tools/BuildTools.git
+git remote remove origin
+git remote add origin https://github.com/ukrishnas/LPSharp.git
+git branch -m lpsharp_clp_buildtools_master
+```
+
+Perform any edits to submodule and commit.
+
+```
+git commit
+git push --set-upstream origin lpsharp_clp_buildtools_master
 ```
 
 Edit `.gitmodule` URL parameter of the newly added submodule from the public to
@@ -113,13 +129,13 @@ and `public_origin` refers to the public remote.
 - Commit and push changes.
 
 ```
-$ cd Clp
-$ git checkout -b clp_update -t origin/lpsharp_clp_clp_master
-$ git remote add public_origin https://github.com/coin-or/Clp.git
-$ git fetch --all
-$ git rebase --interactive --onto public_origin/<public_new_tip> public_origin/<public_old_tip> clp_update
-$ git commit -a -m "Rebase private changes onto new public tip"
-$ git push
+cd Clp
+git checkout -b clp_update -t origin/lpsharp_clp_clp_master
+git remote add public_origin https://github.com/coin-or/Clp.git
+git fetch --all
+git rebase --interactive --onto public_origin/<public_new_tip> public_origin/<public_old_tip> clp_update
+git commit -a -m "Rebase private changes onto new public tip"
+git push
 ```
 
 ## Reset submodule
@@ -130,6 +146,6 @@ After update with the initialize option, the directory will be reset to the tip
 in the remote.
 
 ```
-$ git submodule deinit -f Clp
-$ git submodule update --init Clp
+git submodule deinit -f Clp
+git submodule update --init Clp
 ```

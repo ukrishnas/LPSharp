@@ -17,8 +17,8 @@ if you are going to edit CMakeLists files in the source tree.
 For help and version.
 
 ```
-$ cmake -h
-$ cmake --version
+cmake -h
+cmake --version
 ```
 
 Visual Studio is a multi-configuration generator. You must specify the build
@@ -26,9 +26,9 @@ configuration in the command line as shown below. You cannot specify it using
 CMAKE_BUILD_TYPE. 
 
 ``` 
-$ cmake --build build --config release
-$ cmake --build build --config debug
-$ ctest -C release
+cmake --build build --config release
+cmake --build build --config debug
+ctest -C release
 ```
 
 When generating some csproj files in the build process, we use two steps.

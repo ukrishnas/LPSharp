@@ -12,14 +12,18 @@ below to get you started.
 
 ## Cloning the repository
 
-This project uses [submodules](docs/Git-Submodule-cheatsheet.md) for some code. This means that some
-subdirectories in this project are separate git repositories. First, clone the project, and then
-update submodules.
+This project uses [submodules](docs/Git-Submodule-cheatsheet.md) for some code.
+This means that some subdirectories in this project are separate git
+repositories. First, clone the project. 
 
 ```
-$ git clone https://github.com/ukrishnas/LPSharp.git LPSharp
-$ cd LPSharp
-$ git submodule update --init --recursive
+git clone https://github.com/ukrishnas/LPSharp.git LPSharp
+```
+
+Next, update submodules.
+```
+cd LPSharp
+git submodule update --init --recursive
 ```
 
 ## What is where

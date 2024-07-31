@@ -15,7 +15,12 @@ code, and `new-private` be the new copy. This script will copy the relevant
 files from the public and private trees, and apply the private patches.
 
 ```
-$ python private\GLOP\patches\glop_rebase.py public private\GLOP new-private --apply_patches
+python private\GLOP\patches\glop_rebase.py public private\GLOP new-private --apply_patches
+```
+
+Output.
+
+```
 Deleting existing new-private. Press [yY] to continue: y
 Apply .\patches\glop-0-initial.patch, p to pick, c to check, any other letter to skip: p
 ```

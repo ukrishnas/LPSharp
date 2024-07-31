@@ -43,9 +43,9 @@ __Visualization__. You can plot the results using
 that is part of the source tree.
 
 ```
-$ python plot_lpbench.py --help  # for usage
-$ python plot_lpbench.py results_i7.csv --model_pattern netlib --measurements GlopPrimal GlopDualPerturb ClpPrimalIdiot ClpDualCrash ClpEither
-$ python plot_lpbench.py results_i7.csv --model_pattern mittelmann --measurements GlopPrimal ClpEither
+python plot_lpbench.py --help  # for usage
+python plot_lpbench.py results_i7.csv --model_pattern netlib --measurements GlopPrimal GlopDualPerturb ClpPrimalIdiot ClpDualCrash ClpEither
+python plot_lpbench.py results_i7.csv --model_pattern mittelmann --measurements GlopPrimal ClpEither
 ```
 
 [Results_i7.csv](https://github.com/ukrishnas/LPSharp/blob/main/LPBench/results_i7.csv)

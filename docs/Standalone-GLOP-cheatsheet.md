@@ -5,32 +5,32 @@ folder>/RELEASE/bin/glop_solve.exe`.
 See full help information.
 
 ```
-$ glop_solve.exe -helpfull
+glop_solve.exe -helpfull
 ```
 
 Load and solve an MPS file with default parameters.
 
 ```
-$ glop_solve.exe -mpsfile <MPS file>
+glop_solve.exe -mpsfile <MPS file>
 ```
 
 Load and solve with a 30 second solve time limit and dual simplex algorithm.
 
 ```
-$ glop_solve.exe -mpsfile <MPS file> -timelimit 30 -lpalgorithm dual
+glop_solve.exe -mpsfile <MPS file> -timelimit 30 -lpalgorithm dual
 ```
 
 Turn on verbose logging and log to a file in the current directory (default
 is the system log directory). Turn off logging to standard error which is on by default.
 
 ```
-$ glop_solve.exe --mpsfile <MPS file> --nologtostderr -v=1 -log_dir=.
+glop_solve.exe --mpsfile <MPS file> --nologtostderr -v=1 -log_dir=.
 ```
 
 Set solver-specific parameters in command line.
 
 ```
-$ glop_solve.exe -mpsfile <MPS file> --glop_params="perturb_costs_in_dual_simplex: 1 optimization_rule: 2"
+glop_solve.exe -mpsfile <MPS file> --glop_params="perturb_costs_in_dual_simplex: 1 optimization_rule: 2"
 ```
 
 Set solver-specific parameters that use non-default cost perturbation settings.
@@ -43,10 +43,11 @@ of perturbation is it increases the number of non-zeros and hence matrix operati
 factorization take longer. The values were chosen as the minimum to prevent cycles and
 have least degradation in solve times for models that do not need them.
 ```
-$ glop_solve.exe ... -timelimit 30 -params_file dual_params.txt
+glop_solve.exe ... -timelimit 30 -params_file dual_params.txt
+```
 
-Dual_params.txt:
-
+Dual_params.txt.
+```
 perturb_costs_in_dual_simplex: 1
 relative_cost_perturbation: 100
 relative_max_cost_perturbation: 1

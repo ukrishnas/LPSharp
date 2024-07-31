@@ -26,5 +26,5 @@ Build succeeded.
 
 You should the following artifacts upon a successful build.
 
-- `PowershellConsole/bin/Release/net6.0/PowershellConsole.exe` is the LPSharp powershell console.
+- `PowershellConsole/bin/Release/net6.0/LPSharp.exe` is the LPSharp powershell console.
   Execute it to access the cmdlets.
