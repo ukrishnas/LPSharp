@@ -7,14 +7,13 @@ are:
 - CLP: Computation Infrastructure for Operations Research (COIN-OR) LP solver.
 - GLOP: Google Operations Research Tools (OR-Tools) LP solver.
 
-Please see [documentation](docs/) for detailed information and guides. We have kept a short version
-below to get you started. 
+Please see [the wiki](https://github.com/ukrishnas/LPSharp/wiki) for detailed
+information and guides. We have kept a short version below to get you started.
 
 ## Cloning the repository
 
-This project uses [submodules](docs/Git-Submodule-cheatsheet.md) for some code.
-This means that some subdirectories in this project are separate git
-repositories. First, clone the project. 
+This project uses submodules for some code. This means that some subdirectories
+in this project are separate git repositories. First, clone the project.
 
 ```
 git clone https://github.com/ukrishnas/LPSharp.git LPSharp
