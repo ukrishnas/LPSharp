@@ -35,7 +35,7 @@ executable linked with the C++ libraries and is another way to involve Glop
 solver. It may be used to debug LPSharp or control the solver in ways not
 possible with the dotnet interface.
 
-See [LPSharp Powershell cmdlets guide](LPSharp-Powershell-Cmdlets-Guide) for
+See [LPSharp Powershell cmdlets guide](LPSharp-Powershell-Cmdlets-Guide.md) for
 more information on invoking the solver and collecting results.
 
 __Visualization__. You can plot the results using
