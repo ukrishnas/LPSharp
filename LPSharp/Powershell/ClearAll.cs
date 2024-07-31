@@ -1,11 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ClearAll.cs">
-// Copyright(c) 2024 Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.Powershell
+namespace LPSharp.Powershell
 {
     using System.Management.Automation;
 

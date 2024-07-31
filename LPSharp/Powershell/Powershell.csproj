@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\settings\build-settings.props" />
 
   <PropertyGroup>
+    <RootNamespace>LPSharp.Powershell</RootNamespace>
+    <AssemblyName>LPSharp.Powershell</AssemblyName>
     <OutputType>Library</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -16,6 +18,4 @@
   <ItemGroup>
     <ProjectReference Include="..\LPDriver\LPDriver.csproj" />
   </ItemGroup>
-
-  <Import Project="..\settings\build-settings.xml" />
 </Project>

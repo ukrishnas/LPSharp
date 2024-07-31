@@ -5,7 +5,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.PowershellConsole
+namespace LPSharp.PowershellConsole
 {
     using System;
     using System.Collections.Generic;

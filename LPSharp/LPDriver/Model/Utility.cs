@@ -1,11 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Utility.cs">
-// Copyright (c) Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriver.Model
+namespace LPSharp.LPDriver.Model
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.LPSharp.LPDriver.Model
     using System.Runtime.Serialization;
     using System.Xml;
     using System.Xml.Serialization;
-    using Microsoft.LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Represents utility methods.

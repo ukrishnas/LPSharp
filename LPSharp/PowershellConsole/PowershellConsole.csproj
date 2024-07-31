@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\settings\build-settings.props" />
 
   <PropertyGroup>
+    <RootNamespace>LPSharp.PowershellConsole</RootNamespace>
+    <AssemblyName>LPSharp.PowershellConsole</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,5 +21,4 @@
     <PackageReference Include="System.Management.Automation" Version="7.1.4" />
   </ItemGroup>
 
-  <Import Project="..\settings\build-settings.xml" />
 </Project>

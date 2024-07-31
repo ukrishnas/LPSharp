@@ -1,16 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ReadParameters.cs">
-// Copyright(c) 2024 Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.Powershell
+namespace LPSharp.Powershell
 {
     using System.IO;
     using System.Management.Automation;
-    using Microsoft.LPSharp.LPDriver.Contract;
-    using Microsoft.LPSharp.LPDriver.Model;
+    using LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Model;
 
     /// <summary>
     /// Reads solver parameters from file.

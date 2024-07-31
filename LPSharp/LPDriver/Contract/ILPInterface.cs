@@ -1,13 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ILPInterface.cs">
-// Copyright (c) Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriver.Contract
+namespace LPSharp.LPDriver.Contract
 {
-    using Microsoft.LPSharp.LPDriver.Model;
+    using LPSharp.LPDriver.Model;
 
     /// <summary>
     /// Represents the interface to an LP solver.

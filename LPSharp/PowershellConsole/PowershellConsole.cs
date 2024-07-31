@@ -5,7 +5,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.PowershellConsole
+namespace LPSharp.PowershellConsole
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Microsoft.LPSharp.PowershellConsole
     using System.Management.Automation.Runspaces;
     using System.Reflection;
 
-    using Microsoft.LPSharp.Powershell;
+    using LPSharp.Powershell;
 
     using PowerShell = System.Management.Automation.PowerShell;
 

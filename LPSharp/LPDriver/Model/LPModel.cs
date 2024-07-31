@@ -1,17 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LPModel.cs">
-// Copyright (c) Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriver.Model
+namespace LPSharp.LPDriver.Model
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Microsoft.LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Represents the model of a linear program. The model is based on data records in an MPS file.

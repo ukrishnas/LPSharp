@@ -1,14 +1,11 @@
-
-
 The examples below assume that the current directory is the root of GLOP
-sources, and your desired build directory is `./build`. 
+sources, and your desired build directory is `./build`. You can download CMake
+from [here](https://cmake.org/download/).
 
-Generate the build system, fetch and build dependent packages. No options are
-required.
+Generate the build system, fetch and build dependent packages.
 
 ```
-$ cd GLOP
-$ cmake -S . -B build
+cmake -S . -B build
 ```
 
 You can browse the code using `build\ortools.sln`.
@@ -16,7 +13,7 @@ You can browse the code using `build\ortools.sln`.
 Build the release.
 
 ```
-$ cmake --build build --config Release
+cmake --build build --config Release
 ```
 
 You should find the following artifacts upon a successful build:
@@ -26,6 +23,7 @@ You should find the following artifacts upon a successful build:
 - `build/RELEASE/bin/glop_solve.exe`
 
 Import the packages into LPSharp or your C# project using:
+
 ```
-$ dotnet add package Google.OrTools.Glop --version <version number>
+dotnet add package Google.OrTools.Glop --version <version number>
 ```

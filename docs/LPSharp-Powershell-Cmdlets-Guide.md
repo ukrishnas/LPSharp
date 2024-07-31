@@ -88,6 +88,16 @@ glop GLOP_LINEAR_PROGRAMMING solver Key=glop TimeLimitInSeconds=0 EnableLogging=
 clp  CLP solver Key=clp TimeLimitInSeconds=0 EnableLogging=True Recipe=PrimalIdiot LogLevel=3
 ```
 
+View loaded models.
+```
+LPSharp> get-models
+
+Key    Value
+---    -----
+25fv47 Name=25fv47 Obj=R0000 A=(822, 727) Elements=10400 RHS=(1, 287) RowTypes=822 Lower=(0, 0) Upper=(0, 0)
+80bau38 Name=80bau38 Obj=HOLLY A=(2263, 8061) Elements=21002 RHS=(1, 346) RowTypes=2263 Lower=(1, 3555) Upper=(1, 3555.
+```
+
 Load the model into the solver and solve it. The first argument is the model
 key. You can select a non-default solver using `-key`. 
 ```

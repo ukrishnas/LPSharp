@@ -1,19 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LPCmdlet.cs">
-// Copyright(c) 2024 Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.Powershell
+namespace LPSharp.Powershell
 {
     using System;
     using System.Collections;
     using System.IO;
     using System.Management.Automation;
     using System.Reflection;
-    using Microsoft.LPSharp.LPDriver.Contract;
-    using Microsoft.LPSharp.LPDriver.Model;
+    using LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Model;
 
     /// <summary>
     /// The linear programming cmdlet.

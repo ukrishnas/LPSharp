@@ -1,16 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ReadMps.cs">
-// Copyright(c) 2024 Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.Powershell
+namespace LPSharp.Powershell
 {
     using System.Diagnostics;
     using System.IO;
     using System.Management.Automation;
-    using Microsoft.LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Reads a model from a file in MPS format.

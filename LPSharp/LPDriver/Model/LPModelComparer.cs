@@ -1,18 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LPModelComparer.cs">
-// Copyright (c) Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriver.Model
+namespace LPSharp.LPDriver.Model
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
-    using Microsoft.LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Compares two LP models and shows the differences.

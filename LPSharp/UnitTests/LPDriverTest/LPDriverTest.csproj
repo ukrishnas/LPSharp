@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\settings\build-settings.props" />
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-
+    <RootNamespace>LPSharp.LPDriverTest</RootNamespace>
+    <AssemblyName>LPSharp.LPDriverTest</AssemblyName>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -25,5 +26,4 @@
     <Content Include="..\TestData\*.mps*" LinkBase="TestData" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
-  <Import Project="..\..\settings\build-settings.xml" />
 </Project>

@@ -1,14 +1,14 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LPDriver.cs">
-// Copyright (c) Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriver.Model
+namespace LPSharp.LPDriver.Model
 {
     using System.Collections.Generic;
-    using Microsoft.LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Contract;
 
     /// <summary>
     /// Represents the driver for LPSharp. It holds common state and methods.

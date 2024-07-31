@@ -1,14 +1,14 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LPDriverTest.cs">
-// Copyright (c) Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.LPDriverTest
+namespace LPSharp.LPDriverTest
 {
-    using Microsoft.LPSharp.LPDriver.Contract;
-    using Microsoft.LPSharp.LPDriver.Model;
+    using LPSharp.LPDriver.Contract;
+    using LPSharp.LPDriver.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

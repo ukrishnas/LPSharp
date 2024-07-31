@@ -1,11 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="PowershellHost.cs">
-// Copyright(c) 2024 Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.PowershellConsole
+namespace LPSharp.PowershellConsole
 {
     using System;
     using System.Collections.Generic;

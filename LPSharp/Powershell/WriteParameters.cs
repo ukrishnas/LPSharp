@@ -1,15 +1,15 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="WriteParameters.cs">
-// Copyright (c) Umesh Krishnaswamy.
+// Copyright (c) 2024 Umesh Krishnaswamy.
 // Licensed under the MIT License.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.LPSharp.Powershell
+namespace LPSharp.Powershell
 {
     using System.IO;
     using System.Management.Automation;
-    using Microsoft.LPSharp.LPDriver.Model;
+    using LPSharp.LPDriver.Model;
 
     /// <summary>
     /// Writes solver parameters from file.

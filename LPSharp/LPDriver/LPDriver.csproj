@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\settings\build-settings.props" />
 
   <PropertyGroup>
+    <RootNamespace>LPSharp.LPDriver</RootNamespace>
+    <AssemblyName>LPSharp.LPDriver</AssemblyName>
     <OutputType>Library</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -10,9 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoinOr.Clp" Version="1.17.1905.54" />
-    <PackageReference Include="Google.OrTools.Glop" Version="9.1.9490.59" />
+    <PackageReference Include="CoinOr.Clp" Version="1.17.1905.186" />
+    <PackageReference Include="Google.OrTools.Glop" Version="9.1.9490.186" />
   </ItemGroup>
-
-  <Import Project="..\settings\build-settings.xml" />
 </Project>

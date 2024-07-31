@@ -4,8 +4,8 @@ refer to the [dotnet cheat sheet](Dotnet-cheatsheet.md) for troubleshooting tips
 Build the LPSharp Powershell console.
 
 ```
-$ cd LPSharp/PowershellConsole
-$ dotnet build -c Release
+cd LPSharp/PowershellConsole
+dotnet build -c Release
 ```
 
 Typical output.
@@ -26,5 +26,5 @@ Build succeeded.
 
 You should the following artifacts upon a successful build.
 
-- `PowershellConsole/bin/Release/net5.0/PowershellConsole.exe` is the LPSharp powershell console.
+- `PowershellConsole/bin/Release/net6.0/PowershellConsole.exe` is the LPSharp powershell console.
   Execute it to access the cmdlets.
