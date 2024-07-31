@@ -2,8 +2,7 @@
 Start the LPSharp Powershell console using the executable.
 
 ```
-$ PowershellConsole\bin\Release\net5.0\PowershellConsole.exe
-LPSharp>
+LPSharp\PowershellConsole\bin\Release\net6.0\LPSharp.exe
 ```
 
 Read a model with `read-mps`. The model can be accessed using a key which is the
