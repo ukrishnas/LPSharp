@@ -25,42 +25,42 @@ recipe     solver recipe, one of barrier, dualcrash, duals, either, primalidiot,
 }
 
 // Prints a formatted double value.
-inline void print_double(double value) {
-    std::cout << std::setiosflags(std::ios::fixed | std::ios::showpoint) << std::setw(14) << value << " ";
+inline void print_double(double value, std::string sep = " ") {
+    std::cout << std::setiosflags(std::ios::fixed | std::ios::showpoint) << std::setw(14) << value << sep;
 }
 
 // Prints row and column solutions.
-void PrintSolution(coinwrap::ClpInterface &clp, int max_lines) {
-    if (max_lines == 0) {
+void PrintSolution(coinwrap::ClpInterface &clp, int max_rows, int max_cols) {
+    if (max_rows == 0 && max_cols == 0) {
         return;
     }
 
+    // Print the row solutions.
+    std::cout << "Row index, row activity, row price" << std::endl;
+    std::vector<double> rowActivity, rowPrice;
+    clp.PrimalRowSolution(rowActivity);
+    clp.DualRowSolution(rowPrice);
+    int m = max_rows < rowActivity.size() ? max_rows : rowActivity.size();
+    for (int i = 0; i < m; i++) {
+        std::cout << std::setw(6) << i << " ";
+        print_double(rowActivity[i]);
+        print_double(rowPrice[i]);
+        std::cout << std::endl;
+    }
+    std::cout << "--------------------------------------" << std::endl;
+
     // Print the column solutions.
-    std::cout << "Column index    column solution   reduced cost   objective" << std::endl;
+    std::cout << "Column index, column solution, reduced cost, objective" << std::endl;
     std::vector<double> colSolution, reducedCost, objective;
     clp.PrimalColumnSolution(colSolution);
     clp.DualColumnSolution(reducedCost);
     clp.Objective(objective);
-    int n = max_lines < objective.size() ? max_lines : objective.size();
+    int n = max_cols < objective.size() ? max_cols : objective.size();
     for (int i = 0; i < n; i++) {
         std::cout << std::setw(6) << i << " ";
         print_double(colSolution[i]);
         print_double(reducedCost[i]);
         print_double(objective[i]);
-        std::cout << std::endl;
-    }
-    std::cout << "--------------------------------------" << std::endl;
-
-    // Print the row solutions.
-    std::cout << "Row index    row activity   row price" << std::endl;
-    std::vector<double> rowActivity, rowPrice;
-    clp.PrimalRowSolution(rowActivity);
-    clp.DualRowSolution(rowPrice);
-    int m = max_lines < rowActivity.size() ? max_lines : rowActivity.size();
-    for (int i = 0; i < m; i++) {
-        std::cout << std::setw(6) << i << " ";
-        print_double(rowActivity[i]);
-        print_double(rowPrice[i]);
         std::cout << std::endl;
     }
     std::cout << "--------------------------------------" << std::endl;
@@ -121,7 +121,7 @@ int main(int argc, const char* argv[]) {
     std::cout << "Presolve passes = " << clp.PresolvePasses() <<  ", perturbation = " << clp.Perturbation() << std::endl;
     printf("Status = %d Objective = %.10g iterations = %ld \n", clp.Status(), clp.ObjectiveValue(), clp.Iterations());
     std::cout << "Solve time milliseconds = " << clp.SolveTimeMs() << std::endl;
-    PrintSolution(clp, 10);
+    PrintSolution(clp, 10, 10);
 
     return 0;
 }
