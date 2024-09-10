@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LPConstant.cs">
-// Copyright (c) 2024 Umesh Krishnaswamy.
-// Licensed under the MIT License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace LPSharp.LPDriver.Contract
+﻿namespace LPSharp.LPDriver.Contract
 {
     /// <summary>
     /// Represents constants used in the project.

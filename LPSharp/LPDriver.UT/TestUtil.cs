@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestUtil.cs">
-// Copyright (c) 2024 Umesh Krishnaswamy.
-// Licensed under the MIT License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace LPSharp.LPDriverTest
+﻿namespace LPSharp.LPDriverTest
 {
     using System;
     using System.Diagnostics;

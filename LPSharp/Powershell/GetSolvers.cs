@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GetSolvers.cs">
-// Copyright (c) 2024 Umesh Krishnaswamy.
-// Licensed under the MIT License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace LPSharp.Powershell
+﻿namespace LPSharp.Powershell
 {
     using System.Collections.Generic;
     using System.Management.Automation;

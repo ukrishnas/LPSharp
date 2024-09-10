@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Program.cs">
-// Copyright (c) 2024 Umesh Krishnaswamy.
-// Licensed under the MIT License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace LPSharp.PowershellConsole
+﻿namespace LPSharp.PowershellConsole
 {
     using LPSharp.LPDriver.Model;
     using LPSharp.Powershell;

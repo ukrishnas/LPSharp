@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LPAlgorithm.cs">
-// Copyright (c) 2024 Umesh Krishnaswamy.
-// Licensed under the MIT License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace LPSharp.LPDriver.Contract
+﻿namespace LPSharp.LPDriver.Contract
 {
     /// <summary>
     /// Represents the LP algorithm.

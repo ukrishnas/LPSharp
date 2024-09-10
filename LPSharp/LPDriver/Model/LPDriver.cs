@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LPDriver.cs">
-// Copyright (c) 2024 Umesh Krishnaswamy.
-// Licensed under the MIT License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace LPSharp.LPDriver.Model
+﻿namespace LPSharp.LPDriver.Model
 {
     using System.Collections.Generic;
     using LPSharp.LPDriver.Contract;

@@ -10,6 +10,7 @@
     <Rule Id="SA1401" Action="None" />
     <Rule Id="SA1412" Action="Warning" />
     <Rule Id="SA1629" Action="None" />
+    <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1640" Action="None" />
   </Rules>
 </RuleSet>

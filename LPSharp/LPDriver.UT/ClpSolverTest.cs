@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ClpSolverTest.cs">
-// Copyright (c) 2024 Umesh Krishnaswamy.
-// Licensed under the MIT License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace LPSharp.LPDriverTest
+﻿namespace LPSharp.LPDriverTest
 {
     using System.Linq;
     using LPSharp.LPDriver.Contract;
